@@ -1,0 +1,3 @@
+Ver02:
+1. board slave 02: điều khiển 4 động cơ x,y,z,a theo giải thuật bressenham
+2. board slave 03: điều khiển 2 động cơ b,c theo kiểu phát xung pwm point to point
