@@ -43,9 +43,8 @@
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\mega",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\ModbusSlave\\src",
-                "C:\\Users\\P52\\Documents\\Arduino\\libraries\\Stepper_Motor",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\Define_TayMay",
-                "C:\\Users\\P52\\Documents\\Arduino\\libraries\\Keypad5x7",
+                "C:\\Users\\P52\\Documents\\Arduino\\libraries\\StepperMotorBresenham",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\avr\\include"
