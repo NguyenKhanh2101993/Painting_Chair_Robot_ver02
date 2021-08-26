@@ -17,7 +17,7 @@ Motor Motor_A(setDir_A, onePulse_A);
 
 World world(&Motor_X);
 //================================================================
-
+String userInput =""; int iii = 0;
 bool coil[128]; uint8_t coil_size = sizeof(coil) / sizeof(coil[0]); // Khai bao số lượng coil dùng cho write single coil
 // biến trạng thái đã phát xung hoàn tất
 bool pulse_done_X , pulse_done_Y, pulse_done_Z, pulse_done_A;
@@ -111,41 +111,26 @@ void Execute_DelayStep(uint16_t delay_value){
     else delay(1);
 }
 //================================================================
-// Thực hiện lệnh phát xung chạy trục X_AXIS
-void Execute_XaxisStep(int32_t Xaxis_value, uint32_t freq){
-
-}
-//================================================================
-// Thực hiện lệnh phát xung chạy trục Y_AXIS
-void Execute_YaxisStep(int32_t Yaxis_value, uint32_t freq){
-
-}
-//================================================================
-// Thực hiện lệnh phát xung chạy trục Z_AXIS
-void Execute_ZaxisStep(int32_t Zaxis_value, uint32_t freq){
-
-}
-//================================================================
-// Thực hiện lệnh phát xung chạy trục A_AXIS
-void Execute_AaxisStep(int32_t Aaxis_value, uint32_t freq) { 
-  
-}
-//================================================================
 // Về gốc máy khi mới mở phần mềm điều khiển
 // 4 trục động cơ chạy tới vị trí cảm biến
 void go_to_home_position(void) {
-  
+  pulse_done_X = pulse_done_Y = pulse_done_Z = pulse_done_A = false;
+  world.setSpeed(180.0f); 
+  world.moving(12800,800,480,320,0,0);
 }
 //================================================================
 // set 0 cho các trục x,y,z,a làm điểm zero position
 void set_zero_position(void) {
- 
+  pulse_done_X = pulse_done_Y = pulse_done_Z = pulse_done_A = false;
+  world.setSpeed(10.0f);
+  world.moving(0,800,480,320,0,0);
 }
 //================================================================
 // Run main point to point
 void execute_point_to_point(int32_t *pulse, uint32_t *speed) {
-  world.setSpeed(20.0f);
-  //world.moving(16000,8000,4800,3200,1600,800);
+  pulse_done_X = pulse_done_Y = pulse_done_Z = pulse_done_A = false;
+  world.setSpeed(80.0f); 
+  world.moving(100,800,480,320,0,0);
 }
 //================================================================
 // Dừng động cơ ở vị trí bất kỳ
@@ -200,16 +185,21 @@ void timer1_setting(void){
 /// trường hợp này TCNT1 ban đầu mặc định = 0
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
-
+    
     if (!world.movingDone()) { // nếu các motor vẫn chưa chạy xong
 
         TCNT1 = DELAY_C0;           // for regular interval, giá trị timer 1 khởi tạo
-
+        //Serial.println(iii++);
         //OCR1A = world.setDelay();   // setting delay between steps
         OCR1A = world.setDelay2();   // setting delay between steps
         TCNT1 = 0;
         world.generatePulse();      // generate pulse
     }
+    else {
+      pulse_done_X = pulse_done_Y = pulse_done_Z = pulse_done_A = true;
+      Serial.println("end");
+      TIMER1_INTERRUPTS_OFF;
+      }
 }
 //============================================================================================
 //============================================================================================
@@ -233,9 +223,26 @@ void setup() {
 //============================================================================================
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
-  node_slave.poll();
-  sensor_value = read_input_register();
-  output_value = read_output_register();
+  //node_slave.poll();
+  //sensor_value = read_input_register();
+  //output_value = read_output_register();
+  userInput = "";
+  while (Serial.available() >0)
+  {
+    userInput += char(Serial.read());
+    delay(2);
+    
+    if (userInput ==  "O")
+    {
+      Serial.println("Chay dong co lan 1");
+      go_to_home_position();
+    }
+    if (userInput == "R"){
+      Serial.println("Chay dong co lan 2");
+      set_zero_position();
+    }
+  }
+
 } // End loop
 //============================================================================================
 //============================================================================================

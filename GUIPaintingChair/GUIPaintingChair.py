@@ -43,7 +43,7 @@ class Home_position:
             state = Send_to_Serial.Init_Serial()
             if state == 1:
                 master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.ENABLE_HOME_MODBUS_ADDR, output_value = CHOOSE)
-                master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.ENABLE_HOME_MODBUS_ADDR, output_value = CHOOSE)
+                #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.ENABLE_HOME_MODBUS_ADDR, output_value = CHOOSE)
                 print("Go to Home")
             else:
                 return
@@ -570,7 +570,7 @@ class Monitor_Input_Output():
         
     def stop_motor(self):
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
-        master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+        #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
         print ("Stop motor")
 #========================================================================
 # BẬT TẮT NGUỒN ĐIỆN THÔNG QUA SOFWARE
@@ -697,7 +697,7 @@ class Monitor_Position_Class():
                     Run.send_to_execute_board(self.pulse_teach_packet)
                     while True:
                         new_position_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-                        new_position_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+                        new_position_done_slave_03 = 1 #master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                         self.Read_pulse_PWM_from_slaves()
                         if new_position_done_slave_02[0] == 1 and new_position_done_slave_03[0] == 1: 
                            break 
@@ -751,7 +751,7 @@ class Monitor_Position_Class():
             while state_runing:
                 # Đọc trạng thái phát xung đã hoàn tất chưa
                 new_position_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-                new_position_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+                new_position_done_slave_03 = 1 #master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                 self.Read_pulse_PWM_from_slaves()
                 if new_position_done_slave_02[0] == 1 and new_position_done_slave_03[0] == 1: 
@@ -880,7 +880,7 @@ class Monitor_Position_Class():
         while True:
             # Đọc trạng thái phát xung đã hoàn tất chưa
             Go_to_Home_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-            Go_to_Home_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+            Go_to_Home_done_slave_03 = 1 #master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
             # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
             self.Read_pulse_PWM_from_slaves()
             if (Go_to_Home_done_slave_02[0] == 1) and (Go_to_Home_done_slave_03[0] == 1):
@@ -896,7 +896,7 @@ class Monitor_Position_Class():
         while True: 
             # Đọc trạng thái phát xung đã hoàn tất chưa
             Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-            Go_to_machine_axis_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+            Go_to_machine_axis_done_slave_03 = 1 #master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
             # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
             self.Read_pulse_PWM_from_slaves()
             if (Go_to_machine_axis_done_slave_02[0] == 1) and (Go_to_machine_axis_done_slave_03[0] == 1):
@@ -936,10 +936,10 @@ class Monitor_Position_Class():
             pulse_Aaxis_packet = master.execute (SLAVE_02, cst.READ_HOLDING_REGISTERS, self.PWM_VALUE_A_AXIS_MODBUS_ADDR, 2)
             pulse_Aaxis = ((pulse_Aaxis_packet[1] & 65535) | (pulse_Aaxis_packet[0] << 16))
             # Đọc giá trị thanh ghi PWM trục X ở địa chỉ bắt đầu từ 8, đọc 2 giá trị 16 bit
-            pulse_Baxis_packet = master.execute (SLAVE_03, cst.READ_HOLDING_REGISTERS, self.PWM_VALUE_SPRAY_AXIS_MODBUS_ADDR, 2)
+            pulse_Baxis_packet = 0 #master.execute (SLAVE_03, cst.READ_HOLDING_REGISTERS, self.PWM_VALUE_SPRAY_AXIS_MODBUS_ADDR, 2)
             pulse_Baxis = ((pulse_Baxis_packet[1] & 65535) | (pulse_Baxis_packet[0] << 16))
             # Đọc giá trị thanh ghi PWM trục X ở địa chỉ bắt đầu từ 10, đọc 2 giá trị 16 bit
-            pulse_Caxis_packet = master.execute (SLAVE_03, cst.READ_HOLDING_REGISTERS, self.PWM_VALUE_CHAIR_AXIS_MODBUS_ADDR, 2)
+            pulse_Caxis_packet = 0 #master.execute (SLAVE_03, cst.READ_HOLDING_REGISTERS, self.PWM_VALUE_CHAIR_AXIS_MODBUS_ADDR, 2)
             pulse_Caxis = ((pulse_Caxis_packet[1] & 65535) | (pulse_Caxis_packet[0] << 16))            
             
             # kiểm tra giá trị âm
@@ -1329,7 +1329,7 @@ class Run_auto():
                     result_target_pulse = self.calculate_target_pulse(result_xung_nguyen)
                     while True:
                         Point2point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
-                        Point2point_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
+                        Point2point_done_slave_03 = 1 #master.execute(SLAVE_03, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
                         Monitor_mode.Read_pulse_PWM_from_slaves()
                         #tính toán số xung delta còn lại cần để chạy tới vị trí target
                         result_remain_pulse = self.calculate_remain_pulse(result_target_pulse)
@@ -1338,7 +1338,7 @@ class Run_auto():
                             break # nếu chạy đủ xung thì thoát khỏi while
                         if self.pause_on == 1: # dừng motor
                                 master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
-                                master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+                                #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
                                 #self.pause_on = 0
                         if self.pause_on == 2: # tiếp tục chạy
                                 # tiếp tục chạy số xung còn lại
@@ -1488,9 +1488,9 @@ class Run_auto():
         # gửi số xung x,y,z,a cần chạy tới board slave id 2, gửi 8 word, bắt đầu từ địa chỉ 0
         master.execute(SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_pulse_slave_id2)
         # gửi giá trị tốc độ b,c tới board slave id 3, gửi 8 word, bắt đầu từ địa chỉ 10
-        master.execute(SLAVE_03, cst.WRITE_MULTIPLE_REGISTERS, 10, output_value = send_speed_slave_id3)
+        #master.execute(SLAVE_03, cst.WRITE_MULTIPLE_REGISTERS, 10, output_value = send_speed_slave_id3)
         # gửi số xung b,c cần chạy tới board slave id 3, gửi 4 word, bắt đầu từ địa chỉ 0
-        master.execute(SLAVE_03, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_pulse_slave_id3)
+        #master.execute(SLAVE_03, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_pulse_slave_id3)
         # gửi command bật/tắt súng sơn
         if self.new_state_spray != 0 or self.new_state_spray != 1:
             self.new_state_spray == 0
@@ -1504,7 +1504,7 @@ class Run_auto():
     def command_run_point2point(self):
 # phát lệnh đến board id 2 và id 3 bắt đầu chạy điểm point to point
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = CHOOSE)
-        master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = CHOOSE)
+        #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = CHOOSE)
     
     def command_run_spray(self, state):
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = state)
