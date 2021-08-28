@@ -12,9 +12,5 @@
     ],
     "arduino.defaultBaudRate": 115200,
     "C_Cpp.errorSquiggles": "Disabled",
-    "files.associations": {
-        "*.rh": "cpp",
-        "AT25256.C": "cpp"
-    },
     "python.pythonPath": "C:\\Python36_64\\python.exe",
 }
