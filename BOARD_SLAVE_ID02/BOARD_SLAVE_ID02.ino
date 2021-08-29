@@ -2,7 +2,6 @@
 #include "Config_slaves.h"
 #include "Config_motor.h"
 #include "StepperMotorBresenham.h"
-#include "Set_pulse_dir.h"
 //================================================================
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
@@ -26,6 +25,7 @@ int32_t xung_nguyen[4]; // Lưu số xung trục X,Y,Z,A cần chạy nhận t�
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
 uint16_t sensor_value; uint16_t output_value;
+static uint32_t monitor_cnt;
 //===============================================================================================================
 //===============================================================================================================
 // Read the rotary encoder
@@ -83,18 +83,21 @@ void Execute_DelayStep(uint16_t delay_value){
 // Về gốc máy khi mới mở phần mềm điều khiển
 // 4 trục động cơ chạy tới vị trí cảm biến
 void go_to_home_position(void) {
-  command_motor.setSpeed_motor(5); Serial.println("speed ok");
-  command_motor.moving(25600,25600,25600,25600,0,0); 
+  Serial.println("Chay dong co ve home");
+  command_motor.setSpeed_motor(20); 
+  command_motor.moving(1,-1,0,0,0,0); 
 }
 //================================================================
 // set 0 cho các trục x,y,z,a làm điểm zero position
 void set_zero_position(void) {
-  command_motor.setSpeed_motor(5);
-  command_motor.moving(-256000,25600,25600,25600,0,0);
+  Serial.println("Chay dong co ve zero");
+  command_motor.setSpeed_motor(20);
+  command_motor.moving(0,0,0,0,0,0);
 }
 void set_position_01(void) {
-  command_motor.setSpeed_motor(5);
-  command_motor.moving(0,25600,25600,25600,0,0);
+  Serial.println("Chay dong co position 1");
+  command_motor.setSpeed_motor(80);
+  command_motor.moving(-32000,1280,0,0,0,0);
 }
 //================================================================
 // Run main point to point
@@ -157,19 +160,32 @@ ISR(TIMER1_COMPA_vect) {
   //if (busy) {return;}
   if (!command_motor.movingDone()) { // nếu các motor vẫn chưa chạy xong
 
-      TCNT1 = DELAY_C0;           // for regular interval, giá trị timer 1 khởi tạo
+      //TCNT1 = DELAY_C0;           // for regular interval, giá trị timer 1 khởi tạo
       //OCR1A = command_motor.setDelay();   // setting delay between steps
       OCR1A = command_motor.setDelay2();   // setting delay between steps
       TCNT1 = 0;
-      command_motor.generatePulse();      // generate pulse
-   
+      command_motor.execute_one_pulse();
   }
-  else { Serial.println("run ok"); TIMER1_INTERRUPTS_OFF;}
+  else {Serial.println("PULSE DONE"); TIMER1_INTERRUPTS_OFF;}
+
+}
+//============================================================================================
+ISR(TIMER3_OVF_vect){ //65535
+
+    // Reset stepping pins
+    TCNT3 = 65529; // sau 3us sẽ tràn 
+    //TCNT2 = 200; // sau 3us sẽ tràn
+    X_PULSE_LOW; Y_PULSE_LOW; Z_PULSE_LOW; A_PULSE_LOW;
+    monitor_cnt ++;
+    TIMSK3 &= ~(1<<TOIE3); // Disconnect OC0 outputs and OVF interrupt.
+    TCCR3B = 0;
+    busy = 0;
+
 }
 //============================================================================================
 //============================================================================================
 void setup() {   
-  Serial.begin(9600);
+  Serial.begin(115200);
   MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); function_modbus_slave();
   pinMode(EncoderA, INPUT_PULLUP); pinMode(EncoderB, INPUT_PULLUP);
   for (int i = 0; i < coilY_size; i++) { pinMode(coilY[i],OUTPUT); digitalWrite(coilY[i],LOW);}
@@ -187,7 +203,7 @@ void loop() {
   //node_slave.poll();
   //sensor_value = read_input_register();
   //output_value = read_output_register();
-  //Serial.println(command_motor.motor[0]->currentPosition);
+
   userInput = "";
   while (Serial.available() >0)
   {
@@ -196,11 +212,9 @@ void loop() {
     
     if (userInput ==  "O")
     {
-      Serial.println("Chay dong co lan 1");
       go_to_home_position();
     }
     if (userInput == "R"){
-      Serial.println("Chay dong co lan 2");
       set_zero_position();
     }
     if (userInput == "P"){ pause_motor();}
