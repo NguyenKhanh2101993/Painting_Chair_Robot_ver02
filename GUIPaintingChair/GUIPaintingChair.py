@@ -654,12 +654,12 @@ class Monitor_Position_Class():
         self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
-        self.gear_ratio_X = ((80*math.pi)/(128000))
-        self.gear_ratio_Y = ((80*math.pi)/(128000))
-        self.gear_ratio_Z = ((80*math.pi)/(128000))
-        self.gear_ratio_A = (360/128000)
-        self.gear_ratio_B = (360/25600)
-        self.gear_ratio_C = (360/25600)
+        self.gear_ratio_X = ((80*math.pi)/(3200))  # truc X cài vi bước 3200 xung/vòng, không có hộp số
+        self.gear_ratio_Y = ((80*math.pi)/(3200*5))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
+        self.gear_ratio_Z = ((80*math.pi)/(3200*5))  # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
+        self.gear_ratio_A = (360/(3200*5))             # trục A cài vi bước 3200 xung/vong, hộp số 1/5
+        self.gear_ratio_B = (360/3200)              # trục B cài vi bước 3200 xung/vòng, không có hộp số
+        self.gear_ratio_C = (360/3200)              # trục C cài vi bước 3200 xung/vong, không có hộp số
 
         self.spray_axis = 550    # chiều dài trục súng sơn
         self.pre_button_state = 0 
@@ -901,9 +901,9 @@ class Monitor_Position_Class():
         pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
         pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
         pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
-        pulse_to_machine_axis_A = [0, 0, 0, -25600, 0, 0]
-        pulse_to_machine_axis_B = [0, 0, 0, 0, -25600, 0]
-        pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -25600]
+        pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
+        pulse_to_machine_axis_B = [0, 0, 0, 0, -3200, 0]
+        pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -3200]
 
         pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                      pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
@@ -925,10 +925,11 @@ class Monitor_Position_Class():
             self.go_machine_axis_state = False
             while True: 
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                self.Read_pulse_PWM_from_slaves()
+                
                 Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                 Go_to_machine_axis_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-                
+                self.Read_pulse_PWM_from_slaves()
+
                 if (Go_to_machine_axis_done_slave_02[0]==1 and Go_to_machine_axis_done_slave_03[0] == 1):
                 #if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
                     # dừng động cơ
@@ -1037,15 +1038,16 @@ class Monitor_Position_Class():
         self.pos_Zspray = self.pos_Z + self.spray_axis*math.sin((self.pos_A*math.pi)/180)
 
 # hien thi so xung
+        """"
         self.var1.set(str(self.pwm_value_x_axis)+ " p")
         self.var2.set(str(self.pwm_value_y_axis)+ " p")
         self.var3.set(str(self.pwm_value_z_axis)+ " p")
         self.var4.set(str(self.pwm_value_a_axis)+ " p")
         self.var5.set(str(self.pwm_value_b_axis)+ " p")
         self.var6.set(str(self.pwm_value_c_axis)+ " p")
-        
+        """""
 # hien thi khoang cach mm/deg  
-        """"
+        #""""
         self.var1.set(str(round(self.pos_X,3))+ " mm")
         self.var2.set(str(round(self.pos_Y,3))+ " mm")
         self.var3.set(str(round(self.pos_Z,3))+ " mm")
@@ -1053,7 +1055,7 @@ class Monitor_Position_Class():
         self.var5.set(str(round(self.pos_B,3))+ " deg")
         self.var6.set(str(round(self.pos_C,3))+ " deg")
 
-        """""
+        #"""""
         self.var20.set(str(round((self.pos_Yspray - self.spray_axis),3)) + " mm")
         self.var21.set(str(round(self.pos_Zspray,3)) + " mm")
         # lưu giá trị tọa độ theo G54 là tọa độ chạy chương trình
@@ -1303,7 +1305,6 @@ class Teach_mode_class():
         Monitor_mode.offset_a_axis = Monitor_mode.pos_A
         Monitor_mode.offset_b_axis = Monitor_mode.pos_B
         Monitor_mode.offset_c_axis = Monitor_mode.pos_C
-
 
         # lưu vị trí set 0 
 #========================================================================  

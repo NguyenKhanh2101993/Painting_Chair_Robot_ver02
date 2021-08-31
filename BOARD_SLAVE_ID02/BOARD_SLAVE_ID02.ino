@@ -209,10 +209,10 @@ void setup() {
 //============================================================================================
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
-  //node_slave.poll();
-  //sensor_value = read_input_register();
-  //output_value = read_output_register();
-  
+  node_slave.poll();
+  sensor_value = read_input_register();
+  output_value = read_output_register();
+  /*
   //Serial.println(command_motor.motor[3]->currentPosition);
   userInput = "";
   while (Serial.available() >0)
@@ -232,7 +232,7 @@ void loop() {
     if (userInput == "1") {go_to_1_position();}
     if (userInput == "2") {go_to_2_position();}
   }
-
+*/
 
 } // End loop
 //============================================================================================
