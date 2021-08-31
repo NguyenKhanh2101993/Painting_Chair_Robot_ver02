@@ -20,7 +20,7 @@ uint8_t coilY[] = {Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Y11, Y12, Y13, Y14, 
 uint8_t coilX[] = {X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16};
 uint8_t coilY_size = sizeof(coilY)/sizeof(coilY[0]);
 uint8_t coilX_size = sizeof(coilX)/sizeof(coilX[0]);
-uint32_t pwm_speed[4];  // Lưu tốc độ trục X,Y,Z,A cần chạy nhận từ modbus
+uint16_t speed;  // Lưu tốc độ trục X,Y,Z,A cần chạy nhận từ modbus
 int32_t xung_nguyen[4]; // Lưu số xung trục X,Y,Z,A cần chạy nhận từ modbus
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
@@ -81,29 +81,53 @@ void Execute_DelayStep(uint16_t delay_value){
 }
 //================================================================
 // Về gốc máy khi mới mở phần mềm điều khiển
-// 4 trục động cơ chạy tới vị trí cảm biến
-void go_to_home_position(void) {
-  Serial.println("Chay dong co ve home");
-  command_motor.setSpeed_motor(20); 
-  command_motor.moving(1,-1,0,0,0,0); 
+// 4 trục động cơ chạy tới vị trí cảm biến, chạy theo thứ tự từng động cơ, không chạy đồng thời
+// nhằm đảm bảo an toàn lúc mới khởi động máy.              
+//================================================================
+// Điều khiển motor về vị trí 0 đã set
+void go_to_zero_position(void) {
+  if (command_motor.movingDone()){
+    Serial.println("Chay dong co ve zero");
+    command_motor.setSpeed_motor(200); 
+    command_motor.moving(0,0,0,0,0,0); 
+  }
 }
 //================================================================
 // set 0 cho các trục x,y,z,a làm điểm zero position
 void set_zero_position(void) {
-  Serial.println("Chay dong co ve zero");
-  command_motor.setSpeed_motor(20);
-  command_motor.moving(0,0,0,0,0,0);
-}
-void set_position_01(void) {
-  Serial.println("Chay dong co position 1");
-  command_motor.setSpeed_motor(80);
-  command_motor.moving(-32000,1280,0,0,0,0);
+  Serial.println("set 0");
+  command_motor.set_zero_position();
 }
 //================================================================
-// Run main point to point
-void execute_point_to_point(int32_t *pulse, uint32_t *speed) {
-  command_motor.setSpeed_motor(80); 
-  command_motor.moving(100,800,480,320,0,0);
+// test vi trí 1
+void go_to_1_position(void) {
+  if (command_motor.movingDone()){
+    Serial.println("Chay dong co position 1");
+    command_motor.setSpeed_motor(200);
+    command_motor.moving(-12800,0,0,0,0,0);
+  }
+}
+// test vi trí 2
+void go_to_2_position(void) {
+  if (command_motor.movingDone()){
+    Serial.println("Chay dong co position 2");
+    command_motor.setSpeed_motor(200);
+    command_motor.moving(-32000,32000,32000,32000,0,0);
+  }
+}
+//================================================================
+// Run main point to point, speed giá trị từ 0 - 200
+void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
+  static int32_t target_xung_nguyen[MAX_AXIS]; // Lưu vị trí cần chạy tới theo đơn vị xung
+
+  for (int i = 0; i < MAX_AXIS; i++) {
+    target_xung_nguyen[i] = pulse[i] + command_motor.motor[i]->currentPosition;
+   }
+
+  if (command_motor.movingDone()){
+    command_motor.setSpeed_motor(_speed); 
+    command_motor.moving(target_xung_nguyen[0],target_xung_nguyen[1],target_xung_nguyen[2],target_xung_nguyen[3],0,0);
+  }
 }
 //================================================================
 // Dừng động cơ ở vị trí bất kỳ
@@ -157,30 +181,17 @@ void timer1_setting(void){
 /// trường hợp này TCNT1 ban đầu mặc định = 0
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
-  //if (busy) {return;}
+ 
   if (!command_motor.movingDone()) { // nếu các motor vẫn chưa chạy xong
-
-      //TCNT1 = DELAY_C0;           // for regular interval, giá trị timer 1 khởi tạo
-      //OCR1A = command_motor.setDelay();   // setting delay between steps
-      OCR1A = command_motor.setDelay2();   // setting delay between steps
+      OCR1A = uint16_t(command_motor.setDelay2());   // setting delay between steps
       TCNT1 = 0;
       command_motor.execute_one_pulse();
+      //Serial.println(OCR1A);
   }
-  else {Serial.println("PULSE DONE"); TIMER1_INTERRUPTS_OFF;}
-
-}
-//============================================================================================
-ISR(TIMER3_OVF_vect){ //65535
-
-    // Reset stepping pins
-    TCNT3 = 65529; // sau 3us sẽ tràn 
-    //TCNT2 = 200; // sau 3us sẽ tràn
-    X_PULSE_LOW; Y_PULSE_LOW; Z_PULSE_LOW; A_PULSE_LOW;
-    monitor_cnt ++;
-    TIMSK3 &= ~(1<<TOIE3); // Disconnect OC0 outputs and OVF interrupt.
-    TCCR3B = 0;
-    busy = 0;
-
+  else {
+        //Serial.println("PULSE DONE"); 
+        TIMER1_INTERRUPTS_OFF;
+      }
 }
 //============================================================================================
 //============================================================================================
@@ -193,7 +204,7 @@ void setup() {
   function_modbus_slave(); 
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
   pinMotor_init();
-  timer1_setting(); //timer3_setting();
+  timer1_setting();
   Serial.println("Setup OK");
 }
 //============================================================================================
@@ -203,7 +214,7 @@ void loop() {
   //node_slave.poll();
   //sensor_value = read_input_register();
   //output_value = read_output_register();
-
+  //Serial.println(command_motor.motor[0]->currentPosition);
   userInput = "";
   while (Serial.available() >0)
   {
@@ -212,14 +223,15 @@ void loop() {
     
     if (userInput ==  "O")
     {
-      go_to_home_position();
+      go_to_zero_position();
     }
     if (userInput == "R"){
       set_zero_position();
     }
     if (userInput == "P"){ pause_motor();}
     if (userInput == "S") {resume_motor();}
-    if (userInput == "N") {set_position_01();}
+    if (userInput == "1") {go_to_1_position();}
+    if (userInput == "2") {go_to_2_position();}
   }
 
 } // End loop
@@ -227,6 +239,7 @@ void loop() {
 //============================================================================================
 int32_t *convert_32bit_data(uint32_t *data, uint16_t length){
   static int32_t output_data[32];
+  if (length == 1) {return 0;}
   for (int i = 0; i <  length/2; i++){
       output_data[i] = data[2*i] << 16 | data[2*i+1];
   }
@@ -248,9 +261,9 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
   i32readdata = convert_32bit_data(read_data,length);
   switch (address) {
     // Địa chỉ 0 nhận số xung cần chạy cho trục x,y,z,a
-    case PULSE_EXECUTE: for (int i = 0; i < 4; i++){ xung_nguyen[i] = i32readdata[i];}  break;   
-    // Địa chỉ 10 nhận tần số phát xung cho trục x,y,z,a
-    case FREQ_EXECUTE: for (int i = 0; i < 4; i++){ pwm_speed[i] = i32readdata[i];}  break;
+    case PULSE_EXECUTE: for (int i = 0; i <  MAX_AXIS; i++){ xung_nguyen[i] = i32readdata[i];}  break;   
+    // Địa chỉ 10 nhận tốc độ cho trục x,y,z,a đơn vị % (0 - 200%)
+    case FREQ_EXECUTE:  speed = read_data[0];  break;
     
     default: break;
   }
@@ -310,13 +323,14 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         if (coil[address+i] == 1){
             switch (address + i) {
               case SPRAY_ONOFF_MODBUS_ADDR:       break;
-              case POINT2POINT_MODBUS_ADDR:       execute_point_to_point(xung_nguyen,pwm_speed); break;
+              case POINT2POINT_MODBUS_ADDR:       execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:       pause_motor(); break;
               case DISABLE_ROTARY_ENCODER_ADDR:   detach_rotary_encoder();  break;
               case ENABLE_ROTARY_ENCODER_ADDR:    attach_rotary_encoder(); break;
-              case ENABLE_HOME_MOBUS_ADDR:        go_to_home_position(); break;  // về vị trí cảm biến gốc máy
+              case ENABLE_HOME_MOBUS_ADDR:        go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
               case SET_ZERO_POSITION_ADDR:        set_zero_position(); break;    // set 0 tọa độ chương trình
-              case STOP_MOTOR_MODBUS_ADDR:        resume_motor(); break;
+              case STOP_MOTOR_MODBUS_ADDR:         break;
+              case RESUME_MOTOR_MODBUS_ADDR:      resume_motor(); break;
               default: break;
           }
         } else {
