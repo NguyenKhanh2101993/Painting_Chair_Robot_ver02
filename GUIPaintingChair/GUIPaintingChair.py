@@ -650,7 +650,8 @@ class Monitor_Position_Class():
         self.monitor_off = False  # tắt mở chế độ monitor xung
 
         self.pos_X = 0; self.pos_Y = 0; self.pos_Z = 0; self.pos_A = 0; self.pos_B = 0; self.pos_C = 0
-        self.offset_x_axis = 0; self.offset_y_axis = 0; self.offset_z_axis = 0; self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
+        self.offset_x_axis = 0; self.offset_y_axis = 0; self.offset_z_axis = 0
+        self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
         self.gear_ratio_X = ((80*math.pi)/(128000))
@@ -889,7 +890,6 @@ class Monitor_Position_Class():
             # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
             self.Read_pulse_PWM_from_slaves()
             if (Go_to_Home_done_slave_02[0] == 1) and (Go_to_Home_done_slave_03[0] == 1):
-                
                 self.go_home_state = False
                 break  # thoat khỏi vong lặp while
         Show_Screen.enable_screen_option()
@@ -898,17 +898,17 @@ class Monitor_Position_Class():
     def Go_to_machine_axis(self):
         AXIS_RUN = 6
 
-        pulse_to_machine_axis_X = [-256000, 0, 0, 0, 0, 0]
-        pulse_to_machine_axis_Y = [0, -256000, 0, 0, 0, 0]
-        pulse_to_machine_axis_Z = [0, 0, -256000, 0, 0, 0]
+        pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
+        pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
+        pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
         pulse_to_machine_axis_A = [0, 0, 0, -25600, 0, 0]
         pulse_to_machine_axis_B = [0, 0, 0, 0, -25600, 0]
         pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -25600]
 
         pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                      pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-        pulse_to_begin_position = [12800, 12800, 12800, 0, 0, 0]
-        speed_axis = [100,100,100,100,100,100]
+        pulse_to_begin_position = [12800, 12800, 12800, 12800, 12800, 12800]
+        speed_axis = [200,200,200,200,200,200]
 
         print("Going to machine axis")
 
@@ -926,32 +926,38 @@ class Monitor_Position_Class():
             while True: 
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                 self.Read_pulse_PWM_from_slaves()
-                if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
+                Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+                Go_to_machine_axis_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+                
+                if (Go_to_machine_axis_done_slave_02[0]==1 and Go_to_machine_axis_done_slave_03[0] == 1):
+                #if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
                     # dừng động cơ
-                    master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
-                    master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+                    #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+                    #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
                     # set lại các thông số motor, đưa giá trị current_position về 0
-                    master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-                    master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-
+                    #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                    #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                    
                     self.go_machine_axis_state = True
                     break  # thoat khỏi vong lặp while
+
         # sau khi chạy hết các động cơ về vị trí cảm biến
         # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
+        """"
         time.sleep(2)
         Run.send_to_execute_board(pulse_to_begin_position,100)
         while True:
+            self.Read_pulse_PWM_from_slaves()
             # Đọc trạng thái phát xung đã hoàn tất chưa
             Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
             Go_to_machine_axis_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
             # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-            self.Read_pulse_PWM_from_slaves()
             if (Go_to_machine_axis_done_slave_02[0]==1 and Go_to_machine_axis_done_slave_03[0] == 1): 
                 # set lại các thông số motor, đưa giá trị current_position về 0
-                master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-                master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                #master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
                 break
-
+        """""
         Show_Screen.enable_screen_option()
 
 # đọc giá trị tay quay encoder
@@ -1030,14 +1036,24 @@ class Monitor_Position_Class():
         self.pos_Yspray = self.pos_Y + self.spray_axis*math.cos((self.pos_A*math.pi)/180)
         self.pos_Zspray = self.pos_Z + self.spray_axis*math.sin((self.pos_A*math.pi)/180)
 
-        #self.var1.set(str(round(self.pos_X,3))+ " mm")
-        self.var1.set(str(round(self.pwm_value_x_axis))+ " mm")
+# hien thi so xung
+        self.var1.set(str(self.pwm_value_x_axis)+ " p")
+        self.var2.set(str(self.pwm_value_y_axis)+ " p")
+        self.var3.set(str(self.pwm_value_z_axis)+ " p")
+        self.var4.set(str(self.pwm_value_a_axis)+ " p")
+        self.var5.set(str(self.pwm_value_b_axis)+ " p")
+        self.var6.set(str(self.pwm_value_c_axis)+ " p")
+        
+# hien thi khoang cach mm/deg  
+        """"
+        self.var1.set(str(round(self.pos_X,3))+ " mm")
         self.var2.set(str(round(self.pos_Y,3))+ " mm")
         self.var3.set(str(round(self.pos_Z,3))+ " mm")
         self.var4.set(str(round(self.pos_A,3))+ " deg")
         self.var5.set(str(round(self.pos_B,3))+ " deg")
         self.var6.set(str(round(self.pos_C,3))+ " deg")
 
+        """""
         self.var20.set(str(round((self.pos_Yspray - self.spray_axis),3)) + " mm")
         self.var21.set(str(round(self.pos_Zspray,3)) + " mm")
         # lưu giá trị tọa độ theo G54 là tọa độ chạy chương trình

@@ -83,14 +83,14 @@ void Execute_DelayStep(uint16_t delay_value){
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
   if (command_motor.movingDone()){
-    Serial.println("Chay dong co ve zero");
+    //Serial.println("Chay dong co ve zero");
     command_motor.moving(0,0,0,0,0,0,200); 
   }
 }
 //================================================================
 // set 0 cho các trục x,y,z,a làm điểm zero position
 void set_zero_position(void) {
-  Serial.println("set 0");
+  //Serial.println("set 0");
   command_motor.set_zero_position();
 }
 //================================================================
@@ -98,14 +98,14 @@ void set_zero_position(void) {
 void go_to_1_position(void) {
   if (command_motor.movingDone()){
     Serial.println("Chay dong co position 1");
-    command_motor.moving(-12800,0,0,0,0,0,200);
+    command_motor.moving(0,0,0,32000,0,0,200);
   }
 }
 // test vi trí 2
 void go_to_2_position(void) {
   if (command_motor.movingDone()){
     Serial.println("Chay dong co position 2");
-    command_motor.moving(-32000,32000,32000,32000,0,0,200);
+    command_motor.moving(32000,32000,32000,-32000,0,0,200);
   }
 }
 //================================================================
@@ -124,10 +124,14 @@ void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
 //================================================================
 // Dừng động cơ ở vị trí bất kỳ
 void resume_motor(void) {
-  command_motor.resumeMoving();
+  if (!command_motor.movingDone()){
+    command_motor.resumeMoving();
+  }
 }
 void pause_motor(void){
-  command_motor.pauseMoving(0);
+  if (!command_motor.movingDone()){
+    command_motor.pauseMoving(0);
+  }
 }
 void stop_motor(void){
   if (!command_motor.movingDone()){
@@ -180,13 +184,11 @@ void timer1_setting(void){
 ISR(TIMER1_COMPA_vect) {
  
   if (!command_motor.movingDone()) { // nếu các motor vẫn chưa chạy xong
-      OCR1A = uint16_t(command_motor.setDelay2());   // setting delay between steps
+      OCR1A = command_motor.setDelay2();   // setting delay between steps
       TCNT1 = 0;
       command_motor.execute_one_pulse();
-      //Serial.println(OCR1A);
   }
   else {
-        //Serial.println("PULSE DONE"); 
         TIMER1_INTERRUPTS_OFF;
       }
 }
@@ -207,11 +209,11 @@ void setup() {
 //============================================================================================
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
-  node_slave.poll();
-  sensor_value = read_input_register();
-  output_value = read_output_register();
-  /*
-  Serial.println(command_motor.motor[0]->currentPosition);
+  //node_slave.poll();
+  //sensor_value = read_input_register();
+  //output_value = read_output_register();
+  
+  //Serial.println(command_motor.motor[3]->currentPosition);
   userInput = "";
   while (Serial.available() >0)
   {
@@ -230,7 +232,7 @@ void loop() {
     if (userInput == "1") {go_to_1_position();}
     if (userInput == "2") {go_to_2_position();}
   }
-*/
+
 
 } // End loop
 //============================================================================================
@@ -348,7 +350,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
 // Handle the function codes Read Input Status (FC=01/02) and write back the values from the digital pins (input status).
 uint8_t readDigital(uint8_t fc, uint16_t address, uint16_t length)
 {
-  bool state_home = false;
+  static bool state_home; state_home = false;
   // Check if the requested addresses exist in the array
   if (address > coil_size || (address + length) > coil_size) { return STATUS_ILLEGAL_DATA_ADDRESS; }
   for (int i = 0; i < length; i++) {

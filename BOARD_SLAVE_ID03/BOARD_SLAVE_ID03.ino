@@ -6,7 +6,7 @@
 //================================================================
 #define ARDUINO_ADDRESS             3    // Dia chi board arduino slaver can dieu khien
 
-Modbus                  node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);    
+Modbus    node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);    
 
 Motor Motor_X(setDir_X, onePulse_X);
 Motor Motor_Y(setDir_Y, onePulse_Y);
@@ -30,14 +30,14 @@ void Execute_DelayStep(uint16_t delay_value){
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
   if (command_motor.movingDone()){
-    Serial.println("Chay dong co ve zero");
+    //Serial.println("Chay dong co ve zero");
     command_motor.moving(0,0,0,0,0,0,200); 
   }
 }
 //================================================================
 // set 0 cho các trục x,y,z,a làm điểm zero position
 void set_zero_position(void) {
-  Serial.println("set 0");
+  //Serial.println("set 0");
   command_motor.set_zero_position();
 }
 //================================================================
@@ -71,10 +71,14 @@ void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
 //================================================================
 // Dừng động cơ ở vị trí bất kỳ
 void resume_motor(void) {
-  command_motor.resumeMoving();
+  if (!command_motor.movingDone()){
+    command_motor.resumeMoving();
+  }
 }
 void pause_motor(void){
-  command_motor.pauseMoving(0);
+  if (!command_motor.movingDone()){
+    command_motor.pauseMoving(0);
+  }
 }
 void stop_motor(void){
   if (!command_motor.movingDone()){
@@ -127,13 +131,11 @@ void timer1_setting(void){
 ISR(TIMER1_COMPA_vect) {
  
   if (!command_motor.movingDone()) { // nếu các motor vẫn chưa chạy xong
-      OCR1A = uint16_t(command_motor.setDelay2());   // setting delay between steps
+      OCR1A = command_motor.setDelay2();   // setting delay between steps
       TCNT1 = 0;
       command_motor.execute_one_pulse();
-      //Serial.println(OCR1A);
   }
   else {
-        //Serial.println("PULSE DONE"); 
         TIMER1_INTERRUPTS_OFF;
       }
 }
@@ -193,11 +195,11 @@ uint8_t readMemory(uint8_t fc, uint16_t address, uint16_t length)
     uint16_t value[length]; 
     if (address < 0 ||(address + length) > 32) { return STATUS_ILLEGAL_DATA_ADDRESS; }
     switch (address) {
-      case PWM_VALUE_X_AXIS_MODBUS_ADDR: 
+      case PWM_VALUE_SPRAY_AXIS_MODBUS_ADDR: 
             value[0] = highWord(command_motor.motor[0]->currentPosition);
             value[1] = lowWord(command_motor.motor[0]->currentPosition); 
             break;
-      case PWM_VALUE_Y_AXIS_MODBUS_ADDR:
+      case PWM_VALUE_CHAIR_AXIS_MODBUS_ADDR:
             value[0] = highWord(command_motor.motor[1]->currentPosition);
             value[1] = lowWord(command_motor.motor[1]->currentPosition); 
             break;
@@ -229,7 +231,6 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         coil[address+i] = node_slave.readCoilFromBuffer(i);
         if (coil[address+i] == 1) {
             switch (address + i) {
-              //case SPRAY_ONOFF_MODBUS_ADDR: test_4a_id3(); break;
               case POINT2POINT_MODBUS_ADDR:   execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:   pause_motor(); break;
               case RESUME_MOTOR_MODBUS_ADDR:  resume_motor(); break;
@@ -247,11 +248,12 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
 // Handle the function codes Read Input Status (FC=01/02) and write back the values from the digital pins (input status).
 uint8_t readDigital(uint8_t fc, uint16_t address, uint16_t length)
 {
+  static bool state_home; state_home = false;
   // Check if the requested addresses exist in the array
   if (address > coil_size || (address + length) > coil_size) { return STATUS_ILLEGAL_DATA_ADDRESS; }
 
   if (address == EXECUTE_PULSE_DONE) {
-    bool state_home = command_motor.movingDone();
+    state_home = command_motor.movingDone();
     for (int i = 0; i < length; i++) {
         // Write the state of the digital pin to the response buffer.
         node_slave.writeCoilToBuffer(i,state_home);
