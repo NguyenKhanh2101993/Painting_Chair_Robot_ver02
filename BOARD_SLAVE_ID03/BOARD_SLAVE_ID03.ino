@@ -31,8 +31,7 @@ void Execute_DelayStep(uint16_t delay_value){
 void go_to_zero_position(void) {
   if (command_motor.movingDone()){
     Serial.println("Chay dong co ve zero");
-    command_motor.setSpeed_motor(200); 
-    command_motor.moving(0,0,0,0,0,0); 
+    command_motor.moving(0,0,0,0,0,0,200); 
   }
 }
 //================================================================
@@ -46,16 +45,14 @@ void set_zero_position(void) {
 void go_to_1_position(void) {
   if (command_motor.movingDone()){
     Serial.println("Chay dong co position 1");
-    command_motor.setSpeed_motor(200);
-    command_motor.moving(-12800,0,0,0,0,0);
+    command_motor.moving(-12800,0,0,0,0,0,200);
   }
 }
 // test vi trí 2
 void go_to_2_position(void) {
   if (command_motor.movingDone()){
     Serial.println("Chay dong co position 2");
-    command_motor.setSpeed_motor(200);
-    command_motor.moving(-32000,32000,32000,32000,0,0);
+    command_motor.moving(-32000,32000,32000,32000,0,0,200);
   }
 }
 //================================================================
@@ -68,8 +65,7 @@ void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
    }
 
   if (command_motor.movingDone()){
-    command_motor.setSpeed_motor(_speed); 
-    command_motor.moving(target_xung_nguyen[0],target_xung_nguyen[1],target_xung_nguyen[2],target_xung_nguyen[3],0,0);
+    command_motor.moving(target_xung_nguyen[0],target_xung_nguyen[1],target_xung_nguyen[2],target_xung_nguyen[3],0,0,_speed);
   }
 }
 //================================================================
@@ -78,7 +74,12 @@ void resume_motor(void) {
   command_motor.resumeMoving();
 }
 void pause_motor(void){
-  command_motor.pauseMoving();
+  command_motor.pauseMoving(0);
+}
+void stop_motor(void){
+  if (!command_motor.movingDone()){
+    command_motor.pauseMoving(1); // dừng động cơ, tắt timer
+  }
 }
 //================================================================
 //================================================================
