@@ -197,20 +197,20 @@ void setup() {
   pinMode(EncoderA, INPUT_PULLUP); pinMode(EncoderB, INPUT_PULLUP);
   for (int i = 0; i < coilY_size; i++) { pinMode(coilY[i],OUTPUT); digitalWrite(coilY[i],LOW);}
   for (int i = 0; i < coilX_size; i++) { pinMode(coilX[i], INPUT_PULLUP); }
-  function_modbus_slave(); 
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
   pinMotor_init();
   timer1_setting();
-  Serial.println("Setup OK");
+  Serial.println("Slave id2 Setup OK");
 }
 //============================================================================================
 //============================================================================================
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
-  //node_slave.poll();
-  //sensor_value = read_input_register();
-  //output_value = read_output_register();
-  //Serial.println(command_motor.motor[0]->currentPosition);
+  node_slave.poll();
+  sensor_value = read_input_register();
+  output_value = read_output_register();
+  /*
+  Serial.println(command_motor.motor[0]->currentPosition);
   userInput = "";
   while (Serial.available() >0)
   {
@@ -229,6 +229,7 @@ void loop() {
     if (userInput == "1") {go_to_1_position();}
     if (userInput == "2") {go_to_2_position();}
   }
+*/
 
 } // End loop
 //============================================================================================
