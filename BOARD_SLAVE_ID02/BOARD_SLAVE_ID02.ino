@@ -78,11 +78,7 @@ uint16_t read_output_register(void){
 void Execute_DelayStep(uint16_t delay_value){
     if (delay_value > 0){delay(delay_value);}
     else delay(1);
-}
-//================================================================
-// Về gốc máy khi mới mở phần mềm điều khiển
-// 4 trục động cơ chạy tới vị trí cảm biến, chạy theo thứ tự từng động cơ, không chạy đồng thời
-// nhằm đảm bảo an toàn lúc mới khởi động máy.              
+}            
 //================================================================
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
