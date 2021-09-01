@@ -170,7 +170,7 @@ class Screen:
         # góc của trục Y so với trục X hiện thị trên canvas
 
         self.string_content = StringVar()
-        self.delay_value = StringVar()
+        self._speed_value = StringVar()
 #========================================================================
 # THANH CÔNG CỤ TÙY CHỌN 
     def Show_screen_options(self):
@@ -227,20 +227,20 @@ class Screen:
                                 font = ("Arial",10,"bold"), fg = 'white', bg = "gray", command = button_teach_command[i], state=DISABLED))
             self.button_teach[i].place(x= 10, y = 72 +40*i)
         
-        delay_label = Label(Frame1, text = 'Delay(s)',font = ("Arial",12,"bold"), fg = 'white', bg="#333333")
-        delay_label.place(x =140, y=60)
-        self.delay_entry = Entry(Frame1,bd =5, width = 6, state = DISABLED, font = ("Arial",11,"bold"), textvariable = self.delay_value)
-        self.delay_entry.place(x = 214, y = 60)
+        _speed_label = Label(Frame1, text = 'Speed(%)',font = ("Arial",12,"bold"), fg = 'white', bg="#333333")
+        _speed_label.place(x =140, y=60)
+        self._speed_entry = Entry(Frame1,bd =5, width = 6, state = DISABLED, font = ("Arial",11,"bold"), textvariable = self._speed_value)
+        self._speed_entry.place(x = 214, y = 60)
 
     def disable_teach_option(self):
         for i in range(len(self.teach_option_name)):
             self.teach_option[i].config(state = DISABLED)
-        self.delay_entry.config(state = DISABLED)
+        self._speed_entry.config(state = DISABLED)
     def enable_teach_option(self):
         for i in range(len(self.teach_option_name)):
             self.teach_option[i].config(state = NORMAL)
-        self.delay_entry.config(state = NORMAL)
-        self.delay_value.set('0')
+        self._speed_entry.config(state = NORMAL)
+        self._speed_value.set('0')
     def disable_button_teach(self):
         for i in range(len(self.button_teach_name)):
             self.button_teach[i].config(state = DISABLED, bg = "gray")
@@ -1165,6 +1165,7 @@ class Teach_mode_class():
         self.TEACH_C_AXIS = 5  # teach trục C
 
         self.button_encoder = 0; self.pre_button_encoder = 0
+        self.pre_speed_value = 0
 
     def Enable_teach_options(self):
         print("enable teach options")
@@ -1209,19 +1210,26 @@ class Teach_mode_class():
         # tắt monitor xung
         Monitor_mode.monitor_off = True
 
+### Lấy các giá trị của các trục tay máy để hiện thị lên Show_content
     def Show_point_to_textbox(self):
-        # Lấy các giá trị của các trục tay máy để hiện thị lên Show_content
         try:
-            self._delay_value = float(Show_Screen.delay_value.get())
-            if  self._delay_value < 0: self._delay_value = 0
-            if  self._delay_value > 10: self._delay_value = 10
+            F_speed = int(Show_Screen._speed_value.get())
+            if  F_speed < 0: F_speed = 0
+            if  F_speed > 200: F_speed = 200
         except:
-            self._delay_value = 0
+            F_speed = 0
+
+        if (F_speed != self.pre_speed_value):
+            self.pre_speed_value = F_speed
+            str_speed = (' F' + str(F_speed))
+        else:
+            str_speed = (' ')
+
         self.counter_line += 1
 
         show_line = (' '+ str(self.counter_line) + ' X'+ str(round(Monitor_mode.pos_X,3)) +' Y' + str(round(Monitor_mode.pos_Y,3)) + 
                     ' Z'+ str(round(Monitor_mode.pos_Z,3))+ ' A' + str(round(Monitor_mode.pos_A,3)) + ' B' + str(round(Monitor_mode.pos_B,3)) 
-                   +' C'+ str(round(Monitor_mode.pos_C,3)) + ' S' + self.spray_var.get() +' F' + str(Show_Screen.speed_scale.get()) +'\n')
+                   +' C'+ str(round(Monitor_mode.pos_C,3)) + ' S' + self.spray_var.get() + str_speed +'\n')
         Show_Screen.Show_content.insert(END,show_line) 
         Show_Screen.Show_content.yview(END)
 
@@ -1457,7 +1465,7 @@ class Run_auto():
                             value_char['B'],value_char['C'],value_char['S'],value_char['F']]
 
             for i in range(len(self.pre_result_value)):
-                self.pre_result_value[i] = result_value[i]
+                self.pre_result_value[i] = result_value[i]  
 
             self.new_state_spray = int(result_value[6])     # trạng thái coil súng sơn
             self.new_Fspeed = int(result_value[7])          # tốc độ sơn
