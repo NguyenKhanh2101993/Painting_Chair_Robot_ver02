@@ -82,8 +82,9 @@ void Execute_DelayStep(uint16_t delay_value){
 //================================================================
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
+  //Serial.println("Chay dong co ve zero");
   if (command_motor.movingDone()){
-    //Serial.println("Chay dong co ve zero");
+    //Serial.println("thuc hien lenh");
     command_motor.moving(0,0,0,0,0,0,200); 
   }
 }
@@ -115,9 +116,11 @@ void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
 
   for (int i = 0; i < MAX_AXIS; i++) {
     target_xung_nguyen[i] = pulse[i] + command_motor.motor[i]->currentPosition;
+    //Serial.println(target_xung_nguyen[i]);
    }
-
-  if (command_motor.movingDone()){ 
+  //Serial.println("---------");
+  if (command_motor.movingDone()){
+    //Serial.println("running"); 
     command_motor.moving(target_xung_nguyen[0],target_xung_nguyen[1],target_xung_nguyen[2],target_xung_nguyen[3],0,0,_speed);
   }
 }
@@ -134,7 +137,8 @@ void pause_motor(void){
   }
 }
 void stop_motor(void){
-  if (!command_motor.movingDone()){
+  if (!command_motor.movingDone()){ // neu movingDone = 0
+    //Serial.println("stop");
     command_motor.pauseMoving(1); // dừng động cơ, tắt timer
   }
 }

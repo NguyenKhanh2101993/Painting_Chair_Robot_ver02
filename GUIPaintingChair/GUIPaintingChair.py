@@ -83,7 +83,7 @@ class Save_file:
             Show_Screen.Show_content.insert(END,self.show_file) # insert all the characters of file into T
             countVar = IntVar()
             Counter = self.count_line()
-            words = ['X', 'Y', 'Z','A', 'B', 'C', 'S','D']
+            words = ['X', 'Y', 'Z','A', 'B', 'C', 'S','F']
             for i in range(Counter):
                 for j in range(len(words)):
                     searched_position = Show_Screen.Show_content.search(pattern = words[j], index= str(str(i+1) + '.'+'0'), 
@@ -341,7 +341,7 @@ class Screen:
         Frame13 = LabelFrame(root)
         Frame13.place(x = 10, y = 650)
 
-        self.speed_scale = Scale( Frame13, variable = (self.speed_value), from_ = 10, to = 100, orient = HORIZONTAL,  bg = '#888888',
+        self.speed_scale = Scale( Frame13, variable = (self.speed_value), from_ = 10, to = 200, orient = HORIZONTAL,  bg = '#888888',
                                 length = 300, width=15, fg = 'white',font = ("Arial",10,"bold"))   
         self.speed_scale.pack(anchor = CENTER) 
         self.speed_scale.set(30) # khởi tạo giá trị mặc định
@@ -570,6 +570,7 @@ class Monitor_Input_Output():
         self.button_active = 0
         
     def stop_motor(self):
+        #time.sleep(0.2)
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
         master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
         print ("Stop motor")
@@ -654,12 +655,12 @@ class Monitor_Position_Class():
         self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
-        self.gear_ratio_X = ((80*math.pi)/(3200))  # truc X cài vi bước 3200 xung/vòng, không có hộp số
+        self.gear_ratio_X = ((80*math.pi)/(6400))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
         self.gear_ratio_Y = ((80*math.pi)/(3200*5))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_Z = ((80*math.pi)/(3200*5))  # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
-        self.gear_ratio_A = (360/(3200*5))             # trục A cài vi bước 3200 xung/vong, hộp số 1/5
-        self.gear_ratio_B = (360/3200)              # trục B cài vi bước 3200 xung/vòng, không có hộp số
-        self.gear_ratio_C = (360/3200)              # trục C cài vi bước 3200 xung/vong, không có hộp số
+        self.gear_ratio_A = (360/(12800*5))          # trục A cài vi bước 12800 xung/vong, hộp số 1/5
+        self.gear_ratio_B = (360/12800)              # trục B cài vi bước 12800 xung/vòng, không có hộp số
+        self.gear_ratio_C = (360/12800)              # trục C cài vi bước 12800 xung/vong, không có hộp số
 
         self.spray_axis = 550    # chiều dài trục súng sơn
         self.pre_button_state = 0 
@@ -699,7 +700,7 @@ class Monitor_Position_Class():
 
                 if self.rotary_encoder != self.pre_rotary_encoder:
                     self.pre_rotary_encoder = self.rotary_encoder
-                    Run.send_to_execute_board(self.pulse_teach_packet)
+                    Run.send_to_execute_board(self.pulse_teach_packet,0)
                     while True:
                         new_position_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                         new_position_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
@@ -750,7 +751,7 @@ class Monitor_Position_Class():
             if (self.rotary_encoder != self.pre_rotary_encoder):
                 self.pre_rotary_encoder = self.rotary_encoder
                 self.pulse_teach_packet[Teach_mode.teach_axis] = pulse_teach
-                Run.send_to_execute_board(self.pulse_teach_packet)
+                Run.send_to_execute_board(self.pulse_teach_packet,0)
                 state_runing = True
                                     
             while state_runing:
@@ -776,7 +777,7 @@ class Monitor_Position_Class():
                     running = False
                     self.button_state = self.read_state_button()
                     self.Read_pulse_PWM_from_slaves()
-                    if (self.button_state > self.pre_button_state):
+                    if (self.button_state > self.pre_button_state): # nhấn Z-
                         # tính động học
                         new_pos_A = self.pos_A - 2
                         new_pos_Y = Yspray_expect - self.spray_axis*math.cos((new_pos_A*math.pi)/180)
@@ -787,7 +788,8 @@ class Monitor_Position_Class():
                         if(self.pos_Z > 0): self.pulse_teach_packet = [0,0,pulse_Z_teach,0,0,0]
                         else:               self.pulse_teach_packet = [0,pulse_Y_teach,0,pulse_A_teach,0,0]
                         
-                    if (self.button_state < self.pre_button_state):
+                    if (self.button_state < self.pre_button_state): # nhấn Z+
+                        
                         new_pos_A = self.pos_A + 2 #(góc A của mỗi lần chạy: càng nhỏ chạy càng chính xác)
                         new_pos_Y = Yspray_expect - self.spray_axis*math.cos((new_pos_A*math.pi)/180)
                         new_pos_Z = 600
@@ -798,11 +800,12 @@ class Monitor_Position_Class():
                         else:              self.pulse_teach_packet = [0,pulse_Y_teach,0,pulse_A_teach,0,0]
                     
                     if self.button_state != self.pre_button_state:
-                        Run.send_to_execute_board(self.pulse_teach_packet)
+                        Run.send_to_execute_board(self.pulse_teach_packet,0)
                         running = True
+
                     while running:
-                        self.Read_pulse_PWM_from_slaves()
                         self.button_state = self.read_state_button()
+                        self.Read_pulse_PWM_from_slaves()
                         if self.button_state == self.pre_button_state:
                             Monitor_in_out.stop_motor()
                             running = False
@@ -857,17 +860,18 @@ class Monitor_Position_Class():
                 pulse_teach = int((new_pos_C - self.pos_C)/self.gear_ratio_C)
                 if self.pos_C < -360 or self.pos_C > 360: self.button_state = self.pre_button_state
 
-            if (self.button_state != self.pre_button_state):
+            if self.button_state != self.pre_button_state:
                 self.pulse_teach_packet[Teach_mode.teach_axis] = pulse_teach   
-                Run.send_to_execute_board(self.pulse_teach_packet)
+                Run.send_to_execute_board(self.pulse_teach_packet,0)
                 state_runing = True
-
+       
             while state_runing:
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                 self.Read_pulse_PWM_from_slaves()
                 self.button_state = self.read_state_button()
                 if self.button_state == self.pre_button_state:
                     Monitor_in_out.stop_motor()
+                    #time.sleep(0.2)
                     state_runing = False
                     break  # thoat khỏi vong lặp while
             
@@ -901,9 +905,9 @@ class Monitor_Position_Class():
         pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
         pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
         pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
-        pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
-        pulse_to_machine_axis_B = [0, 0, 0, 0, -3200, 0]
-        pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -3200]
+        pulse_to_machine_axis_A = [0, 0, 0, -12800, 0, 0]
+        pulse_to_machine_axis_B = [0, 0, 0, 0, -12800, 0]
+        pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
 
         pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                      pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
@@ -1217,7 +1221,7 @@ class Teach_mode_class():
 
         show_line = (' '+ str(self.counter_line) + ' X'+ str(round(Monitor_mode.pos_X,3)) +' Y' + str(round(Monitor_mode.pos_Y,3)) + 
                     ' Z'+ str(round(Monitor_mode.pos_Z,3))+ ' A' + str(round(Monitor_mode.pos_A,3)) + ' B' + str(round(Monitor_mode.pos_B,3)) 
-                   +' C'+ str(round(Monitor_mode.pos_C,3)) + ' S' + self.spray_var.get() +' F' + str(self._delay_value) +'\n')
+                   +' C'+ str(round(Monitor_mode.pos_C,3)) + ' S' + self.spray_var.get() +' F' + str(Show_Screen.speed_scale.get()) +'\n')
         Show_Screen.Show_content.insert(END,show_line) 
         Show_Screen.Show_content.yview(END)
 
@@ -1364,6 +1368,7 @@ class Run_auto():
         self.pre_points = [0,0,0,0,0,0]
         self.gear = [Monitor_mode.gear_ratio_X, Monitor_mode.gear_ratio_Y, Monitor_mode.gear_ratio_Z, 
                     Monitor_mode.gear_ratio_A, Monitor_mode.gear_ratio_B, Monitor_mode.gear_ratio_C]
+        self.old_Fspeed = 0; self.new_Fspeed = 0
 
     def activate_run_mode(self):
         try:
@@ -1377,7 +1382,7 @@ class Run_auto():
                 print(content_line)
                 content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
                 self.Monitor_str_content(content_line)  # hiện thị từng dòng trong file
-                Recognize_stringArr = self.Recognize_command_syntax(content_line)
+                Recognize_stringArr = self.Recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
                 if Recognize_stringArr == True:
                     # tách số của các trục
                     result_string = self.separate_string(content_line)
@@ -1386,26 +1391,28 @@ class Run_auto():
                     # tính toán số xung tịnh tiến
                     result_xung_nguyen = self.calculate_pulse(result_delta)
                     # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
-                    self.send_to_execute_board(result_xung_nguyen)
+                    self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
                     # tính toán vị trí mục tiêu cần tới.
-                    # result_target_pulse = self.calculate_target_pulse(result_xung_nguyen)
+                    #result_target_pulse = self.calculate_target_pulse(result_xung_nguyen)
                     
                     while True:
                         Point2point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
                         Point2point_done_slave_03 = master.execute(SLAVE_03, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
                         Monitor_mode.Read_pulse_PWM_from_slaves()
+                        #result_remain_pulse = self.calculate_remain_pulse(result_target_pulse)
 
                         if Point2point_done_slave_02[0] == 1 and Point2point_done_slave_03[0] == 1:
                             break # nếu chạy đủ xung thì thoát khỏi while
+
                         if self.pause_on == 1: # dừng motor
                                 master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
                                 master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
 
                         if self.pause_on == 2: # tiếp tục chạy
                                 # tiếp tục chạy số xung còn lại
-                        
                                 master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.RESUME_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
                                 master.execute(SLAVE_03, cst.WRITE_SINGLE_COIL, self.RESUME_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+                                #self.send_to_execute_board(result_remain_pulse)
                                 self.pause_on = 0
                 else: pass
         except Exception as e:
@@ -1422,7 +1429,7 @@ class Run_auto():
 
     def disable_run_mode(self):
             pass
-
+# tách giá trị tương ứng với từng phần tử trong file 
     def separate_string(self, string):
         Range_char = ['X','Y','Z','A','B','C','S','F','\n']
         # Giá trị tương ứng với các phần tử trong chuỗi string
@@ -1452,7 +1459,8 @@ class Run_auto():
             for i in range(len(self.pre_result_value)):
                 self.pre_result_value[i] = result_value[i]
 
-            self.new_state_spray = int(result_value[6])
+            self.new_state_spray = int(result_value[6])     # trạng thái coil súng sơn
+            self.new_Fspeed = int(result_value[7])          # tốc độ sơn
 
         except Exception as e:
             print('separate_string error:', str(e))
@@ -1535,6 +1543,7 @@ class Run_auto():
         except Exception as e:
             print (str(e))
             return
+
         # gửi giá trị tốc độ x,y,z,a tới board slave id 2, gửi 2byte, bắt đầu từ địa chỉ 10
         master.execute(SLAVE_02, cst.WRITE_SINGLE_REGISTER, 10, output_value = speed_slaves)
         # gửi số xung x,y,z,a cần chạy tới board slave id 2, gửi 8 word, bắt đầu từ địa chỉ 0
@@ -1543,6 +1552,7 @@ class Run_auto():
         master.execute(SLAVE_03, cst.WRITE_SINGLE_REGISTER, 10, output_value = speed_slaves)
         # gửi số xung b,c cần chạy tới board slave id 3, gửi 4 word, bắt đầu từ địa chỉ 0
         master.execute(SLAVE_03, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_pulse_slave_id3)
+
         # gửi command bật/tắt súng sơn
         if self.new_state_spray != 0 or self.new_state_spray != 1:
             self.new_state_spray == 0
@@ -1567,19 +1577,21 @@ class Run_auto():
 
     def pause_motor(self):
 # phát lệnh dừng tay máy
-
         self.pause_on += 1
         print("pause")
+
 # define lại giá trị sau khi đã chạy auto hoàn tất
     def re_init(self):
         self.pre_points = [0,0,0,0,0,0]
         self.pause_on = 0
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         Show_Screen.enable_button_control(0)
+
 # Hiện thị từng dòng đang chạy trong file lên label
     def Monitor_str_content(seft, string):
         Show_Screen.string_content.set(string)
         Show_Screen.label_axis_monitor.update()
+
 # Nhận diện dòng thỏa cú pháp trong file
     def Recognize_command_syntax(self, StringArr):
         if StringArr == '\0' or StringArr == '\n':
@@ -1588,7 +1600,7 @@ class Run_auto():
             return Recognize_command
         Recognize_command = True
         RecognizeChar = ['0','1','2','3','4','5','6','7','8','9', 
-                         'X', 'Y', 'Z', 'A', 'B', 'C', 'S', 'D', '.', '-', '\n', '\0']
+                         'X', 'Y', 'Z', 'A', 'B', 'C', 'S', 'F', '.', '-', '\n', '\0']
         for char in StringArr:
             if char in RecognizeChar[0:]: 
                 pass
