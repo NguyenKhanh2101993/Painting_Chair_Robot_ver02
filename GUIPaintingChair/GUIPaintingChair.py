@@ -1542,13 +1542,22 @@ class Run_auto():
         send_pulse_slave_id2 = [] # gói giá trị 16 bit
         send_pulse_slave_id3 = [] # gói giá trị 16 bit
 #-------------------------------------------------------
-# tính tốc độ của trục x,y,z,a
+# tính tốc độ của trục x,y,z,a,b,c
         if _speed <= 0:
             speed_slaves = Monitor_mode.Call_speed()
         else: speed_slaves = _speed
+        max_pulse_slave_id2 = max(abs(pulse[0]),abs(pulse[1]),abs(pulse[2]),abs(pulse[3]))
+        max_pulse_slave_id3 = max(abs(pulse[4]),abs(pulse[5]))
+        max_pulse = max(max_pulse_slave_id2,max_pulse_slave_id3)
+        if(max_pulse != 0):
+            speed_id2 = (max_pulse_slave_id2/max_pulse)*speed_slaves
+            speed_id3 = (max_pulse_slave_id3/max_pulse)*speed_slaves
+        else: speed_id2 = speed_id3 = 0
 
-        print("toc do chay dong co: ",speed_slaves,"%")
+        print("toc do chay dong co: ",int(speed_id2),"%",int(speed_id3),"%")
         print("gia tri packet xung pulse: ",pulse) 
+#-------------------------------------------------------
+# tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
         try:
             for i in range(len(pulse)):
                 if i < 4:
@@ -1565,22 +1574,22 @@ class Run_auto():
             return
 
         # gửi giá trị tốc độ x,y,z,a tới board slave id 2, gửi 2byte, bắt đầu từ địa chỉ 10
-        master.execute(SLAVE_02, cst.WRITE_SINGLE_REGISTER, 10, output_value = speed_slaves)
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_REGISTER, 10, output_value = int(speed_id2))
         # gửi số xung x,y,z,a cần chạy tới board slave id 2, gửi 8 word, bắt đầu từ địa chỉ 0
         master.execute(SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_pulse_slave_id2)
         # gửi giá trị tốc độ b,c tới board slave id 3, gửi 8 word, bắt đầu từ địa chỉ 10
-        master.execute(SLAVE_03, cst.WRITE_SINGLE_REGISTER, 10, output_value = speed_slaves)
+        master.execute(SLAVE_03, cst.WRITE_SINGLE_REGISTER, 10, output_value = int(speed_id3))
         # gửi số xung b,c cần chạy tới board slave id 3, gửi 4 word, bắt đầu từ địa chỉ 0
         master.execute(SLAVE_03, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_pulse_slave_id3)
-
-        # gửi command bật/tắt súng sơn
+#-------------------------------------------------------
+# gửi command bật/tắt súng sơn
         if self.new_state_spray != 0 or self.new_state_spray != 1:
             self.new_state_spray == 0
         if  self.new_state_spray != self.state_spray:
             self.command_run_spray(bool(self.new_state_spray))
             self.state_spray = self.new_state_spray
 
-        # phát command chạy điểm
+# phát command chạy điểm
         self.command_run_point2point()
 
     def command_run_point2point(self):
