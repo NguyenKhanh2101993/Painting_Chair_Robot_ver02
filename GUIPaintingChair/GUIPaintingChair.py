@@ -180,14 +180,16 @@ class Screen:
         bg_frame0.pack(side = LEFT)
         #========================================================================
         self.button_option = []
-        self.button_option_name = ['TEACH MODE','HOME','MANUAL','CHOOSE FILE','MACHINE AXIS']
-        command_option = [Teach_mode.Enable_teach_options, Monitor_mode.Go_to_zero_position,
-                 Monitor_in_out.enable_radio_button, Work_file.open_file, Monitor_mode.Go_to_machine_axis]
+        self.button_option_name = ['TEACH MODE','CHOOSE FILE','MANUAL','GOTO ZERO','MACHINE AXIS']
+        command_option = [Teach_mode.Enable_teach_options, Work_file.open_file,
+                 Monitor_in_out.enable_radio_button, Monitor_mode.Go_to_zero_position, Monitor_mode.Go_to_machine_axis]
         for i in range(len(self.button_option_name)):
             self.button_option.append(Button(Frame0, text =self.button_option_name[i], justify = LEFT, width = 12, activebackground = 'green',
                                 command = command_option[i], font = ("Arial",10,"bold"), fg = 'white',bg = '#555555'))
             self.button_option[i].place(x = 30+110*i, y = 10)
-  
+
+        self.button_option[4].config(bg ='#990000')
+
     def disable_screen_option(self):
         for i in range(len(self.button_option_name)): 
                     self.button_option[i].config(state = DISABLED)
@@ -208,9 +210,9 @@ class Screen:
         bg_frame1.create_line(125,100,400,100,fill = 'white',width = 2)
         #========================================================================
         self.teach_option = []
-        self.teach_option_name = ['SET POINT','SET ZERO','SAVE FILE','EXIT']
-        teach_command = [Teach_mode.Show_point_to_textbox,Teach_mode.Set_zero_position,
-                              Teach_mode.Save_file, Teach_mode.Disable_teach_options]
+        self.teach_option_name = ['SET POINT','SAVE FILE','SET ZERO','EXIT']
+        teach_command = [Teach_mode.Show_point_to_textbox,
+                         Teach_mode.Save_file, Teach_mode.Set_zero_position, Teach_mode.Disable_teach_options]
         for i in range(len(self.teach_option_name)):
             self.teach_option.append(Button(Frame1, text =self.teach_option_name[i], justify = LEFT, width = 9, activebackground = 'green', 
                                     font = ("Arial",16,"bold"), fg ='white', bg = "#666666",  command = teach_command[i]))
@@ -502,9 +504,9 @@ class Monitor_Input_Output():
     def manual_mode(self):
         axis_name_forward = ['X-','Y-','Z-','B-','C-','SPRAY ON','FORWARD']
         axis_name_reverse = ['X+','Y+','Z+','B+','C+','SPRAY OFF','REVERSE']
-        manual_command_01_active   = [self.buttonX_forward, self.buttonY_forward, self.buttonZ_forward, self.buttonB_forward, self.buttonC_forward, None, None]
-        manual_command_02_active = [self.buttonX_reverse, self.buttonY_reverse, self.buttonZ_reverse, self.buttonB_reverse, self.buttonC_reverse, None, None]
-        manual_command_deactive = [self._inactive, self._inactive, self._inactive, self._inactive, self._inactive, None, None]
+        manual_command_01_active   = [self.buttonX_forward, self.buttonY_forward, self.buttonZ_forward, self.buttonB_forward, self.buttonC_forward, Teach_mode.Spray_on, None]
+        manual_command_02_active = [self.buttonX_reverse, self.buttonY_reverse, self.buttonZ_reverse, self.buttonB_reverse, self.buttonC_reverse, Teach_mode.Spray_off, None]
+        manual_command_deactive = [self._inactive, self._inactive, self._inactive, self._inactive, self._inactive, self._inactive, None]
         manual_button_01 = []
         manual_button_02 = []
 
@@ -905,7 +907,7 @@ class Monitor_Position_Class():
         pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
         pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
         pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
-        pulse_to_machine_axis_A = [0, 0, 0, -12800, 0, 0]
+        pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
         pulse_to_machine_axis_B = [0, 0, 0, 0, -12800, 0]
         pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
 
@@ -1154,7 +1156,6 @@ class Teach_mode_class():
         self.spray_var.set('0') # súng sơn: 0 - off; 1 - on
         self.gain_rotary_encoder = 100 # giá trị xung mặc định khi quay rotary encoder
 
-        self.counter_line = 0
         self.no_choise_axis = -1
         self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
         self.TEACH_X_AXIS = 0  # teach trục X
@@ -1165,7 +1166,12 @@ class Teach_mode_class():
         self.TEACH_C_AXIS = 5  # teach trục C
 
         self.button_encoder = 0; self.pre_button_encoder = 0
-        self.pre_speed_value = 0
+        self.Init_string_value()
+
+    def Init_string_value(self):
+        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
+                                 (' S'+'0'),(' F'+'0')]
+        self.counter_line = 0
 
     def Enable_teach_options(self):
         print("enable teach options")
@@ -1176,7 +1182,7 @@ class Teach_mode_class():
             Show_Screen.disable_screen_option()
             Show_Screen.disable_button_control(0)
             Show_Screen.disable_button_control(1)
-
+            
             self.gain_rotary_encoder = 100 # giá trị xung mặc định khi quay rotary encoder
             self.teach_state = True
             # xóa nội dung trong text_box
@@ -1200,11 +1206,12 @@ class Teach_mode_class():
         Show_Screen.disable_resolution_button()
         Show_Screen.enable_button_control(0)
         Show_Screen.enable_button_control(1)
+
+        self.Init_string_value()
         self.teach_state = False
         # xóa nội dung trong text_box, trả giá trị đếm số dòng về 0
         Show_Screen.Show_content.delete('1.0','end')
         Show_Screen.Show_content.config(state = DISABLED)
-        self.counter_line = 0
         # tắt tay quay rotary encoder
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.DISABLE_ROTARY_ENCODER_ADDR, output_value = CHOOSE)
         # tắt monitor xung
@@ -1212,30 +1219,35 @@ class Teach_mode_class():
 
 ### Lấy các giá trị của các trục tay máy để hiện thị lên Show_content
     def Show_point_to_textbox(self):
-        try:
-            F_speed = int(Show_Screen._speed_value.get())
-            if  F_speed < 0: F_speed = 0
-            if  F_speed > 200: F_speed = 200
-        except:
-            F_speed = 0
+        show_line = (' '+ str(self.counter_line))
+        different_value = False
+        # lay gia tri
+        F_speed = int(Show_Screen._speed_value.get())
+        X_value = round(Monitor_mode.pos_X,3); Y_value = round(Monitor_mode.pos_Y,3); Z_value = round(Monitor_mode.pos_Z,3)
+        A_value = round(Monitor_mode.pos_A,3); B_value = round(Monitor_mode.pos_B,3); C_value = round(Monitor_mode.pos_C,3)
+        Spray_state = self.spray_var.get()
 
-        if (F_speed != self.pre_speed_value):
-            self.pre_speed_value = F_speed
-            str_speed = (' F' + str(F_speed))
-        else:
-            str_speed = (' ')
+        if  F_speed < 0: F_speed = 0
+        if  F_speed > 200: F_speed = 200
 
-        self.counter_line += 1
-
-        show_line = (' '+ str(self.counter_line) + ' X'+ str(round(Monitor_mode.pos_X,3)) +' Y' + str(round(Monitor_mode.pos_Y,3)) + 
-                    ' Z'+ str(round(Monitor_mode.pos_Z,3))+ ' A' + str(round(Monitor_mode.pos_A,3)) + ' B' + str(round(Monitor_mode.pos_B,3)) 
-                   +' C'+ str(round(Monitor_mode.pos_C,3)) + ' S' + self.spray_var.get() + str_speed +'\n')
-        Show_Screen.Show_content.insert(END,show_line) 
-        Show_Screen.Show_content.yview(END)
-
-    def button_X(self,):
-        
-        pass
+        current_string_value = [(' X'+str(X_value)), (' Y'+str(Y_value)), (' Z'+str(Z_value)), (' A'+str(A_value)), 
+                                (' B'+str(B_value)),(' C'+str(C_value)), (' S'+str(Spray_state)), (' F'+str(F_speed))]
+        # print("gia tri cac thong so: ",current_string_value)
+        # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
+        # sau đó lưu vào chuỗi
+        for i in range(len(current_string_value)):
+            if (current_string_value[i] != self.pre_string_value[i]):
+                self.pre_string_value[i] = current_string_value[i]
+                show_line = show_line + current_string_value[i]
+                different_value = True
+            else:
+                pass
+        # nếu xuất hiện phần tử có giá trị khác trước đó thì in ra màn hình
+        if (different_value == True):
+            show_line = show_line + '\n'
+            self.counter_line += 1
+            Show_Screen.Show_content.insert(END,show_line) 
+            Show_Screen.Show_content.yview(END)
 
     def _active(self, event):
         print ("Dang nhan button X+")
