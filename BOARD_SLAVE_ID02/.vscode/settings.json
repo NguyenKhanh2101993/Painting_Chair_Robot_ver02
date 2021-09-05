@@ -13,4 +13,7 @@
     "arduino.defaultBaudRate": 115200,
     "C_Cpp.errorSquiggles": "Disabled",
     "python.pythonPath": "C:\\Python36_64\\python.exe",
+    "files.associations": {
+        "xtr1common": "cpp"
+    },
 }

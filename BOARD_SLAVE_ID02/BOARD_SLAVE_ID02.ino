@@ -5,27 +5,36 @@
 //================================================================
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
+#define MAX_POINT                   20   // Số điểm tối đa sẽ quét khi chạy auto
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
 //================================================================
-Motor Motor_X(setDir_X, onePulse_X);
-Motor Motor_Y(setDir_Y, onePulse_Y);
-Motor Motor_Z(setDir_Z, onePulse_Z);
-Motor Motor_A(setDir_A, onePulse_A);
+Motor Motor_X; //(setDir_X, onePulse_X);
+Motor Motor_Y; //(setDir_Y, onePulse_Y);
+Motor Motor_Z; //(setDir_Z, onePulse_Z);
+Motor Motor_A; //(setDir_A, onePulse_A);
+Motor Motor_B;
+Motor Motor_C;
 
 World command_motor(&Motor_X);
 //================================================================
 String userInput ="";
 bool coil[128]; uint8_t coil_size = sizeof(coil) / sizeof(coil[0]); // Khai bao số lượng coil dùng cho write single coil
+bool STATE_RUN_AUTO = false;
 uint8_t coilY[] = {Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Y11, Y12, Y13, Y14, Y15, Y16};
 uint8_t coilX[] = {X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16};
 uint8_t coilY_size = sizeof(coilY)/sizeof(coilY[0]);
 uint8_t coilX_size = sizeof(coilX)/sizeof(coilX[0]);
-uint16_t speed;  // Lưu tốc độ trục X,Y,Z,A cần chạy nhận từ modbus
-int32_t xung_nguyen[4]; // Lưu số xung trục X,Y,Z,A cần chạy nhận từ modbus
+int16_t speed;                     // Lưu tốc độ trục X,Y,Z,A,B,C cần chạy nhận từ modbus
+int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần chạy nhận từ modbus
+// mảng 2 chiều: 
+// pulseX0 pulseY0 pulseZ0 pulseA0 pulseB0 pulseC0 speed0
+// pulseX1 pulseY1 pulseZ1 pulseA1 pulseB1 pulseC1 speed1
+// ...
+int32_t packet_data[25][MAX_AXIS+1]; 
+// Mảng 2 chiều (20 hàng, 5 cột) lưu packet xung 20 điểm, cột thứ 7 lưu giá trị tốc độ speed
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
-uint16_t sensor_value; uint16_t output_value;
-static uint32_t monitor_cnt;
+uint16_t input_value; uint16_t output_value;
 //===============================================================================================================
 //===============================================================================================================
 // Read the rotary encoder
@@ -82,16 +91,13 @@ void Execute_DelayStep(uint16_t delay_value){
 //================================================================
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
-  //Serial.println("Chay dong co ve zero");
   if (command_motor.movingDone()){
-    //Serial.println("thuc hien lenh");
     command_motor.moving(0,0,0,0,0,0,200); 
   }
 }
 //================================================================
 // set 0 cho các trục x,y,z,a làm điểm zero position
 void set_zero_position(void) {
-  //Serial.println("set 0");
   command_motor.set_zero_position();
 }
 //================================================================
@@ -112,16 +118,14 @@ void go_to_2_position(void) {
 //================================================================
 // Run main point to point, speed giá trị từ 0 - 200
 void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
-  static int32_t target_xung_nguyen[MAX_AXIS]; // Lưu vị trí cần chạy tới theo đơn vị xung
+  static int32_t target_pos[MAX_AXIS]; // Lưu vị trí cần chạy tới theo đơn vị xung
 
   for (int i = 0; i < MAX_AXIS; i++) {
-    target_xung_nguyen[i] = pulse[i] + command_motor.motor[i]->currentPosition;
-    //Serial.println(target_xung_nguyen[i]);
+    target_pos[i] = pulse[i] + command_motor.motor[i]->currentPosition;
    }
-  //Serial.println("---------");
   if (command_motor.movingDone()){
-    //Serial.println("running"); 
-    command_motor.moving(target_xung_nguyen[0],target_xung_nguyen[1],target_xung_nguyen[2],target_xung_nguyen[3],0,0,_speed);
+      command_motor.moving(target_pos[0],target_pos[1],target_pos[2],
+                           target_pos[3],target_pos[4],target_pos[5],_speed);
   }
 }
 //================================================================
@@ -141,6 +145,43 @@ void stop_motor(void){
     //Serial.println("stop");
     command_motor.pauseMoving(1); // dừng động cơ, tắt timer
   }
+}
+//================================================================
+// Command bắt đầu/kết thúc chạy auto
+void change_state_run_auto(void){
+    STATE_RUN_AUTO = ~STATE_RUN_AUTO;
+    if (STATE_RUN_AUTO) { 
+      command_motor.re_init_params();
+      TIMER1_INTERRUPTS_ON; }
+}
+
+//================================================================
+// Lưu packets 20 điểm cần chạy. tay máy sẽ chạy từ điểm 1 tới 20 sau đó quay lại chạy điểm 1.
+// Nhờ vậy sẽ tối ưu thời gian chờ nhận giá trị từ máy tính để chạy điểm tiếp theo, để giảm hiện tượng motor bị giật
+// Lưu giá trị bao gồm xung và speed vào mảng 2 chiều packet_data[20][7] ở hàng thứ index
+// Chỉ được dùng trong chế độ auto
+void save_packet_data(int32_t *pulse, int16_t _speed){
+  static uint8_t index = 0;
+  if (index < MAX_POINT) {
+    // lưu giá trị xung
+    for (int i = 0; i < MAX_AXIS; i++){
+      packet_data[index][i] = pulse[i];
+    }
+    // lưu giá trị speed
+    packet_data[index][MAX_AXIS] = _speed;
+    index++; 
+    if (index == MAX_POINT || _speed < 0 ) { index = 0;}
+  }
+}
+//================================================================
+// Truy xuất giá trị xung và speed ở hàng thứ index của mảng 2 chiều đang lưu data của xung và speed
+// Nếu trong packet_data, giá trị speed = 0, là tín hiệu kết thúc chạy auto.
+int32_t *get_packet_data(uint8_t index){
+  static int32_t get_data[MAX_AXIS + 1];
+  for (int i = 0; i < MAX_AXIS + 1; i++) { 
+    get_data[i] = packet_data[index][i];
+  }
+  return get_data;
 }
 //================================================================
 //================================================================
@@ -192,8 +233,24 @@ ISR(TIMER1_COMPA_vect) {
       TCNT1 = 0;
       command_motor.execute_one_pulse();
   }
-  else {
-        TIMER1_INTERRUPTS_OFF;
+  // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
+  // kiểm tra chế độ auto mode để chạy tiếp hoặc cho tắt ngắt timer1
+  else { 
+        if (STATE_RUN_AUTO == true) { 
+          int32_t *_get_data; static uint8_t counter_line = 0; int32_t target[MAX_AXIS];
+
+          _get_data = get_packet_data(counter_line);
+          counter_line++; if (counter_line == MAX_POINT) {counter_line = 0;}
+          
+          for (int i = 0; i < MAX_AXIS; i++) { target[i] = _get_data[i] + command_motor.motor[i]->currentPosition;}
+          
+          if (_get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
+            STATE_RUN_AUTO = false; counter_line = 0; 
+            command_motor.moving(0,0,0,0,0,0,200); }
+         
+          else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],_get_data[6]);} 
+        }
+        else { TIMER1_INTERRUPTS_OFF;}
       }
 }
 //============================================================================================
@@ -205,6 +262,7 @@ void setup() {
   for (int i = 0; i < coilY_size; i++) { pinMode(coilY[i],OUTPUT); digitalWrite(coilY[i],LOW);}
   for (int i = 0; i < coilX_size; i++) { pinMode(coilX[i], INPUT_PULLUP); }
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
+  command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
   timer1_setting();
   Serial.println("Slave id2 Setup OK");
@@ -214,7 +272,7 @@ void setup() {
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
-  sensor_value = read_input_register();
+  input_value = read_input_register();
   output_value = read_output_register();
   /*
   //Serial.println(command_motor.motor[3]->currentPosition);
@@ -260,17 +318,18 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
   if (address < 0 || (address + length) > 32) { return STATUS_ILLEGAL_DATA_ADDRESS; }
 
   for (int i = 0; i < length; i++) {
-    read_data[i] = node_slave.readRegisterFromBuffer(i);
+    read_data[i] = node_slave.readRegisterFromBuffer(i); 
   }
   i32readdata = convert_32bit_data(read_data,length);
   switch (address) {
-    // Địa chỉ 0 nhận số xung cần chạy cho trục x,y,z,a
-    case PULSE_EXECUTE: for (int i = 0; i <  MAX_AXIS; i++){ xung_nguyen[i] = i32readdata[i];}  break;   
-    // Địa chỉ 10 nhận tốc độ cho trục x,y,z,a đơn vị % (0 - 200%)
-    case FREQ_EXECUTE:  speed = read_data[0];  break;
-    
+    // Địa chỉ 0 nhận số xung cần chạy cho trục x,y,z,a,b,c
+    case PULSE_EXECUTE: for (int i = 0; i <  MAX_AXIS; i++) { xung_nguyen[i] = i32readdata[i];} 
+                                                              speed = i32readdata[MAX_AXIS]; break;   
+    // Địa chỉ 10 nhận tốc độ cho trục x,y,z,a,b,c đơn vị % (0 - 200%)
+    //case FREQ_EXECUTE:  speed = read_data[0];  break;
     default: break;
   }
+
   return STATUS_OK;     
 }
 //============================================================================================
@@ -278,31 +337,20 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
 //============================================================================================
 uint8_t readMemory(uint8_t fc, uint16_t address, uint16_t length)
 {
-    uint16_t value[length]; 
+    uint16_t value[32]; uint8_t count; count = 0;
     if (address < 0 ||(address + length) > 32) { return STATUS_ILLEGAL_DATA_ADDRESS; }
     switch (address) {
-      case PWM_VALUE_X_AXIS_MODBUS_ADDR: 
-            value[0] = highWord(command_motor.motor[0]->currentPosition);
-            value[1] = lowWord(command_motor.motor[0]->currentPosition); 
-            break;
-      case PWM_VALUE_Y_AXIS_MODBUS_ADDR:
-            value[0] = highWord(command_motor.motor[1]->currentPosition);
-            value[1] = lowWord(command_motor.motor[1]->currentPosition); 
-            break;
-      case PWM_VALUE_Z_AXIS_MODBUS_ADDR:
-            value[0] = highWord(command_motor.motor[2]->currentPosition);
-            value[1] = lowWord(command_motor.motor[2]->currentPosition); 
-            break;
-      case PWM_VALUE_A_AXIS_MODBUS_ADDR:
-            value[0] = highWord(command_motor.motor[3]->currentPosition);
-            value[1] = lowWord(command_motor.motor[3]->currentPosition);
-            break;
+      case CURRENT_POSITION_MODBUS_ADDR: 
+            for (int i = 0; i < MAX_AXIS; i++) { 
+              value[count++] = highWord(command_motor.motor[i]->currentPosition);
+              value[count++] = lowWord(command_motor.motor[i]->currentPosition);
+            } break;
       case ROTARY_ENCODER_MODBUS_ADDR:
             value[0] = highWord(pulsecounter);
             value[1] = lowWord(pulsecounter);
             break;
       case INPUT_OUTPUT_VALUE_MODBUS_ADDR:
-            value[0] = sensor_value;
+            value[0] = input_value;
             value[1] = output_value;
             break;
     }
@@ -316,7 +364,6 @@ uint8_t readMemory(uint8_t fc, uint16_t address, uint16_t length)
 //============================================================================================
 uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
 {
-  uint16_t address_index = address;  uint8_t xxx;
   // Check if the requested addresses exist in the array
   if (address > coil_size || (address + length) > coil_size) { return STATUS_ILLEGAL_DATA_ADDRESS; }
   // Set the output pins to the given state.
@@ -326,15 +373,17 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         coil[address+i] = node_slave.readCoilFromBuffer(i);
         if (coil[address+i] == 1){
             switch (address + i) {
-              case SPRAY_ONOFF_MODBUS_ADDR:       break;
-              case POINT2POINT_MODBUS_ADDR:       execute_point_to_point(xung_nguyen,speed); break;
-              case PAUSE_MOTOR_MODBUS_ADDR:       pause_motor(); break;
-              case DISABLE_ROTARY_ENCODER_ADDR:   detach_rotary_encoder();  break;
-              case ENABLE_ROTARY_ENCODER_ADDR:    attach_rotary_encoder(); break;
-              case ENABLE_HOME_MOBUS_ADDR:        go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
-              case SET_ZERO_POSITION_ADDR:        set_zero_position(); break;    // set 0 tọa độ chương trình
-              case STOP_MOTOR_MODBUS_ADDR:        stop_motor(); break;
-              case RESUME_MOTOR_MODBUS_ADDR:      resume_motor(); break;
+              case SPRAY_ONOFF_MODBUS_ADDR:           break;
+              case POINT2POINT_MODBUS_ADDR:           execute_point_to_point(xung_nguyen,speed); break;
+              case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
+              case DISABLE_ROTARY_ENCODER_ADDR:       detach_rotary_encoder();  break;
+              case ENABLE_ROTARY_ENCODER_ADDR:        attach_rotary_encoder(); break;
+              case ENABLE_HOME_MOBUS_ADDR:            go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
+              case SET_ZERO_POSITION_ADDR:            set_zero_position(); break;    // set 0 tọa độ chương trình
+              case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
+              case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
+              case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;
+              case CHANGE_STATE_AUTO_RUN_MODBUS_ADDR: change_state_run_auto(); break;
               default: break;
           }
         } else {
