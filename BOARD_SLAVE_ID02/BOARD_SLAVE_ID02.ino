@@ -30,11 +30,12 @@ int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần c
 // pulseX0 pulseY0 pulseZ0 pulseA0 pulseB0 pulseC0 speed0
 // pulseX1 pulseY1 pulseZ1 pulseA1 pulseB1 pulseC1 speed1
 // ...
-int32_t packet_data[25][MAX_AXIS+1]; 
+static int32_t packet_data[25][MAX_AXIS+1]; 
 // Mảng 2 chiều (20 hàng, 5 cột) lưu packet xung 20 điểm, cột thứ 7 lưu giá trị tốc độ speed
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
 uint16_t input_value; uint16_t output_value;
+uint8_t static start_address = 0;
 //===============================================================================================================
 //===============================================================================================================
 // Read the rotary encoder
@@ -122,7 +123,9 @@ void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
 
   for (int i = 0; i < MAX_AXIS; i++) {
     target_pos[i] = pulse[i] + command_motor.motor[i]->currentPosition;
+    //Serial.println(pulse[i]);
    }
+    //Serial.println(_speed);
   if (command_motor.movingDone()){
       command_motor.moving(target_pos[0],target_pos[1],target_pos[2],
                            target_pos[3],target_pos[4],target_pos[5],_speed);
@@ -152,7 +155,7 @@ void change_state_run_auto(void){
     STATE_RUN_AUTO = ~STATE_RUN_AUTO;
     if (STATE_RUN_AUTO) { 
       command_motor.re_init_params();
-      TIMER1_INTERRUPTS_ON; }
+      TIMER1_INTERRUPTS_ON; start_address = 0;}
 }
 
 //================================================================
@@ -161,16 +164,18 @@ void change_state_run_auto(void){
 // Lưu giá trị bao gồm xung và speed vào mảng 2 chiều packet_data[20][7] ở hàng thứ index
 // Chỉ được dùng trong chế độ auto
 void save_packet_data(int32_t *pulse, int16_t _speed){
-  static uint8_t index = 0;
-  if (index < MAX_POINT) {
+ 
+  if (start_address < MAX_POINT) {
     // lưu giá trị xung
     for (int i = 0; i < MAX_AXIS; i++){
-      packet_data[index][i] = pulse[i];
+      packet_data[start_address][i] = pulse[i];
     }
     // lưu giá trị speed
-    packet_data[index][MAX_AXIS] = _speed;
-    index++; 
-    if (index == MAX_POINT || _speed < 0 ) { index = 0;}
+    packet_data[start_address][MAX_AXIS] = _speed;
+    //Serial.println(packet_data[start_address][MAX_AXIS]);
+
+    start_address++; 
+    if (start_address == MAX_POINT || _speed < 0 ) { start_address = 0;}
   }
 }
 //================================================================
@@ -237,20 +242,21 @@ ISR(TIMER1_COMPA_vect) {
   // kiểm tra chế độ auto mode để chạy tiếp hoặc cho tắt ngắt timer1
   else { 
         if (STATE_RUN_AUTO == true) { 
-          int32_t *_get_data; static uint8_t counter_line = 0; int32_t target[MAX_AXIS];
+          int32_t *get_data; static uint8_t counter_line = 0; int32_t target[MAX_AXIS];
 
-          _get_data = get_packet_data(counter_line);
+          get_data = get_packet_data(counter_line);
           counter_line++; if (counter_line == MAX_POINT) {counter_line = 0;}
           
-          for (int i = 0; i < MAX_AXIS; i++) { target[i] = _get_data[i] + command_motor.motor[i]->currentPosition;}
+          for (int i = 0; i < MAX_AXIS; i++) { target[i] = get_data[i] + command_motor.motor[i]->currentPosition;}
           
-          if (_get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
+          if (get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
             STATE_RUN_AUTO = false; counter_line = 0; 
+            Serial.println("END FILE - GO ZERO");
             command_motor.moving(0,0,0,0,0,0,200); }
          
-          else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],_get_data[6]);} 
+          else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],get_data[6]);} 
         }
-        else { TIMER1_INTERRUPTS_OFF;}
+        else { TIMER1_INTERRUPTS_OFF; }
       }
 }
 //============================================================================================

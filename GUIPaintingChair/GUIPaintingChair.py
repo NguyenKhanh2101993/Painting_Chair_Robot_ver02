@@ -59,7 +59,7 @@ class Home_position:
             Show_Screen.Speed_toolbar()
             Show_Screen.Text_box()
             Monitor_in_out.Monitor_input_output()
-            #Monitor_mode.Read_pulse_PWM_from_slaves()
+            Monitor_mode.Read_pulse_PWM_from_slaves()
             creat_threading() # bật chế độ monitor coil XY
 
         except Exception as e:
@@ -175,6 +175,7 @@ class Screen:
 
         self.string_content = StringVar()
         self._speed_value = StringVar()
+        
 #========================================================================
 # THANH CÔNG CỤ TÙY CHỌN 
     def Show_screen_options(self):
@@ -495,7 +496,8 @@ class Monitor_Input_Output():
 # 
     def monitor_coil_XY(self):
         while True:
-            Monitor_mode.Read_pulse_PWM_from_slaves()
+            #if Teach_mode.teach_state == False:
+            #    Monitor_mode.Read_pulse_PWM_from_slaves()
             self.sensor_value = self.read_coilXY()
             time.sleep(0.1)
 
@@ -778,7 +780,7 @@ class Monitor_Position_Class():
                 while True:
                     running = False
                     self.button_state = self.read_state_button()
-                    #self.Read_pulse_PWM_from_slaves()
+                    self.Read_pulse_PWM_from_slaves()
                     if (self.button_state > self.pre_button_state): # nhấn Z-
                         # tính động học
                         new_pos_A = self.pos_A - 2
@@ -807,7 +809,7 @@ class Monitor_Position_Class():
 
                     while running:
                         self.button_state = self.read_state_button()
-                        #self.Read_pulse_PWM_from_slaves()
+                        self.Read_pulse_PWM_from_slaves()
                         if self.button_state == self.pre_button_state:
                             Monitor_in_out.stop_motor()
                             running = False
@@ -820,67 +822,71 @@ class Monitor_Position_Class():
 #============================================================================
 # che do teach mode qua nut nhan
     def Monitor_pulse_in_teach_mode_02(self):
-        Teach_mode.teach_axis = Teach_mode.no_choise_axis
-        new_pos_X = self.pos_X; new_pos_Y = self.pos_Y; new_pos_A = self.pos_A
-        new_pos_B = self.pos_B; new_pos_C = self.pos_C
-        while True:
-            
-            self.pulse_teach_packet = [0,0,0,0,0,0]
-            state_runing = False
-            self.button_state = self.read_state_button()
-            #self.Read_pulse_PWM_from_slaves()
-            self.Kinematics_Zaxis_mode_02()
-             
-            # gửi command quay chiều thuận trục được chọn
-            if Teach_mode.teach_axis == Teach_mode.TEACH_X_AXIS:
-                if (self.button_state > self.pre_button_state):  new_pos_X = 0
-                if (self.button_state < self.pre_button_state):  new_pos_X = 1000
-                pulse_teach = int((new_pos_X - self.pos_X)/self.gear_ratio_X)
-                if self.pos_X < 0 or self.pos_X > 1000: self.button_state = self.pre_button_state
-    
-            if Teach_mode.teach_axis == Teach_mode.TEACH_Y_AXIS:
-                if (self.button_state > self.pre_button_state):  new_pos_Y = 0
-                if (self.button_state < self.pre_button_state):  new_pos_Y = 1000
-                pulse_teach = int((new_pos_Y - self.pos_Y)/self.gear_ratio_Y)
-                if self.pos_Y < 0 or self.pos_Y > 1000: self.button_state = self.pre_button_state
-
-            if Teach_mode.teach_axis == Teach_mode.TEACH_A_AXIS:
-                if (self.button_state > self.pre_button_state):  new_pos_A = 0
-                if (self.button_state < self.pre_button_state):  new_pos_A = 90
-                pulse_teach = int((new_pos_A - self.pos_A)/self.gear_ratio_A)
-                if self.pos_A < 0 or self.pos_A > 90: self.button_state = self.pre_button_state
-
-            if (Teach_mode.teach_axis == Teach_mode.TEACH_B_AXIS): 
-                if (self.button_state > self.pre_button_state):  new_pos_B = -90
-                if (self.button_state < self.pre_button_state):  new_pos_B = 90
-                pulse_teach = int((new_pos_B - self.pos_B)/self.gear_ratio_B)
-                if self.pos_B < -90 or self.pos_B > 90: self.button_state = self.pre_button_state
-
-            if (Teach_mode.teach_axis == Teach_mode.TEACH_C_AXIS):
-                if (self.button_state > self.pre_button_state):  new_pos_C = -360
-                if (self.button_state < self.pre_button_state):  new_pos_C = 360
-                pulse_teach = int((new_pos_C - self.pos_C)/self.gear_ratio_C)
-                if self.pos_C < -360 or self.pos_C > 360: self.button_state = self.pre_button_state
-
-            if self.button_state != self.pre_button_state:
-                self.pulse_teach_packet[Teach_mode.teach_axis] = pulse_teach   
-                Run.send_to_execute_board(self.pulse_teach_packet,0)
-                state_runing = True
-       
-            while state_runing:
-                # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                #self.Read_pulse_PWM_from_slaves()
+        try:
+            Teach_mode.teach_axis = Teach_mode.no_choise_axis
+            new_pos_X = self.pos_X; new_pos_Y = self.pos_Y; new_pos_A = self.pos_A
+            new_pos_B = self.pos_B; new_pos_C = self.pos_C
+            while True:
+                
+                self.pulse_teach_packet = [0,0,0,0,0,0]
+                state_runing = False
                 self.button_state = self.read_state_button()
-                if self.button_state == self.pre_button_state:
-                    Monitor_in_out.stop_motor()
-                    #time.sleep(0.2)
-                    state_runing = False
-                    break  # thoat khỏi vong lặp while
-            
-            if (self.monitor_off == True):
-                self.monitor_off = False
-                Teach_mode.teach_axis = Teach_mode.no_choise_axis
-                break
+                self.Read_pulse_PWM_from_slaves()
+                self.Kinematics_Zaxis_mode_02()
+                
+                # gửi command quay chiều thuận trục được chọn
+                if Teach_mode.teach_axis == Teach_mode.TEACH_X_AXIS:
+                    if (self.button_state > self.pre_button_state):  new_pos_X = 0
+                    if (self.button_state < self.pre_button_state):  new_pos_X = 1000
+                    pulse_teach = int((new_pos_X - self.pos_X)/self.gear_ratio_X)
+                    if self.pos_X < 0 or self.pos_X > 1000: self.button_state = self.pre_button_state
+        
+                if Teach_mode.teach_axis == Teach_mode.TEACH_Y_AXIS:
+                    if (self.button_state > self.pre_button_state):  new_pos_Y = 0
+                    if (self.button_state < self.pre_button_state):  new_pos_Y = 1000
+                    pulse_teach = int((new_pos_Y - self.pos_Y)/self.gear_ratio_Y)
+                    if self.pos_Y < 0 or self.pos_Y > 1000: self.button_state = self.pre_button_state
+
+                if Teach_mode.teach_axis == Teach_mode.TEACH_A_AXIS:
+                    if (self.button_state > self.pre_button_state):  new_pos_A = 0
+                    if (self.button_state < self.pre_button_state):  new_pos_A = 90
+                    pulse_teach = int((new_pos_A - self.pos_A)/self.gear_ratio_A)
+                    if self.pos_A < 0 or self.pos_A > 90: self.button_state = self.pre_button_state
+
+                if (Teach_mode.teach_axis == Teach_mode.TEACH_B_AXIS): 
+                    if (self.button_state > self.pre_button_state):  new_pos_B = -90
+                    if (self.button_state < self.pre_button_state):  new_pos_B = 90
+                    pulse_teach = int((new_pos_B - self.pos_B)/self.gear_ratio_B)
+                    if self.pos_B < -90 or self.pos_B > 90: self.button_state = self.pre_button_state
+
+                if (Teach_mode.teach_axis == Teach_mode.TEACH_C_AXIS):
+                    if (self.button_state > self.pre_button_state):  new_pos_C = -360
+                    if (self.button_state < self.pre_button_state):  new_pos_C = 360
+                    pulse_teach = int((new_pos_C - self.pos_C)/self.gear_ratio_C)
+                    if self.pos_C < -360 or self.pos_C > 360: self.button_state = self.pre_button_state
+
+                if self.button_state != self.pre_button_state:
+                    self.pulse_teach_packet[Teach_mode.teach_axis] = pulse_teach   
+                    Run.send_to_execute_board(self.pulse_teach_packet,0)
+                    state_runing = True
+        
+                while state_runing:
+                    # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
+                    self.Read_pulse_PWM_from_slaves()
+                    self.button_state = self.read_state_button()
+                    if self.button_state == self.pre_button_state:
+                        Monitor_in_out.stop_motor()
+                        #time.sleep(0.2)
+                        state_runing = False
+                        break  # thoat khỏi vong lặp while
+                
+                if (self.monitor_off == True):
+                    self.monitor_off = False
+                    Teach_mode.teach_axis = Teach_mode.no_choise_axis
+                    break
+        except Exception as e:
+            print(str(3))
+            return
 
 # phát lệnh cho các động cơ chạy về điểm zero: điểm gốc máy so với vị trí hiện tại của tay máy
     def Go_to_zero_position(self):
@@ -892,7 +898,7 @@ class Monitor_Position_Class():
             # Đọc trạng thái phát xung đã hoàn tất chưa
             Go_to_Home_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
             # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-            # self.Read_pulse_PWM_from_slaves()
+            self.Read_pulse_PWM_from_slaves()
             if (Go_to_Home_done_slave_02[0] == 1):
                 self.go_home_state = False
                 break  # thoat khỏi vong lặp while
@@ -929,7 +935,7 @@ class Monitor_Position_Class():
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                 
                 Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-                #self.Read_pulse_PWM_from_slaves()
+                self.Read_pulse_PWM_from_slaves()
 
                 if (Go_to_machine_axis_done_slave_02[0]==1):
                 #if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
@@ -1389,15 +1395,15 @@ class Run_auto():
             end_file_symbol = False
             counter_executed_line = 0
             total_sent_point = self.MAX_POINT
-            new_pos = Work_file._file.tell()   # trả về vị trí hiện tại của con trỏ file
-            print("Vi tri con tro file la: ", new_pos)
+            #new_pos = Work_file._file.tell()   # trả về vị trí hiện tại của con trỏ file
+            #print("Vi tri con tro file la: ", new_pos)
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_AUTO_RUN_MODBUS_ADDR, output_value = CHOOSE)
         
         while sent_point_done:
             self.monitor_run_auto_next(counter_executed_line)
             counter_executed_line += 1    
 
-            if counter_executed_line == total_sent_point +1:  # Chạy đủ số điểm đã gửi
+            if counter_executed_line == total_sent_point:  # Chạy đủ số điểm đã gửi
                 sent_point_done = False
                 break
 
@@ -1405,7 +1411,7 @@ class Run_auto():
           
                 # tiếp tục đọc file ở vị trí tiếp theo 
                 # for str_content in Work_file._file: 
-                while new_pos != 0:
+                while True:
                     str_content = Work_file._file.readline()
                     print ('========================================================================')
                     content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
@@ -1496,6 +1502,7 @@ class Run_auto():
 
         if 0 < sent_point < self.MAX_POINT:  # kiểm tra trường hợp 2
             # cho chạy auto 
+            print("Chay auto case: 0 < sent_point < self.MAX_POINT: ",sent_point)
             self.send_end_auto_mode()
             self.monitor_run_auto_begin(sent_point)
 
@@ -1510,13 +1517,14 @@ class Run_auto():
         
         # cho chạy điểm thứ nhất
         while True:
+            #Monitor_mode.Read_pulse_PWM_from_slaves()
             point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
             
             if point_done_slave_02[0] == 1: 
                 self.Monitor_str_content(self.read_line[counter_executed_line])  # hiện thị từng dòng trong file
                 counter_executed_line += 1
 
-            if counter_executed_line == index + 1: 
+            if counter_executed_line == index: 
                 break
 
             if self.pause_on == 1: # dừng motor
@@ -1531,6 +1539,7 @@ class Run_auto():
         self.pause_on = 0
 
         while True:
+            #Monitor_mode.Read_pulse_PWM_from_slaves()
             point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
             
             if point_done_slave_02[0] == 1: 
@@ -1546,8 +1555,19 @@ class Run_auto():
      
 #=============================================================
     def send_end_auto_mode(self):
-        send_to_slave_id2 = [0,0,0,0,0,0,-1]
+        send_to_slave_id2 = []
+        pulse_end = [0,0,0,0,0,0]
+        speed_end = -1
+
+        # lưu giá trị xung để truyền đi
+        for i in range(AXIS_RUN):
+            send_to_slave_id2.append(pulse_end[i] >> 16)
+            send_to_slave_id2.append(pulse_end[i] & 65535)
+        # lưu giá trị tốc độ truyền đi
+        send_to_slave_id2.append(speed_end >> 16)
+        send_to_slave_id2.append(speed_end & 65535)
         master.execute(SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_to_slave_id2)
+
         self.save_to_packet_data()
 
 #=============================================================
@@ -1710,6 +1730,7 @@ class Run_auto():
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         self.run_auto_mode = False
         self.read_line = []
+        self.counter = 0
         Show_Screen.enable_button_control(0)
 
 # Hiện thị từng dòng đang chạy trong file lên label
