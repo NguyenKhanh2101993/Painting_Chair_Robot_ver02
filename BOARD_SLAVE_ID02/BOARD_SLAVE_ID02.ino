@@ -5,7 +5,9 @@
 //================================================================
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
-#define MAX_POINT                   20   // Số điểm tối đa sẽ quét khi chạy auto
+// Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
+// Sẽ lưu các điểm đó vào bộ nhớ tạm packet_data để chạy.
+#define MAX_POINT_IN_BLOCK          150   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
 //================================================================
 Motor Motor_X; //(setDir_X, onePulse_X);
@@ -19,7 +21,7 @@ World command_motor(&Motor_X);
 //================================================================
 String userInput ="";
 bool coil[128]; uint8_t coil_size = sizeof(coil) / sizeof(coil[0]); // Khai bao số lượng coil dùng cho write single coil
-bool STATE_RUN_AUTO = false;
+
 uint8_t coilY[] = {Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Y11, Y12, Y13, Y14, Y15, Y16};
 uint8_t coilX[] = {X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16};
 uint8_t coilY_size = sizeof(coilY)/sizeof(coilY[0]);
@@ -30,8 +32,10 @@ int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần c
 // pulseX0 pulseY0 pulseZ0 pulseA0 pulseB0 pulseC0 speed0
 // pulseX1 pulseY1 pulseZ1 pulseA1 pulseB1 pulseC1 speed1
 // ...
-static int32_t packet_data[25][MAX_AXIS+1]; 
+static int32_t packet_data[MAX_POINT_IN_BLOCK][MAX_AXIS+1]; 
 // Mảng 2 chiều (20 hàng, 5 cột) lưu packet xung 20 điểm, cột thứ 7 lưu giá trị tốc độ speed
+bool STATE_RUN_BLOCK = false; // chế độ chạy theo block có N điểm đã lưu sẵn
+bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
 uint16_t input_value; uint16_t output_value;
@@ -117,15 +121,13 @@ void go_to_2_position(void) {
   }
 }
 //================================================================
-// Run main point to point, speed giá trị từ 0 - 200
+// Run main point to point, speed giá trị từ 0 - 200, lệnh chạy point to point 
 void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
   static int32_t target_pos[MAX_AXIS]; // Lưu vị trí cần chạy tới theo đơn vị xung
-
+  STATE_RUN_BLOCK == false;
   for (int i = 0; i < MAX_AXIS; i++) {
     target_pos[i] = pulse[i] + command_motor.motor[i]->currentPosition;
-    //Serial.println(pulse[i]);
    }
-    //Serial.println(_speed);
   if (command_motor.movingDone()){
       command_motor.moving(target_pos[0],target_pos[1],target_pos[2],
                            target_pos[3],target_pos[4],target_pos[5],_speed);
@@ -150,12 +152,14 @@ void stop_motor(void){
   }
 }
 //================================================================
-// Command bắt đầu/kết thúc chạy auto
-void change_state_run_auto(void){
-    STATE_RUN_AUTO = ~STATE_RUN_AUTO;
-    if (STATE_RUN_AUTO) { 
+// Command bắt đầu chạy một block N điểm đã lưu trong packet data
+void change_state_run_block(void){
+    STATE_RUN_BLOCK = ~STATE_RUN_BLOCK;
+    if (STATE_RUN_BLOCK) { 
       command_motor.re_init_params();
       TIMER1_INTERRUPTS_ON; start_address = 0;}
+    else { blockmovingDone == false; start_address = 0; }
+    Serial.println(STATE_RUN_BLOCK);
 }
 
 //================================================================
@@ -165,7 +169,7 @@ void change_state_run_auto(void){
 // Chỉ được dùng trong chế độ auto
 void save_packet_data(int32_t *pulse, int16_t _speed){
  
-  if (start_address < MAX_POINT) {
+  if (start_address < MAX_POINT_IN_BLOCK) {
     // lưu giá trị xung
     for (int i = 0; i < MAX_AXIS; i++){
       packet_data[start_address][i] = pulse[i];
@@ -175,7 +179,7 @@ void save_packet_data(int32_t *pulse, int16_t _speed){
     //Serial.println(packet_data[start_address][MAX_AXIS]);
 
     start_address++; 
-    if (start_address == MAX_POINT || _speed < 0 ) { start_address = 0;}
+    if (start_address == MAX_POINT_IN_BLOCK || _speed < 0 ) { start_address = 0;}
   }
 }
 //================================================================
@@ -241,18 +245,18 @@ ISR(TIMER1_COMPA_vect) {
   // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
   // kiểm tra chế độ auto mode để chạy tiếp hoặc cho tắt ngắt timer1
   else { 
-        if (STATE_RUN_AUTO == true) { 
+        if (STATE_RUN_BLOCK == true) { 
           int32_t *get_data; static uint8_t counter_line = 0; int32_t target[MAX_AXIS];
 
           get_data = get_packet_data(counter_line);
-          counter_line++; if (counter_line == MAX_POINT) {counter_line = 0;}
+          counter_line++; if (counter_line == MAX_POINT_IN_BLOCK) {counter_line = 0;}
           
           for (int i = 0; i < MAX_AXIS; i++) { target[i] = get_data[i] + command_motor.motor[i]->currentPosition;}
           
           if (get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
-            STATE_RUN_AUTO = false; counter_line = 0; 
-            Serial.println("END FILE - GO ZERO");
-            command_motor.moving(0,0,0,0,0,0,200); }
+            blockmovingDone = true; counter_line = 0; TIMER1_INTERRUPTS_OFF;
+            Serial.println("END RUN BLOCK MODE");
+          }
          
           else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],get_data[6]);} 
         }
@@ -389,7 +393,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
               case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
               case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;
-              case CHANGE_STATE_AUTO_RUN_MODBUS_ADDR: change_state_run_auto(); break;
+              case CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR: change_state_run_block(); break;
               default: break;
           }
         } else {
@@ -416,7 +420,8 @@ uint8_t readDigital(uint8_t fc, uint16_t address, uint16_t length)
     if (address +i < COIL_Y1_FIRST_MODBUS_ADDR){
       switch (address+i) {
         case EXECUTE_PULSE_DONE:
-              state_home = command_motor.movingDone();
+              if (STATE_RUN_BLOCK == true) {state_home = blockmovingDone;}
+              else {state_home = command_motor.movingDone();}
               node_slave.writeCoilToBuffer(i,state_home);
               break;
         //default: break;

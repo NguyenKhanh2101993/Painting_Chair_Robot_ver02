@@ -1370,7 +1370,7 @@ class Run_auto():
         self.PAUSE_MOTOR_MODBUS_ADDR = 8
         self.RESUME_MOTOR_MODBUS_ADDR = 9
         self.SAVE_PACKET_DATA_MODBUS_ADDR = 10
-        self.CHANGE_STATE_AUTO_RUN_MODBUS_ADDR = 11
+        self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR = 11
 
         self.sum_xung_le = [0,0,0,0,0,0]
         self.pause_on = 0
@@ -1382,80 +1382,13 @@ class Run_auto():
         self.old_Fspeed = 0; self.new_Fspeed = 0
         self.run_auto_mode = False
         self.counter = 0
-        self.read_line = []
-        self.MAX_POINT = 20
+    
+        self.MAX_POINT_IN_BLOCK = 140
         self.end_symbol = 'M30\n'
+        self.start_run_block = 'G05.0\n'
+        self.end_run_block = 'G05.1\n'
 #=============================================================
     def activate_run_mode(self):
-        result_sent_point = self.send_20_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:20]
-        sent_point_done = False
-
-        if result_sent_point == self.MAX_POINT: # nếu gửi đủ 20 point tới board slave
-            sent_point_done = True
-            end_file_symbol = False
-            counter_executed_line = 0
-            total_sent_point = self.MAX_POINT
-            #new_pos = Work_file._file.tell()   # trả về vị trí hiện tại của con trỏ file
-            #print("Vi tri con tro file la: ", new_pos)
-            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_AUTO_RUN_MODBUS_ADDR, output_value = CHOOSE)
-        
-        while sent_point_done:
-            self.monitor_run_auto_next(counter_executed_line)
-            counter_executed_line += 1    
-
-            if counter_executed_line == total_sent_point:  # Chạy đủ số điểm đã gửi
-                sent_point_done = False
-                break
-
-            if end_file_symbol == False:
-          
-                # tiếp tục đọc file ở vị trí tiếp theo 
-                # for str_content in Work_file._file: 
-                while True:
-                    str_content = Work_file._file.readline()
-                    print ('========================================================================')
-                    content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
-                    print(content_line)
-                    content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
-                    Recognize_stringArr = self.Recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
-                    if Recognize_stringArr == True or content_line == self.end_symbol:
-                        break
-                
-                if Recognize_stringArr == True:
-    
-                    self.read_line.pop(counter_executed_line - 1)   # xóa phần tử thứ counter_executed_line - 1
-                    self.read_line.insert(counter_executed_line - 1, content_line) # chèn content_line
-                
-                    # tách số của các trục
-                    result_string = self.separate_string(content_line)
-                    # tính toán khoảng cách cần tịnh tiến
-                    result_delta = self.calculate_delta(result_string)
-                    # tính toán số xung tịnh tiến
-                    result_xung_nguyen = self.calculate_pulse(result_delta)
-                    # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
-                    self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
-                    # lệnh lưu result_xung_nguyen vào bộ nhớ tạm của board slave
-                    total_sent_point = self.save_to_packet_data()
-                    #break  # thoát khỏi vòng lặp for
-            
-                if content_line == self.end_symbol:
-                    print("Read file done")
-                    self.send_end_auto_mode()
-                    end_file_symbol = True
-                    #break
-
-        print ('========================================================================')
-        self.re_init()
-        print("--------------------------------------------------------------------------")
-        print("END")
-
-#=============================================================
-# gui 20 packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
-    def send_20_packet_to_slave(self):
-        sent_20_point_done = False
-        sent_point = 0
-        self.read_line = []
-
         try:
             position = Work_file._file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
             Show_Screen.disable_screen_option()
@@ -1466,12 +1399,24 @@ class Run_auto():
                 print ('========================================================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
                 print(content_line)
-                content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
+                content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
+                self.Monitor_str_content(str_content)  # hiện thị từng dòng trong file
                 Recognize_stringArr = self.Recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
 
+                if content_line == self.start_run_block:
+                    result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
+                    if result_run_block == False: 
+                        print("G05.1 Error !!!")
+                        break
+                    else: 
+                        # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
+                        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = CHOOSE)
+                        self.counter = 0
+
+                if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                    break
+
                 if Recognize_stringArr == True:
-                    # lưu vào list 
-                    self.read_line.append(content_line) 
                     # tách số của các trục
                     result_string = self.separate_string(content_line)
                     # tính toán khoảng cách cần tịnh tiến
@@ -1480,51 +1425,79 @@ class Run_auto():
                     result_xung_nguyen = self.calculate_pulse(result_delta)
                     # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
                     self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
-                    # lệnh lưu result_xung_nguyen vào bộ nhớ tạm của board slave
-                    sent_point = self.save_to_packet_data()
-
-                    if sent_point == self.MAX_POINT:  # nếu đã lưu đủ 20 điểm thì thoát khỏi hàm send 20 packet data
-                        sent_20_point_done = True
-
-                if sent_20_point_done == True or content_line == self.end_symbol:
-                    break
-                    # thoát khỏi vòng lặp for
+                    self.command_run_point2point()  # phát lệnh chạy mode point to point bình thường
+                    self.monitor_run_auto_next()    # giám sát chạy lệnh point to point 
 
         except Exception as e:
                 print('activate_run_mode error: ',str(e))
                 messagebox.showinfo("Run Auto", "Error: ",str(e))
                 return
 
-        # nếu không gửi đủ 20 mà đã kết thúc file: sẽ có 2 trường hợp:
-        # 1: file rỗng hoặc file không đúng cú pháp, return sent_point = 0
-        # 2: file có giá trị đúng cú pháp nhưng không đủ 20 điểm
-        # ==> chắc chắn là đã kết thúc đọc file     
-
-        if 0 < sent_point < self.MAX_POINT:  # kiểm tra trường hợp 2
-            # cho chạy auto 
-            print("Chay auto case: 0 < sent_point < self.MAX_POINT: ",sent_point)
-            self.send_end_auto_mode()
-            self.monitor_run_auto_begin(sent_point)
-
-        return sent_point
+        finally:
+            print ('========================================================================')
+            Monitor_mode.Go_to_zero_position()
+            self.re_init()
+            print("--------------------------------------------------------------------------")
+            print("END")
 
 #=============================================================
-# chay index điểm, giả sử index = 19
-    def monitor_run_auto_begin(self, index):
-        self.pause_on = 0
-        counter_executed_line = 0
-        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_AUTO_RUN_MODBUS_ADDR, output_value = CHOOSE)
-        
-        # cho chạy điểm thứ nhất
-        while True:
-            #Monitor_mode.Read_pulse_PWM_from_slaves()
-            point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
-            
-            if point_done_slave_02[0] == 1: 
-                self.Monitor_str_content(self.read_line[counter_executed_line])  # hiện thị từng dòng trong file
-                counter_executed_line += 1
+# gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
+    def send_packet_to_slave(self):
+        sent_packet_done = False
+        sent_point = 0
+        target_line = ' '
+        run_block = False
 
-            if counter_executed_line == index: 
+        for str_content in Work_file._file:
+            print ('========================================================================')
+            content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
+            print(content_line)
+            content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
+            Recognize_stringArr = self.Recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
+
+            if Recognize_stringArr == True:
+                target_line = content_line
+                # tách số của các trục
+                result_string = self.separate_string(content_line)
+                # tính toán khoảng cách cần tịnh tiến
+                result_delta = self.calculate_delta(result_string)
+                # tính toán số xung tịnh tiến
+                result_xung_nguyen = self.calculate_pulse(result_delta)
+                # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
+                self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
+                # lệnh lưu result_xung_nguyen vào bộ nhớ tạm của board slave
+                sent_point = self.save_to_packet_data()
+
+                if sent_point == self.MAX_POINT_IN_BLOCK:  # nếu đã lưu đủ 140 điểm (bên slave có bộ nhớ 150 điểm)
+                    sent_packet_done = True
+
+            if content_line == self.end_run_block or sent_packet_done == True:    
+                self.Monitor_str_content(target_line)  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
+
+                if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
+                    # cho chạy auto 
+                    print("Chay auto case: 0 < sent_point < self.MAX_POINT_IN_BLOCK: ",sent_point)
+                    self.send_end_run_block_mode()
+                    self.monitor_run_block_begin()
+                    run_block = self.run_block_done
+                break
+                # thoát khỏi vòng lặp for 
+
+        return run_block
+
+#=============================================================
+# chay block point đã gửi tới board slave
+    def monitor_run_block_begin(self):
+        self.run_block_done = False
+        self.pause_on = 0
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = CHOOSE)
+        
+        while True:
+            point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
+            Monitor_mode.Read_pulse_PWM_from_slaves()
+
+            if point_done_slave_02[0] == 1: # slave đã chạy xong hết block
+                self.run_block_done = True
                 break
 
             if self.pause_on == 1: # dừng motor
@@ -1535,15 +1508,14 @@ class Run_auto():
                 self.pause_on = 0
 
 #=============================================================
-    def monitor_run_auto_next(self, index):
+    def monitor_run_auto_next(self):
         self.pause_on = 0
 
         while True:
-            #Monitor_mode.Read_pulse_PWM_from_slaves()
             point_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, Monitor_mode.EXECUTE_PULSE_DONE, 1)
-            
+            Monitor_mode.Read_pulse_PWM_from_slaves()
+
             if point_done_slave_02[0] == 1: 
-                self.Monitor_str_content(self.read_line[index])  # hiện thị từng dòng trong file
                 break
 
             if self.pause_on == 1: # dừng motor
@@ -1554,7 +1526,8 @@ class Run_auto():
                 self.pause_on = 0
      
 #=============================================================
-    def send_end_auto_mode(self):
+# gửi mã thoát khỏi chế độ run block point tới board slave
+    def send_end_run_block_mode(self):
         send_to_slave_id2 = []
         pulse_end = [0,0,0,0,0,0]
         speed_end = -1
@@ -1649,34 +1622,19 @@ class Run_auto():
         print("------------------------------------")
         return xung_nguyen
 
-# tính vị trí mục tiêu cần chạy tới dựa trên khoảng cách theo đơn vị xung giữa các điểm
-    def calculate_target_pulse(self, delta_pulse):
-        target_pulse = []
-        for i in range(len(delta_pulse)):
-            target_pulse.append(Monitor_mode.current_pulse[i] + delta_pulse[i])
-        print("target pulse: ", target_pulse)
-        return target_pulse
-
-    def calculate_remain_pulse(self, target_pulse):
-        remain_pulse = []
-        for i in range(len(target_pulse)):
-            remain_pulse.append(target_pulse[i] - Monitor_mode.current_pulse[i])
-        #print("remain_pulse: ", remain_pulse)
-        return remain_pulse
-
 #-------------------------------------------------------
 # truyền giá trị xung và tốc độ x,y,z,a,b,c tới board execute; giá trị 32 bit
     def send_to_execute_board(self, pulse, _speed):
         send_to_slave_id2 = [] # gói giá trị 16 bit
 
-# tính tốc độ của trục x,y,z,a,b,c
+        # tính tốc độ của trục x,y,z,a,b,c
         if _speed <= 30:
             speed_slaves = Monitor_mode.Call_speed()
         else: speed_slaves = _speed
 
         print("toc do chay dong co: ",int(speed_slaves),"%")
         print("gia tri packet xung pulse: ",pulse) 
-# tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
+            # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
         for i in range(AXIS_RUN):
@@ -1688,7 +1646,7 @@ class Run_auto():
 
         # gửi số xung x,y,z,a,b,c,speed cần chạy tới board slave id 2, gửi 14 word, bắt đầu từ địa chỉ 0
         master.execute(SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_to_slave_id2)
-# gửi command bật/tắt súng sơn
+        # gửi command bật/tắt súng sơn
         """""
         if self.new_state_spray != 0 or self.new_state_spray != 1:
             self.new_state_spray == 0
@@ -1697,7 +1655,7 @@ class Run_auto():
             self.state_spray = self.new_state_spray
         """
         if self.run_auto_mode == False:
-# phát command tới board slave chạy đến điểm đã gửi
+        # phát command tới board slave chạy đến điểm đã gửi
             self.command_run_point2point()
 #-------------------------------------------------------
     def command_run_point2point(self):
@@ -1729,7 +1687,6 @@ class Run_auto():
         self.pause_on = 0
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         self.run_auto_mode = False
-        self.read_line = []
         self.counter = 0
         Show_Screen.enable_button_control(0)
 
