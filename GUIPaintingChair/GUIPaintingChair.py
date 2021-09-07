@@ -265,8 +265,8 @@ class Screen:
         bg_frame3.pack(side = LEFT)
 
         Label(Frame3,text = 'AXIS',fg ='white', bg = '#333333', justify = LEFT, font = ("Arial",11,"bold")).place(x=30, y=3)
-        Label(Frame3,text = 'MACHINE',fg ='white', bg = '#333333', justify = LEFT, font = ("Arial",11,"bold")).place(x=100, y=3)
-        Label(Frame3,text = 'G54 WORK',fg ='white', bg = '#333333', justify = LEFT, font = ("Arial",11,"bold")).place(x=200, y=3)             
+        Label(Frame3,text = 'G54 WORK',fg ='white', bg = '#333333', justify = LEFT, font = ("Arial",11,"bold")).place(x=100, y=3)
+        Label(Frame3,text = 'MACHINE',fg ='white', bg = '#333333', justify = LEFT, font = ("Arial",11,"bold")).place(x=200, y=3)             
         # biến lưu tọa độ so với gốc máy
         machine_axis_value = [Monitor_mode.var1,Monitor_mode.var2,Monitor_mode.var3,
                                    Monitor_mode.var4,Monitor_mode.var5,Monitor_mode.var6]
@@ -345,7 +345,7 @@ class Screen:
 #======================================================================== 
 #, text="TỐC ĐỘ SƠN (%)")
     def Speed_toolbar(self):
-        Frame13 = LabelFrame(root)
+        Frame13 = LabelFrame(root ,text = 'SPEED',font = ("Arial",11,"bold"))
         Frame13.place(x = 10, y = 650)
 
         self.speed_scale = Scale( Frame13, variable = (self.speed_value), from_ = 30, to = 200, orient = HORIZONTAL,  bg = '#888888',
@@ -1317,6 +1317,8 @@ class Teach_mode_class():
         Monitor_mode.offset_a_axis = Monitor_mode.pos_A
         Monitor_mode.offset_b_axis = Monitor_mode.pos_B
         Monitor_mode.offset_c_axis = Monitor_mode.pos_C
+
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, Monitor_mode.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
 
         # lưu vị trí set 0 
 #========================================================================  
