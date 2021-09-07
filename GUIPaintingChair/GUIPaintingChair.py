@@ -1387,6 +1387,7 @@ class Run_auto():
         self.end_symbol = 'M30\n'
         self.start_run_block = 'G05.0\n'
         self.end_run_block = 'G05.1\n'
+        self.run_block_done = False
 #=============================================================
     def activate_run_mode(self):
         try:
@@ -1404,16 +1405,19 @@ class Run_auto():
                 Recognize_stringArr = self.Recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
 
                 if content_line == self.start_run_block:
+                    print("=====> G05.0 START BLOCK RUN MODE")
                     result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
                     if result_run_block == False: 
-                        print("G05.1 Error !!!")
+                        print("=====> G05.1 Error !!!")
                         break
                     else: 
                         # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
+                        print("BLOCK RUN MODE DONE")
                         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = CHOOSE)
                         self.counter = 0
 
                 if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                    
                     break
 
                 if Recognize_stringArr == True:
@@ -1430,8 +1434,7 @@ class Run_auto():
 
         except Exception as e:
                 print('activate_run_mode error: ',str(e))
-                messagebox.showinfo("Run Auto", "Error: ",str(e))
-                return
+                messagebox.showinfo("Run Auto", "Error: ")
 
         finally:
             print ('========================================================================')
@@ -1472,11 +1475,12 @@ class Run_auto():
                     sent_packet_done = True
 
             if content_line == self.end_run_block or sent_packet_done == True:    
+                print("=====> G05.1 END BLOCK RUN MODE")
                 self.Monitor_str_content(target_line)  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
                 if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
                     # cho chạy auto 
-                    print("Chay auto case: 0 < sent_point < self.MAX_POINT_IN_BLOCK: ",sent_point)
+                    print("=====> START BLOCK RUN MODE - POINT NUMBER: ",sent_point)
                     self.send_end_run_block_mode()
                     self.monitor_run_block_begin()
                     run_block = self.run_block_done
@@ -1687,6 +1691,7 @@ class Run_auto():
         self.pause_on = 0
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         self.run_auto_mode = False
+        self.run_block_done = False
         self.counter = 0
         Show_Screen.enable_button_control(0)
 

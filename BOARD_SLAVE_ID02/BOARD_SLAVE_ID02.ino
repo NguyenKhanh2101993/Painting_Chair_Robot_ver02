@@ -35,7 +35,7 @@ int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần c
 static int32_t packet_data[MAX_POINT_IN_BLOCK][MAX_AXIS+1]; 
 // Mảng 2 chiều (20 hàng, 5 cột) lưu packet xung 20 điểm, cột thứ 7 lưu giá trị tốc độ speed
 bool STATE_RUN_BLOCK = false; // chế độ chạy theo block có N điểm đã lưu sẵn
-bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
+static bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
 uint16_t input_value; uint16_t output_value;
@@ -124,13 +124,14 @@ void go_to_2_position(void) {
 // Run main point to point, speed giá trị từ 0 - 200, lệnh chạy point to point 
 void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
   static int32_t target_pos[MAX_AXIS]; // Lưu vị trí cần chạy tới theo đơn vị xung
-  STATE_RUN_BLOCK == false;
-  for (int i = 0; i < MAX_AXIS; i++) {
-    target_pos[i] = pulse[i] + command_motor.motor[i]->currentPosition;
-   }
-  if (command_motor.movingDone()){
-      command_motor.moving(target_pos[0],target_pos[1],target_pos[2],
-                           target_pos[3],target_pos[4],target_pos[5],_speed);
+  if (!STATE_RUN_BLOCK) {
+    for (int i = 0; i < MAX_AXIS; i++) {
+      target_pos[i] = pulse[i] + command_motor.motor[i]->currentPosition;
+    }
+    if (command_motor.movingDone()){
+        command_motor.moving(target_pos[0],target_pos[1],target_pos[2],
+                            target_pos[3],target_pos[4],target_pos[5],_speed);
+    }
   }
 }
 //================================================================
@@ -154,12 +155,11 @@ void stop_motor(void){
 //================================================================
 // Command bắt đầu chạy một block N điểm đã lưu trong packet data
 void change_state_run_block(void){
-    STATE_RUN_BLOCK = ~STATE_RUN_BLOCK;
+    STATE_RUN_BLOCK = !STATE_RUN_BLOCK; //Serial.println(STATE_RUN_BLOCK);
     if (STATE_RUN_BLOCK) { 
       command_motor.re_init_params();
       TIMER1_INTERRUPTS_ON; start_address = 0;}
-    else { blockmovingDone == false; start_address = 0; }
-    Serial.println(STATE_RUN_BLOCK);
+    else { blockmovingDone = false; start_address = 0; }
 }
 
 //================================================================
@@ -255,7 +255,7 @@ ISR(TIMER1_COMPA_vect) {
           
           if (get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
             blockmovingDone = true; counter_line = 0; TIMER1_INTERRUPTS_OFF;
-            Serial.println("END RUN BLOCK MODE");
+            //Serial.println("END RUN BLOCK MODE");
           }
          
           else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],get_data[6]);} 
@@ -413,7 +413,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
 // Handle the function codes Read Input Status (FC=01/02) and write back the values from the digital pins (input status).
 uint8_t readDigital(uint8_t fc, uint16_t address, uint16_t length)
 {
-  static bool state_home; state_home = false;
+  bool state_home; state_home = false;
   // Check if the requested addresses exist in the array
   if (address > coil_size || (address + length) > coil_size) { return STATUS_ILLEGAL_DATA_ADDRESS; }
   for (int i = 0; i < length; i++) {
