@@ -421,6 +421,7 @@ class Monitor_Input_Output():
     def __init__(self):
         self.toggle_coilY_state = 0
         self.coilY_packet = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        self.send_coilY_value = 0
         self.coilY = []
         self.coilX = []
         self.sensor_value = []
@@ -432,6 +433,8 @@ class Monitor_Input_Output():
         self.COIL_Y1_FIRST_MODBUS_ADDR = 32
         self.COIL_X1_FIRST_MODBUS_ADDR = 64
         self.STOP_MOTOR_MODBUS_ADDR = 1
+        self.CHANGE_STATE_COIL_Y_MODBUS_ADDR = 12
+        self.WRITE_YCOIL = 24
         self.button_active = 0
         self.forward = 1
         self.reverse = -1
@@ -453,7 +456,7 @@ class Monitor_Input_Output():
        
         # tạo label,radio button cho output Y
         for i in range(len(self.coilY_name)):
-            self.radio_button.append(Radiobutton(Frame17, variable=self.var, value= i+1, state = DISABLED,
+            self.radio_button.append(Radiobutton(Frame17, variable=self.var, value= i, state = DISABLED,
                                      bg = '#333333', activebackground = '#333333', command = self.toggle_coilY))
             self.radio_button[i].place(x = 320, y = (50 + 20*i))
             self.coilY.append(Label(Frame17,text = self.coilY_name[i],fg = 'white', bg = 'gray', width=5, relief = 'solid',font = ("Arial",10,"bold")))
@@ -462,6 +465,7 @@ class Monitor_Input_Output():
         for i in range(len(self.coilX_name)):
             self.coilX.append(Label(Frame17, text = self.coilX_name[i],fg ='white', bg = 'gray', width=5, relief = 'solid',font = ("Arial",10,"bold")))
             self.coilX[i].place(x = 442, y = (50 + 20*i))
+
         self.manual_mode()
 
 # Lệnh bật output Y và giám sát trạng thái đóng mở của Y
@@ -469,12 +473,14 @@ class Monitor_Input_Output():
         self.toggle_coilY_state += 1
         if self.toggle_coilY_state == 1:
             for i in range(len(self.coilY_name)):
-                if self.var.get() == str(i+1): self.coilY_packet[i] = 1
+                if self.var.get() == str(i): self.coilY_packet[i] = 1; self.send_coilY_value |= (1 << i)
         if self.toggle_coilY_state == 2:
             for i in range(len(self.coilY_name)):
-                if self.var.get() == str(i+1): self.coilY_packet[i] = 0
+                if self.var.get() == str(i): self.coilY_packet[i] = 0; self.send_coilY_value &= ~(1 << i)
             self.toggle_coilY_state = 0
-        master.execute(SLAVE_02, cst.WRITE_MULTIPLE_COILS, self.COIL_Y1_FIRST_MODBUS_ADDR, output_value=self.coilY_packet)
+        
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_REGISTER, self.WRITE_YCOIL, output_value = self.send_coilY_value) # gửi giá trị coilY xuống slave
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_COIL_Y_MODBUS_ADDR, output_value= CHOOSE) # command xuất giá trị coilY 
 
 # Cho phép đọc trạng thái coil X từ board slave
     def read_coilXY(self):
@@ -662,7 +668,7 @@ class Monitor_Position_Class():
         self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
-        self.gear_ratio_X = ((80*math.pi)/(12800))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
+        self.gear_ratio_X = ((80*math.pi)/(3200))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
         self.gear_ratio_Y = ((80*math.pi)/(3200*5))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_Z = ((80*math.pi)/(3200*5))  # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_A = (360/(12800*5))          # trục A cài vi bước 12800 xung/vong, hộp số 1/5
@@ -1386,9 +1392,14 @@ class Run_auto():
         self.counter = 0
     
         self.MAX_POINT_IN_BLOCK = 140
-        self.end_symbol = 'M30\n'
-        self.start_run_block = 'G05.0\n'
-        self.end_run_block = 'G05.1\n'
+        self.end_symbol = 'M30\n'           #command kết thúc chương trình
+        self.start_run_block = 'G05.0\n'    #command bắt đầu chạy theo block N điểm
+        self.end_run_block = 'G05.1\n'      #command kết thúc chạy theo block N điểm
+        self.go_to_2nd_point = 'G30\n'      #command quay về điểm gốc thứ 2
+        self.go_to_1st_point = 'G28\n'      #command quay về vị trí gốc 0 (điểm bắt đầu chạy)
+        self.turn_on_spray = 'M08\n'        #command lệnh bật súng sơn
+        self.turn_off_spray = 'M09\n'       #command lệnh tắt súng sơn
+        self.table_rotary = 'M10\n'         #command xoay bàn sơn
         self.run_block_done = False
 #=============================================================
     def activate_run_mode(self):
@@ -1406,22 +1417,6 @@ class Run_auto():
                 self.Monitor_str_content(str_content)  # hiện thị từng dòng trong file
                 Recognize_stringArr = self.Recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
 
-                if content_line == self.start_run_block:
-                    print("=====> G05.0 START BLOCK RUN MODE")
-                    result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
-                    if result_run_block == False: 
-                        print("=====> G05.1 Error !!!")
-                        break
-                    else: 
-                        # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
-                        print("BLOCK RUN MODE DONE")
-                        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = CHOOSE)
-                        self.counter = 0
-
-                if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                    
-                    break
-
                 if Recognize_stringArr == True:
                     # tách số của các trục
                     result_string = self.separate_string(content_line)
@@ -1433,6 +1428,39 @@ class Run_auto():
                     self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
                     self.command_run_point2point()  # phát lệnh chạy mode point to point bình thường
                     self.monitor_run_auto_next()    # giám sát chạy lệnh point to point 
+                else:
+
+                    if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                        
+                        break
+                    if content_line == self.turn_on_spray: # bật súng sơn
+                        self.command_run_spray(1)
+                        pass
+                    
+                    if content_line == self.turn_off_spray: # tắt súng sơn
+                        self.command_run_spray(0)
+                        pass
+
+                    if content_line == self.table_rotary: # xoay bàn sơn
+                        pass
+
+                    if content_line == self.go_to_1st_point: # đi tới điểm gốc đầu tiên, điểm 0
+                        Monitor_mode.Go_to_zero_position()
+
+                    if content_line == self.go_to_2nd_point: # đi tới điểm gốc thứ 2
+                        pass
+                    
+                    if content_line == self.start_run_block:
+                        print("=====> G05.0 START BLOCK RUN MODE")
+                        result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
+                        if result_run_block == False: 
+                            print("=====> G05.1 Error !!!")
+                            break
+                        else: 
+                            # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
+                            print("BLOCK RUN MODE DONE")
+                            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = CHOOSE)
+                            self.counter = 0
 
         except Exception as e:
                 print('activate_run_mode error: ',str(e))
@@ -1653,14 +1681,7 @@ class Run_auto():
 
         # gửi số xung x,y,z,a,b,c,speed cần chạy tới board slave id 2, gửi 14 word, bắt đầu từ địa chỉ 0
         master.execute(SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, 0, output_value = send_to_slave_id2)
-        # gửi command bật/tắt súng sơn
-        """""
-        if self.new_state_spray != 0 or self.new_state_spray != 1:
-            self.new_state_spray == 0
-        if  self.new_state_spray != self.state_spray:
-            self.command_run_spray(bool(self.new_state_spray))
-            self.state_spray = self.new_state_spray
-        """
+      
         if self.run_auto_mode == False:
         # phát command tới board slave chạy đến điểm đã gửi
             self.command_run_point2point()
@@ -1668,7 +1689,7 @@ class Run_auto():
     def command_run_point2point(self):
 # phát lệnh đến board id 2 và id 3 bắt đầu chạy điểm point to point
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = CHOOSE)
-    
+#-------------------------------------------------------    
     def command_run_spray(self, state):
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = state)
         if state:

@@ -38,7 +38,8 @@ bool STATE_RUN_BLOCK = false; // chế độ chạy theo block có N điểm đ�
 static bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
-uint16_t input_value; uint16_t output_value;
+uint16_t write_output_value; // giá trị coilY cần out 
+uint16_t monitor_input_value; uint16_t monitor_output_value; 
 uint8_t static start_address = 0;
 //===============================================================================================================
 //===============================================================================================================
@@ -69,8 +70,8 @@ uint16_t read_input_register(void){
     data_input_C = PINC&B00111111; 
     data_input_D = PIND&B10000000; 
     data_input_G = PING&B00000100;
-    uint16_t data_CDG = data_input_C | data_input_D | (data_input_G << 4);
-    uint16_t data_input = data_input_K | data_CDG << 8;
+    uint16_t data_CDG;    data_CDG = data_input_C | data_input_D | (data_input_G << 4);
+    static uint16_t data_input;  data_input = data_input_K | data_CDG << 8;
     return data_input;
 }
 //================================================================
@@ -82,22 +83,17 @@ uint16_t read_output_register(void){
     data_output_D = PIND&B00001011; 
     data_output_B = PINB&B00010000;
     data_output_J = PINJ&B00000011;
-    uint16_t data_AH = data_output_A | (data_output_H >>5);
-    uint16_t data_CDBJ = data_output_C | data_output_D | (data_output_B >> 2) | (data_output_J >> 4);
-    uint16_t data_output = data_AH << 8| data_CDBJ;
+    uint16_t data_AH;       data_AH = data_output_A | (data_output_H >>5);
+    uint16_t data_CDBJ;     data_CDBJ = data_output_C | data_output_D | (data_output_B >> 2) | (data_output_J >> 4);
+    static uint16_t data_output;   data_output = data_AH << 8| data_CDBJ;
     return data_output;
 }
 //================================================================
-// Thực hiện lệnh DELAY_STEP
-void Execute_DelayStep(uint16_t delay_value){
-    if (delay_value > 0){delay(delay_value);}
-    else delay(1);
-}            
 //================================================================
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
   if (command_motor.movingDone()){
-    command_motor.moving(0,0,0,0,0,0,200); 
+    command_motor.moving(0,0,0,0,0,0,120); 
   }
 }
 //================================================================
@@ -264,6 +260,16 @@ ISR(TIMER1_COMPA_vect) {
       }
 }
 //============================================================================================
+void change_state_spray(void){
+
+
+}
+//============================================================================================
+// Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
+void change_state_coilY(uint16_t value){
+
+
+}
 //============================================================================================
 void setup() {   
   Serial.begin(115200);
@@ -282,8 +288,8 @@ void setup() {
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
-  input_value = read_input_register();
-  output_value = read_output_register();
+  monitor_input_value = read_input_register();
+  monitor_output_value = read_output_register();
   /*
   //Serial.println(command_motor.motor[3]->currentPosition);
   userInput = "";
@@ -335,8 +341,8 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
     // Địa chỉ 0 nhận số xung cần chạy cho trục x,y,z,a,b,c
     case PULSE_EXECUTE: for (int i = 0; i <  MAX_AXIS; i++) { xung_nguyen[i] = i32readdata[i];} 
                                                               speed = i32readdata[MAX_AXIS]; break;   
-    // Địa chỉ 10 nhận tốc độ cho trục x,y,z,a,b,c đơn vị % (0 - 200%)
-    //case FREQ_EXECUTE:  speed = read_data[0];  break;
+    // Ghi giá trị coil Y ra các chân đã define
+    case WRITE_YCOIL:   write_output_value = read_data[0]; break;
     default: break;
   }
 
@@ -360,8 +366,8 @@ uint8_t readMemory(uint8_t fc, uint16_t address, uint16_t length)
             value[1] = lowWord(pulsecounter);
             break;
       case INPUT_OUTPUT_VALUE_MODBUS_ADDR:
-            value[0] = input_value;
-            value[1] = output_value;
+            value[0] = monitor_input_value;
+            value[1] = monitor_output_value;
             break;
     }
     for (int i = 0; i < length; i++){  
@@ -383,7 +389,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         coil[address+i] = node_slave.readCoilFromBuffer(i);
         if (coil[address+i] == 1){
             switch (address + i) {
-              case SPRAY_ONOFF_MODBUS_ADDR:           break;
+              case SPRAY_ONOFF_MODBUS_ADDR:           change_state_spray(); break;
               case POINT2POINT_MODBUS_ADDR:           execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
               case DISABLE_ROTARY_ENCODER_ADDR:       detach_rotary_encoder();  break;
@@ -394,18 +400,13 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
               case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;
               case CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR: change_state_run_block(); break;
+              case CHANGE_STATE_COIL_Y_MODBUS_ADDR:    change_state_coilY(write_output_value); break;
               default: break;
           }
-        } else {
-            switch (address + i){
-              case SPRAY_ONOFF_MODBUS_ADDR: break;
-              default: break;
-            }
-        }
-      }
-      else { // địa chỉ lớn hơn 32 thì nhận lệnh force mutiple coil cho coil vật lý output Y
+        } 
+      } else { // địa chỉ lớn hơn 32 thì nhận lệnh force mutiple coil cho coil vật lý output Y
         digitalWrite(coilY[(address+i)-COIL_Y1_FIRST_MODBUS_ADDR],node_slave.readCoilFromBuffer(i));
-      }
+        }
   }
   return STATUS_OK;
 }
@@ -421,7 +422,7 @@ uint8_t readDigital(uint8_t fc, uint16_t address, uint16_t length)
       switch (address+i) {
         case EXECUTE_PULSE_DONE:
               if (STATE_RUN_BLOCK == true) {state_home = blockmovingDone;}
-              else {state_home = command_motor.movingDone();}
+              else                         {state_home = command_motor.movingDone();}
               node_slave.writeCoilToBuffer(i,state_home);
               break;
         //default: break;
