@@ -515,11 +515,16 @@ class Monitor_Input_Output():
             self.radio_button[i].config(state = DISABLED)
     
     def manual_mode(self):
-        axis_name_forward = ['X-','Y-','Z-','B-','C-','SPRAY ON','FORWARD']
-        axis_name_reverse = ['X+','Y+','Z+','B+','C+','SPRAY OFF','REVERSE']
-        manual_command_01_active   = [self.buttonX_forward, self.buttonY_forward, self.buttonZ_forward, self.buttonB_forward, self.buttonC_forward, Teach_mode.Spray_on, None]
-        manual_command_02_active = [self.buttonX_reverse, self.buttonY_reverse, self.buttonZ_reverse, self.buttonB_reverse, self.buttonC_reverse, Teach_mode.Spray_off, None]
-        manual_command_deactive = [self._inactive, self._inactive, self._inactive, self._inactive, self._inactive, self._inactive, None]
+        axis_name_forward = ['X-','Y-','Z-','B-','C-','A-','Z1-']
+        axis_name_reverse = ['X+','Y+','Z+','B+','C+','A+','Z1+']
+        manual_command_01_active   = [self.buttonX_forward, self.buttonY_forward, self.buttonZ_forward, 
+                                      self.buttonB_forward, self.buttonC_forward, self.buttonA_forward,  self.buttonZ1_forward]
+
+        manual_command_02_active = [self.buttonX_reverse, self.buttonY_reverse, self.buttonZ_reverse, 
+                                    self.buttonB_reverse, self.buttonC_reverse, self.buttonA_reverse, self.buttonZ1_reverse]
+
+        manual_command_deactive = [self._inactive, self._inactive, self._inactive, self._inactive, 
+                                   self._inactive, self._inactive, self._inactive]
         manual_button_01 = []
         manual_button_02 = []
 
@@ -579,6 +584,27 @@ class Monitor_Input_Output():
         print ("Dang nhan button C+")
         Teach_mode.teach_axis = Teach_mode.TEACH_C_AXIS
         self.button_active = self.reverse
+
+    def buttonA_forward(self, event):
+        print ("Dang nhan button A-")
+        Teach_mode.teach_axis = Teach_mode.TEACH_A_AXIS
+        self.button_active = self.forward
+
+    def buttonA_reverse(self, event):
+        print ("Dang nhan button A+")
+        Teach_mode.teach_axis = Teach_mode.TEACH_A_AXIS
+        self.button_active = self.reverse    
+
+    def buttonZ1_forward(self, event):
+        print ("Dang nhan button Z1-")
+        Teach_mode.teach_axis = Teach_mode.TEACH_Z1_AXIS
+        self.button_active = self.forward
+
+    def buttonZ1_reverse(self, event):
+        print ("Dang nhan button Z1+")
+        Teach_mode.teach_axis = Teach_mode.TEACH_Z1_AXIS
+        self.button_active = self.reverse
+
 
     def _inactive(self, event):
         print("Release button")
@@ -668,8 +694,8 @@ class Monitor_Position_Class():
         self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
-        self.gear_ratio_X = ((80*math.pi)/(3200))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
-        self.gear_ratio_Y = ((80*math.pi)/(3200*5))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
+        self.gear_ratio_X = ((80*math.pi)/(3200*5))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
+        self.gear_ratio_Y = ((80*math.pi)/(12800))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_Z = ((80*math.pi)/(3200*5))  # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_A = (360/(12800*5))          # trục A cài vi bước 12800 xung/vong, hộp số 1/5
         self.gear_ratio_B = (360/12800)              # trục B cài vi bước 12800 xung/vòng, không có hộp số
@@ -781,13 +807,13 @@ class Monitor_Position_Class():
                 break
 #=========================================================================================
     def Kinematics_Zaxis_mode_02(self):
-            if Teach_mode.teach_axis == Teach_mode.TEACH_Z_AXIS:
+            if Teach_mode.teach_axis == Teach_mode.TEACH_Z1_AXIS:
                 Yspray_expect = self.pos_Yspray
                 while True:
                     running = False
                     self.button_state = self.read_state_button()
                     self.Read_pulse_PWM_from_slaves()
-                    if (self.button_state > self.pre_button_state): # nhấn Z-
+                    if (self.button_state > self.pre_button_state): # nhấn Z1-
                         # tính động học
                         new_pos_A = self.pos_A - 2
                         new_pos_Y = Yspray_expect - self.spray_axis*math.cos((new_pos_A*math.pi)/180)
@@ -798,7 +824,7 @@ class Monitor_Position_Class():
                         if(self.pos_Z > 0): self.pulse_teach_packet = [0,0,pulse_Z_teach,0,0,0]
                         else:               self.pulse_teach_packet = [0,pulse_Y_teach,0,pulse_A_teach,0,0]
                         
-                    if (self.button_state < self.pre_button_state): # nhấn Z+
+                    if (self.button_state < self.pre_button_state): # nhấn Z1+
                         
                         new_pos_A = self.pos_A + 2 #(góc A của mỗi lần chạy: càng nhỏ chạy càng chính xác)
                         new_pos_Y = Yspray_expect - self.spray_axis*math.cos((new_pos_A*math.pi)/180)
@@ -831,7 +857,7 @@ class Monitor_Position_Class():
         try:
             Teach_mode.teach_axis = Teach_mode.no_choise_axis
             new_pos_X = self.pos_X; new_pos_Y = self.pos_Y; new_pos_A = self.pos_A
-            new_pos_B = self.pos_B; new_pos_C = self.pos_C
+            new_pos_B = self.pos_B; new_pos_C = self.pos_C; new_pos_Z = self.pos_Z
             while True:
                 
                 self.pulse_teach_packet = [0,0,0,0,0,0]
@@ -842,34 +868,40 @@ class Monitor_Position_Class():
                 
                 # gửi command quay chiều thuận trục được chọn
                 if Teach_mode.teach_axis == Teach_mode.TEACH_X_AXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_X = 0
+                    if (self.button_state > self.pre_button_state):  new_pos_X = -1000
                     if (self.button_state < self.pre_button_state):  new_pos_X = 1000
                     pulse_teach = int((new_pos_X - self.pos_X)/self.gear_ratio_X)
-                    if self.pos_X < 0 or self.pos_X > 1000: self.button_state = self.pre_button_state
+                    if self.pos_X < -1000 or self.pos_X > 1000: self.button_state = self.pre_button_state
         
                 if Teach_mode.teach_axis == Teach_mode.TEACH_Y_AXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_Y = 0
-                    if (self.button_state < self.pre_button_state):  new_pos_Y = 1000
+                    if (self.button_state > self.pre_button_state):  new_pos_Y = -1600
+                    if (self.button_state < self.pre_button_state):  new_pos_Y = 1600
                     pulse_teach = int((new_pos_Y - self.pos_Y)/self.gear_ratio_Y)
-                    if self.pos_Y < 0 or self.pos_Y > 1000: self.button_state = self.pre_button_state
+                    if self.pos_Y < -1600 or self.pos_Y > 1600: self.button_state = self.pre_button_state
+
+                if Teach_mode.teach_axis == Teach_mode.TEACH_Z_AXIS:
+                    if (self.button_state > self.pre_button_state):  new_pos_Z = -1000
+                    if (self.button_state < self.pre_button_state):  new_pos_Z = 1000
+                    pulse_teach = int((new_pos_Z - self.pos_Z)/self.gear_ratio_Z)
+                    if self.pos_Z < -1000 or self.pos_Z > 1000: self.button_state = self.pre_button_state
 
                 if Teach_mode.teach_axis == Teach_mode.TEACH_A_AXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_A = 0
-                    if (self.button_state < self.pre_button_state):  new_pos_A = 90
+                    if (self.button_state > self.pre_button_state):  new_pos_A = -180
+                    if (self.button_state < self.pre_button_state):  new_pos_A = 180
                     pulse_teach = int((new_pos_A - self.pos_A)/self.gear_ratio_A)
-                    if self.pos_A < 0 or self.pos_A > 90: self.button_state = self.pre_button_state
+                    if self.pos_A < -180 or self.pos_A > 180: self.button_state = self.pre_button_state
 
                 if (Teach_mode.teach_axis == Teach_mode.TEACH_B_AXIS): 
-                    if (self.button_state > self.pre_button_state):  new_pos_B = -90
-                    if (self.button_state < self.pre_button_state):  new_pos_B = 90
+                    if (self.button_state > self.pre_button_state):  new_pos_B = -180
+                    if (self.button_state < self.pre_button_state):  new_pos_B = 180
                     pulse_teach = int((new_pos_B - self.pos_B)/self.gear_ratio_B)
-                    if self.pos_B < -90 or self.pos_B > 90: self.button_state = self.pre_button_state
+                    if self.pos_B < -180 or self.pos_B > 180: self.button_state = self.pre_button_state
 
                 if (Teach_mode.teach_axis == Teach_mode.TEACH_C_AXIS):
-                    if (self.button_state > self.pre_button_state):  new_pos_C = -360
-                    if (self.button_state < self.pre_button_state):  new_pos_C = 360
+                    if (self.button_state > self.pre_button_state):  new_pos_C = -1000
+                    if (self.button_state < self.pre_button_state):  new_pos_C = 1000
                     pulse_teach = int((new_pos_C - self.pos_C)/self.gear_ratio_C)
-                    if self.pos_C < -360 or self.pos_C > 360: self.button_state = self.pre_button_state
+                    if self.pos_C < -1000 or self.pos_C > 1000: self.button_state = self.pre_button_state
 
                 if self.button_state != self.pre_button_state:
                     self.pulse_teach_packet[Teach_mode.teach_axis] = pulse_teach   
@@ -882,7 +914,6 @@ class Monitor_Position_Class():
                     self.button_state = self.read_state_button()
                     if self.button_state == self.pre_button_state:
                         Monitor_in_out.stop_motor()
-                        #time.sleep(0.2)
                         state_runing = False
                         break  # thoat khỏi vong lặp while
                 
@@ -891,7 +922,7 @@ class Monitor_Position_Class():
                     Teach_mode.teach_axis = Teach_mode.no_choise_axis
                     break
         except Exception as e:
-            print(str(3))
+            print(str(e))
             return
 
 # phát lệnh cho các động cơ chạy về điểm zero: điểm gốc máy so với vị trí hiện tại của tay máy
@@ -1157,6 +1188,7 @@ class Teach_mode_class():
         self.TEACH_A_AXIS = 3  # teach trục A
         self.TEACH_B_AXIS = 4  # teach trục B
         self.TEACH_C_AXIS = 5  # teach trục C
+        self.TEACH_Z1_AXIS = 6  # teach trục C
 
         self.button_encoder = 0; self.pre_button_encoder = 0
         self.Init_string_value()

@@ -1,6 +1,5 @@
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
-#include "Config_motor.h"
 #include "StepperMotorBresenham.h"
 //================================================================
 //================================================================
@@ -10,10 +9,10 @@
 #define MAX_POINT_IN_BLOCK          150   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
 //================================================================
-Motor Motor_X; //(setDir_X, onePulse_X);
-Motor Motor_Y; //(setDir_Y, onePulse_Y);
-Motor Motor_Z; //(setDir_Z, onePulse_Z);
-Motor Motor_A; //(setDir_A, onePulse_A);
+Motor Motor_X; 
+Motor Motor_Y; 
+Motor Motor_Z; 
+Motor Motor_A; 
 Motor Motor_B;
 Motor Motor_C;
 
@@ -267,7 +266,7 @@ void change_state_spray(void){
 //============================================================================================
 // Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
 void change_state_coilY(uint16_t value){
-
+  PORTA_OUT = (PORTA_OUT & ~(B11111101)) | ((value >> 2) & 0x00FF);
 
 }
 //============================================================================================
