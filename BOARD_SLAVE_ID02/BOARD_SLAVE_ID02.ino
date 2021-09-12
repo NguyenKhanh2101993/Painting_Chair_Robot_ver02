@@ -1,6 +1,7 @@
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
 #include "StepperMotorBresenham.h"
+#include "AccelStepper.h"
 //================================================================
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
@@ -41,6 +42,7 @@ uint16_t write_output_value; // giá trị coilY cần out
 uint16_t monitor_input_value; uint16_t monitor_output_value; 
 uint8_t static start_address = 0;
 //===============================================================================================================
+unsigned int aa; 
 //===============================================================================================================
 // Read the rotary encoder
 void encoder() {
@@ -92,7 +94,7 @@ uint16_t read_output_register(void){
 // Điều khiển motor về vị trí 0 đã set
 void go_to_zero_position(void) {
   if (command_motor.movingDone()){
-    command_motor.moving(0,0,0,0,0,0,120); 
+    command_motor.moving(0,0,0,0,0,0,SPEED_HOME); 
   }
 }
 //================================================================
@@ -212,7 +214,7 @@ TIMSKn: Thanh ghi điều khiển ngắt.
 + bit 0 - TOIEn: Overflow Interrupt Enable 1 - Cho phép ngắt khi xảy ra tràn trên T/C.
 */
 void timer1_setting(void){
-  // timer 1 setting
+  // timer 1 setting prescale = 64 and CTC mode 4
     cli();
     TCCR1A = 0;
     TCCR1B = 0;
@@ -281,6 +283,9 @@ void setup() {
   pinMotor_init();
   timer1_setting();
   Serial.println("Slave id2 Setup OK");
+  //uint32_t eee = (1000000/sqrt(2*2*Accel + Vmin) - TIMER)/4;
+  //command_motor.delayValue = eee;
+  //Serial.println(command_motor.delayValue);
 }
 //============================================================================================
 //============================================================================================
@@ -289,6 +294,8 @@ void loop() {
   node_slave.poll();
   monitor_input_value = read_input_register();
   monitor_output_value = read_output_register();
+
+  //Serial.println(command_motor.delayValue);
   /*
   //Serial.println(command_motor.motor[3]->currentPosition);
   userInput = "";
