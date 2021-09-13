@@ -243,6 +243,7 @@ ISR(TIMER1_COMPA_vect) {
   // kiểm tra chế độ auto mode để chạy tiếp hoặc cho tắt ngắt timer1
   else { 
         if (STATE_RUN_BLOCK == true) { 
+          command_motor.blockRunMode = true;
           int32_t *get_data; static uint8_t counter_line = 0; int32_t target[MAX_AXIS];
 
           get_data = get_packet_data(counter_line);
@@ -251,7 +252,7 @@ ISR(TIMER1_COMPA_vect) {
           for (int i = 0; i < MAX_AXIS; i++) { target[i] = get_data[i] + command_motor.motor[i]->currentPosition;}
           
           if (get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
-            blockmovingDone = true; counter_line = 0; TIMER1_INTERRUPTS_OFF;
+            blockmovingDone = true; counter_line = 0; command_motor.blockRunMode = false; TIMER1_INTERRUPTS_OFF; 
             //Serial.println("END RUN BLOCK MODE");
           }
          

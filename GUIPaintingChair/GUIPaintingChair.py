@@ -695,7 +695,7 @@ class Monitor_Position_Class():
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
         self.gear_ratio_X = ((80*math.pi)/(1600*5))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
-        self.gear_ratio_Y = ((80*math.pi)/(12800))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
+        self.gear_ratio_Y = ((80*math.pi)/(25600))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_Z = ((80*math.pi)/(3200*5))  # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
         self.gear_ratio_A = (360/(12800*5))          # trục A cài vi bước 12800 xung/vong, hộp số 1/5
         self.gear_ratio_B = (360/12800)              # trục B cài vi bước 12800 xung/vòng, không có hộp số
