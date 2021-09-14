@@ -505,11 +505,12 @@ class Monitor_Input_Output():
             #if Teach_mode.teach_state == False:
             #    Monitor_mode.Read_pulse_PWM_from_slaves()
             self.sensor_value = self.read_coilXY()
-            time.sleep(0.1)
+            time.sleep(0.1) # 100 ms đọc data coilXY 1 lần
 
     def enable_radio_button(self):
         for i in range(len(self.coilY_name)):
             self.radio_button[i].config(state = NORMAL)
+            
     def disable_radio_button(self):
         for i in range(len(self.coilY_name)):
             self.radio_button[i].config(state = DISABLED)

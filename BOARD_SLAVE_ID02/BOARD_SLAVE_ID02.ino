@@ -2,6 +2,7 @@
 #include "Config_slaves.h"
 #include "StepperMotorBresenham.h"
 #include "AccelStepper.h"
+#include "input_output.h"
 //================================================================
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
@@ -38,11 +39,11 @@ bool STATE_RUN_BLOCK = false; // chế độ chạy theo block có N điểm đ�
 static bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
-uint16_t write_output_value; // giá trị coilY cần out 
-uint16_t monitor_input_value; uint16_t monitor_output_value; 
-uint8_t static start_address = 0;
+static uint16_t write_output_value; // giá trị coilY cần out 
+static uint16_t monitor_input_value;  static uint16_t monitor_output_value; 
+static uint8_t  start_address = 0;
 //===============================================================================================================
-unsigned int aa; 
+
 //===============================================================================================================
 // Read the rotary encoder
 void encoder() {
@@ -64,31 +65,7 @@ void detach_rotary_encoder(void) {
   pulsecounter = 0;
 }
 //================================================================
-// Hàm đọc giá trị input
-uint16_t read_input_register(void){
-    static uint16_t data_input_K,data_input_C,data_input_D,data_input_G;
-    data_input_K = PINK&B11111111; 
-    data_input_C = PINC&B00111111; 
-    data_input_D = PIND&B10000000; 
-    data_input_G = PING&B00000100;
-    uint16_t data_CDG;    data_CDG = data_input_C | data_input_D | (data_input_G << 4);
-    static uint16_t data_input;  data_input = data_input_K | data_CDG << 8;
-    return data_input;
-}
-//================================================================
-// Hàm đọc giá trị output
-uint16_t read_output_register(void){
-    static uint16_t data_output_A, data_output_C,data_output_D,data_output_H,data_output_B,data_output_J;
-    data_output_A = PINA&B11111101; data_output_H = PINH&B01000000;
-    data_output_C = PINC&B11000000; 
-    data_output_D = PIND&B00001011; 
-    data_output_B = PINB&B00010000;
-    data_output_J = PINJ&B00000011;
-    uint16_t data_AH;       data_AH = data_output_A | (data_output_H >>5);
-    uint16_t data_CDBJ;     data_CDBJ = data_output_C | data_output_D | (data_output_B >> 2) | (data_output_J >> 4);
-    static uint16_t data_output;   data_output = data_AH << 8| data_CDBJ;
-    return data_output;
-}
+
 //================================================================
 //================================================================
 // Điều khiển motor về vị trí 0 đã set
@@ -233,10 +210,11 @@ void timer1_setting(void){
 /// trường hợp này TCNT1 ban đầu mặc định = 0
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
- 
+  
   if (!command_motor.movingDone()) { // nếu các motor vẫn chưa chạy xong
       OCR1A = command_motor.setDelay2();   // setting delay between steps
       TCNT1 = 0;
+      command_motor.sensorValue = monitor_input_value;  // lưu giá trị cảm biến
       command_motor.execute_one_pulse();
   }
   // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
@@ -284,9 +262,6 @@ void setup() {
   pinMotor_init();
   timer1_setting();
   Serial.println("Slave id2 Setup OK");
-  //uint32_t eee = (1000000/sqrt(2*2*Accel + Vmin) - TIMER)/4;
-  //command_motor.delayValue = eee;
-  //Serial.println(command_motor.delayValue);
 }
 //============================================================================================
 //============================================================================================
