@@ -229,9 +229,14 @@ class Screen:
         self.teach_option[3].config(bg ='#990000')
 
         self.button_teach = []
-        self.button_teach_name = ['TRỤC X+/X-','TRỤC Y+/Y-','TRỤC Z+/Z-','TRỤC B+/B-','TRỤC C+/C-','SPRAY ON','SPRAY OFF'] #,'TRỤC A+/A-' Teach_mode.Teach_A_Axis,
-        button_teach_command = [Teach_mode.Teach_X_Axis, Teach_mode.Teach_Y_Axis, Teach_mode.Teach_Z_Axis,
-                                     Teach_mode.Teach_B_Axis, Teach_mode.Teach_C_Axis,Teach_mode.Spray_on,Teach_mode.Spray_off]
+        #self.button_teach_name = ['TRỤC X+/X-','TRỤC Y+/Y-','TRỤC Z+/Z-','TRỤC B+/B-','TRỤC C+/C-','SPRAY ON','SPRAY OFF'] #,'TRỤC A+/A-' Teach_mode.Teach_A_Axis,
+        #button_teach_command = [Teach_mode.Teach_X_Axis, Teach_mode.Teach_Y_Axis, Teach_mode.Teach_Z_Axis,
+        #                             Teach_mode.Teach_B_Axis, Teach_mode.Teach_C_Axis,Teach_mode.Spray_on,Teach_mode.Spray_off]
+        
+        self.button_teach_name = ['TABLE FW','TABLE RW','SPRAY ON','SPRAY OFF'] 
+        button_teach_command = [    Teach_mode.Table_fw,Teach_mode.Table_rw,
+                                     Teach_mode.Spray_on,Teach_mode.Spray_off]
+        
         for i in range(len(self.button_teach_name)):
             self.button_teach.append(Button(Frame1, text =self.button_teach_name[i], justify = LEFT, width = 10, activebackground = 'green', 
                                 font = ("Arial",10,"bold"), fg = 'white', bg = "gray", command = button_teach_command[i], state=DISABLED))
@@ -1251,7 +1256,7 @@ class Teach_mode_class():
         # tắt monitor xung
         Monitor_mode.monitor_off = True
 
-### Lấy các giá trị của các trục tay máy để hiện thị lên Show_content
+# Lấy các giá trị của các trục tay máy để hiện thị lên Show_content
     def Show_point_to_textbox(self):
 
         show_line = (' '+ str(self.counter_line))
@@ -1283,12 +1288,6 @@ class Teach_mode_class():
             self.counter_line += 1
             Show_Screen.Show_content.insert(END,show_line) 
             Show_Screen.Show_content.yview(END)
-
-    def _active(self, event):
-        print ("Dang nhan button X+")
-
-    def _inactive(self, event):
-        print ("Dang tha button X+")
     
     def Teach_X_Axis(self):
         Show_Screen.enable_button_teach(0)
@@ -1319,19 +1318,29 @@ class Teach_mode_class():
         Show_Screen.enable_button_teach(4)
         self.teach_axis = self.TEACH_C_AXIS
         print("chọn trục C")
+#=============================================================
+    def Table_fw(self):
+        Show_Screen.enable_button_teach(0)
+        Run.command_table_rotate()
+        print("Xoay bàn sơn lần 1")
 
+    def Table_rw(self):
+        Show_Screen.enable_button_teach(1)
+        Run.command_table_rotate()
+        print("Xoay bàn sơn lần 2")
+    
     def Spray_on(self):
-        Show_Screen.enable_button_teach(5)
+        Show_Screen.enable_button_teach(2)
         self.spray_var.set('1')
-        Run.command_run_spray(int(self.spray_var.get()))
-        print("bật phun sơn")
+        Run.command_run_spray(1)
+        print("Bật phun sơn")
 
     def Spray_off(self):
-        Show_Screen.enable_button_teach(6)
+        Show_Screen.enable_button_teach(3)
         self.spray_var.set('0')
-        Run.command_run_spray(int(self.spray_var.get()))
-        print("tắt phun sơn")
-
+        Run.command_run_spray(0)
+        print("Tắt phun sơn")
+#=============================================================
     def X1_resolution(self):
         Show_Screen.enable_resolution_button(0)
         self.gain_rotary_encoder = 1
