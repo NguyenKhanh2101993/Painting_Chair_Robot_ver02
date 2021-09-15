@@ -97,7 +97,10 @@ class Save_file:
             return
 
     def save_file(self):
-        Show_Screen.Show_content.insert(END,'M30\n') # ghi ký tự nhận diện end file
+        Show_Screen.Show_content.insert(END, Run.turn_off_spray)
+        Show_Screen.Show_content.insert(END, Run.go_to_1st_point) # command về vị trí zero
+        Show_Screen.Show_content.insert(END, Run.table_rotary) # ghi ký tự command xoay bàn sơn
+        Show_Screen.Show_content.insert(END, Run.end_symbol) # ghi ký tự nhận diện end file
         retrieve_text = Show_Screen.Show_content.get('1.0','end-1c')
         savefile = filedialog.asksaveasfile(mode='w+', defaultextension='*.pnt', filetypes =[('file pulse', '*.pnt')])
         try:
@@ -705,6 +708,8 @@ class Monitor_Position_Class():
         self.spray_axis = 550    # chiều dài trục súng sơn
         self.pre_button_state = 0 
 
+        self.machine_axis = False  # khóa machine axis sao cho chỉ sử dụng được 1 lần
+
     def read_state_button(self):
         state = Monitor_in_out.button_active
         return state
@@ -944,63 +949,66 @@ class Monitor_Position_Class():
 
 # phát lệnh cho các động cơ chạy về vị trí cảm biến: gốc tọa độ máy - machine axis
     def Go_to_machine_axis(self):
-        
-        pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
-        pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
-        pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
-        pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
-        pulse_to_machine_axis_B = [0, 0, 0, 0, -12800, 0]
-        pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
 
-        pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
-                                     pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-        pulse_to_begin_position = [12800, 12800, 12800, 12800, 12800, 12800]
-        speed_axis = [200,200,200,200,200,200]
+        if self.machine_axis == False:
+            
+            pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
+            pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
+            pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
+            pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
+            pulse_to_machine_axis_B = [0, 0, 0, 0, -12800, 0]
+            pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
 
-        print("Going to machine axis")
+            pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
+                                        pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
+            pulse_to_begin_position = [12800, 12800, 12800, 12800, 12800, 12800]
+            speed_axis = [200,200,200,200,200,200]
 
-        Show_Screen.disable_screen_option()
-        # khai báo mảng chứa giá trị cảm biến gốc máy
-        self.sensor_machine_axis = [Monitor_in_out.sensor_value[0], Monitor_in_out.sensor_value[1], Monitor_in_out.sensor_value[2],
-                                    Monitor_in_out.sensor_value[3], Monitor_in_out.sensor_value[4], Monitor_in_out.sensor_value[5]]
-        # set lại các thông số motor, đưa giá trị current_position về 0
-        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+            print("Going to machine axis")
 
-        for i in range(AXIS_RUN):
-            Run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
-            self.go_machine_axis_state = False
-            while True: 
-                # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                
-                Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+            Show_Screen.disable_screen_option()
+            # khai báo mảng chứa giá trị cảm biến gốc máy
+            self.sensor_machine_axis = [Monitor_in_out.sensor_value[0], Monitor_in_out.sensor_value[1], Monitor_in_out.sensor_value[2],
+                                        Monitor_in_out.sensor_value[3], Monitor_in_out.sensor_value[4], Monitor_in_out.sensor_value[5]]
+            # set lại các thông số motor, đưa giá trị current_position về 0
+            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+
+            for i in range(AXIS_RUN):
+                Run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
+                self.go_machine_axis_state = False
+                while True: 
+                    # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
+                    
+                    Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+                    self.Read_pulse_PWM_from_slaves()
+
+                    if (Go_to_machine_axis_done_slave_02[0]==1):
+                    #if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
+                        # dừng động cơ
+                        #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+                        # set lại các thông số motor, đưa giá trị current_position về 0
+                        #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                        
+                        self.go_machine_axis_state = True
+                        break  # thoat khỏi vong lặp while
+
+            # sau khi chạy hết các động cơ về vị trí cảm biến
+            # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
+            """"
+            time.sleep(2)
+            Run.send_to_execute_board(pulse_to_begin_position,100)
+            while True:
                 self.Read_pulse_PWM_from_slaves()
-
-                if (Go_to_machine_axis_done_slave_02[0]==1):
-                #if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
-                    # dừng động cơ
-                    #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
+                # Đọc trạng thái phát xung đã hoàn tất chưa
+                Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+                # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
+                if (Go_to_machine_axis_done_slave_02[0]==1 and Go_to_machine_axis_done_slave_03[0] == 1): 
                     # set lại các thông số motor, đưa giá trị current_position về 0
                     #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-                    
-                    self.go_machine_axis_state = True
-                    break  # thoat khỏi vong lặp while
-
-        # sau khi chạy hết các động cơ về vị trí cảm biến
-        # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
-        """"
-        time.sleep(2)
-        Run.send_to_execute_board(pulse_to_begin_position,100)
-        while True:
-            self.Read_pulse_PWM_from_slaves()
-            # Đọc trạng thái phát xung đã hoàn tất chưa
-            Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
-            # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-            if (Go_to_machine_axis_done_slave_02[0]==1 and Go_to_machine_axis_done_slave_03[0] == 1): 
-                # set lại các thông số motor, đưa giá trị current_position về 0
-                #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-                break
-        """""
-        Show_Screen.enable_screen_option()
+                    break
+            """""
+            Show_Screen.enable_screen_option()
+            self.machine_axis = True # đã về home
 
 # đọc giá trị tay quay encoder
     def Read_rotary_encoder(self):
@@ -1406,6 +1414,9 @@ class Com_box():
 #==============================================================================================================
 class Run_auto():
     def __init__(self):
+
+        self.TABLE_CHANGE_STATE_MODBUS_ADDR = 4
+        self.SPRAY_OFF_MODBUS_ADDR = 5
         self.SPRAY_ON_MODBUS_ADDR = 6
         self.POINT2POINT_MODBUS_ADDR = 7
         self.PAUSE_MOTOR_MODBUS_ADDR = 8
@@ -1421,10 +1432,10 @@ class Run_auto():
         self.gear = [Monitor_mode.gear_ratio_X, Monitor_mode.gear_ratio_Y, Monitor_mode.gear_ratio_Z, 
                     Monitor_mode.gear_ratio_A, Monitor_mode.gear_ratio_B, Monitor_mode.gear_ratio_C]
         self.old_Fspeed = 0; self.new_Fspeed = 0
-        self.run_auto_mode = False
-        self.counter = 0
+        self.run_auto_mode = False          # trạng thái vào chế độ auto run
+        self.counter = 0                    # lưu tổng số điểm đã truyền tới data_packet slave để chạy block mode
     
-        self.MAX_POINT_IN_BLOCK = 140
+        self.MAX_POINT_IN_BLOCK = 140       # số điểm tối đa có thể truyền tới data_packet slave trong block mode
         self.end_symbol = 'M30\n'           #command kết thúc chương trình
         self.start_run_block = 'G05.0\n'    #command bắt đầu chạy theo block N điểm
         self.end_run_block = 'G05.1\n'      #command kết thúc chạy theo block N điểm
@@ -1434,6 +1445,8 @@ class Run_auto():
         self.turn_off_spray = 'M09\n'       #command lệnh tắt súng sơn
         self.table_rotary = 'M10\n'         #command xoay bàn sơn
         self.run_block_done = False
+
+        self.e_stop = False                 # trạng thái tín hiệu nút nhấn ESTOP
 #=============================================================
     def activate_run_mode(self):
         try:
@@ -1443,6 +1456,9 @@ class Run_auto():
             self.run_auto_mode = True
             
             for str_content in Work_file._file:
+                if self.e_stop == True: # nếu có tín hiệu nhấn E-STOP
+                    break
+
                 print ('========================================================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
                 print(content_line)
@@ -1464,18 +1480,16 @@ class Run_auto():
                 else:
 
                     if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                        
                         break
+
                     if content_line == self.turn_on_spray: # bật súng sơn
                         self.command_run_spray(1)
-                        pass
-                    
+                        
                     if content_line == self.turn_off_spray: # tắt súng sơn
                         self.command_run_spray(0)
-                        pass
-
+                        
                     if content_line == self.table_rotary: # xoay bàn sơn
-                        pass
+                        self.command_table_rotate()
 
                     if content_line == self.go_to_1st_point: # đi tới điểm gốc đầu tiên, điểm 0
                         Monitor_mode.Go_to_zero_position()
@@ -1492,7 +1506,6 @@ class Run_auto():
                         else: 
                             # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
                             print("BLOCK RUN MODE DONE")
-                            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = CHOOSE)
                             self.counter = 0
 
         except Exception as e:
@@ -1501,8 +1514,6 @@ class Run_auto():
 
         finally:
             print ('========================================================================')
-            time.sleep(1.5)
-            Monitor_mode.Go_to_zero_position()
             self.re_init()
             print("--------------------------------------------------------------------------")
             print("END")
@@ -1612,8 +1623,12 @@ class Run_auto():
         self.save_to_packet_data()
 
 #=============================================================
+# Dừng chương trình chạy auto
     def disable_run_mode(self):
-            pass
+        if self.run_auto_mode == True:
+            Monitor_in_out.stop_motor() # dừng motor khẩn cấp
+            self.e_stop = True
+
 # tách giá trị tương ứng với từng phần tử trong file 
     def separate_string(self, string):
         Range_char = ['X','Y','Z','A','B','C','S','F','\n']
@@ -1722,14 +1737,22 @@ class Run_auto():
     def command_run_point2point(self):
 # phát lệnh đến board id 2 và id 3 bắt đầu chạy điểm point to point
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = CHOOSE)
-#-------------------------------------------------------    
+#-------------------------------------------------------   
+# command bật tắt súng sơn 
     def command_run_spray(self, state):
-        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = state)
         if state:
+            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = state)
             Show_Screen.spray_on_state.config(bg = "green", text = 'SPRAY ON')
         else:
+            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_OFF_MODBUS_ADDR, output_value = state)
             Show_Screen.spray_on_state.config(bg = "gray", text = 'SPRAY OFF')
+#-------------------------------------------------------    
+# command xoay bàn sơn
+    def command_table_rotate(self):
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.TABLE_CHANGE_STATE_MODBUS_ADDR, output_value = state)
+        print("Xoay bàn sơn")
 
+#-------------------------------------------------------            
     def pause_motor(self):
 # phát lệnh dừng tay máy
         self.pause_on += 1
@@ -1750,6 +1773,7 @@ class Run_auto():
         self.run_auto_mode = False
         self.run_block_done = False
         self.counter = 0
+        self.e_stop = False
         Show_Screen.enable_button_control(0)
 
 # Hiện thị từng dòng đang chạy trong file lên label

@@ -37,11 +37,13 @@ static int32_t packet_data[MAX_POINT_IN_BLOCK][MAX_AXIS+1];
 // Mảng 2 chiều (20 hàng, 5 cột) lưu packet xung 20 điểm, cột thứ 7 lưu giá trị tốc độ speed
 bool STATE_RUN_BLOCK = false; // chế độ chạy theo block có N điểm đã lưu sẵn
 static bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
+
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
 static uint16_t write_output_value; // giá trị coilY cần out 
 static uint16_t monitor_input_value;  static uint16_t monitor_output_value; 
 static uint8_t  start_address = 0;
+
 //===============================================================================================================
 
 //===============================================================================================================
@@ -121,19 +123,23 @@ void pause_motor(void){
   }
 }
 void stop_motor(void){
-  if (!command_motor.movingDone()){ // neu movingDone = 0
-    //Serial.println("stop");
-    command_motor.pauseMoving(1); // dừng động cơ, tắt timer
+  if (!command_motor.movingDone()){   // neu movingDone = 0
+    command_motor.pauseMoving(1);     // dừng động cơ, tắt timer
+    if (STATE_RUN_BLOCK) {            // nếu đang chạy chế độ block
+      change_state_run_block();
+    }
   }
 }
 //================================================================
 // Command bắt đầu chạy một block N điểm đã lưu trong packet data
 void change_state_run_block(void){
-    STATE_RUN_BLOCK = !STATE_RUN_BLOCK; //Serial.println(STATE_RUN_BLOCK);
+    STATE_RUN_BLOCK = !STATE_RUN_BLOCK; 
+
     if (STATE_RUN_BLOCK) { 
       command_motor.re_init_params();
-      TIMER1_INTERRUPTS_ON; start_address = 0;}
-    else { blockmovingDone = false; start_address = 0; }
+      TIMER1_INTERRUPTS_ON; blockmovingDone = false; start_address = 0;
+    }
+    else { blockmovingDone = true; start_address = 0; }
 }
 
 //================================================================
@@ -150,9 +156,8 @@ void save_packet_data(int32_t *pulse, int16_t _speed){
     }
     // lưu giá trị speed
     packet_data[start_address][MAX_AXIS] = _speed;
-    //Serial.println(packet_data[start_address][MAX_AXIS]);
-
     start_address++; 
+
     if (start_address == MAX_POINT_IN_BLOCK || _speed < 0 ) { start_address = 0;}
   }
 }
@@ -222,16 +227,17 @@ ISR(TIMER1_COMPA_vect) {
   else { 
         if (STATE_RUN_BLOCK == true) { 
           command_motor.blockRunMode = true;
-          int32_t *get_data; static uint8_t counter_line = 0; int32_t target[MAX_AXIS];
+          int32_t *get_data; int32_t target[MAX_AXIS];
 
-          get_data = get_packet_data(counter_line);
-          counter_line++; if (counter_line == MAX_POINT_IN_BLOCK) {counter_line = 0;}
+          get_data = get_packet_data(start_address);
+          start_address++; if (start_address == MAX_POINT_IN_BLOCK) {start_address = 0;}
           
           for (int i = 0; i < MAX_AXIS; i++) { target[i] = get_data[i] + command_motor.motor[i]->currentPosition;}
           
-          if (get_data[MAX_AXIS] < 0) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
-            blockmovingDone = true; counter_line = 0; command_motor.blockRunMode = false; TIMER1_INTERRUPTS_OFF; 
-            //Serial.println("END RUN BLOCK MODE");
+          if (get_data[MAX_AXIS] < 0 ) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
+            blockmovingDone = true; start_address = 0; 
+            command_motor.blockRunMode = false; TIMER1_INTERRUPTS_OFF; 
+            STATE_RUN_BLOCK = false;
           }
          
           else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],get_data[6]);} 
@@ -240,15 +246,32 @@ ISR(TIMER1_COMPA_vect) {
       }
 }
 //============================================================================================
-void change_state_spray(void){
+//Bật tắt súng sơn coilY[0]
+void spray_gun_on(void){
+    digitalWrite(coilY[0], HIGH);
+}
+void spray_gun_off(void){
+    digitalWrite(coilY[0], LOW);
+}
+//============================================================================================
+//Xoay bàn sơn coilY[1], coilY[2]
+void table_change_state (void) {
+    static bool state_table = false; 
+    state_table = !state_table;
 
-
+    if (state_table) {  
+      digitalWrite(coilY[1], HIGH);
+      digitalWrite(coilY[2], LOW);  
+    }
+    else { 
+      digitalWrite(coilY[1], LOW);
+      digitalWrite(coilY[2], HIGH);
+    }
 }
 //============================================================================================
 // Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
 void change_state_coilY(uint16_t value){
   PORTA_OUT = (PORTA_OUT & ~(B11111101)) | ((value >> 2) & 0x00FF);
-
 }
 //============================================================================================
 void setup() {   
@@ -261,6 +284,7 @@ void setup() {
   command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
   timer1_setting();
+  table_change_state();  // setup trạng thái ban đầu của bàn xoay
   Serial.println("Slave id2 Setup OK");
 }
 //============================================================================================
@@ -371,7 +395,10 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         coil[address+i] = node_slave.readCoilFromBuffer(i);
         if (coil[address+i] == 1){
             switch (address + i) {
-              case SPRAY_ONOFF_MODBUS_ADDR:           change_state_spray(); break;
+
+              case TABLE_CHANGE_STATE_MODBUS_ADDR:    table_change_state(); break;
+              case SPRAY_OFF_MODBUS_ADDR:             spray_gun_off(); break;
+              case SPRAY_ON_MODBUS_ADDR:              spray_gun_on(); break;
               case POINT2POINT_MODBUS_ADDR:           execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
               case DISABLE_ROTARY_ENCODER_ADDR:       detach_rotary_encoder();  break;
