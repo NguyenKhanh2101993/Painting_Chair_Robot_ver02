@@ -271,7 +271,10 @@ void table_change_state (void) {
 //============================================================================================
 // Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
 void change_state_coilY(uint16_t value){
-  PORTA_OUT = (PORTA_OUT & ~(B11111101)) | ((value >> 2) & 0x00FF);
+  //PORTA_OUT = (PORTA_OUT & ~(B11111101)) | ((value >> 2) & 0x00FF);
+  for (int i = 0; i < 16; i++){
+    digitalWrite(coilY[i], ((value >> i) & 0x0001));
+  }
 }
 //============================================================================================
 void setup() {   
@@ -411,11 +414,9 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR: change_state_run_block(); break;
               case CHANGE_STATE_COIL_Y_MODBUS_ADDR:    change_state_coilY(write_output_value); break;
               default: break;
-          }
+            }
         } 
-      } else { // địa chỉ lớn hơn 32 thì nhận lệnh force mutiple coil cho coil vật lý output Y
-        digitalWrite(coilY[(address+i)-COIL_Y1_FIRST_MODBUS_ADDR],node_slave.readCoilFromBuffer(i));
-        }
+      }
   }
   return STATUS_OK;
 }
