@@ -978,8 +978,8 @@ class Monitor_Position_Class():
 
             Show_Screen.disable_screen_option()
             # khai báo mảng chứa giá trị cảm biến gốc máy
-            self.sensor_machine_axis = [Monitor_in_out.sensor_value[0], Monitor_in_out.sensor_value[1], Monitor_in_out.sensor_value[2],
-                                        Monitor_in_out.sensor_value[3], Monitor_in_out.sensor_value[4], Monitor_in_out.sensor_value[5]]
+            self.sensor_machine_axis = [Monitor_in_out.sensor_value[0], Monitor_in_out.sensor_value[2], Monitor_in_out.sensor_value[4],
+                                        Monitor_in_out.sensor_value[6], Monitor_in_out.sensor_value[8], Monitor_in_out.sensor_value[10]]
             # set lại các thông số motor, đưa giá trị current_position về 0
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
             time.sleep(0.5)
@@ -995,6 +995,7 @@ class Monitor_Position_Class():
                         # dừng động cơ
                         Monitor_in_out.stop_motor()
                         self.go_machine_axis_state = True
+                        print("Động cơ dừng")
                         break  # thoat khỏi vong lặp while
 
             # sau khi chạy hết các động cơ về vị trí cảm biến
