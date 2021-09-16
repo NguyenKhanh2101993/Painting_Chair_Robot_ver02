@@ -45,6 +45,7 @@
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\ModbusSlave\\src",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\Define_TayMay",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\StepperMotorBresenham",
+                "C:\\Users\\P52\\Documents\\Arduino\\libraries\\AccelStepper",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\7.3.0\\include-fixed",
                 "c:\\program files (x86)\\arduino\\hardware\\tools\\avr\\avr\\include"

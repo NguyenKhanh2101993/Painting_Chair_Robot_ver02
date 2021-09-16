@@ -137,7 +137,7 @@ void change_state_run_block(void){
 
     if (STATE_RUN_BLOCK) { 
       command_motor.re_init_params();
-      TIMER1_INTERRUPTS_ON; blockmovingDone = false; start_address = 0;
+      blockmovingDone = false; start_address = 0; TIMER1_INTERRUPTS_ON; 
     }
     else { blockmovingDone = true; start_address = 0; }
 }
@@ -267,6 +267,14 @@ void table_change_state (void) {
       digitalWrite(coilY[1], LOW);
       digitalWrite(coilY[2], HIGH);
     }
+}
+//============================================================================================
+// command kiểm tra cảm biến X,Y,Z,A trong quá trình chạy
+void check_sensor_XYZA(void){
+    static bool checkState = false;
+    checkState = !checkState;
+    if (checkState) {  command_motor.checkSensorXYZA = true; }
+    else {  command_motor.checkSensorXYZA = false;}
 }
 //============================================================================================
 // Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
@@ -399,6 +407,8 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         if (coil[address+i] == 1){
             switch (address + i) {
 
+
+              case CHECK_SENSOR_XYZA_ADDR:            check_sensor_XYZA(); break;
               case TABLE_CHANGE_STATE_MODBUS_ADDR:    table_change_state(); break;
               case SPRAY_OFF_MODBUS_ADDR:             spray_gun_off(); break;
               case SPRAY_ON_MODBUS_ADDR:              spray_gun_on(); break;

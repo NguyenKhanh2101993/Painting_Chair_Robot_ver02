@@ -677,6 +677,7 @@ class Monitor_Position_Class():
 
         self.SET_ZERO_POSITION_ADDR = 16
         self.ENABLE_HOME_MODBUS_ADDR = 15
+        self.CHECK_SENSOR_XYZA_ADDR = 3
 
         self.rotary_encoder = 0
         self.pre_rotary_encoder = 0
@@ -714,6 +715,8 @@ class Monitor_Position_Class():
         self.pre_button_state = 0 
 
         self.machine_axis = False  # khóa machine axis sao cho chỉ sử dụng được 1 lần
+        self.check_sensor_XYZ = False # command slave check cảm biến X,Y,Z khi chạy
+        self.check_sensor_XYZA = False # command slave check cảm biến X,Y,Z,A khi chạy
 
     def read_state_button(self):
         state = Monitor_in_out.button_active
@@ -957,17 +960,19 @@ class Monitor_Position_Class():
 
         if self.machine_axis == False:
             
+            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHECK_SENSOR_XYZA_ADDR, output_value = CHOOSE)
+            
             pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
             pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
             pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
             pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
-            pulse_to_machine_axis_B = [0, 0, 0, 0, -12800, 0]
+            pulse_to_machine_axis_B = [0, 0, 0, 0, -6400, 0]
             pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [12800, 12800, 12800, 12800, 12800, 12800]
-            speed_axis = [200,200,200,200,200,200]
+            pulse_to_begin_position = [1600, 6400, 3200, 0, 0, 0]
+            speed_axis = [100,100,100,100,100,200]
 
             print("Going to machine axis")
 
@@ -977,44 +982,39 @@ class Monitor_Position_Class():
                                         Monitor_in_out.sensor_value[3], Monitor_in_out.sensor_value[4], Monitor_in_out.sensor_value[5]]
             # set lại các thông số motor, đưa giá trị current_position về 0
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-
+            time.sleep(0.5)
             for i in range(AXIS_RUN):
                 Run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                 self.go_machine_axis_state = False
                 while True: 
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                    
                     Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                     self.Read_pulse_PWM_from_slaves()
 
-                    if (Go_to_machine_axis_done_slave_02[0]==1):
-                    #if (self.sensor_machine_axis[i] == 0):  # nếu cảm biến on 
+                    if (Go_to_machine_axis_done_slave_02[0]==1 or self.sensor_machine_axis[i] == 0):
                         # dừng động cơ
-                        #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, Run.PAUSE_MOTOR_MODBUS_ADDR, output_value = CHOOSE)
-                        # set lại các thông số motor, đưa giá trị current_position về 0
-                        #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-                        
+                        Monitor_in_out.stop_motor()
                         self.go_machine_axis_state = True
                         break  # thoat khỏi vong lặp while
 
             # sau khi chạy hết các động cơ về vị trí cảm biến
             # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
-            """"
-            time.sleep(2)
-            Run.send_to_execute_board(pulse_to_begin_position,100)
+            time.sleep(0.5)
+            Run.send_to_execute_board(pulse_to_begin_position,120)
             while True:
                 self.Read_pulse_PWM_from_slaves()
                 # Đọc trạng thái phát xung đã hoàn tất chưa
                 Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                if (Go_to_machine_axis_done_slave_02[0]==1 and Go_to_machine_axis_done_slave_03[0] == 1): 
+                if Go_to_machine_axis_done_slave_02[0] == 1: 
                     # set lại các thông số motor, đưa giá trị current_position về 0
-                    #master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                    master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
+                    master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHECK_SENSOR_XYZA_ADDR, output_value = CHOOSE)
                     break
-            """""
+       
             Show_Screen.enable_screen_option()
             self.machine_axis = True # đã về home
-
+            
 # đọc giá trị tay quay encoder
     def Read_rotary_encoder(self):
         # Đọc giá trị thanh ghi rotary encoder ở địa chỉ bắt đầu từ 20, đọc 2 giá trị 16 bit
