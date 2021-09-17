@@ -1467,6 +1467,7 @@ class Run_auto():
             
             for str_content in Work_file._file:
                 if self.e_stop == True: # nếu có tín hiệu nhấn E-STOP
+                    Work_file._file.close()
                     break
 
                 print ('========================================================================')
@@ -1637,6 +1638,7 @@ class Run_auto():
     def disable_run_mode(self):
         if self.run_auto_mode == True:
             Monitor_in_out.stop_motor() # dừng motor khẩn cấp
+
             self.e_stop = True
 
 # tách giá trị tương ứng với từng phần tử trong file 
@@ -1751,10 +1753,10 @@ class Run_auto():
 # command bật tắt súng sơn 
     def command_run_spray(self, state):
         if state:
-            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = state)
+            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = CHOOSE)
             Show_Screen.spray_on_state.config(bg = "green", text = 'SPRAY ON')
         else:
-            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_OFF_MODBUS_ADDR, output_value = state)
+            master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_OFF_MODBUS_ADDR, output_value = CHOOSE)
             Show_Screen.spray_on_state.config(bg = "gray", text = 'SPRAY OFF')
 #-------------------------------------------------------    
 # command xoay bàn sơn
@@ -1785,6 +1787,7 @@ class Run_auto():
         self.counter = 0
         self.e_stop = False
         Show_Screen.enable_button_control(0)
+        Show_Screen.enable_screen_option()
 
 # Hiện thị từng dòng đang chạy trong file lên label
     def Monitor_str_content(seft, string):
