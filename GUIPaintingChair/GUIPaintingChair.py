@@ -1,3 +1,4 @@
+import re
 from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import filedialog, messagebox, ttk, Toplevel
@@ -16,6 +17,7 @@ import math
 #import webbrowser
 import numpy as np
 import pygcode as code
+import json
 #========================================================================
 root = Tk()
 root.title('CHAIR PAINTING MACHINE')
@@ -29,10 +31,76 @@ estyle.theme_use('alt')
 #========================================================================
 global CHOOSE, NOCHOOSE
 global SLAVE_02, SLAVE_03
-global AXIS_RUN 
+global MAX_AXIS 
 CHOOSE = 1; NOCHOOSE = 0
 SLAVE_02 = 2; SLAVE_03 = 3
-AXIS_RUN = 6
+MAX_AXIS = 6
+#============================================================================================
+# Tạo file setting
+class makeFileSetting:
+    def __init__(self):
+        self.config = {}
+        self.motorX = {}; self.motorY = {}; self.motorZ = {}
+        self.motorA = {}; self.motorB = {}; self.motorC = {}
+        self.gearRatio = []
+        self.config = {"motor": { 
+                            "motorX": self.motorX, "motorY": self.motorY,  "motorZ": self.motorZ, 
+                            "motorA": self.motorA,  "motorB": self.motorB,  "motorC": self.motorC },
+                       "gearInfor": self.gearRatio }
+#============================================================================================
+# truy xuat thong tin motor setting tu json        
+    def getMotorInfo(self):
+        motorSetting = []
+        with open('configFile.json', 'r') as f:
+            configFile = json.load(f) # load file json
+            motorConfig = configFile['motor']      # truy xuất phần tử motor
+
+            readMotorX = motorConfig['motorX']    # truy xuất phần tử motorX trong motor
+            readMotorY = motorConfig['motorY']    # truy xuất phần tử motorY trong motor
+            readMotorZ = motorConfig['motorZ']    # truy xuất phần tử motorZ trong motor
+            readMotorA = motorConfig['motorA']    # truy xuất phần tử motorA trong motor
+            readMotorB = motorConfig['motorB']    # truy xuất phần tử motorB trong motor
+            readMotorC = motorConfig['motorC']    # truy xuất phần tử motorC trong motor
+        motorSetting = [readMotorX, readMotorY, readMotorZ, readMotorA, readMotorB, readMotorC]
+        f.close()
+        return motorSetting
+#============================================================================================
+    def setMotorInfor(self, gear, microstep, diameter):
+        # update giá trị
+        self.motorX['gear'] = gear[0]; self.motorX['microStep'] = microstep[0];     self.motorX['diameter'] = diameter[0]
+        self.motorY['gear'] = gear[1]; self.motorY['microStep'] = microstep[1];     self.motorY['diameter'] = diameter[1]
+        self.motorZ['gear'] = gear[2]; self.motorZ['microStep'] = microstep[2];     self.motorZ['diameter'] = diameter[2]
+        self.motorA['gear'] = gear[3]; self.motorA['microStep'] = microstep[3];     self.motorA['diameter'] = diameter[3]
+        self.motorB['gear'] = gear[4]; self.motorB['microStep'] = microstep[4];     self.motorB['diameter'] = diameter[4]
+        self.motorC['gear'] = gear[5]; self.motorC['microStep'] = microstep[5];     self.motorC['diameter'] = diameter[5]
+
+        with open('configFile.json', 'w') as f:
+            json.dump(self.config,f)
+        f.close()
+#============================================================================================
+    def getGearRatio(self):
+        gearCalculated = []
+        try:
+            with open('configFile.json', 'r') as f:
+                configFile = json.load(f) # load file json
+                gearCalculated = configFile['gearInfor']      # truy xuất phần tử gearInfor
+            f.close()    
+            
+        except Exception as e:
+            print("getGearRatio error: ", str(e))
+        
+        return gearCalculated
+#============================================================================================
+    def setGearInfor(self, value):
+        print("Save gearRatio result")
+        self.gearRatio = []
+        for i in range(len(value)):
+            self.gearRatio.append(value[i])
+        print("saved gearRatio: ",self.gearRatio)
+        with open('configFile.json', 'w') as f:
+            json.dump(self.config,f)
+        f.close()
+
 #============================================================================================
 # đưa các trục tay máy sơn về vị trí gốc máy khi mới mở phần mềm.
 # phát command để các động cơ chạy tới khi nào gặp cảm biến thì dừng lại
@@ -61,6 +129,10 @@ class Home_position:
             Monitor_in_out.Monitor_input_output()
             Monitor_mode.Read_pulse_PWM_from_slaves()
             creat_threading() # bật chế độ monitor coil XY
+            result = workJson.getGearRatio()
+            if result != []:
+                Monitor_mode.saveGearRatio(result)
+                print("get gearRatio: ", result)
 
         except Exception as e:
             messagebox.showinfo("Serial Comunication","OPEN SOFWARE FAILED")
@@ -78,7 +150,7 @@ class Save_file:
         Show_Screen.Show_content.config(state = NORMAL)
         self.file = filedialog.askopenfilename(title = 'Open file .pnt', filetypes =[('file pulse', '*.pnt')],initialdir='/')
         self.show_initial_directory()
-        Show_status.write_status("File: " + str(self.file))
+        #settingMotor.write_status("File: " + str(self.file))
         try:
             self._file = open(self.file,'r')
             self.show_file = self._file.read()
@@ -188,9 +260,9 @@ class Screen:
         bg_frame0.pack(side = LEFT)
         #========================================================================
         self.button_option = []
-        self.button_option_name = ['TEACH MODE','CHOOSE FILE','MANUAL','GOTO ZERO','MACHINE AXIS']
-        command_option = [Teach_mode.Enable_teach_options, Work_file.open_file,
-                 Monitor_in_out.enable_radio_button, Monitor_mode.Go_to_zero_position, Monitor_mode.Go_to_machine_axis]
+        self.button_option_name = ['TEACH MODE','CHOOSE FILE','SETTING','GOTO ZERO','MACHINE AXIS']
+        command_option = [Teach_mode.Enable_teach_options, Work_file.open_file,settingMotor.show_new_window, 
+                            Monitor_mode.Go_to_zero_position, Monitor_mode.Go_to_machine_axis]
         for i in range(len(self.button_option_name)):
             self.button_option.append(Button(Frame0, text =self.button_option_name[i], justify = LEFT, width = 12, activebackground = 'green',
                                 command = command_option[i], font = ("Arial",10,"bold"), fg = 'white',bg = '#555555'))
@@ -387,9 +459,9 @@ class Screen:
         self.label_axis_monitor.place(x = 37, y = 10 )
        
         self.button_control = []
-        button_control_name = ['AUTO','PAUSE','STATUS','E-STOP']
+        button_control_name = ['AUTO','PAUSE','MANUAL','E-STOP']
         button_control_command = [Run.activate_run_mode,Run.pause_motor,
-                                        Show_status.show_new_window,Run.disable_run_mode]
+                                 Monitor_in_out.enable_radio_button,Run.disable_run_mode]
         for i in range(len(button_control_name)):
             self.button_control.append(Button(Frame15, text =button_control_name[i], fg = 'white',
                         activebackground = 'green', bg = "#555555", justify = LEFT,  width = 6,
@@ -630,21 +702,142 @@ class Monitor_Input_Output():
     def Turn_off_Power(self):
         pass
 #========================================================================
-class Terminal():
+class parameterSetting():
     def __init__(self):
         self.status = StringVar()
-    def show_new_window(self):
-        newWindow = Toplevel()
-        self.labelExample = Label(newWindow, text = 0, textvariable = self.status)
-        self.labelExample.pack()
 
-    def write_status(self, string):
+        self.gearbox_X = StringVar(); self.gearbox_Y = StringVar(); self.gearbox_Z = StringVar(); 
+        self.gearbox_A = StringVar(); self.gearbox_B = StringVar(); self.gearbox_C = StringVar(); 
+        self.gearbox_value = [self.gearbox_X, self.gearbox_Y, self.gearbox_Z, self.gearbox_A, self.gearbox_B, self.gearbox_C]
+
+        self.microStep_X = StringVar(); self.microStep_Y = StringVar(); self.microStep_Z = StringVar(); 
+        self.microStep_A = StringVar(); self.microStep_B = StringVar(); self.microStep_C = StringVar(); 
+        self.microStep_value = [self.microStep_X, self.microStep_Y, self.microStep_Z, self.microStep_A,
+                                self.microStep_B, self.microStep_C]
+                                
+        self.diameter_X = StringVar(); self.diameter_Y = StringVar(); self.diameter_Z = StringVar(); 
+        self.diameter_A = StringVar(); self.diameter_B = StringVar(); self.diameter_C = StringVar(); 
+        self.diameter_value = [self.diameter_X, self.diameter_Y, self.diameter_Z, self.diameter_A,
+                                self.diameter_B, self.diameter_C]
+
+    def show_new_window(self):
+        self.newWindow = Toplevel()
+        self.newWindow.resizable(width = False, height = False) # fix kích thước cửa sổ làm việc
+        self.newWindow.minsize(width = 705, height = 510)
+        Frame30 = LabelFrame(self.newWindow)
+        Frame30.place(x = 0, y = 0)
+        bg_frame30 = Canvas(Frame30, bg="#333333", height=500, width=695, bd = 1)
+        bg_frame30.pack(side = LEFT)
+
+        bg_frame30.create_line(0,60,700,60,fill = 'white',width = 2)
+        bg_frame30.create_line(0,300,700,300,fill = 'white',width = 2)
+
+        bg_frame30.create_line(100,60,100,300,fill = 'white',width = 2)
+        bg_frame30.create_line(200,60,200,300,fill = 'white',width = 2)
+        bg_frame30.create_line(300,60,300,300,fill = 'white',width = 2)
+        bg_frame30.create_line(400,60,400,300,fill = 'white',width = 2)
+        bg_frame30.create_line(500,60,500,300,fill = 'white',width = 2)
+        bg_frame30.create_line(600,60,600,300,fill = 'white',width = 2)
+
+        bg_frame30.create_line(0,100,700,100,fill = 'white',width = 2)
+        bg_frame30.create_line(0,150,700,150,fill = 'white',width = 2)
+        bg_frame30.create_line(0,200,700,200,fill = 'white',width = 2)
+        bg_frame30.create_line(0,250,700,250,fill = 'white',width = 2)
+
+        motor_name = ["MotorX", "MotorY", "MotorZ", "MotorA", "MotorB", "MotorC"]
+        setting_name  = ["Setting", "Gearbox", "MicroStep", "Diameter"]
+        gearbox_entry = []; microStep_entry = []; diameter_entry = []
+        motor_lable = []; setting_lable = []
+
+        for i in range(len(motor_name)):
+            gearbox_entry.append(Entry(Frame30,bd =2, width = 9, font = ("Arial",13,"bold"), textvariable = self.gearbox_value[i]))
+            gearbox_entry[i].place(x = 106 + 100*i, y = 115)
+            microStep_entry.append(Entry(Frame30,bd =2, width = 9, font = ("Arial",13,"bold"), textvariable = self.microStep_value[i]))
+            microStep_entry[i].place(x = 106 + 100*i, y = 165)
+            diameter_entry.append(Entry(Frame30,bd =2, width = 9, font = ("Arial",13,"bold"), textvariable = self.diameter_value[i]))
+            diameter_entry[i].place(x = 106 + 100*i, y = 215)
+            motor_lable.append(Label(Frame30,text = motor_name[i],fg = 'white', width=6, bg = "#333333",
+                                        font = ("Arial",11,"bold")))
+            motor_lable[i].place(x = 120 + 100*i, y = 65)
+
+        for i in range(len(setting_name)):    
+            setting_lable.append(Label(Frame30,text = setting_name[i],fg = 'white', width=9,  bg = "#333333",
+                                       font = ("Arial",11,"bold"))) 
+            setting_lable[i].place(x = 5, y = 65 + 50*i)
+
+        saveSetting = Button(Frame30, text = "SAVE", fg = 'white',
+                        activebackground = 'green', bg = "blue", justify = LEFT,  width = 5,
+                        bd = 2,font = ("Arial",14,"bold"),command = self.save_settings )
+        saveSetting.place(x = 625, y = 460)
+
+        table_name = Label(Frame30,text = 'PARAMETER SETTING',fg ='white',
+                font = ("Arial",14,"bold"), justify = CENTER, bg = "#333333", bd = 1)
+        table_name.place(x=250, y=15)
+
+        self.getParameter()             # lấy thông tin đã config motor
+
+    # lưu giá trị cài đặt từ bảng vào file json        
+    def save_settings(self):
+        gear = []; microstep = []; diameter = []
+        for i in range(MAX_AXIS):
+            gear.append(self.gearbox_value[i].get())
+            microstep.append(self.microStep_value[i].get())
+            diameter.append(self.diameter_value[i].get())
+
+        workJson.setMotorInfor(gear, microstep, diameter)   # lưu các thông số cài đặt motor
+        result = self.calculate_gearRatio()
+        if result != []:
+            workJson.setGearInfor(result)                       #lưu giá trị gearratio đã tính toán được
+            Monitor_mode.saveGearRatio(result)
+        self.newWindow.destroy()
+    
+    # truy xuat giá trị cài đặt motor từ file json
+    def getParameter(self):
         try:
-            self.status.set(string)
-            self.labelExample.update()
-        except:
-            pass
-#========================================================================    
+            motorSetting = workJson.getMotorInfo() 
+            for i in range(len(motorSetting)):
+                self.gearbox_value[i].set(motorSetting[i]["gear"]) 
+                self.microStep_value[i].set(motorSetting[i]["microStep"]) 
+                self.diameter_value[i].set(motorSetting[i]["diameter"]) 
+
+            # các giá trị được define trong self.gearbox_value, ... được tự động lưu trong self.gearbox_X, ...
+            # truy xuất bắng cách: self.gearbox_X.get()
+        except Exception as e:
+            print(str(e))
+            Show_Screen.Inform_App_Status("ConfigFile Error")
+            return
+
+    def calculate_gearRatio(self):
+        result = []
+        try:
+            #((80*math.pi)/(1600*5))
+            gear_ratio_X = (float(self.diameter_X.get())*math.pi)/(int(self.microStep_X.get())*float(self.gearbox_X.get()))
+            #((80*math.pi)/(25600))
+            gear_ratio_Y = (float(self.diameter_Y.get())*math.pi)/(int(self.microStep_Y.get())*float(self.gearbox_Y.get()))
+            #((80*math.pi)/(3200*5))
+            gear_ratio_Z = (float(self.diameter_Z.get())*math.pi)/(int(self.microStep_Z.get())*float(self.gearbox_Z.get()))
+            #(360/(12800*5))
+            gear_ratio_A = float(self.diameter_A.get())/(int(self.microStep_A.get())*float(self.gearbox_A.get()))
+            #(360/12800)
+            gear_ratio_B = float(self.diameter_B.get())/(int(self.microStep_B.get())*float(self.gearbox_B.get()))
+            #(360/12800)
+            gear_ratio_C = float(self.diameter_C.get())/(int(self.microStep_C.get())*float(self.gearbox_C.get()))
+
+            #print('gear_ratio_X', gear_ratio_X)
+            #print('gear_ratio_Y', gear_ratio_Y)
+            #print('gear_ratio_Z', gear_ratio_Z)
+            #print('gear_ratio_A', gear_ratio_A)
+            #print('gear_ratio_B', gear_ratio_B)
+            #print('gear_ratio_C', gear_ratio_C)
+
+            result = [gear_ratio_X, gear_ratio_Y, gear_ratio_Z,gear_ratio_A, gear_ratio_B, gear_ratio_C]
+
+        except Exception as e:
+            print(str(e))
+            Show_Screen.Inform_App_Status("Enter value error")
+
+        return result
+#========================================================================   
 class Monitor_Position_Class():
     def __init__(self):
         #Hiện thị vị trí các trục của robot
@@ -704,12 +897,14 @@ class Monitor_Position_Class():
         self.offset_a_axis = 0; self.offset_b_axis = 0; self.offset_c_axis = 0
         self.pos_Yspray = 0; self.pos_Zspray = 0
 
-        self.gear_ratio_X = ((80*math.pi)/(1600*5))    # truc X cài vi bước 6400 xung/vòng, không có hộp số
-        self.gear_ratio_Y = ((80*math.pi)/(25600))  # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
-        self.gear_ratio_Z = ((80*math.pi)/(3200*5))  # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
-        self.gear_ratio_A = (360/(12800*5))          # trục A cài vi bước 12800 xung/vong, hộp số 1/5
-        self.gear_ratio_B = (360/12800)              # trục B cài vi bước 12800 xung/vòng, không có hộp số
-        self.gear_ratio_C = (360/12800)              # trục C cài vi bước 12800 xung/vong, không có hộp số
+        self.gear_ratio_X = 1 #((80*math.pi)/(1600*5))                         # truc X cài vi bước 6400 xung/vòng, không có hộp số
+        self.gear_ratio_Y = 1 #((80*math.pi)/(25600))                          # trục Y cài vi bước 3200 xung/vòng, hộp số 1/5
+        self.gear_ratio_Z = 1 #((80*math.pi)/(3200*5))                         # trục Z cài vi bước 3200 xung/vòng, hộp số 1/5
+        self.gear_ratio_A = 1 #(360/(12800*5))                                 # trục A cài vi bước 12800 xung/vong, hộp số 1/5
+        self.gear_ratio_B = 1 #(360/12800)                                     # trục B cài vi bước 12800 xung/vòng, không có hộp số
+        self.gear_ratio_C = 1 #(360/12800)                                     # trục C cài vi bước 12800 xung/vong, không có hộp số
+
+        self.gear_ratio = []
 
         self.spray_axis = 550    # chiều dài trục súng sơn
         self.pre_button_state = 0 
@@ -717,6 +912,10 @@ class Monitor_Position_Class():
         self.machine_axis = False  # khóa machine axis sao cho chỉ sử dụng được 1 lần
         self.check_sensor_XYZ = False # command slave check cảm biến X,Y,Z khi chạy
         self.check_sensor_XYZA = False # command slave check cảm biến X,Y,Z,A khi chạy
+
+    def saveGearRatio(self, value):
+        self.gear_ratio_X = value[0]; self.gear_ratio_Y = value[1]; self.gear_ratio_Z = value[2]
+        self.gear_ratio_A = value[3]; self.gear_ratio_B = value[4]; self.gear_ratio_C = value[5]
 
     def read_state_button(self):
         state = Monitor_in_out.button_active
@@ -983,7 +1182,7 @@ class Monitor_Position_Class():
             # set lại các thông số motor, đưa giá trị current_position về 0
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
             time.sleep(0.5)
-            for i in range(AXIS_RUN):
+            for i in range(MAX_AXIS):
                 Run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                 self.go_machine_axis_state = False
                 while True: 
@@ -1032,7 +1231,7 @@ class Monitor_Position_Class():
         try:
             # Đọc giá trị current position ở địa chỉ bắt đầu từ 0, đọc 12 giá trị 16 bit
             current_position = master.execute (SLAVE_02, cst.READ_HOLDING_REGISTERS, self.CURRENT_POSITION_MODBUS_ADDR, 12)
-            for i in range(AXIS_RUN):
+            for i in range(MAX_AXIS):
                 current_position_motor.append((current_position[index] << 16) | (current_position[index+1] & 65535))
                 index = index + 2
 
@@ -1439,7 +1638,7 @@ class Run_auto():
         self.state_spray = 0; self.new_state_spray = 0
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         self.pre_points = [0,0,0,0,0,0]
-        self.gear = [Monitor_mode.gear_ratio_X, Monitor_mode.gear_ratio_Y, Monitor_mode.gear_ratio_Z, 
+        self.gear = [ Monitor_mode.gear_ratio_X, Monitor_mode.gear_ratio_Y, Monitor_mode.gear_ratio_Z, 
                     Monitor_mode.gear_ratio_A, Monitor_mode.gear_ratio_B, Monitor_mode.gear_ratio_C]
         self.old_Fspeed = 0; self.new_Fspeed = 0
         self.run_auto_mode = False          # trạng thái vào chế độ auto run
@@ -1623,7 +1822,7 @@ class Run_auto():
         speed_end = -1
 
         # lưu giá trị xung để truyền đi
-        for i in range(AXIS_RUN):
+        for i in range(MAX_AXIS):
             send_to_slave_id2.append(pulse_end[i] >> 16)
             send_to_slave_id2.append(pulse_end[i] & 65535)
         # lưu giá trị tốc độ truyền đi
@@ -1732,7 +1931,7 @@ class Run_auto():
             # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
-        for i in range(AXIS_RUN):
+        for i in range(MAX_AXIS):
             send_to_slave_id2.append(pulse[i] >> 16)
             send_to_slave_id2.append(pulse[i] & 65535)
         # lưu giá trị tốc độ truyền đi
@@ -1851,7 +2050,8 @@ Home = Home_position()
 ComunicationRobot = Com_box()
 Work_file = Save_file()
 Run = Run_auto()
-Show_status = Terminal()
+settingMotor = parameterSetting()
+workJson = makeFileSetting()
 #========================================================================
 Show_machine_infor()
 #========================================================================
