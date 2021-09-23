@@ -1,10 +1,20 @@
 import modbus_tk.defines as cst
 import modbus_tk.modbus_rtu as rtu
-#import pickle
 import serial
 import serial.tools.list_ports_windows
 
-class Read_Write_to_Serial():
+class Read_Write_to_Serial:
+    def __init__(self):
+        self.SLAVE_02 = 2
+        self.CHOOSE = 1
+        self.defineModbusAddr()
+
+    def defineModbusAddr(self):
+        self.CURRENT_POSITION_MODBUS_ADDR = 0
+        self.ENABLE_HOME_MODBUS_ADDR = 15
+        self.EXECUTE_PULSE_DONE = 0
+        self.CHECK_SENSOR_XYZA_ADDR = 3
+        self.SET_ZERO_POSITION_ADDR = 16
 
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
@@ -42,7 +52,6 @@ class Read_Write_to_Serial():
             comports.append(split_port[0])
         return comports   
 
-
     def choose_comports(self,baud,com):
         result = 0
         result = self.Init_Serial(baud,com)
@@ -51,3 +60,20 @@ class Read_Write_to_Serial():
         else: 
                 print("Không nhận được cổng COM")
         return result
+
+    def readCurrentPosition(self):
+        value = self.master.execute (self.SLAVE_02, cst.READ_HOLDING_REGISTERS, self.CURRENT_POSITION_MODBUS_ADDR, 12)
+        return value
+
+    def commandGotoZero(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.ENABLE_HOME_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandPositionCompleted(self):
+        status = self.master.execute(self.SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
+        return status
+
+    def commandCheckXYZAsensor(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHECK_SENSOR_XYZA_ADDR, output_value = self.CHOOSE)
+
+    def setZeroPositions(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = self.CHOOSE)
