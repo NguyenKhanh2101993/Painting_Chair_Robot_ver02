@@ -29,7 +29,6 @@ class checkComWindow():
         self.reset_comports()
         self.uic.pushButton.clicked.connect(self.choose_comports)
         self.uic.pushButton_2.clicked.connect(self.reset_comports)
-        main_window.uiWorking.actionConnect_to_Slave.triggered.connect(self.showComWindow)
      
     def showComWindow(self):
         self.comWindow.show()
@@ -59,7 +58,6 @@ class paramWindow:
         self.uiSetting = Ui_motorSettings()
         self.uiSetting.setupUi(self.settingWin)
 
-        main_window.uiWorking.actionMotor.triggered.connect(self.showParamWindow)
         self.uiSetting.buttonBox.rejected.connect(self.closeParamWindow)
         self.uiSetting.buttonBox.accepted.connect(self.save_settings)
 
@@ -70,7 +68,6 @@ class paramWindow:
         self.settingWin.close()
 
     def showParamWindow(self):
-        main_window.showStatus("Chế độ cài đặt thông số motor")
         self.settingWin.show()
         self.getParameter()
 
@@ -156,8 +153,6 @@ class teachingWindow:
         self.teachWin = QWidget()
         self.uiteach = Ui_teachMode()
         self.uiteach.setupUi(self.teachWin)
-        
-        main_window.uiWorking.actionTeach_mode_3.triggered.connect(self.enterTeachMode)
 
         self.forward = 1
         self.reverse = -1
@@ -223,8 +218,6 @@ class teachingWindow:
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
 
     def enterTeachMode(self):
-        main_window.showStatus("===> Chế độ teach mode")
-        main_window.disable_control_option(True)
         self.initTeachMode()
         teach.monitorTeachMode()
     
@@ -499,6 +492,59 @@ class workingWindow():
     def showWorkingWindow(self):
         self.window.show()
 
+    def defineControlButton(self):
+
+        self.lableG54Position = [self.uiWorking.label_Xposition, self.uiWorking.label_Yposition, self.uiWorking.label_Zposition, 
+                                    self.uiWorking.label_Aposition, self.uiWorking.label_Bposition, self.uiWorking.label_Cposition]
+
+        self.lableMachinePosition = [self.uiWorking.label_Xhome, self.uiWorking.label_Yhome, self.uiWorking.label_Zhome, self.uiWorking.label_Ahome,
+                                        self.uiWorking.label_Bhome,self.uiWorking.label_Chome]
+
+        self.controlButtonName = [ self.uiWorking.pushButton_gotozero, self.uiWorking.pushButton_machinehome]
+        self.controlButtonCommand = [ self.gotoZeroPosition, self.gotoMachinePosition]
+        for i in range(len(self.controlButtonName)):
+            self.controlButtonName[i].clicked.connect(self.controlButtonCommand[i])
+
+        self.uiWorking.actionChoose_File_pnt.triggered.connect(self.chooseFile)
+        self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
+        self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
+        self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
+
+
+    def disable_control_option(self, state):
+        for i in range(len(self.controlButtonName)):
+            self.controlButtonName[i].setDisabled(state)
+
+    def chooseFile(self):
+        self.showStatus("Chế độ chọn file.pnt")
+        try:
+            pathFile = wFile.show_initial_directory()
+            self.showStatus("pathFile: "+ pathFile)
+            self.uiWorking.label_directory.setText(pathFile)
+            content = wFile.get_file(pathFile)
+            self.uiWorking.textBrowser_showfile.setText(content)
+
+        except Exception as error: 
+            self.uiWorking.label_directory.setText("NO FILE LOADED")
+            self.showStatus(error)
+            return
+
+    def chooseComPort(self):
+        self.showStatus("Chế độ chọn cổng COM giao tiếp")
+        comWindow.showComWindow()
+
+    def openSettingMotor(self):
+        self.showStatus("Chế độ cài đặt thông số motor")
+        setMotor.showParamWindow()
+
+    def openTeachWindow(self):
+        self.showStatus("Chế độ dạy chương trình")
+        self.disable_control_option(True)
+        teachWindow.enterTeachMode()
+
+    def enterManual(self):
+        self.showStatus("Chế độ manual bật tắt coilY")
+
     def getGearRatioCalculated(self, value):
         self.gearRatio.clear()
         for i in range(len(value)):
@@ -565,55 +611,19 @@ class workingWindow():
         # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
         return currentPosition
 
-    def defineControlButton(self):
-
-        self.lableG54Position = [self.uiWorking.label_Xposition, self.uiWorking.label_Yposition, self.uiWorking.label_Zposition, 
-                                    self.uiWorking.label_Aposition, self.uiWorking.label_Bposition, self.uiWorking.label_Cposition]
-
-        self.lableMachinePosition = [self.uiWorking.label_Xhome, self.uiWorking.label_Yhome, self.uiWorking.label_Zhome, self.uiWorking.label_Ahome,
-                                        self.uiWorking.label_Bhome,self.uiWorking.label_Chome]
-
-
-
-        self.controlButtonName = [ self.uiWorking.pushButton_gotozero, self.uiWorking.pushButton_machinehome]
-        self.controlButtonCommand = [ self.gotoZeroPosition, self.gotoMachinePosition]
-        for i in range(len(self.controlButtonName)):
-            self.controlButtonName[i].clicked.connect(self.controlButtonCommand[i])
-
-    def disable_control_option(self, state):
-        for i in range(len(self.controlButtonName)):
-            self.controlButtonName[i].setDisabled(state)
-
-    def chooseFile(self):
-        main_window.showStatus("Chế độ chọn file.pnt")
-        try:
-            pathFile = wFile.show_initial_directory()
-            main_window.showStatus("pathFile: "+ pathFile)
-            self.uiWorking.label_directory.setText(pathFile)
-            content = wFile.get_file(pathFile)
-            self.uiWorking.textBrowser_showfile.setText(content)
-
-        except Exception as error: 
-            self.uiWorking.label_directory.setText("NO FILE LOADED")
-            main_window.showStatus(error)
-            return
-
-    def enterManual(self):
-        main_window.showStatus("Chế độ manual bật tắt coilY")
-
     def gotoZeroPosition(self):
-        main_window.showStatus("Đưa tay máy về vị trí 0")
+        self.showStatus("Đưa tay máy về vị trí 0")
         comWindow.workSerial.commandGotoZero()
         while True:
             positionCompleted = comWindow.workSerial.commandPositionCompleted()
-            main_window.showCurrentPositions()
+            self.showCurrentPositions()
             if positionCompleted[0] == 1: 
                 break
-        main_window.showStatus("Tay máy đã về vị trí 0")
+        self.showStatus("Tay máy đã về vị trí 0")
 
     def gotoMachinePosition(self):
         if self.go_machine_home == False:
-            main_window.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
+            self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
             comWindow.workSerial.commandCheckXYZAsensor()
             
             pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
@@ -635,13 +645,13 @@ class workingWindow():
             # set lại các thông số motor, đưa giá trị current_position về 0
             comWindow.workSerial.setZeroPositions()
             time.sleep(0.5)
-            for i in range(main_window.MAX_AXIS):
+            for i in range(self.MAX_AXIS):
                 run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                 self.go_machine_axis_state = False
                 while True: 
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                     positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                    main_window.showCurrentPositions()
+                    self.showCurrentPositions()
                     if (positionCompleted[0]==1 or self.sensor_machine_axis[i] == 0):
                         # dừng động cơ
                         run.stop_motor()
@@ -657,7 +667,7 @@ class workingWindow():
                 # Đọc trạng thái phát xung đã hoàn tất chưa
                 positionCompleted = comWindow.workSerial.commandPositionCompleted()
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                main_window.showCurrentPositions()
+                self.showCurrentPositions()
                 if positionCompleted[0] == 1: 
                     # set lại các thông số motor, đưa giá trị current_position về 0
                     comWindow.workSerial.setZeroPositions()
@@ -667,7 +677,7 @@ class workingWindow():
             self.disable_control_option(False)
             self.go_machine_home = True # đã về home
         
-        main_window.showStatus("Tay máy đã về vị trí cảm biến gốc máy")
+        self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
 
     def showStatus(self, value):
         self.uiWorking.textBrowser_terminal.append(str(value))
