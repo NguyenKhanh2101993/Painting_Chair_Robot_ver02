@@ -15,6 +15,8 @@ class Read_Write_to_Serial:
         self.EXECUTE_PULSE_DONE = 0
         self.CHECK_SENSOR_XYZA_ADDR = 3
         self.SET_ZERO_POSITION_ADDR = 16
+        self.POINT2POINT_MODBUS_ADDR = 7
+        self.STOP_MOTOR_MODBUS_ADDR = 1
 
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
@@ -55,10 +57,6 @@ class Read_Write_to_Serial:
     def choose_comports(self,baud,com):
         result = 0
         result = self.Init_Serial(baud,com)
-        if result == 1:
-                print("Khởi tạo cổng COM đã xong")
-        else: 
-                print("Không nhận được cổng COM")
         return result
 
     def readCurrentPosition(self):
@@ -77,3 +75,12 @@ class Read_Write_to_Serial:
 
     def setZeroPositions(self):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = self.CHOOSE)
+
+    def sendMultipledata(self, data, startAddress):
+        self.master.execute(self.SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, startAddress , output_value = data)
+
+    def commandPointToPoint(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandStopMotor(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = self.CHOOSE)

@@ -5,6 +5,7 @@ class monitor:
     def __init__(self):
         self.MAX_AXIS = 6
         self.spray_axis = 550
+        self.modbus = workSerial()
 
     # giám sát vị trí các trục tay máy
     def read_pulse_from_slaves(self):
@@ -16,7 +17,7 @@ class monitor:
         # Đọc giá trị xung của tất cả động cơ 
         try:
             # Đọc giá trị current position ở địa chỉ bắt đầu từ 0, đọc 12 giá trị 16 bit
-            current_position = workSerial.readCurrentPosition()
+            current_position = self.modbus.readCurrentPosition()
             for i in range(self.MAX_AXIS):
                 current_position_motor.append((current_position[index] << 16) | (current_position[index+1] & 65535))
                 index = index + 2

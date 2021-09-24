@@ -42,7 +42,7 @@ class makeFileSetting:
         self.config = {}
         self.motorX = {}; self.motorY = {}; self.motorZ = {}
         self.motorA = {}; self.motorB = {}; self.motorC = {}
-        self.gearRatio = []
+        self.gearRatio = [1,1,1,1,1,1]
         self.config = {"motor": { 
                             "motorX": self.motorX, "motorY": self.motorY,  "motorZ": self.motorZ, 
                             "motorA": self.motorA,  "motorB": self.motorB,  "motorC": self.motorC },
@@ -92,11 +92,11 @@ class makeFileSetting:
         return gearCalculated
 #============================================================================================
     def setGearInfor(self, value):
-        print("Save gearRatio result")
-        self.gearRatio = []
-        for i in range(len(value)):
-            self.gearRatio.append(value[i])
-        print("saved gearRatio: ",self.gearRatio)
+        for i in range(len(self.gearRatio)):
+            self.gearRatio[i] = value[i]
+
+        print(self.gearRatio)
+        print(self.config)
         with open('configFile.json', 'w') as f:
             json.dump(self.config,f)
         f.close()

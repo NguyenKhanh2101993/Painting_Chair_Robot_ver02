@@ -11,41 +11,43 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_ComportWindow(object):
-    def setupUi(self, ComportWindow):
-        ComportWindow.setObjectName("ComportWindow")
-        #ComportWindow.resize(1920, 1080)
-        #ComportWindow.setMinimumSize(QtCore.QSize(1920, 1080))
-        #ComportWindow.setMaximumSize(QtCore.QSize(1920, 1080))
-        self.frame1 = QtWidgets.QFrame(ComportWindow)
-        self.frame1.setGeometry(QtCore.QRect(0, 0, 1080, 161))
-        self.frame1.setStyleSheet("background-color: rgb(0, 170, 0);")
-        self.frame1.setFrameShape(QtWidgets.QFrame.Panel)
-        self.frame1.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame1.setLineWidth(2)
-        self.frame1.setMidLineWidth(2)
-        self.frame1.setObjectName("frame1")
-        self.machineName = QtWidgets.QLabel(self.frame1)
-        self.machineName.setGeometry(QtCore.QRect(50, 10, 1080, 131))
-        self.machineName.setObjectName("machineName")
-        self.frame0 = QtWidgets.QFrame(ComportWindow)
-        self.frame0.setGeometry(QtCore.QRect(-11, 169, 1080, 591))
-        self.frame0.setStyleSheet("background-color: rgb(51, 51, 51);")
-        self.frame0.setFrameShape(QtWidgets.QFrame.Panel)
-        self.frame0.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame0.setLineWidth(2)
-        self.frame0.setObjectName("frame0")
-        self.frame2 = QtWidgets.QFrame(self.frame0)
-        self.frame2.setGeometry(QtCore.QRect(360, 240, 431, 221))
-        self.frame2.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));\n"
+class Ui_communication(object):
+    def setupUi(self, communication):
+        communication.setObjectName("communication")
+        communication.resize(400, 300)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(communication.sizePolicy().hasHeightForWidth())
+        communication.setSizePolicy(sizePolicy)
+        communication.setMinimumSize(QtCore.QSize(400, 300))
+        communication.setMaximumSize(QtCore.QSize(400, 300))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        communication.setWindowIcon(icon)
+        self.frame2 = QtWidgets.QFrame(communication)
+        self.frame2.setGeometry(QtCore.QRect(0, 0, 401, 301))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.frame2.sizePolicy().hasHeightForWidth())
+        self.frame2.setSizePolicy(sizePolicy)
+        self.frame2.setStyleSheet("\n"
 "background-color: rgb(223, 223, 223);")
         self.frame2.setFrameShape(QtWidgets.QFrame.Panel)
         self.frame2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame2.setLineWidth(2)
         self.frame2.setMidLineWidth(0)
         self.frame2.setObjectName("frame2")
+        self.comboBox_comPort = QtWidgets.QComboBox(self.frame2)
+        self.comboBox_comPort.setGeometry(QtCore.QRect(20, 160, 141, 41))
+        self.comboBox_comPort.setStyleSheet("font: 75 16pt \"Arial\";\n"
+"background-color: rgb(159, 159, 159);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.comboBox_comPort.setObjectName("comboBox_comPort")
         self.pushButton = QtWidgets.QPushButton(self.frame2)
-        self.pushButton.setGeometry(QtCore.QRect(90, 120, 111, 51))
+        self.pushButton.setGeometry(QtCore.QRect(180, 240, 93, 36))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -55,15 +57,12 @@ class Ui_ComportWindow(object):
         self.pushButton.setMouseTracking(False)
         self.pushButton.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton.setAutoFillBackground(False)
-        self.pushButton.setStyleSheet("\n"
-"background-color: rgb(200, 196, 190);")
+        self.pushButton.setStyleSheet("background-color: rgb(200, 196, 190);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
         self.pushButton.setObjectName("pushButton")
-        self.comboBox = QtWidgets.QComboBox(self.frame2)
-        self.comboBox.setGeometry(QtCore.QRect(90, 30, 261, 51))
-        self.comboBox.setStyleSheet("font: 75 16pt \"Arial\";")
-        self.comboBox.setObjectName("comboBox")
         self.pushButton_2 = QtWidgets.QPushButton(self.frame2)
-        self.pushButton_2.setGeometry(QtCore.QRect(240, 120, 111, 51))
+        self.pushButton_2.setGeometry(QtCore.QRect(290, 240, 93, 36))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -73,27 +72,67 @@ class Ui_ComportWindow(object):
         self.pushButton_2.setMouseTracking(False)
         self.pushButton_2.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_2.setAutoFillBackground(False)
-        self.pushButton_2.setStyleSheet("background-color: rgb(255, 0, 0);")
+        self.pushButton_2.setStyleSheet("background-color: rgb(255, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
         self.pushButton_2.setObjectName("pushButton_2")
-        self.frame0.raise_()
-        self.frame1.raise_()
+        self.label_39 = QtWidgets.QLabel(self.frame2)
+        self.label_39.setGeometry(QtCore.QRect(20, 10, 351, 51))
+        self.label_39.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_39.setObjectName("label_39")
+        self.comboBox_baudRate = QtWidgets.QComboBox(self.frame2)
+        self.comboBox_baudRate.setGeometry(QtCore.QRect(230, 160, 141, 41))
+        self.comboBox_baudRate.setStyleSheet("font: 75 16pt \"Arial\";\n"
+"background-color: rgb(159, 159, 159);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.comboBox_baudRate.setObjectName("comboBox_baudRate")
+        self.label_40 = QtWidgets.QLabel(self.frame2)
+        self.label_40.setGeometry(QtCore.QRect(230, 100, 141, 51))
+        self.label_40.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_40.setObjectName("label_40")
+        self.label_41 = QtWidgets.QLabel(self.frame2)
+        self.label_41.setGeometry(QtCore.QRect(20, 100, 141, 51))
+        self.label_41.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_41.setObjectName("label_41")
+        self.pushButton_2.raise_()
+        self.comboBox_comPort.raise_()
+        self.pushButton.raise_()
+        self.label_39.raise_()
+        self.comboBox_baudRate.raise_()
+        self.label_40.raise_()
+        self.label_41.raise_()
 
-        self.retranslateUi(ComportWindow)
-        QtCore.QMetaObject.connectSlotsByName(ComportWindow)
+        self.retranslateUi(communication)
+        QtCore.QMetaObject.connectSlotsByName(communication)
 
-    def retranslateUi(self, ComportWindow):
+    def retranslateUi(self, communication):
         _translate = QtCore.QCoreApplication.translate
-        ComportWindow.setWindowTitle(_translate("ComportWindow", "Widget"))
-        self.machineName.setText(_translate("ComportWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">KHOI NGUYEN PLASTIC.JSC</span></p><p align=\"center\"><span style=\" font-size:28pt; font-weight:600; color:#ffffff;\">AUTOMATIC PAINTING MACHINE</span></p></body></html>"))
-        self.pushButton.setText(_translate("ComportWindow", "OK"))
-        self.pushButton_2.setText(_translate("ComportWindow", "RESET"))
+        communication.setWindowTitle(_translate("communication", "Communication"))
+        self.pushButton.setText(_translate("communication", "OK"))
+        self.pushButton_2.setText(_translate("communication", "RESET"))
+        self.label_39.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">COMMUNICATION</span></p></body></html>"))
+        self.label_40.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">BAUDRATE</span></p></body></html>"))
+        self.label_41.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">COM PORT</span></p></body></html>"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    ComportWindow = QtWidgets.QWidget()
-    ui = Ui_ComportWindow()
-    ui.setupUi(ComportWindow)
-    ComportWindow.show()
+    communication = QtWidgets.QWidget()
+    ui = Ui_communication()
+    ui.setupUi(communication)
+    communication.show()
     sys.exit(app.exec_())
