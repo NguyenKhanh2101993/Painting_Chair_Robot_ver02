@@ -15,8 +15,8 @@ class workingFile:
    
     # lấy nội dung file hiện thị lên brower text lable
     def get_file(self, path):
-        with open(path,'r') as f:
-                text = f.read()
+        with open(path,'r') as self.file:
+                text = self.file.read()
         return text
 
     def save_file(self, content):

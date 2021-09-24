@@ -17,6 +17,13 @@ class Read_Write_to_Serial:
         self.SET_ZERO_POSITION_ADDR = 16
         self.POINT2POINT_MODBUS_ADDR = 7
         self.STOP_MOTOR_MODBUS_ADDR = 1
+        self.SAVE_PACKET_DATA_MODBUS_ADDR = 10
+        self.TABLE_CHANGE_STATE_MODBUS_ADDR = 4
+        self.SPRAY_ON_MODBUS_ADDR = 6
+        self.SPRAY_OFF_MODBUS_ADDR = 5
+        self.PAUSE_MOTOR_MODBUS_ADDR = 8
+        self.RESUME_MOTOR_MODBUS_ADDR = 9
+        self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR = 11
 
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
@@ -84,3 +91,24 @@ class Read_Write_to_Serial:
 
     def commandStopMotor(self):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.STOP_MOTOR_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandSavePacketsData(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SAVE_PACKET_DATA_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandRotateTable(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.TABLE_CHANGE_STATE_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandTurnOnSpray(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = self.CHOOSE) 
+
+    def commandTurnOffSpray(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_OFF_MODBUS_ADDR, output_value = self.CHOOSE)   
+       
+    def commandPauseMotor(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.PAUSE_MOTOR_MODBUS_ADDR, output_value = self.CHOOSE)
+    
+    def commandResumeMotor(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.RESUME_MOTOR_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandChangeStateBlockRun(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = self.CHOOSE)

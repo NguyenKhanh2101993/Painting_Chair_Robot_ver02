@@ -1962,7 +1962,6 @@ class Run_auto():
     def command_table_rotate(self):
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.TABLE_CHANGE_STATE_MODBUS_ADDR, output_value = CHOOSE)
         print("Xoay bàn sơn")
-
 #-------------------------------------------------------            
     def pause_motor(self):
 # phát lệnh dừng tay máy

@@ -500,8 +500,12 @@ class workingWindow():
         self.lableMachinePosition = [self.uiWorking.label_Xhome, self.uiWorking.label_Yhome, self.uiWorking.label_Zhome, self.uiWorking.label_Ahome,
                                         self.uiWorking.label_Bhome,self.uiWorking.label_Chome]
 
-        self.controlButtonName = [ self.uiWorking.pushButton_gotozero, self.uiWorking.pushButton_machinehome]
-        self.controlButtonCommand = [ self.gotoZeroPosition, self.gotoMachinePosition]
+        self.controlButtonName = [ self.uiWorking.pushButton_gotozero, self.uiWorking.pushButton_machinehome, 
+                                self.uiWorking.pushButton_auto,  self.uiWorking.pushButton_jog, self.uiWorking.pushButton_pause,
+                                self.uiWorking.pushButton_estop]
+
+        self.controlButtonCommand = [ self.gotoZeroPosition, self.gotoMachinePosition, self.runAutoCycle,
+                                         self.runJog, self.pauseMotor, self.eStopMotor]
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].clicked.connect(self.controlButtonCommand[i])
 
@@ -509,6 +513,8 @@ class workingWindow():
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
         self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
+
+
 
 
     def disable_control_option(self, state):
@@ -544,6 +550,21 @@ class workingWindow():
 
     def enterManual(self):
         self.showStatus("Chế độ manual bật tắt coilY")
+
+    def runAutoCycle(self):
+        self.showStatus("Chế độ chạy auto")
+        run.activate_run_mode()
+
+    def runJog(self):
+        self.showStatus("Chế độ JOG - chạy từng dòng")
+
+    def pauseMotor(self):
+        self.showStatus("Tạm dừng motor")
+        run.pause_motor()
+
+    def eStopMotor(self):
+        self.showStatus("Dừng motor khẩn cấp")
+        run.disable_run_mode()
 
     def getGearRatioCalculated(self, value):
         self.gearRatio.clear()
@@ -684,7 +705,270 @@ class workingWindow():
 #================================================================================================
 class runMotor:
     def __init__(self):
-        self.run_auto_mode = False
+        self.sum_xung_le = [0,0,0,0,0,0]
+        self.pause_on = 0
+        self.pre_result_value = [0,0,0,0,0,0,0,0] # X,Y,Z,A,B,C,S,F
+        self.pre_points = [0,0,0,0,0,0]
+        self.new_Fspeed = 0
+        self.run_auto_mode = False          # trạng thái vào chế độ auto run
+        self.counter = 0                    # lưu tổng số điểm đã truyền tới data_packet slave để chạy block mode
+    
+        self.MAX_POINT_IN_BLOCK = 140       # số điểm tối đa có thể truyền tới data_packet slave trong block mode
+        self.end_symbol = 'M30\n'           #command kết thúc chương trình
+        self.start_run_block = 'G05.0\n'    #command bắt đầu chạy theo block N điểm
+        self.end_run_block = 'G05.1\n'      #command kết thúc chạy theo block N điểm
+        self.go_to_2nd_point = 'G30\n'      #command quay về điểm gốc thứ 2
+        self.go_to_1st_point = 'G28\n'      #command quay về vị trí gốc 0 (điểm bắt đầu chạy)
+        self.turn_on_spray = 'M08\n'        #command lệnh bật súng sơn
+        self.turn_off_spray = 'M09\n'       #command lệnh tắt súng sơn
+        self.table_rotary = 'M10\n'         #command xoay bàn sơn
+        self.run_block_done = False
+
+        self.e_stop = False                 # trạng thái tín hiệu nút nhấn ESTOP
+
+#=============================================================
+    def activate_run_mode(self):
+        try:
+            position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
+            #main_window.disable_screen_option()
+            #main_window.disable_button_control(0)
+            self.run_auto_mode = True
+            
+            for str_content in wFile.file:
+                if self.e_stop == True: # nếu có tín hiệu nhấn E-STOP
+                    wFile.file.close()
+                    break
+
+                main_window.showStatus ('========================================================================')
+                content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
+                main_window.showStatus (content_line)
+                content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
+                self.monitor_str_content(str_content)       # hiện thị từng dòng trong file
+                recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
+
+                if recognizeStringArr == True:
+                    # tách số của các trục
+                    result_string = self.separate_string(content_line)
+                    # tính toán khoảng cách cần tịnh tiến
+                    result_delta = self.calculate_delta(result_string)
+                    # tính toán số xung tịnh tiến
+                    result_xung_nguyen = self.calculate_pulse(result_delta)
+                    # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
+                    self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
+                    comWindow.workSerial.commandPointToPoint()  # phát lệnh chạy mode point to point bình thường
+                    self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
+                else:
+
+                    if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                        break
+
+                    if content_line == self.turn_on_spray: # bật súng sơn
+                        self.command_run_spray(1)
+                        
+                    if content_line == self.turn_off_spray: # tắt súng sơn
+                        self.command_run_spray(0)
+                        
+                    if content_line == self.table_rotary: # xoay bàn sơn
+                        self.command_table_rotate()
+
+                    if content_line == self.go_to_1st_point: # đi tới điểm gốc đầu tiên, điểm 0
+                        main_window.gotoZeroPosition()
+
+                    if content_line == self.go_to_2nd_point: # đi tới điểm gốc thứ 2
+                        pass
+                    
+                    if content_line == self.start_run_block:
+                        main_window.showStatus ("=====> G05.0 START BLOCK RUN MODE")
+                        result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
+                        if result_run_block == False: 
+                            main_window.showStatus ("=====> G05.1 Error !!!")
+                            break
+                        else: 
+                            # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
+                            main_window.showStatus ("===> BLOCK RUN MODE DONE")
+                            self.counter = 0
+
+        except Exception as e:
+                main_window.showStatus('activate_run_mode error: '+str(e))
+                main_window.showStatus("===> Run Auto", "Error: ")
+
+        finally:
+            main_window.showStatus ('========================================================================')
+            self.re_init()
+            main_window.showStatus("--------------------------------------------------------------------------")
+            main_window.showStatus("END")
+
+# gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
+    def send_packet_to_slave(self):
+        sent_packet_done = False
+        sent_point = 0
+        target_line = ' '
+        run_block = False
+
+        for str_content in wFile.file:
+            main_window.showStatus('========================================================================')
+            content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
+            main_window.showStatus(content_line)
+            content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
+            recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
+
+            if recognizeStringArr == True:
+                target_line = content_line
+                # tách số của các trục
+                result_string = self.separate_string(content_line)
+                # tính toán khoảng cách cần tịnh tiến
+                result_delta = self.calculate_delta(result_string)
+                # tính toán số xung tịnh tiến
+                result_xung_nguyen = self.calculate_pulse(result_delta)
+                # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
+                self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
+                # lệnh lưu result_xung_nguyen vào bộ nhớ tạm của board slave
+                sent_point = self.save_to_packet_data()
+
+                if sent_point == self.MAX_POINT_IN_BLOCK:  # nếu đã lưu đủ 140 điểm (bên slave có bộ nhớ 150 điểm)
+                    sent_packet_done = True
+
+            if content_line == self.end_run_block or sent_packet_done == True:    
+                main_window.showStatus("=====> G05.1 END BLOCK RUN MODE")
+                self.monitor_str_content(target_line)  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
+
+                if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
+                    # cho chạy auto 
+                    main_window.showStatus("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
+                    self.send_end_run_block_mode()
+                    self.monitor_run_block_begin()
+                    run_block = self.run_block_done
+                break
+                # thoát khỏi vòng lặp for 
+        return run_block
+
+# chay block point đã gửi tới board slave
+    def monitor_run_block_begin(self):
+        self.run_block_done = False
+        self.pause_on = 0
+        comWindow.workSerial.commandChangeStateBlockRun()
+        while True:
+            point_done = comWindow.workSerial.commandPositionCompleted()
+            main_window.showCurrentPositions()
+
+            if point_done[0] == 1: # slave đã chạy xong hết block
+                self.run_block_done = True
+                break
+            if self.pause_on == 1: # dừng motor
+                comWindow.workSerial.commandPauseMotor()
+                        
+            if self.pause_on == 2: # tiếp tục chạy
+                comWindow.workSerial.commandResumeMotor()
+                self.pause_on = 0
+# 
+    def monitor_run_auto_next(self):
+        self.pause_on = 0
+        while True:
+            point_done = comWindow.workSerial.commandPositionCompleted()
+            main_window.showCurrentPositions()
+            if point_done[0] == 1: 
+                break
+            if self.pause_on == 1: # dừng motor
+                comWindow.workSerial.commandPauseMotor()
+            if self.pause_on == 2: # tiếp tục chạy
+                comWindow.workSerial.commandResumeMotor()
+                self.pause_on = 0
+
+# gửi mã thoát khỏi chế độ run block point tới board slave
+    def send_end_run_block_mode(self):
+        send_to_slave_id2 = []
+        pulse_end = [0,0,0,0,0,0]
+        speed_end = -1
+        # lưu giá trị xung để truyền đi
+        for i in range(main_window.MAX_AXIS):
+            send_to_slave_id2.append(pulse_end[i] >> 16)
+            send_to_slave_id2.append(pulse_end[i] & 65535)
+        # lưu giá trị tốc độ truyền đi
+        send_to_slave_id2.append(speed_end >> 16)
+        send_to_slave_id2.append(speed_end & 65535)
+        comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
+        self.save_to_packet_data()
+
+# Dừng chương trình chạy auto
+    def disable_run_mode(self):
+        if self.run_auto_mode == True:
+            self.stop_motor() # dừng motor khẩn cấp
+            self.e_stop = True
+
+# tách giá trị tương ứng với từng phần tử trong file 
+    def separate_string(self, string):
+        Range_char = ['X','Y','Z','A','B','C','S','F','\n']
+        # Giá trị tương ứng với các phần tử trong chuỗi string
+        value_char = {'X': '0', 'Y': '0', 'Z': '0','A': '0', 'B': '0', 'C': '0', 'S': '0', 'F': '0' }
+        try:
+            for i in range(len(Range_char)-1):
+                index = string.find(Range_char[i])
+                next_char = 0
+                next_index_array = []
+                if index != -1:
+                    while next_char < len(Range_char):
+                        next_index = string.find(Range_char[next_char])
+                        next_index_array.append(next_index)
+                        next_char += 1
+                    next_index_array.sort()     
+                    for j in range(len(next_index_array)):
+                        if next_index_array[j] > index:
+                           larger_index = next_index_array[j]
+                           break
+                    value_char[Range_char[i]] = string[index+1: larger_index]
+                else: 
+                    value_char[Range_char[i]] = self.pre_result_value[i]
+            
+            result_value = [value_char['X'],value_char['Y'],value_char['Z'],value_char['A'],
+                            value_char['B'],value_char['C'],value_char['S'],value_char['F']]
+
+            for i in range(len(self.pre_result_value)):
+                self.pre_result_value[i] = result_value[i]  
+
+            self.new_state_spray = int(result_value[6])     # trạng thái coil súng sơn
+            self.new_Fspeed = int(result_value[7])          # tốc độ sơn
+
+        except Exception as e:
+            main_window.showStatus('separate_string error: ' + str(e))
+            return
+        return result_value
+
+# tính khoảng cách giữa các điểm theo đơn vị xung
+    def calculate_delta(self,result_array):
+    # result_array là mảng chứa kết quả của hàm separate_string    
+    # tính giá trị xung tịnh tiến
+        main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
+        main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
+        result_value    = []
+        delta           = []
+        print_delta     = []
+        for i in range(len(self.pre_points)):
+            delta.append(float(result_array[i])- self.pre_points[i])
+            self.pre_points[i] = float(result_array[i])
+            result_value.append(float(delta[i])/main_window.gearRatio[i])
+            print_delta.append(round(delta[i],3))
+
+        main_window.showStatus('Gia tri delta cua X,Y,Z,A,B,C là:'+ str(print_delta))
+        return result_value
+
+# tách xung nguyên và xung lẻ
+    def calculate_pulse(self,delta_array):
+        print_delta_array   = []       
+        xung_le             = []
+        xung_nguyen         = []
+        so_xung             = []
+        for x in range(len(delta_array)):
+            print_delta_array.append(round(delta_array[x],3))
+            so_xung.append(delta_array[x]+self.sum_xung_le[x])
+            xung_nguyen.append(math.trunc(so_xung[x]))
+            self.sum_xung_le[x] = so_xung[x] - xung_nguyen[x]
+            xung_le.append(round(self.sum_xung_le[x],3))  
+        main_window.showStatus ("------------------------------------")
+        main_window.showStatus ('>>> Gia tri xung x,y,z,a,b,c chua calib lan luot la: ' + str(print_delta_array))
+        main_window.showStatus ('>>> So xung nguyen truc x,y,z,a,b,c: ' + str(xung_nguyen))
+        main_window.showStatus ('>>> So xung le truc x,y,z,a,b,c:     '+ str(xung_le))
+        main_window.showStatus ("------------------------------------")
+        return xung_nguyen
 
 # truyền giá trị xung và tốc độ x,y,z,a,b,c tới board execute; giá trị 32 bit
     def send_to_execute_board(self, pulse, _speed):
@@ -695,8 +979,8 @@ class runMotor:
             speed_slaves = main_window.callMotorSpeed()
         else: speed_slaves = _speed
 
-        main_window.showStatus ("Tốc độ tay máy: ",int(speed_slaves),"%")
-        main_window.showStatus ("Giá trị xung cấp vào driver: ",pulse) 
+        main_window.showStatus ("===> Tốc độ tay máy: " + str(speed_slaves) +"%")
+        main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
@@ -713,9 +997,70 @@ class runMotor:
         # phát command tới board slave chạy đến điểm đã gửi
             comWindow.workSerial.commandPointToPoint()
 
+# phát lệnh dừng tay máy
+    def pause_motor(self):
+        self.pause_on += 1
+        main_window.showStatus("===> Tạm dừng động cơ")
+
+# gửi index packet data N điểm tới slaves khi khi gặp G05.0
+    def save_to_packet_data(self):
+        comWindow.workSerial.commandSavePacketsData()
+        self.counter += 1
+        result_value = self.counter
+        return result_value 
+
+# define lại giá trị sau khi đã chạy auto hoàn tất
+    def re_init(self):
+        self.pre_points = [0,0,0,0,0,0]
+        self.pause_on = 0
+        self.pre_result_value = [0,0,0,0,0,0,0,0]
+        self.run_auto_mode = False
+        self.run_block_done = False
+        self.counter = 0
+        self.e_stop = False
+        #main_window.enable_button_control(0)
+        #main_window.enable_screen_option()
+
+# Hiện thị từng dòng đang chạy trong file lên label
+    def monitor_str_content(seft, string):
+        main_window.uiWorking.label_showline.setText(string)
+
+# Nhận diện dòng thỏa cú pháp trong file
+    def recognize_command_syntax(self, StringArr):
+        if StringArr == '\0' or StringArr == '\n':
+            main_window.showStatus("Ky tu khong dung systax: " + str(StringArr))
+            Recognize_command = False
+            return Recognize_command
+        Recognize_command = True
+        RecognizeChar = ['0','1','2','3','4','5','6','7','8','9', 
+                         'X', 'Y', 'Z', 'A', 'B', 'C', 'S', 'F', '.', '-', '\n', '\0']
+        for char in StringArr:
+            if char in RecognizeChar[0:]: 
+                pass
+            else:
+              Recognize_command = False
+              main_window.showStatus ("Ky tu khong dung systax: " + str(StringArr))
+              break
+        return Recognize_command
+
+# command bật tắt súng sơn 
+    def command_run_spray(self, state):
+        if state:
+            main_window.showStatus("===> SÚNG SƠN BẬT")
+            comWindow.workSerial.commandTurnOnSpray()
+        else:
+            main_window.showStatus("===> SÚNG SƠN TẮT")
+            comWindow.workSerial.commandTurnOffSpray()    
+
+# Dừng động cơ
     def stop_motor(self):
-        main_window.showStatus("STOP MOTOR")
+        main_window.showStatus("===> STOP MOTOR")
         comWindow.workSerial.commandStopMotor()
+
+# command xoay bàn sơn
+    def command_table_rotate(self):
+        main_window.showStatus("===> Xoay bàn sơn")
+        comWindow.workSerial.commandRotateTable()
 #================================================================================================
 if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     app = QApplication([])
