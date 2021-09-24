@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1915</width>
+    <width>1920</width>
     <height>1026</height>
    </rect>
   </property>
@@ -203,7 +203,7 @@ border-radius: 5px
        <rect>
         <x>20</x>
         <y>880</y>
-        <width>111</width>
+        <width>181</width>
         <height>51</height>
        </rect>
       </property>
@@ -242,9 +242,9 @@ border-top-color: rgb(208, 208, 208);</string>
      <widget class="QPushButton" name="pushButton_jog">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>270</x>
         <y>880</y>
-        <width>111</width>
+        <width>181</width>
         <height>51</height>
        </rect>
       </property>
@@ -280,53 +280,12 @@ border-top-color: rgb(208, 208, 208);</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_estop">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>880</y>
-        <width>331</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 0, 0);
-color: rgb(255, 255, 255);
-border: 3px solid rgb(255, 255, 255);
-border-radius: 5px;
-border-top-color: rgb(208, 208, 208);</string>
-      </property>
-      <property name="text">
-       <string>E-STOP</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pushButton_pause">
       <property name="geometry">
        <rect>
-        <x>320</x>
+        <x>520</x>
         <y>880</y>
-        <width>111</width>
+        <width>181</width>
         <height>51</height>
        </rect>
       </property>
@@ -366,14 +325,16 @@ border-top-color: rgb(208, 208, 208);</string>
     <widget class="QFrame" name="frame_termial">
      <property name="geometry">
       <rect>
-       <x>820</x>
+       <x>818</x>
        <y>0</y>
-       <width>1101</width>
+       <width>831</width>
        <height>421</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(122, 122, 122);</string>
+      <string notr="true">background-color: rgb(122, 122, 122);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -413,14 +374,16 @@ border-radius: 10px</string>
     <widget class="QFrame" name="frame_button">
      <property name="geometry">
       <rect>
-       <x>820</x>
-       <y>430</y>
-       <width>1101</width>
+       <x>818</x>
+       <y>435</y>
+       <width>1098</width>
        <height>61</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(122, 122, 122);</string>
+      <string notr="true">background-color: rgb(122, 122, 122);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -428,239 +391,151 @@ border-radius: 10px</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButton_teach">
+     <widget class="QLabel" name="label_xhome">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>5</y>
-        <width>161</width>
-        <height>50</height>
+        <x>20</x>
+        <y>10</y>
+        <width>121</width>
+        <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 85, 127);
-color: rgb(255, 255, 255);
-border: 2px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
       </property>
       <property name="text">
-       <string>TEACH MODE</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_settings">
+     <widget class="QLabel" name="label_yhome">
       <property name="geometry">
        <rect>
-        <x>350</x>
-        <y>5</y>
-        <width>161</width>
-        <height>50</height>
+        <x>160</x>
+        <y>10</y>
+        <width>121</width>
+        <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 85, 127);
-color: rgb(255, 255, 255);
-border: 2px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
       </property>
       <property name="text">
-       <string>SETTINGS</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_gotozero">
+     <widget class="QLabel" name="label_zhome">
       <property name="geometry">
        <rect>
-        <x>690</x>
-        <y>5</y>
-        <width>161</width>
-        <height>50</height>
+        <x>300</x>
+        <y>10</y>
+        <width>121</width>
+        <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 85, 127);
-color: rgb(255, 255, 255);
-border: 2px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
       </property>
       <property name="text">
-       <string>GO TO ZERO</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Z-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_machinehome">
+     <widget class="QLabel" name="label_ahome">
       <property name="geometry">
        <rect>
-        <x>860</x>
-        <y>5</y>
-        <width>231</width>
-        <height>50</height>
+        <x>440</x>
+        <y>10</y>
+        <width>121</width>
+        <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(173, 51, 10);
-color: rgb(255, 255, 255);
-border: 2px solid  rgb(255, 255, 255);
-border-radius: 5px</string>
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
       </property>
       <property name="text">
-       <string>MACHINE HOME</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;A-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_choosefile">
+     <widget class="QLabel" name="label_xlimit">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>5</y>
-        <width>161</width>
-        <height>51</height>
+        <x>600</x>
+        <y>10</y>
+        <width>151</width>
+        <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 85, 127);
-pressed { background-color: rgb(200,0,0)};
-color: rgb(255, 255, 255);
-border: 2px solid rgb(255, 255, 255);
-border-radius: 5px;
-border-top-color: rgb(208, 208, 208);
-hover:  {background-color: rgb(200,0,0)};</string>
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
       </property>
       <property name="text">
-       <string>CHOOSE FILE</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_manual">
+     <widget class="QLabel" name="label_ylimit">
       <property name="geometry">
        <rect>
-        <x>520</x>
-        <y>5</y>
-        <width>161</width>
-        <height>50</height>
+        <x>775</x>
+        <y>10</y>
+        <width>141</width>
+        <height>41</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(85, 85, 127);
-color: rgb(255, 255, 255);
-border: 2px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
       </property>
       <property name="text">
-       <string>MANUAL</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_zlimit">
+      <property name="geometry">
+       <rect>
+        <x>940</x>
+        <y>10</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Z-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
     <widget class="QFrame" name="frame_position">
      <property name="geometry">
       <rect>
-       <x>1340</x>
+       <x>1345</x>
        <y>510</y>
        <width>571</width>
        <height>431</height>
@@ -1186,7 +1061,7 @@ border-radius: 5px</string>
     <widget class="QFrame" name="frame">
      <property name="geometry">
       <rect>
-       <x>820</x>
+       <x>818</x>
        <y>510</y>
        <width>511</width>
        <height>431</height>
@@ -2165,6 +2040,179 @@ border-radius: 5px</string>
       </property>
      </widget>
     </widget>
+    <widget class="QFrame" name="frame_button_2">
+     <property name="geometry">
+      <rect>
+       <x>1655</x>
+       <y>0</y>
+       <width>261</width>
+       <height>421</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(122, 122, 122);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="pushButton_machinehome">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>350</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(173, 51, 10);
+color: rgb(255, 255, 255);
+border: 2px solid  rgb(255, 255, 255);
+border-radius: 5px</string>
+      </property>
+      <property name="text">
+       <string>MACHINE HOME</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_gotozero">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>270</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(85, 85, 127);
+color: rgb(255, 255, 255);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+      </property>
+      <property name="text">
+       <string>GO TO ZERO</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_power">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>221</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>22</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 170, 0);
+color: rgb(255, 255, 255);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+      </property>
+      <property name="text">
+       <string>POWER</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_estop">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>120</y>
+        <width>221</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>22</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 0, 0);
+color: rgb(255, 255, 255);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px;
+border-top-color: rgb(208, 208, 208);</string>
+      </property>
+      <property name="text">
+       <string>E-STOP</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -2172,7 +2220,7 @@ border-radius: 5px</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1915</width>
+     <width>1920</width>
      <height>26</height>
     </rect>
    </property>
@@ -2220,15 +2268,35 @@ border-radius: 5px</string>
    <property name="text">
     <string>Choose file (.pnt)</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
   </action>
   <action name="actionSave_file">
    <property name="text">
     <string>Save file</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
   </action>
   <action name="actionMotor">
    <property name="text">
     <string>Motor</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionTeach_mode">
@@ -2240,6 +2308,12 @@ border-radius: 5px</string>
    <property name="text">
     <string>Toggle coil Y</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
   </action>
   <action name="actionContact">
    <property name="text">
@@ -2249,6 +2323,12 @@ border-radius: 5px</string>
   <action name="actionConnect_to_Slave">
    <property name="text">
     <string>Connect to Slave</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionAbout_Machine_2">
@@ -2265,10 +2345,22 @@ border-radius: 5px</string>
    <property name="text">
     <string>About Machine</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
   </action>
   <action name="actionContact_3">
    <property name="text">
     <string>Contact</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionTeach_mode_2">
@@ -2279,6 +2371,12 @@ border-radius: 5px</string>
   <action name="actionTeach_mode_3">
    <property name="text">
     <string>Teach mode</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
   </action>
  </widget>

@@ -32,8 +32,7 @@ class Ui_communication(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame2.sizePolicy().hasHeightForWidth())
         self.frame2.setSizePolicy(sizePolicy)
-        self.frame2.setStyleSheet("\n"
-"background-color: rgb(223, 223, 223);")
+        self.frame2.setStyleSheet("background-color: rgb(170, 170, 127);")
         self.frame2.setFrameShape(QtWidgets.QFrame.Panel)
         self.frame2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame2.setLineWidth(2)
@@ -57,7 +56,7 @@ class Ui_communication(object):
         self.pushButton.setMouseTracking(False)
         self.pushButton.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton.setAutoFillBackground(False)
-        self.pushButton.setStyleSheet("background-color: rgb(200, 196, 190);\n"
+        self.pushButton.setStyleSheet("background-color: rgb(0, 170, 127);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.pushButton.setObjectName("pushButton")
