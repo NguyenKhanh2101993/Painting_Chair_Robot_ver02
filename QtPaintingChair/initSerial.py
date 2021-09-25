@@ -24,6 +24,9 @@ class Read_Write_to_Serial:
         self.PAUSE_MOTOR_MODBUS_ADDR = 8
         self.RESUME_MOTOR_MODBUS_ADDR = 9
         self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR = 11
+        self.INPUT_OUTPUT_VALUE_MODBUS_ADDR = 12
+        self.WRITE_YCOIL = 24
+        self.CHANGE_STATE_COIL_Y_MODBUS_ADDR = 12
 
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
@@ -112,3 +115,11 @@ class Read_Write_to_Serial:
 
     def commandChangeStateBlockRun(self):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def readInputOutputCoil(self):
+        value = self.master.execute (self.SLAVE_02, cst.READ_HOLDING_REGISTERS, self.INPUT_OUTPUT_VALUE_MODBUS_ADDR, 2)
+        return value
+
+    def sendCoilValue(self, value):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_REGISTER, self.WRITE_YCOIL, output_value = value)
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_COIL_Y_MODBUS_ADDR, output_value= self.CHOOSE)

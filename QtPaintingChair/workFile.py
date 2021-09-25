@@ -6,6 +6,8 @@ class workingFile:
     # hiển thị đường dẫn tới file trong lable directory
     def __init__(self):
         self.fileDirectory = ''
+        self.saveFileDirectory = ''
+        self.saveFileStatus = ''
 
     def show_initial_directory(self):
         fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\',filter = 'pnt files (*.pnt)')
@@ -20,20 +22,15 @@ class workingFile:
         return text
 
     def save_file(self, content):
-        pass
-
-"""""
-    def save_file(self):
-  
-        retrieve_text = Show_Screen.Show_content.get('1.0','end-1c')
-        savefile = filedialog.asksaveasfile(mode='w+', defaultextension='*.pnt', filetypes =[('file pulse', '*.pnt')])
+        savefilePath = myfile.getSaveFileName(caption = 'Save file', directory =  'C:\\',filter = 'pnt files (*.pnt)')
+        if savefilePath[0] != '':
+            self.saveFileDirectory = savefilePath[0]
         try:
-            savefile.write(retrieve_text)  # retrieve_text phải là các ký tự không có dấu.
-            savefile.close()
-            Show_Screen.Inform_App_Status("SAVED")
-            
-        except Exception as err:
-            print(str(err))
-            return
+            with open(savefilePath[0], 'w+') as f:
+                f.write(content)  # retrieve_text phải là các ký tự không có dấu.
+                f.close()
 
-"""
+            self.saveFileStatus = ("===> LƯU FILE THÀNH CÔNG")
+        except Exception as err:
+            self.saveFileStatus = ("===> LƯU FILE BỊ LỖI: "+ str(err))
+            return

@@ -1466,6 +1466,15 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(130, 130, 130);
 background-color: rgb(222, 222, 222);
@@ -1473,6 +1482,12 @@ font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1793,214 +1808,6 @@ border-radius: 5px</string>
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButtonY1">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>30</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY2">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>80</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY3">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>130</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY4">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>180</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY5">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>230</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY6">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>280</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY7">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>330</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY8">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>380</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY9">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>30</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY10">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>80</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY11">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>130</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY12">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>180</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY13">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>230</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY14">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>280</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY15">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>330</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButtonY16">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>380</y>
-        <width>21</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>RadioButton</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="value_speedSpray">
       <property name="geometry">
        <rect>
@@ -2037,6 +1844,262 @@ border-radius: 5px</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY1">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>30</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY1</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY2">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>80</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY2</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY3">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>130</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY3</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY4">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>180</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY4</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY5">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>230</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY5</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY6">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>280</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY6</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY7">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>330</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY7</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY8">
+      <property name="geometry">
+       <rect>
+        <x>155</x>
+        <y>380</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY8</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY9">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>30</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY9</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY10">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>80</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY10</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY11">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>130</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY11</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY12">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>180</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY12</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY13">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>230</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY13</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY14">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>280</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY14</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY15">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>330</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY15</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxY16">
+      <property name="geometry">
+       <rect>
+        <x>255</x>
+        <y>380</y>
+        <width>20</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CheckBoxY16</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>

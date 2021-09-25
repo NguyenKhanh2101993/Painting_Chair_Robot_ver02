@@ -569,7 +569,7 @@ class Monitor_Input_Output():
         input_packet = []
         output_packet = []
         for i in range(len(self.coilX_name)):
-            input_packet.append((input_output_packet[0] >> i) & 0x00001)
+            input_packet.append((input_output_packet[0] >> i) & 0x0001)
             if input_packet[i] == 1: self.coilX[i].config(bg = 'gray') # không có tín hiệu input
             else: self.coilX[i].config(bg = 'green')    # có tín hiệu input
         

@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import time
 import math
+import threading # chạy song song 2 chương trình
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
@@ -40,13 +41,16 @@ class checkComWindow():
         comports = self.workSerial.detect_comports()
         main_window.showStatus(comports)
         self.uic.comboBox_comPort.clear()
+        self.uic.comboBox_baudRate.clear()
         self.uic.comboBox_comPort.addItems(comports)  
+        self.uic.comboBox_baudRate.addItems(["115200", "9600"])
 
     def choose_comports(self):
         com = self.uic.comboBox_comPort.currentText()
-        result = self.workSerial.choose_comports(115200,com)
+        baud = self.uic.comboBox_baudRate.currentText()
+        result = self.workSerial.choose_comports(baud,com)
         if result: 
-              main_window.showStatus("Kết nối với cổng COM: " + com)
+              main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
         else: 
               main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
 #================================================================================================
@@ -169,6 +173,10 @@ class teachingWindow:
         self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
         self.monitor_off = False
 
+        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
+                                 (' S'+'0'),(' F'+'0')]
+        self.counter_line = 0
+
         self.defineTeachModeButton()
 
     def showTeachWindow(self):
@@ -182,7 +190,7 @@ class teachingWindow:
         teach_command_deactive = [self.deactive, self.deactive, self.deactive, self.deactive, 
                                    self.deactive, self.deactive, self.deactive]
 
-        self.teachModeButton_Fw = [ self.uiteach.pushButton_xFw, self.uiteach.pushButton_yFw, self.uiteach.pushButton_zFw,
+        self.teachModeButton_Fw = [self.uiteach.pushButton_xFw, self.uiteach.pushButton_yFw, self.uiteach.pushButton_zFw,
                                     self.uiteach.pushButton_aFw, self.uiteach.pushButton_bFw, self.uiteach.pushButton_cFw,
                                     self.uiteach.pushButton_z1Up] 
 
@@ -207,9 +215,9 @@ class teachingWindow:
         self.teachModeButton_coil = [self.uiteach.pushButton_tableFw, self.uiteach.pushButton_tableRw,
                                      self.uiteach.pushButton_sprayOn, self.uiteach.pushButton_sprayOff]
 
-        steachModeButton_coilCommand = [None, None, None, None]
+        steachModeButton_coilCommand = [self.tableRorateFW, self.tableRorateRW, self.sprayON, self.sprayOFF]
         for i in range(len(self.teachModeButton_coil)): 
-            self.teachModeButton_coil[i].clicked.connect(teach_command_deactive[i])
+            self.teachModeButton_coil[i].clicked.connect(steachModeButton_coilCommand[i])
 
         self.teachModeButton_control = [self.uiteach.pushButton_exitTeach, self.uiteach.pushButton_savePoint, 
                                         self.uiteach.pushButton_setZero, self.uiteach.pushButton_saveFile]
@@ -218,13 +226,10 @@ class teachingWindow:
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
 
     def enterTeachMode(self):
-        self.initTeachMode()
-        teach.monitorTeachMode()
-    
-    def initTeachMode(self):
         main_window.uiWorking.label_directory.clear()
         main_window.uiWorking.textBrowser_showfile.clear()
         self.showTeachWindow()
+        teach.monitorTeachMode()
 
     def activateTeachMode(self,state):
         if state == True:
@@ -321,13 +326,67 @@ class teachingWindow:
         self.monitor_off = True
 
     def setPoint(self):
+        show_line = (' '+ str(self.counter_line))
+        different_value = False
+        # lay gia tri
+        F_speed =  0 #int(Show_Screen._speed_value.get())
+        X_value = str(round(main_window.currentPos[0],3)); Y_value = str(round(main_window.currentPos[1],3)); Z_value = str(round(main_window.currentPos[2],3))
+        A_value = str(round(main_window.currentPos[3],3)); B_value = str(round(main_window.currentPos[4],3)); C_value = str(round(main_window.currentPos[5],3))
+        Spray_state = 100 #self.spray_var.get()
+
+        if  F_speed < 0: F_speed = 0
+        if  F_speed > 200: F_speed = 200
+
+        current_string_value = [(' X'+X_value), (' Y'+Y_value), (' Z'+Z_value), (' A'+ A_value), 
+                                (' B'+B_value),(' C'+C_value), (' S'+ str(Spray_state)), (' F'+ str(F_speed))]
+        # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
+        # sau đó lưu vào chuỗi
+        for i in range(len(current_string_value)):
+            if (current_string_value[i] != self.pre_string_value[i]):
+                self.pre_string_value[i] = current_string_value[i]
+                show_line = show_line + current_string_value[i]
+                different_value = True
+            else:
+                pass
+        # nếu xuất hiện phần tử có giá trị khác trước đó thì in ra màn hình
+        if (different_value == True):
+            #show_line = show_line + '\n'
+            self.counter_line += 1
+            main_window.uiWorking.textBrowser_showfile.append(show_line) 
+            main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
         pass
 
     def setZero(self):
-        pass
+        main_window.showStatus("===> SET ZERO POSITION")
+        comWindow.workSerial.setZeroPositions()
 
     def saveTofile(self):
-        pass
+        main_window.showStatus ('===> Lưu file.pnt')
+        main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
+        main_window.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
+        main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
+        main_window.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
+        retrieve_text = main_window.uiWorking.textBrowser_showfile.toPlainText()
+        wFile.save_file(retrieve_text)
+        main_window.showStatus (wFile.saveFileStatus)
+
+    def tableRorateFW(self):
+        main_window.showStatus  ("===> BÀN XOAY 1")
+        run.command_table_rotate()
+
+    def tableRorateRW(self):
+        main_window.showStatus  ("===> BÀN XOAY 2")
+        run.command_table_rotate()
+
+    def sprayON(self):
+        main_window.showStatus  ("===> SÚNG SƠN BẬT")
+        run.command_run_spray(1)
+
+    def sprayOFF(self):
+        main_window.showStatus  ("===> SÚNG SƠN TẮT")
+        run.command_run_spray(0)
+
+
 #================================================================================================
 class workingTeachMode():
     def __init__(self):
@@ -480,14 +539,18 @@ class workingWindow():
         self.window = QMainWindow()
         self.uiWorking = Ui_MainWindow()
         self.uiWorking.setupUi(self.window)
+        self.coilXY = monitorInputOutput()
 
         self.defineControlButton()
+        self.defineCheckButton()
+        self.defineWarningLabel()
         
         self.currentPos = []
         self.gearRatio = []
         self.MAX_AXIS = 6
         self.spray_axis = 550
         self.go_machine_home = False
+        self.checkValue = -1
 
     def showWorkingWindow(self):
         self.window.show()
@@ -514,8 +577,43 @@ class workingWindow():
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
         self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
 
+    def defineCheckButton(self):
+        self.checkButtonCoilY = [self.uiWorking.checkBoxY1, self.uiWorking.checkBoxY2, self.uiWorking.checkBoxY3, self.uiWorking.checkBoxY4,
+                                self.uiWorking.checkBoxY5, self.uiWorking.checkBoxY6, self.uiWorking.checkBoxY7, self.uiWorking.checkBoxY8,
+                                self.uiWorking.checkBoxY9, self.uiWorking.checkBoxY10, self.uiWorking.checkBoxY11, self.uiWorking.checkBoxY12, 
+                                self.uiWorking.checkBoxY13, self.uiWorking.checkBoxY14, self.uiWorking.checkBoxY15, self.uiWorking.checkBoxY16 ]
+        
+        getCheckBoxValue = [self.coilXY.returnCoilY1, self.coilXY.returnCoilY2, self.coilXY.returnCoilY3, self.coilXY.returnCoilY4, self.coilXY.returnCoilY5, self.coilXY.returnCoilY6,
+                                    self.coilXY.returnCoilY7, self.coilXY.returnCoilY8,self.coilXY.returnCoilY9, self.coilXY.returnCoilY10, self.coilXY.returnCoilY11, self.coilXY.returnCoilY12,
+                                    self.coilXY.returnCoilY13, self.coilXY.returnCoilY14, self.coilXY.returnCoilY15, self.coilXY.returnCoilY16 ]
 
+        for i in range(len(self.checkButtonCoilY)):
+            self.checkButtonCoilY[i].setChecked(False)
+            self.checkButtonCoilY[i].toggled.connect(getCheckBoxValue[i])
 
+        self.labelCoilY = [self.uiWorking.label_y1, self.uiWorking.label_y2, self.uiWorking.label_y3, self.uiWorking.label_y4, 
+                           self.uiWorking.label_y5, self.uiWorking.label_y6, self.uiWorking.label_y7, self.uiWorking.label_y8, 
+                           self.uiWorking.label_y9, self.uiWorking.label_y10, self.uiWorking.label_y11, self.uiWorking.label_y12,
+                           self.uiWorking.label_y13, self.uiWorking.label_y14, self.uiWorking.label_y15, self.uiWorking.label_y16]
+        self.orgColorLabelY = []
+        for i in range(len(self.labelCoilY)):
+            self.orgColorLabelY.append(self.labelCoilY[i].palette().window().color().name())
+
+        self.labelCoilX =  [self.uiWorking.label_x1, self.uiWorking.label_x2, self.uiWorking.label_x3, self.uiWorking.label_x4, 
+                           self.uiWorking.label_x5, self.uiWorking.label_x6, self.uiWorking.label_x7, self.uiWorking.label_x8, 
+                           self.uiWorking.label_x9, self.uiWorking.label_x10, self.uiWorking.label_x11, self.uiWorking.label_x12,
+                           self.uiWorking.label_x13, self.uiWorking.label_x14, self.uiWorking.label_x15, self.uiWorking.label_x16]
+        self.orgColorLabelX = []
+        for i in range(len(self.labelCoilX)):
+            self.orgColorLabelX.append(self.labelCoilX[i].palette().window().color().name())
+
+    def defineWarningLabel(self):
+        self.warningLabel = [self.uiWorking.label_xhome, self.uiWorking.label_yhome, self.uiWorking.label_zhome,
+                            self.uiWorking.label_ahome, self.uiWorking.label_xlimit, self.uiWorking.label_ylimit,
+                            self.uiWorking.label_zlimit]
+        self.orgColorWarningLabel = []
+        for i in range(len(self.warningLabel)):
+            self.orgColorWarningLabel.append(self.warningLabel[i].palette().window().color().name())
 
     def disable_control_option(self, state):
         for i in range(len(self.controlButtonName)):
@@ -661,8 +759,11 @@ class workingWindow():
 
             self.disable_control_option(True)
             # khai báo mảng chứa giá trị cảm biến gốc máy
-            self.sensor_machine_axis = [] #[Monitor_in_out.sensor_value[0], Monitor_in_out.sensor_value[2], Monitor_in_out.sensor_value[4],
-                                        #Monitor_in_out.sensor_value[6], Monitor_in_out.sensor_value[8], Monitor_in_out.sensor_value[10]]
+            sensor_machine_axis = [ main_window.coilXY.sensor_value[main_window.coilXY.xhomeBit], 
+                                    main_window.coilXY.sensor_value[main_window.coilXY.yhomeBit], 
+                                    main_window.coilXY.sensor_value[main_window.coilXY.zhomeBit],
+                                    main_window.coilXY.sensor_value[main_window.coilXY.ahomeBit], 1, 1]
+
             # set lại các thông số motor, đưa giá trị current_position về 0
             comWindow.workSerial.setZeroPositions()
             time.sleep(0.5)
@@ -673,7 +774,7 @@ class workingWindow():
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                     positionCompleted = comWindow.workSerial.commandPositionCompleted()
                     self.showCurrentPositions()
-                    if (positionCompleted[0]==1 or self.sensor_machine_axis[i] == 0):
+                    if (positionCompleted[0]==1 or sensor_machine_axis[i] == 0):
                         # dừng động cơ
                         run.stop_motor()
                         self.go_machine_axis_state = True
@@ -715,13 +816,13 @@ class runMotor:
     
         self.MAX_POINT_IN_BLOCK = 140       # số điểm tối đa có thể truyền tới data_packet slave trong block mode
         self.end_symbol = 'M30\n'           #command kết thúc chương trình
-        self.start_run_block = 'G05.0\n'    #command bắt đầu chạy theo block N điểm
-        self.end_run_block = 'G05.1\n'      #command kết thúc chạy theo block N điểm
-        self.go_to_2nd_point = 'G30\n'      #command quay về điểm gốc thứ 2
-        self.go_to_1st_point = 'G28\n'      #command quay về vị trí gốc 0 (điểm bắt đầu chạy)
-        self.turn_on_spray = 'M08\n'        #command lệnh bật súng sơn
-        self.turn_off_spray = 'M09\n'       #command lệnh tắt súng sơn
-        self.table_rotary = 'M10\n'         #command xoay bàn sơn
+        self.start_run_block = 'G05.0'    #command bắt đầu chạy theo block N điểm
+        self.end_run_block = 'G05.1'      #command kết thúc chạy theo block N điểm
+        self.go_to_2nd_point = 'G30'      #command quay về điểm gốc thứ 2
+        self.go_to_1st_point = 'G28'      #command quay về vị trí gốc 0 (điểm bắt đầu chạy)
+        self.turn_on_spray = 'M08'        #command lệnh bật súng sơn
+        self.turn_off_spray = 'M09'       #command lệnh tắt súng sơn
+        self.table_rotary = 'M10'         #command xoay bàn sơn
         self.run_block_done = False
 
         self.e_stop = False                 # trạng thái tín hiệu nút nhấn ESTOP
@@ -1062,6 +1163,112 @@ class runMotor:
         main_window.showStatus("===> Xoay bàn sơn")
         comWindow.workSerial.commandRotateTable()
 #================================================================================================
+class monitorInputOutput:
+    def __init__(self):
+        self.numCoilXY = 16
+        self.valueCoilY = 0
+        # khai báo vị trí home sensor và limit sensor trong value
+        self.xhomeBit = 0; self.yhomeBit = 1;  self.zhomeBit = 2;  self.ahomeBit = 3; 
+        self.xlimitBit = 4;  self.ylimitBit = 5;  self.zlimitBit = 6; 
+        self.bitPos = [self.xhomeBit, self.yhomeBit, self.zhomeBit, self.ahomeBit, 
+                                    self.xlimitBit, self.ylimitBit, self.zlimitBit]
+    
+    def returnCoilY1(self):
+        checkValue = 0; self.writeCoilY(checkValue)
+    def returnCoilY2(self):
+        checkValue = 1; self.writeCoilY(checkValue)
+    def returnCoilY3(self):
+        checkValue = 2; self.writeCoilY(checkValue)
+    def returnCoilY4(self):
+        checkValue = 3; self.writeCoilY(checkValue)
+    def returnCoilY5(self):
+        checkValue = 4; self.writeCoilY(checkValue)
+    def returnCoilY6(self):
+        checkValue = 5; self.writeCoilY(checkValue)
+    def returnCoilY7(self):
+        checkValue = 6; self.writeCoilY(checkValue)
+    def returnCoilY8(self):
+        checkValue = 7; self.writeCoilY(checkValue)
+    def returnCoilY9(self):
+        checkValue = 8; self.writeCoilY(checkValue)
+    def returnCoilY10(self):
+        checkValue = 9; self.writeCoilY(checkValue)
+    def returnCoilY11(self):
+        checkValue = 10; self.writeCoilY(checkValue)
+    def returnCoilY12(self):
+        checkValue = 11; self.writeCoilY(checkValue)
+    def returnCoilY13(self):
+        checkValue = 12; self.writeCoilY(checkValue)
+    def returnCoilY14(self):
+        checkValue = 13; self.writeCoilY(checkValue)
+    def returnCoilY15(self):
+        checkValue = 14; self.writeCoilY(checkValue)
+    def returnCoilY16(self):
+        checkValue = 15; self.writeCoilY(checkValue)
+
+    def enableCheckButton(self):
+        for i in range(self.numCoilXY):
+            main_window.checkButtonCoilY[i].setChecked(False)
+            
+    def disableCheckButton(self):
+        for i in range(self.numCoilXY):
+            main_window.checkButtonCoilY[i].setChecked(False)
+
+# Lệnh bật output Y và giám sát trạng thái đóng mở của Y      
+    def writeCoilY(self, checkValue):
+        if main_window.checkButtonCoilY[checkValue].isChecked():
+            self.valueCoilY |= (1 << checkValue)
+            main_window.showStatus("Y"+str(checkValue+1) + "ON " + str(self.valueCoilY))
+            #main_window.labelCoilY[checkValue].setStyleSheet("background-color: #00aa00;")
+        else:
+            self.valueCoilY &= ~(1 << checkValue)
+            main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
+            #main_window.labelCoilY[checkValue].setStyleSheet("background-color: " + main_window.orgColorLabelY[checkValue] + ";")
+        try: 
+            comWindow.workSerial.sendCoilValue(self.valueCoilY)
+        except Exception as error:
+            main_window.showStatus("===> Kích coil Y bị lỗi đường truyền tín hiệu")
+            return
+
+# Cho phép đọc trạng thái coil X từ board slave
+    def read_coilXY(self):
+        # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
+        input_output_packet = comWindow.workSerial.readInputOutputCoil()
+        input_packet = []
+        output_packet = []
+        for i in range(self.numCoilXY):
+            input_packet.append((input_output_packet[0] >> i) & 0x0001)
+            if input_packet[i] == 1: main_window.labelCoilX[i].setStyleSheet("background-color: " + main_window.orgColorLabelX[i] + ";")
+            else: main_window.labelCoilX[i].setStyleSheet("background-color: #00aa00")    # có tín hiệu input
+        
+        for i in range(self.numCoilXY):
+            output_packet.append((input_output_packet[1] >> i) & 0x0001)   
+            if output_packet[i] == 1: main_window.labelCoilY[i].setStyleSheet("background-color: #00aa00")  # có tín hiệu
+            else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
+        
+        return input_packet  # tra ve gia tri input
+    
+    def monitor_coil_XY(self):
+        try:
+            while True:
+                self.sensor_value = self.read_coilXY()
+                self.showWarning(self.sensor_value)
+                main_window.showStatus(str(self.sensor_value))
+                time.sleep(0.1) # 100 ms đọc data coilXY 1 lần   
+
+        except Exception as error:
+            main_window.showStatus("===> Lỗi trong quá trình giám sát cổng input/output")
+            main_window.showStatus("===> Nhấn nút ResetCOIL để khởi động lại quá trình giám sát")
+            return
+
+    def showWarning(self, value):
+        for i in range(len(self.bitPos)):
+            if value[self.bitPos[i]]: # Không có tín hiệu
+                main_window.warningLabel[i].setStyleSheet("background-color: " + main_window.orgColorWarningLabel[i] + ";")
+            else:    
+                main_window.warningLabel[i].setStyleSheet("background-color: #00aa00;")
+
+#================================================================================================
 if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     app = QApplication([])
 
@@ -1070,10 +1277,16 @@ if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     teachWindow = teachingWindow()
     setMotor = paramWindow()
 
-    
     teach = workingTeachMode()
     wFile = workingFile()
     run = runMotor()
 
     main_window.showWorkingWindow()
+
+    def creat_threading():
+        monitor_coil = threading.Thread(name='monitor_coil', target=main_window.coilXY.monitor_coil_XY)
+        monitor_coil.setDaemon(True)
+        monitor_coil.start()
+    
+    #creat_threading()
     sys.exit(app.exec_())
