@@ -329,10 +329,10 @@ class teachingWindow:
         show_line = (' '+ str(self.counter_line))
         different_value = False
         # lay gia tri
-        F_speed =  0 #int(Show_Screen._speed_value.get())
+        F_speed =  main_window.speedMotor()
         X_value = str(round(main_window.currentPos[0],3)); Y_value = str(round(main_window.currentPos[1],3)); Z_value = str(round(main_window.currentPos[2],3))
         A_value = str(round(main_window.currentPos[3],3)); B_value = str(round(main_window.currentPos[4],3)); C_value = str(round(main_window.currentPos[5],3))
-        Spray_state = 100 #self.spray_var.get()
+        Spray_state = 0 
 
         if  F_speed < 0: F_speed = 0
         if  F_speed > 200: F_speed = 200
@@ -354,7 +354,6 @@ class teachingWindow:
             self.counter_line += 1
             main_window.uiWorking.textBrowser_showfile.append(show_line) 
             main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
-        pass
 
     def setZero(self):
         main_window.showStatus("===> SET ZERO POSITION")
@@ -544,6 +543,7 @@ class workingWindow():
         self.defineControlButton()
         self.defineCheckButton()
         self.defineWarningLabel()
+        self.defineSliders()
         
         self.currentPos = []
         self.gearRatio = []
@@ -555,6 +555,12 @@ class workingWindow():
     def showWorkingWindow(self):
         self.window.show()
 
+    def defineSliders(self):
+        self.uiWorking.verticalSlider_speedMotor.valueChanged.connect(self.speedMotor)
+        self.uiWorking.verticalSlider_spray.valueChanged.connect(self.speedSpray)
+        self.uiWorking.label_speedMotor.setText("M"+ str(self.uiWorking.verticalSlider_speedMotor.value()))
+        self.uiWorking.value_speedSpray.setText("S"+ str(self.uiWorking.verticalSlider_spray.value()))
+     
     def defineControlButton(self):
 
         self.lableG54Position = [self.uiWorking.label_Xposition, self.uiWorking.label_Yposition, self.uiWorking.label_Zposition, 
@@ -618,6 +624,16 @@ class workingWindow():
     def disable_control_option(self, state):
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].setDisabled(state)
+
+    def speedMotor(self):
+        valueSpeedMotor = self.uiWorking.verticalSlider_speedMotor.value()
+        self.uiWorking.label_speedMotor.setText("M"+str(valueSpeedMotor))
+        return valueSpeedMotor
+
+    def speedSpray(self):
+        valueSpeedSpray = self.uiWorking.verticalSlider_spray.value()
+        self.uiWorking.value_speedSpray.setText("S"+str(valueSpeedSpray))
+        return valueSpeedSpray
 
     def chooseFile(self):
         self.showStatus("Chế độ chọn file.pnt")

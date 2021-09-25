@@ -150,16 +150,19 @@ border-radius: 5px</string>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>18</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(195, 195, 195);
 color: rgb(36, 36, 36);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+font: 75 18pt &quot;Arial&quot;;
 border: 3px solid  rgb(56, 56, 56);
-border-radius: 5px</string>
+border-radius: 5px;</string>
       </property>
       <property name="text">
        <string>Show line</string>
@@ -400,10 +403,19 @@ border-radius: 5px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -420,10 +432,19 @@ border-radius: 20px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -440,10 +461,19 @@ border-radius: 20px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -460,10 +490,19 @@ border-radius: 20px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -480,10 +519,19 @@ border-radius: 20px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -500,10 +548,19 @@ border-radius: 20px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -520,10 +577,19 @@ border-radius: 20px</string>
         <height>41</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 20px</string>
       </property>
@@ -700,11 +766,19 @@ border-radius: 5px</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(241, 241, 241);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -723,7 +797,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -741,11 +815,19 @@ border-radius: 5px</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(241, 241, 241);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -764,7 +846,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -782,11 +864,19 @@ border-radius: 5px</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(241, 241, 241);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -803,11 +893,19 @@ border-radius: 5px</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(241, 241, 241);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -825,10 +923,9 @@ border-radius: 5px</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(241, 241, 241);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -845,11 +942,19 @@ border-radius: 5px</string>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial Bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(241, 241, 241);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -868,7 +973,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -888,7 +993,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -908,7 +1013,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -928,7 +1033,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -948,7 +1053,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -968,7 +1073,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -988,7 +1093,7 @@ border-radius: 5px</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
 color: rgb(255, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -1130,11 +1235,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1151,11 +1264,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1172,11 +1293,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1193,11 +1322,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1214,11 +1351,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1235,11 +1380,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1256,11 +1409,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1277,11 +1438,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1298,11 +1467,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1319,11 +1496,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1340,11 +1525,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1361,11 +1554,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1382,11 +1583,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1403,11 +1612,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1424,11 +1641,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1445,11 +1670,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1476,10 +1709,9 @@ border-radius: 5px</string>
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1502,11 +1734,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1523,11 +1763,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1544,11 +1792,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1565,11 +1821,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1586,11 +1850,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1607,11 +1879,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1628,11 +1908,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1649,11 +1937,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1670,11 +1966,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1691,11 +1995,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1712,11 +2024,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1733,11 +2053,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1754,11 +2082,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1775,11 +2111,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1796,11 +2140,19 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial 12</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(130, 130, 130);
-background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+       <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
@@ -1817,14 +2169,32 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(100, 100, 100);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial'; font-size:14pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_speedMotor">
@@ -1836,14 +2206,21 @@ border-radius: 5px</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(100, 100, 100);
-font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 255, 255);
 border-radius: 5px</string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxY1">

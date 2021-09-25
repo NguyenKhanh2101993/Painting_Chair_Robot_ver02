@@ -76,14 +76,17 @@ class Ui_MainWindow(object):
         self.label_showline.setGeometry(QtCore.QRect(13, 800, 691, 71))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(15)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
         self.label_showline.setFont(font)
         self.label_showline.setStyleSheet("background-color: rgb(195, 195, 195);\n"
 "color: rgb(36, 36, 36);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"font: 75 18pt \"Arial\";\n"
 "border: 3px solid  rgb(56, 56, 56);\n"
-"border-radius: 5px")
+"border-radius: 5px;")
         self.label_showline.setObjectName("label_showline")
         self.label_directory = QtWidgets.QLabel(self.frame_showtext)
         self.label_directory.setGeometry(QtCore.QRect(13, 13, 791, 61))
@@ -192,57 +195,106 @@ class Ui_MainWindow(object):
         self.frame_button.setObjectName("frame_button")
         self.label_xhome = QtWidgets.QLabel(self.frame_button)
         self.label_xhome.setGeometry(QtCore.QRect(20, 10, 121, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_xhome.setFont(font)
         self.label_xhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_xhome.setObjectName("label_xhome")
         self.label_yhome = QtWidgets.QLabel(self.frame_button)
         self.label_yhome.setGeometry(QtCore.QRect(160, 10, 121, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_yhome.setFont(font)
         self.label_yhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_yhome.setObjectName("label_yhome")
         self.label_zhome = QtWidgets.QLabel(self.frame_button)
         self.label_zhome.setGeometry(QtCore.QRect(300, 10, 121, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_zhome.setFont(font)
         self.label_zhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_zhome.setObjectName("label_zhome")
         self.label_ahome = QtWidgets.QLabel(self.frame_button)
         self.label_ahome.setGeometry(QtCore.QRect(440, 10, 121, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_ahome.setFont(font)
         self.label_ahome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_ahome.setObjectName("label_ahome")
         self.label_xlimit = QtWidgets.QLabel(self.frame_button)
         self.label_xlimit.setGeometry(QtCore.QRect(600, 10, 151, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_xlimit.setFont(font)
         self.label_xlimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_xlimit.setObjectName("label_xlimit")
         self.label_ylimit = QtWidgets.QLabel(self.frame_button)
         self.label_ylimit.setGeometry(QtCore.QRect(775, 10, 141, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_ylimit.setFont(font)
         self.label_ylimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_ylimit.setObjectName("label_ylimit")
         self.label_zlimit = QtWidgets.QLabel(self.frame_button)
         self.label_zlimit.setGeometry(QtCore.QRect(940, 10, 141, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_zlimit.setFont(font)
         self.label_zlimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_zlimit.setObjectName("label_zlimit")
@@ -311,78 +363,107 @@ class Ui_MainWindow(object):
         self.label_7.setObjectName("label_7")
         self.label_Xposition = QtWidgets.QLabel(self.frame_position)
         self.label_Xposition.setGeometry(QtCore.QRect(80, 70, 161, 51))
-        self.label_Xposition.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial Bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_Xposition.setFont(font)
+        self.label_Xposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Xposition.setObjectName("label_Xposition")
         self.label_Xhome = QtWidgets.QLabel(self.frame_position)
         self.label_Xhome.setGeometry(QtCore.QRect(250, 70, 161, 51))
         self.label_Xhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Xhome.setObjectName("label_Xhome")
         self.label_Yposition = QtWidgets.QLabel(self.frame_position)
         self.label_Yposition.setGeometry(QtCore.QRect(80, 130, 161, 51))
-        self.label_Yposition.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial Bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_Yposition.setFont(font)
+        self.label_Yposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Yposition.setObjectName("label_Yposition")
         self.label_Yhome = QtWidgets.QLabel(self.frame_position)
         self.label_Yhome.setGeometry(QtCore.QRect(250, 130, 161, 51))
         self.label_Yhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Yhome.setObjectName("label_Yhome")
         self.label_Zposition = QtWidgets.QLabel(self.frame_position)
         self.label_Zposition.setGeometry(QtCore.QRect(80, 190, 161, 51))
-        self.label_Zposition.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial Bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_Zposition.setFont(font)
+        self.label_Zposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Zposition.setObjectName("label_Zposition")
         self.label_Aposition = QtWidgets.QLabel(self.frame_position)
         self.label_Aposition.setGeometry(QtCore.QRect(80, 250, 161, 51))
-        self.label_Aposition.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial Bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_Aposition.setFont(font)
+        self.label_Aposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Aposition.setObjectName("label_Aposition")
         self.label_Bposition = QtWidgets.QLabel(self.frame_position)
         self.label_Bposition.setGeometry(QtCore.QRect(80, 310, 161, 51))
-        self.label_Bposition.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        self.label_Bposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Bposition.setObjectName("label_Bposition")
         self.label_Cposition = QtWidgets.QLabel(self.frame_position)
         self.label_Cposition.setGeometry(QtCore.QRect(80, 370, 161, 51))
-        self.label_Cposition.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial Bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_Cposition.setFont(font)
+        self.label_Cposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Cposition.setObjectName("label_Cposition")
         self.label_Zhome = QtWidgets.QLabel(self.frame_position)
         self.label_Zhome.setGeometry(QtCore.QRect(250, 190, 161, 51))
         self.label_Zhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -390,7 +471,7 @@ class Ui_MainWindow(object):
         self.label_Ahome = QtWidgets.QLabel(self.frame_position)
         self.label_Ahome.setGeometry(QtCore.QRect(250, 250, 161, 51))
         self.label_Ahome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -398,7 +479,7 @@ class Ui_MainWindow(object):
         self.label_Bhome = QtWidgets.QLabel(self.frame_position)
         self.label_Bhome.setGeometry(QtCore.QRect(250, 310, 161, 51))
         self.label_Bhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -406,7 +487,7 @@ class Ui_MainWindow(object):
         self.label_Chome = QtWidgets.QLabel(self.frame_position)
         self.label_Chome.setGeometry(QtCore.QRect(250, 370, 161, 51))
         self.label_Chome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -414,7 +495,7 @@ class Ui_MainWindow(object):
         self.label_xSpray = QtWidgets.QLabel(self.frame_position)
         self.label_xSpray.setGeometry(QtCore.QRect(430, 110, 131, 51))
         self.label_xSpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -422,7 +503,7 @@ class Ui_MainWindow(object):
         self.label_ySpray = QtWidgets.QLabel(self.frame_position)
         self.label_ySpray.setGeometry(QtCore.QRect(430, 230, 131, 51))
         self.label_ySpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -430,7 +511,7 @@ class Ui_MainWindow(object):
         self.label_zSpray = QtWidgets.QLabel(self.frame_position)
         self.label_zSpray.setGeometry(QtCore.QRect(430, 340, 131, 51))
         self.label_zSpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -482,303 +563,513 @@ class Ui_MainWindow(object):
         self.verticalSlider_spray.setObjectName("verticalSlider_spray")
         self.label_x1 = QtWidgets.QLabel(self.frame)
         self.label_x1.setGeometry(QtCore.QRect(10, 30, 61, 31))
-        self.label_x1.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x1.setFont(font)
+        self.label_x1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x1.setObjectName("label_x1")
         self.label_x2 = QtWidgets.QLabel(self.frame)
         self.label_x2.setGeometry(QtCore.QRect(10, 80, 61, 31))
-        self.label_x2.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x2.setFont(font)
+        self.label_x2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x2.setObjectName("label_x2")
         self.label_x3 = QtWidgets.QLabel(self.frame)
         self.label_x3.setGeometry(QtCore.QRect(10, 130, 61, 31))
-        self.label_x3.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x3.setFont(font)
+        self.label_x3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x3.setObjectName("label_x3")
         self.label_x4 = QtWidgets.QLabel(self.frame)
         self.label_x4.setGeometry(QtCore.QRect(10, 180, 61, 31))
-        self.label_x4.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x4.setFont(font)
+        self.label_x4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x4.setObjectName("label_x4")
         self.label_x5 = QtWidgets.QLabel(self.frame)
         self.label_x5.setGeometry(QtCore.QRect(10, 230, 61, 31))
-        self.label_x5.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x5.setFont(font)
+        self.label_x5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x5.setObjectName("label_x5")
         self.label_x6 = QtWidgets.QLabel(self.frame)
         self.label_x6.setGeometry(QtCore.QRect(10, 280, 61, 31))
-        self.label_x6.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x6.setFont(font)
+        self.label_x6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x6.setObjectName("label_x6")
         self.label_x7 = QtWidgets.QLabel(self.frame)
         self.label_x7.setGeometry(QtCore.QRect(10, 330, 61, 31))
-        self.label_x7.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x7.setFont(font)
+        self.label_x7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x7.setObjectName("label_x7")
         self.label_x8 = QtWidgets.QLabel(self.frame)
         self.label_x8.setGeometry(QtCore.QRect(10, 380, 61, 31))
-        self.label_x8.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x8.setFont(font)
+        self.label_x8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x8.setObjectName("label_x8")
         self.label_x9 = QtWidgets.QLabel(self.frame)
         self.label_x9.setGeometry(QtCore.QRect(80, 30, 61, 31))
-        self.label_x9.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x9.setFont(font)
+        self.label_x9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x9.setObjectName("label_x9")
         self.label_x10 = QtWidgets.QLabel(self.frame)
         self.label_x10.setGeometry(QtCore.QRect(80, 80, 61, 31))
-        self.label_x10.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x10.setFont(font)
+        self.label_x10.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x10.setObjectName("label_x10")
         self.label_x11 = QtWidgets.QLabel(self.frame)
         self.label_x11.setGeometry(QtCore.QRect(80, 130, 61, 31))
-        self.label_x11.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x11.setFont(font)
+        self.label_x11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x11.setObjectName("label_x11")
         self.label_x12 = QtWidgets.QLabel(self.frame)
         self.label_x12.setGeometry(QtCore.QRect(80, 180, 61, 31))
-        self.label_x12.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x12.setFont(font)
+        self.label_x12.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x12.setObjectName("label_x12")
         self.label_x13 = QtWidgets.QLabel(self.frame)
         self.label_x13.setGeometry(QtCore.QRect(80, 230, 61, 31))
-        self.label_x13.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x13.setFont(font)
+        self.label_x13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x13.setObjectName("label_x13")
         self.label_x14 = QtWidgets.QLabel(self.frame)
         self.label_x14.setGeometry(QtCore.QRect(80, 280, 61, 31))
-        self.label_x14.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x14.setFont(font)
+        self.label_x14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x14.setObjectName("label_x14")
         self.label_x15 = QtWidgets.QLabel(self.frame)
         self.label_x15.setGeometry(QtCore.QRect(80, 330, 61, 31))
-        self.label_x15.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x15.setFont(font)
+        self.label_x15.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x15.setObjectName("label_x15")
         self.label_x16 = QtWidgets.QLabel(self.frame)
         self.label_x16.setGeometry(QtCore.QRect(80, 380, 61, 31))
-        self.label_x16.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x16.setFont(font)
+        self.label_x16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_x16.setObjectName("label_x16")
         self.label_y1 = QtWidgets.QLabel(self.frame)
         self.label_y1.setGeometry(QtCore.QRect(180, 30, 61, 31))
-        self.label_y1.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y1.setFont(font)
+        self.label_y1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
+        self.label_y1.setLineWidth(1)
+        self.label_y1.setMidLineWidth(0)
         self.label_y1.setObjectName("label_y1")
         self.label_y9 = QtWidgets.QLabel(self.frame)
         self.label_y9.setGeometry(QtCore.QRect(280, 30, 61, 31))
-        self.label_y9.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y9.setFont(font)
+        self.label_y9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y9.setObjectName("label_y9")
         self.label_y2 = QtWidgets.QLabel(self.frame)
         self.label_y2.setGeometry(QtCore.QRect(180, 80, 61, 31))
-        self.label_y2.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y2.setFont(font)
+        self.label_y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y2.setObjectName("label_y2")
         self.label_y3 = QtWidgets.QLabel(self.frame)
         self.label_y3.setGeometry(QtCore.QRect(180, 130, 61, 31))
-        self.label_y3.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y3.setFont(font)
+        self.label_y3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y3.setObjectName("label_y3")
         self.label_y4 = QtWidgets.QLabel(self.frame)
         self.label_y4.setGeometry(QtCore.QRect(180, 180, 61, 31))
-        self.label_y4.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y4.setFont(font)
+        self.label_y4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y4.setObjectName("label_y4")
         self.label_y5 = QtWidgets.QLabel(self.frame)
         self.label_y5.setGeometry(QtCore.QRect(180, 230, 61, 31))
-        self.label_y5.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y5.setFont(font)
+        self.label_y5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y5.setObjectName("label_y5")
         self.label_y6 = QtWidgets.QLabel(self.frame)
         self.label_y6.setGeometry(QtCore.QRect(180, 280, 61, 31))
-        self.label_y6.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y6.setFont(font)
+        self.label_y6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y6.setObjectName("label_y6")
         self.label_y7 = QtWidgets.QLabel(self.frame)
         self.label_y7.setGeometry(QtCore.QRect(180, 330, 61, 31))
-        self.label_y7.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y7.setFont(font)
+        self.label_y7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y7.setObjectName("label_y7")
         self.label_y8 = QtWidgets.QLabel(self.frame)
         self.label_y8.setGeometry(QtCore.QRect(180, 380, 61, 31))
-        self.label_y8.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y8.setFont(font)
+        self.label_y8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y8.setObjectName("label_y8")
         self.label_y10 = QtWidgets.QLabel(self.frame)
         self.label_y10.setGeometry(QtCore.QRect(280, 80, 61, 31))
-        self.label_y10.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y10.setFont(font)
+        self.label_y10.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y10.setObjectName("label_y10")
         self.label_y11 = QtWidgets.QLabel(self.frame)
         self.label_y11.setGeometry(QtCore.QRect(280, 130, 61, 31))
-        self.label_y11.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y11.setFont(font)
+        self.label_y11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y11.setObjectName("label_y11")
         self.label_y12 = QtWidgets.QLabel(self.frame)
         self.label_y12.setGeometry(QtCore.QRect(280, 180, 61, 31))
-        self.label_y12.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y12.setFont(font)
+        self.label_y12.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y12.setObjectName("label_y12")
         self.label_y13 = QtWidgets.QLabel(self.frame)
         self.label_y13.setGeometry(QtCore.QRect(280, 230, 61, 31))
-        self.label_y13.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y13.setFont(font)
+        self.label_y13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y13.setObjectName("label_y13")
         self.label_y14 = QtWidgets.QLabel(self.frame)
         self.label_y14.setGeometry(QtCore.QRect(280, 280, 61, 31))
-        self.label_y14.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y14.setFont(font)
+        self.label_y14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y14.setObjectName("label_y14")
         self.label_y15 = QtWidgets.QLabel(self.frame)
         self.label_y15.setGeometry(QtCore.QRect(280, 330, 61, 31))
-        self.label_y15.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y15.setFont(font)
+        self.label_y15.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y15.setObjectName("label_y15")
         self.label_y16 = QtWidgets.QLabel(self.frame)
         self.label_y16.setGeometry(QtCore.QRect(280, 380, 61, 31))
-        self.label_y16.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"background-color: rgb(222, 222, 222);\n"
-"font: 75 14pt \"Arial\" bold;\n"
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y16.setFont(font)
+        self.label_y16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_y16.setObjectName("label_y16")
         self.value_speedSpray = QtWidgets.QLabel(self.frame)
         self.value_speedSpray.setGeometry(QtCore.QRect(355, 30, 71, 31))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.value_speedSpray.sizePolicy().hasHeightForWidth())
+        self.value_speedSpray.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.value_speedSpray.setFont(font)
         self.value_speedSpray.setStyleSheet("background-color: rgb(100, 100, 100);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.value_speedSpray.setObjectName("value_speedSpray")
         self.label_speedMotor = QtWidgets.QLabel(self.frame)
         self.label_speedMotor.setGeometry(QtCore.QRect(435, 30, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_speedMotor.setFont(font)
         self.label_speedMotor.setStyleSheet("background-color: rgb(100, 100, 100);\n"
-"font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_speedMotor.setObjectName("label_speedMotor")
@@ -1092,8 +1383,12 @@ class Ui_MainWindow(object):
         self.label_y14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y14</span></p></body></html>"))
         self.label_y15.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y15</span></p></body></html>"))
         self.label_y16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y16</span></p></body></html>"))
-        self.value_speedSpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_speedMotor.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.value_speedSpray.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Arial\'; font-size:14pt; font-weight:600; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ff0000;\">0</span></p></body></html>"))
+        self.label_speedMotor.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ff0000;\">0</span></p></body></html>"))
         self.checkBoxY1.setText(_translate("MainWindow", "CheckBoxY1"))
         self.checkBoxY2.setText(_translate("MainWindow", "CheckBoxY2"))
         self.checkBoxY3.setText(_translate("MainWindow", "CheckBoxY3"))
