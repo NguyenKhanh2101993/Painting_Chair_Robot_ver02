@@ -92,8 +92,9 @@ class makeFileSetting:
         return gearCalculated
 #============================================================================================
     def setGearInfor(self, value):
-        for i in range(len(self.gearRatio)):
-            self.gearRatio[i] = value[i]
+        self.gearRatio.clear()
+        for i in range(len(value)):
+            self.gearRatio.append(value[i])
 
         print(self.gearRatio)
         print(self.config)
@@ -130,9 +131,13 @@ class Home_position:
             Monitor_mode.Read_pulse_PWM_from_slaves()
             creat_threading() # bật chế độ monitor coil XY
             result = workJson.getGearRatio()
+
             if result != []:
                 Monitor_mode.saveGearRatio(result)
                 print("get gearRatio: ", result)
+                messagebox.showinfo("set gear ratio", "OK")
+            else:
+                messagebox.showinfo("set gear ratio", "FAILED")
 
         except Exception as e:
             messagebox.showinfo("Serial Comunication","OPEN SOFWARE FAILED")
@@ -904,7 +909,7 @@ class Monitor_Position_Class():
         self.gear_ratio_B = 1 #(360/12800)                                     # trục B cài vi bước 12800 xung/vòng, không có hộp số
         self.gear_ratio_C = 1 #(360/12800)                                     # trục C cài vi bước 12800 xung/vong, không có hộp số
 
-        self.gear_ratio = []
+        self.gear_ratio = [1,1,1,1,1,1]
 
         self.spray_axis = 550    # chiều dài trục súng sơn
         self.pre_button_state = 0 
@@ -916,6 +921,11 @@ class Monitor_Position_Class():
     def saveGearRatio(self, value):
         self.gear_ratio_X = value[0]; self.gear_ratio_Y = value[1]; self.gear_ratio_Z = value[2]
         self.gear_ratio_A = value[3]; self.gear_ratio_B = value[4]; self.gear_ratio_C = value[5]
+
+        self.gear_ratio.clear()
+        for i in range(len(value)):
+            self.gear_ratio.append(value[i])
+        print("gear_ratio: ", self.gear_ratio)
 
     def read_state_button(self):
         state = Monitor_in_out.button_active
@@ -1638,8 +1648,7 @@ class Run_auto():
         self.state_spray = 0; self.new_state_spray = 0
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         self.pre_points = [0,0,0,0,0,0]
-        self.gear = [ Monitor_mode.gear_ratio_X, Monitor_mode.gear_ratio_Y, Monitor_mode.gear_ratio_Z, 
-                    Monitor_mode.gear_ratio_A, Monitor_mode.gear_ratio_B, Monitor_mode.gear_ratio_C]
+
         self.old_Fspeed = 0; self.new_Fspeed = 0
         self.run_auto_mode = False          # trạng thái vào chế độ auto run
         self.counter = 0                    # lưu tổng số điểm đã truyền tới data_packet slave để chạy block mode
@@ -1890,7 +1899,7 @@ class Run_auto():
         for i in range(len(self.pre_points)):
             delta.append(float(result_array[i])- self.pre_points[i])
             self.pre_points[i] = float(result_array[i])
-            result_value.append(float(delta[i])/self.gear[i])
+            result_value.append(float(delta[i])/Monitor_mode.gear_ratio[i])
             print_delta.append(round(delta[i],3))
 
         print('Gia tri delta cua X,Y,Z,A,B,C là:', print_delta)
