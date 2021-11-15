@@ -593,7 +593,8 @@ class Monitor_Input_Output():
             #print("sensor input: ",self.sensor_value)
             self.sensor_machine_axis = [self.sensor_value[1], self.sensor_value[3], self.sensor_value[5],
                                         self.sensor_value[6], 0, 0]
-            time.sleep(0.1) # 100 ms đọc data coilXY 1 lần
+            self.sensor_limmit = [self.sensor_value[0],self.sensor_value[1],self.sensor_value[2],self.sensor_value[3],
+                                    self.sensor_value[4],self.sensor_value[5]]
 
     def enable_radio_button(self):
         for i in range(len(self.coilY_name)):
@@ -1227,7 +1228,7 @@ class Monitor_Position_Class():
        
             Show_Screen.enable_screen_option()
             self.machine_axis = True # đã về home
-            print("Da den vi tri cho")
+            print("ĐÃ ĐẾN VỊ TRÍ CHỜ")
             
 # đọc giá trị tay quay encoder
     def Read_rotary_encoder(self):
@@ -1475,6 +1476,8 @@ class Teach_mode_class():
 
         show_line = (' '+ str(self.counter_line))
         different_value = False
+        exceed_limit = False
+
         # lay gia tri
         F_speed = int(Show_Screen._speed_value.get())
         X_value = round(Monitor_mode.pos_X,3); Y_value = round(Monitor_mode.pos_Y,3); Z_value = round(Monitor_mode.pos_Z,3)
@@ -1486,11 +1489,17 @@ class Teach_mode_class():
 
         current_string_value = [(' X'+str(X_value)), (' Y'+str(Y_value)), (' Z'+str(Z_value)), (' A'+str(A_value)), 
                                 (' B'+str(B_value)),(' C'+str(C_value)), (' S'+str(Spray_state)), (' F'+str(F_speed))]
+        
+        # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
+        for ii in range(len(MAX_AXIS)):
+            if Monitor_in_out.sensor_limmit[ii] == 0:
+                exceed_limit = True
+
         # print("gia tri cac thong so: ",current_string_value)
         # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
         # sau đó lưu vào chuỗi
         for i in range(len(current_string_value)):
-            if (current_string_value[i] != self.pre_string_value[i]):
+            if (current_string_value[i] != self.pre_string_value[i]) and (exceed_limit == False):
                 self.pre_string_value[i] = current_string_value[i]
                 show_line = show_line + current_string_value[i]
                 different_value = True
@@ -1937,11 +1946,14 @@ class Run_auto():
         # tính tốc độ của trục x,y,z,a,b,c
         if _speed <= 30:
             speed_slaves = Monitor_mode.Call_speed()
-        else: speed_slaves = _speed
+        elif _speed > 200: 
+            speed_slaves = 200
+        else: 
+            speed_slaves = _speed
 
         print("toc do chay dong co: ",int(speed_slaves),"%")
         print("gia tri packet xung pulse: ",pulse) 
-            # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
+        # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
         for i in range(MAX_AXIS):
