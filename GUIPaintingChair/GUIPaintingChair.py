@@ -117,7 +117,7 @@ class Home_position:
                 print("ACTIVATED MACHINE")
             else:
                 return
-            time.sleep(4)
+            time.sleep(1)
             ComunicationRobot.Home_mode.destroy()
             ComunicationRobot.Frame2.destroy()
             Show_Screen.Show_screen_options()
@@ -590,6 +590,9 @@ class Monitor_Input_Output():
             #if Teach_mode.teach_state == False:
             #    Monitor_mode.Read_pulse_PWM_from_slaves()
             self.sensor_value = self.read_coilXY()
+            #print("sensor input: ",self.sensor_value)
+            self.sensor_machine_axis = [self.sensor_value[1], self.sensor_value[3], self.sensor_value[5],
+                                        self.sensor_value[6], 0, 0]
             time.sleep(0.1) # 100 ms đọc data coilXY 1 lần
 
     def enable_radio_button(self):
@@ -1091,10 +1094,10 @@ class Monitor_Position_Class():
                 
                 # gửi command quay chiều thuận trục được chọn
                 if Teach_mode.teach_axis == Teach_mode.TEACH_X_AXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_X = -1000
-                    if (self.button_state < self.pre_button_state):  new_pos_X = 1000
+                    if (self.button_state > self.pre_button_state):  new_pos_X = -1200
+                    if (self.button_state < self.pre_button_state):  new_pos_X = 1200
                     pulse_teach = int((new_pos_X - self.pos_X)/self.gear_ratio_X)
-                    if self.pos_X < -1000 or self.pos_X > 1000: self.button_state = self.pre_button_state
+                    if self.pos_X < -1200 or self.pos_X > 1200: self.button_state = self.pre_button_state
         
                 if Teach_mode.teach_axis == Teach_mode.TEACH_Y_AXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_Y = -1600
@@ -1165,33 +1168,32 @@ class Monitor_Position_Class():
         Show_Screen.enable_screen_option()
 
 # phát lệnh cho các động cơ chạy về vị trí cảm biến: gốc tọa độ máy - machine axis
+# chỉ chạy được 1 LẦN khi đã mở phần mềm. 
+# chỉ kiểm tra cảm biến X,Y,Z,A ở chế độ này, chế độ còn lại như auto, teach thì kiểm tra X,Y,Z
     def Go_to_machine_axis(self):
 
         if self.machine_axis == False:
             
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHECK_SENSOR_XYZA_ADDR, output_value = CHOOSE)
             
-            pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
-            pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
-            pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
+            pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
+            pulse_to_machine_axis_Y = [0, -128000, 0, 0, 0, 0]
+            pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
             pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
-            pulse_to_machine_axis_B = [0, 0, 0, 0, -6400, 0]
-            pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
+            pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
+            pulse_to_machine_axis_C = [0, 0, 0, 0, 0, 0]
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 6400, 3200, 0, 0, 0]
+            pulse_to_begin_position = [1600, 6400, 1600, 0, 0, 0]
             speed_axis = [100,100,100,100,100,200]
 
             print("Going to machine axis")
 
             Show_Screen.disable_screen_option()
-            # khai báo mảng chứa giá trị cảm biến gốc máy
-            self.sensor_machine_axis = [Monitor_in_out.sensor_value[0], Monitor_in_out.sensor_value[2], Monitor_in_out.sensor_value[4],
-                                        Monitor_in_out.sensor_value[6], Monitor_in_out.sensor_value[8], Monitor_in_out.sensor_value[10]]
             # set lại các thông số motor, đưa giá trị current_position về 0
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
-            time.sleep(0.5)
+            time.sleep(0.1)
             for i in range(MAX_AXIS):
                 Run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                 self.go_machine_axis_state = False
@@ -1200,7 +1202,7 @@ class Monitor_Position_Class():
                     Go_to_machine_axis_done_slave_02 = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_PULSE_DONE, 1)
                     self.Read_pulse_PWM_from_slaves()
 
-                    if (Go_to_machine_axis_done_slave_02[0]==1 or self.sensor_machine_axis[i] == 0):
+                    if (Go_to_machine_axis_done_slave_02[0]==1 or Monitor_in_out.sensor_machine_axis[i] == 0):
                         # dừng động cơ
                         Monitor_in_out.stop_motor()
                         self.go_machine_axis_state = True
@@ -1210,7 +1212,7 @@ class Monitor_Position_Class():
             # sau khi chạy hết các động cơ về vị trí cảm biến
             # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
             time.sleep(0.5)
-            Run.send_to_execute_board(pulse_to_begin_position,120)
+            Run.send_to_execute_board(pulse_to_begin_position,100)
             while True:
                 self.Read_pulse_PWM_from_slaves()
                 # Đọc trạng thái phát xung đã hoàn tất chưa
@@ -1220,10 +1222,12 @@ class Monitor_Position_Class():
                     # set lại các thông số motor, đưa giá trị current_position về 0
                     master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = CHOOSE)
                     master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHECK_SENSOR_XYZA_ADDR, output_value = CHOOSE)
+                    self.Read_pulse_PWM_from_slaves()
                     break
        
             Show_Screen.enable_screen_option()
             self.machine_axis = True # đã về home
+            print("Da den vi tri cho")
             
 # đọc giá trị tay quay encoder
     def Read_rotary_encoder(self):
