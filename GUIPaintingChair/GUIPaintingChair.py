@@ -1180,14 +1180,14 @@ class Monitor_Position_Class():
             pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
             pulse_to_machine_axis_Y = [0, -128000, 0, 0, 0, 0]
             pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
-            pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
+            pulse_to_machine_axis_A = [0, 0, 0, -32000, 0, 0]
             pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
             pulse_to_machine_axis_C = [0, 0, 0, 0, 0, 0]
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 6400, 1600, 0, 0, 0]
-            speed_axis = [100,100,100,100,100,200]
+            pulse_to_begin_position = [1600, 6400, 1600, -3200, 0, 0]
+            speed_axis = [100,100,100,100,100,100]
 
             print("Going to machine axis")
 
@@ -1491,9 +1491,12 @@ class Teach_mode_class():
                                 (' B'+str(B_value)),(' C'+str(C_value)), (' S'+str(Spray_state)), (' F'+str(F_speed))]
         
         # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
-        for ii in range(len(MAX_AXIS)):
+        for ii in range(MAX_AXIS):
             if Monitor_in_out.sensor_limmit[ii] == 0:
                 exceed_limit = True
+                break
+        if exceed_limit == True:
+            messagebox.showinfo("Limited","EXCEED SENSOR")
 
         # print("gia tri cac thong so: ",current_string_value)
         # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
@@ -1680,6 +1683,14 @@ class Run_auto():
         self.e_stop = False                 # trạng thái tín hiệu nút nhấn ESTOP
 #=============================================================
     def activate_run_mode(self):
+
+        if  (round(Monitor_mode.pos_X,3) == 0 and round(Monitor_mode.pos_Y,3) == 0 and round(Monitor_mode.pos_Z,3) == 0 and
+            round(Monitor_mode.pos_A,3) == 0 and round(Monitor_mode.pos_B,3) == 0 and round(Monitor_mode.pos_C,3) == 0): 
+            pass
+        else:
+            messagebox.showinfo("Run Auto", "Go to zero first!!!")
+            return
+
         try:
             position = Work_file._file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
             Show_Screen.disable_screen_option()
