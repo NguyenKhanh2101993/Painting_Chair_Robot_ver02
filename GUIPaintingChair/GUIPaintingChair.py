@@ -1178,7 +1178,7 @@ class Monitor_Position_Class():
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHECK_SENSOR_XYZA_ADDR, output_value = CHOOSE)
             
             pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
-            pulse_to_machine_axis_Y = [0, -128000, 0, 0, 0, 0]
+            pulse_to_machine_axis_Y = [0, -70000, 0, 0, 0, 0]
             pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
             pulse_to_machine_axis_A = [0, 0, 0, -32000, 0, 0]
             pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
@@ -1186,7 +1186,7 @@ class Monitor_Position_Class():
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 6400, 1600, -3200, 0, 0]
+            pulse_to_begin_position = [1600, 3200, 1600, -3200, 0, 0]
             speed_axis = [100,100,100,100,100,100]
 
             print("Going to machine axis")
