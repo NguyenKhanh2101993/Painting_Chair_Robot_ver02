@@ -206,7 +206,7 @@ TIMSKn: Thanh ghi điều khiển ngắt.
 */
 /////////////////////////////////////////////////////////////////////////////
 // Tạo Hàm delay timer 3. Dùng cho lệnh delay.
-void timer3_setting(void){
+void timer3_setting(void) {
   // timer 3 setting prescale = 64 
     cli();
     TCCR3A = 0;
