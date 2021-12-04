@@ -1689,10 +1689,11 @@ class Run_auto():
     def activate_run_mode(self):
 
         if  (round(Monitor_mode.pos_X,3) == 0 and round(Monitor_mode.pos_Y,3) == 0 and round(Monitor_mode.pos_Z,3) == 0 and
-            round(Monitor_mode.pos_A,3) == 0 and round(Monitor_mode.pos_B,3) == 0 and round(Monitor_mode.pos_C,3) == 0): 
+                round(Monitor_mode.pos_A,3) == 0 and round(Monitor_mode.pos_B,3) == 0 and round(Monitor_mode.pos_C,3) == 0
+                and Monitor_mode.machine_axis == True): 
             pass
         else:
-            messagebox.showinfo("Run Auto", "Go to zero first!!!")
+            messagebox.showinfo("Run Auto", "Go to zero/machine axis first!!!")
             return
 
         try:
