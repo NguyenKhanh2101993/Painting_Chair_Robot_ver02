@@ -1738,6 +1738,7 @@ class Run_auto():
                 else:
 
                     if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                        print("Ket thuc chuong trinh")
                         break
 
                     if content_line == self.turn_on_spray: # bật súng sơn
@@ -1753,6 +1754,7 @@ class Run_auto():
                         Monitor_mode.Go_to_zero_position()
 
                     if content_line == self.go_to_2nd_point: # đi tới điểm gốc thứ 2
+                        
                         pass
                     
                     if content_line == self.start_run_block:
@@ -2010,9 +2012,11 @@ class Run_auto():
         if state:
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_ON_MODBUS_ADDR, output_value = CHOOSE)
             Show_Screen.spray_on_state.config(bg = "green", text = 'SPRAY ON')
+            print("Bat sung son")
         else:
             master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.SPRAY_OFF_MODBUS_ADDR, output_value = CHOOSE)
             Show_Screen.spray_on_state.config(bg = "gray", text = 'SPRAY OFF')
+            print("Tat sung son")
 #-------------------------------------------------------    
 # command xoay bàn sơn
     def command_table_rotate(self):
