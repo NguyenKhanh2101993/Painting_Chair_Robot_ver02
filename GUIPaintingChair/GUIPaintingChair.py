@@ -128,16 +128,17 @@ class Home_position:
             Show_Screen.Speed_toolbar()
             Show_Screen.Text_box()
             Monitor_in_out.Monitor_input_output()
-            Monitor_mode.Read_pulse_PWM_from_slaves()
             creat_threading() # bật chế độ monitor coil XY
             result = workJson.getGearRatio()
 
             if result != []:
                 Monitor_mode.saveGearRatio(result)
                 print("get gearRatio: ", result)
-                messagebox.showinfo("set gear ratio", "OK")
+                messagebox.showinfo("gearRatio", "OK")
             else:
-                messagebox.showinfo("set gear ratio", "FAILED")
+                messagebox.showinfo("gearRatio", "FAILED")
+                
+            Monitor_mode.Read_pulse_PWM_from_slaves()
 
         except Exception as e:
             messagebox.showinfo("Serial Comunication","OPEN SOFWARE FAILED")
