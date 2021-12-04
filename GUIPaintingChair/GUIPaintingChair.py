@@ -1725,7 +1725,7 @@ class Run_auto():
                     self.command_run_point2point()  # phát lệnh chạy mode point to point bình thường
                     self.monitor_run_auto_next()    # giám sát chạy lệnh point to point 
                     if self.executeDelay == True: # có lệnh delay
-                        print("Giá tri S: ", self.delayTimer)
+                        print("Giá tri timer delay S: ", self.delayTimer)
                         self.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_DELAY_DONE, 1)
