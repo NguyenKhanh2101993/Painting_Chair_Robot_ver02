@@ -1,10 +1,8 @@
-
-// Máy sơn ghế update 15/11/2021
+// Máy sơn ghế update 03/12/2021
 
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
 #include "StepperMotorBresenham.h"
-#include "AccelStepper.h"
 #include "input_output.h"
 //================================================================
 //================================================================
@@ -38,14 +36,15 @@ int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần c
 // ...
 static int32_t packet_data[MAX_POINT_IN_BLOCK][MAX_AXIS+1]; 
 // Mảng 2 chiều (20 hàng, 5 cột) lưu packet xung 20 điểm, cột thứ 7 lưu giá trị tốc độ speed
-bool STATE_RUN_BLOCK = false; // chế độ chạy theo block có N điểm đã lưu sẵn
-static bool blockmovingDone = false; // cờ báo đã chạy xong 1 block N điểm liên tục
-
+bool STATE_RUN_BLOCK = false;         // chế độ chạy theo block có N điểm đã lưu sẵn
+static bool blockmovingDone = false;  // cờ báo đã chạy xong 1 block N điểm liên tục
+bool executeTimerDone = true;        // cờ báo đã thực thi xong thời gian delay
 // biến lưu số xung của rotary encoder
 int32_t pulsecounter = 0;
 static uint16_t write_output_value; // giá trị coilY cần out 
 static uint16_t monitor_input_value;  static uint16_t monitor_output_value; 
 static uint8_t  start_address = 0;
+uint16_t delay_value_received = 0;
 
 //===============================================================================================================
 
@@ -70,7 +69,13 @@ void detach_rotary_encoder(void) {
   pulsecounter = 0;
 }
 //================================================================
-
+void delay_value(uint8_t value){
+ 
+  if (value > 0) { 
+    executeTimerDone = false;
+    TIMER3_INTERRUPTS_ON;
+  }
+}
 //================================================================
 //================================================================
 // Điều khiển motor về vị trí 0 đã set
@@ -175,6 +180,7 @@ int32_t *get_packet_data(uint8_t index){
   return get_data;
 }
 //================================================================
+
 //================================================================
 void function_modbus_slave(void){
     node_slave.cbVector[CB_READ_COILS] = readDigital;
@@ -198,6 +204,24 @@ TIMSKn: Thanh ghi điều khiển ngắt.
 + bit 1 - OCIEnA: Output Compare Interrupt Enable 1 channel A -  Cho phép ngắt khi dùng Output Compare ở channel A.
 + bit 0 - TOIEn: Overflow Interrupt Enable 1 - Cho phép ngắt khi xảy ra tràn trên T/C.
 */
+/////////////////////////////////////////////////////////////////////////////
+// Tạo Hàm delay timer 3. Dùng cho lệnh delay.
+void timer3_setting(void){
+  // timer 3 setting prescale = 64 
+    cli();
+    TCCR3A = 0;
+    TCCR3B = 0;
+    TIMSK3 = 0;
+    TCCR3B |= ((0 << CS32) | (1 << CS31) | (1 << CS30));    // clk/64 prescaler (1 xung = 4 us)
+    TCNT3 = 40536; // 0.1 s tạo ngắt 1 lần
+    sei();
+}
+ISR (TIMER3_OVF_vect) {
+  static uint8_t timer_cnt = 0; timer_cnt ++;
+  TCNT3 = 40536;
+  if (timer_cnt == delay_value_received) {timer_cnt = 0; executeTimerDone = true; TIMER3_INTERRUPTS_OFF}
+}
+/////////////////////////////////////////////////////////////////////////////
 void timer1_setting(void){
   // timer 1 setting prescale = 64 and CTC mode 4
     cli();
@@ -213,7 +237,6 @@ void timer1_setting(void){
 /// ISR
 /// clk/64: 21 ~ 23 tick
 /// clk/ 8: 200 tick
-/// ISR에 진입할 때 TCNT는 0이 된다
 /// đếm từ TCNT1 và so sánh với OCR1A cho tới khi TCNT1 = OCR1A thì sẽ có hàm ngắt xảy ra
 /// trường hợp này TCNT1 ban đầu mặc định = 0
 ////////////////////////////////////////////////////////////////////////////
@@ -251,10 +274,10 @@ ISR(TIMER1_COMPA_vect) {
 //============================================================================================
 //Bật tắt súng sơn coilY[0]
 void spray_gun_on(void){
-    digitalWrite(coilY[0], HIGH);
+    digitalWrite(coilY[3], HIGH);
 }
 void spray_gun_off(void){
-    digitalWrite(coilY[0], LOW);
+    digitalWrite(coilY[3], LOW);
 }
 //============================================================================================
 //Xoay bàn sơn coilY[1], coilY[2]
@@ -263,12 +286,12 @@ void table_change_state (void) {
     state_table = !state_table;
 
     if (state_table) {  
-      digitalWrite(coilY[1], HIGH);
-      digitalWrite(coilY[2], LOW);  
+      digitalWrite(coilY[0], HIGH);
+      digitalWrite(coilY[1], LOW);  
     }
     else { 
-      digitalWrite(coilY[1], LOW);
-      digitalWrite(coilY[2], HIGH);
+      digitalWrite(coilY[0], LOW);
+      digitalWrite(coilY[1], HIGH);
     }
 }
 //============================================================================================
@@ -289,6 +312,7 @@ void change_state_coilY(uint16_t value){
 }
 //============================================================================================
 void setup() {   
+  
   Serial.begin(115200);
   MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); function_modbus_slave();
   pinMode(EncoderA, INPUT_PULLUP); pinMode(EncoderB, INPUT_PULLUP);
@@ -297,7 +321,7 @@ void setup() {
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
   command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
-  timer1_setting();
+  timer1_setting(); timer3_setting();
   table_change_state();  // setup trạng thái ban đầu của bàn xoay
   Serial.println("Slave id2 Setup OK");
 }
@@ -331,7 +355,6 @@ void loop() {
     if (userInput == "2") {go_to_2_position();}
   }
 */
-
 } // End loop
 //============================================================================================
 //============================================================================================
@@ -363,6 +386,7 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
                                                               speed = i32readdata[MAX_AXIS]; break;   
     // Ghi giá trị coil Y ra các chân đã define
     case WRITE_YCOIL:   write_output_value = read_data[0]; break;
+    case DELAY_VALUE: delay_value_received = read_data[0]; break;
     default: break;
   }
 
@@ -410,7 +434,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         if (coil[address+i] == 1){
             switch (address + i) {
 
-
+              case DELAY_MODBUS_ADDR:                 delay_value(delay_value_received);    break;
               case CHECK_SENSOR_XYZA_ADDR:            check_sensor_XYZA(); break;
               case TABLE_CHANGE_STATE_MODBUS_ADDR:    table_change_state(); break;
               case SPRAY_OFF_MODBUS_ADDR:             spray_gun_off(); break;
@@ -448,7 +472,9 @@ uint8_t readDigital(uint8_t fc, uint16_t address, uint16_t length)
               else                         {state_home = command_motor.movingDone();}
               node_slave.writeCoilToBuffer(i,state_home);
               break;
-        //default: break;
+        case EXECUTE_DELAY_DONE:
+              node_slave.writeCoilToBuffer(i,executeTimerDone);
+              break;
       } 
     } else { break; }
   }
