@@ -1,4 +1,4 @@
-// Máy sơn ghế update 03/12/2021
+// Máy sơn ghế update 04/12/2021
 
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
@@ -220,6 +220,7 @@ ISR (TIMER3_OVF_vect) {
   static uint8_t timer_cnt = 0; timer_cnt ++;
   TCNT3 = 40536;
   if (timer_cnt == delay_value_received) {timer_cnt = 0; executeTimerDone = true; TIMER3_INTERRUPTS_OFF}
+  //Serial.println(timer_cnt);
 }
 /////////////////////////////////////////////////////////////////////////////
 void timer1_setting(void){

@@ -1650,6 +1650,10 @@ class Com_box():
 class Run_auto():
     def __init__(self):
 
+        self.DELAY_VALUE = 16
+        self.EXECUTE_DELAY_DONE = 1
+        
+        self.DELAY_MODBUS_ADDR = 2
         self.TABLE_CHANGE_STATE_MODBUS_ADDR = 4
         self.SPRAY_OFF_MODBUS_ADDR = 5
         self.SPRAY_ON_MODBUS_ADDR = 6
@@ -1661,7 +1665,7 @@ class Run_auto():
 
         self.sum_xung_le = [0,0,0,0,0,0]
         self.pause_on = 0
-        self.state_spray = 0; self.new_state_spray = 0
+        self.delayTimer = 0
         self.pre_result_value = [0,0,0,0,0,0,0,0]
         self.pre_points = [0,0,0,0,0,0]
 
@@ -1720,6 +1724,17 @@ class Run_auto():
                     self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
                     self.command_run_point2point()  # phát lệnh chạy mode point to point bình thường
                     self.monitor_run_auto_next()    # giám sát chạy lệnh point to point 
+                    if self.executeDelay == True: # có lệnh delay
+                        print("Giá tri S: ", self.delayTimer)
+                        self.command_delayTimer(self.delayTimer)
+                        while True:
+                            excecuteTimerDone = master.execute(SLAVE_02, cst.READ_COILS, self.EXECUTE_DELAY_DONE, 1)
+                            time.sleep(0.1)
+                            #print("gia tri excecuteTimerDone: ", excecuteTimerDone)
+                            if excecuteTimerDone[0] == 1:
+                                self.executeDelay = False
+                                break
+
                 else:
 
                     if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
@@ -1903,8 +1918,8 @@ class Run_auto():
             for i in range(len(self.pre_result_value)):
                 self.pre_result_value[i] = result_value[i]  
 
-            self.new_state_spray = int(result_value[6])     # trạng thái coil súng sơn
-            self.new_Fspeed = int(result_value[7])          # tốc độ sơn
+            self.delayTimer = int(float(result_value[6])*10)     # thời gian delay
+            self.new_Fspeed = int(result_value[7])               # tốc độ sơn
 
         except Exception as e:
             print('separate_string error:', str(e))
@@ -1985,6 +2000,11 @@ class Run_auto():
 # phát lệnh đến board id 2 và id 3 bắt đầu chạy điểm point to point
         master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.POINT2POINT_MODBUS_ADDR, output_value = CHOOSE)
 #-------------------------------------------------------   
+# command delay
+    def command_delayTimer(self, value):
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_REGISTER, self.DELAY_VALUE, output_value = value)
+        master.execute(SLAVE_02, cst.WRITE_SINGLE_COIL, self.DELAY_MODBUS_ADDR, output_value = CHOOSE)
+#-------------------------------------------------------
 # command bật tắt súng sơn 
     def command_run_spray(self, state):
         if state:
@@ -2039,9 +2059,12 @@ class Run_auto():
                          'X', 'Y', 'Z', 'A', 'B', 'C', 'S', 'F', '.', '-', '\n', '\0']
         for char in StringArr:
             if char in RecognizeChar[0:]: 
+                if char == 'S': self.executeDelay = True    #kiểm tra dòng lệnh có S hay không
                 pass
+
             else:
               Recognize_command = False
+              self.executeDelay = False
               print("Ky tu khong dung systax: ",StringArr)
               break
         return Recognize_command
