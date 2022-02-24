@@ -4,11 +4,12 @@ from pathlib import Path
 import sys
 import time
 import math
-import threading # chạy song song 2 chương trình
+import threading 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QThread
 from comWindow import Ui_communication
 from workWindow import Ui_MainWindow
 from teachWindow import Ui_teachMode
@@ -51,6 +52,8 @@ class checkComWindow():
         result = self.workSerial.choose_comports(baud,com)
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
+              main_window.showCurrentPositions()
+              #creat_threading() # bật chế độ monitor coil XY
         else: 
               main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
 #================================================================================================
@@ -180,7 +183,11 @@ class teachingWindow:
         self.defineTeachModeButton()
 
     def showTeachWindow(self):
-        self.teachWin.show()
+        try:
+            main_window.showStatus  ("HIEN THI TEACH BOX")
+            self.teachWin.show()
+        except Exception as e:
+            print(str(e))
 
     def detroyTeachWindow(self):
         self.teachWin.close()
@@ -229,7 +236,11 @@ class teachingWindow:
         main_window.uiWorking.label_directory.clear()
         main_window.uiWorking.textBrowser_showfile.clear()
         self.showTeachWindow()
-        teach.monitorTeachMode()
+        # đưa vào Qthread để chạy hàm monitorTeachMode
+        #teach.monitorTeachMode()
+        main_window.thread[1] = MonitorXYThread(parent=None)
+        main_window.thread[1].start()
+
 
     def activateTeachMode(self,state):
         if state == True:
@@ -328,6 +339,8 @@ class teachingWindow:
     def setPoint(self):
         show_line = (' '+ str(self.counter_line))
         different_value = False
+        exceed_limit = False
+
         # lay gia tri
         F_speed =  main_window.speedMotor()
         X_value = str(round(main_window.currentPos[0],3)); Y_value = str(round(main_window.currentPos[1],3)); Z_value = str(round(main_window.currentPos[2],3))
@@ -339,6 +352,15 @@ class teachingWindow:
 
         current_string_value = [(' X'+X_value), (' Y'+Y_value), (' Z'+Z_value), (' A'+ A_value), 
                                 (' B'+B_value),(' C'+C_value), (' S'+ str(Spray_state)), (' F'+ str(F_speed))]
+        
+        # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
+        for ii in range(main_window.MAX_AXIS):
+            if main_window.coilXY.sensor_limmit[ii] == 0:
+                exceed_limit = True
+                break
+        if exceed_limit == True:
+            main_window.showStatus ("Limited: EXCEED SENSOR LIMIT")
+
         # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
         # sau đó lưu vào chuỗi
         for i in range(len(current_string_value)):
@@ -394,7 +416,8 @@ class workingTeachMode():
         self.pos_Zspray = 7
         self.pre_button_state = 0 
         self.no_choise_axis = -1
-        self.xAXIS = 0; self.yAXIS = 1; self.zAXIS = 2; self.aAXIS = 3; self.bAXIS = 4; self.cAXIS = 5; self.z1AXIS = 6
+        self.xAXIS = 0; self.yAXIS = 1; self.zAXIS = 2; self.aAXIS = 3
+        self.bAXIS = 4; self.cAXIS = 5; self.z1AXIS = 6
    
     def read_state_button(self):
         state = teachWindow.button_active
@@ -404,11 +427,13 @@ class workingTeachMode():
         state = teachWindow.teach_axis
         return state
 
-    def monitorTeachMode(self):
+    # đưa vào Qthread để chạy hàm monitorTeachMode
+    def monitorTeachMode(self): 
         try:
             self.chooseAxis = self.no_choise_axis
             new_pos_X = 0; new_pos_Y = 0; new_pos_A = 0
             new_pos_B = 0; new_pos_C = 0; new_pos_Z = 0
+            
             while True:
                 self.pulse_teach_packet = [0,0,0,0,0,0]
                 state_runing = False
@@ -419,10 +444,11 @@ class workingTeachMode():
                 
                 # gửi command quay chiều thuận trục được chọn
                 if self.chooseAxis == self.xAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_X = -1000
-                    if (self.button_state < self.pre_button_state):  new_pos_X = 1000
+                    
+                    if (self.button_state > self.pre_button_state):  new_pos_X = -1200
+                    if (self.button_state < self.pre_button_state):  new_pos_X = 1200
                     pulse_teach = int((new_pos_X - main_window.currentPos[self.xAXIS])/main_window.gearRatio[self.xAXIS])
-                    if  main_window.currentPos[self.xAXIS] < -1000 or  main_window.currentPos[self.xAXIS] > 1000: 
+                    if  main_window.currentPos[self.xAXIS] < -1200 or  main_window.currentPos[self.xAXIS] > 1200: 
                         self.button_state = self.pre_button_state
         
                 if self.chooseAxis == self.yAXIS:
@@ -479,10 +505,12 @@ class workingTeachMode():
                     self.chooseAxis = self.no_choise_axis
                     main_window.showStatus  ("===> Thoát khỏi chế độ teach mode")
                     break
+                time.sleep(0.01)
 
         except Exception as e:
             main_window.showStatus("===> Exit chế độ monitor teach mode")
             main_window.showStatus (str(e))
+            print(str(e))
             return
 
     def Kinematics_Zaxis_mode_02(self):
@@ -532,6 +560,14 @@ class workingTeachMode():
                         break
             else: pass
 #================================================================================================
+class MonitorXYThread(QThread):
+    def __init__(self, parent=None):
+        super(MonitorXYThread, self).__init__(parent)
+    def run(self):
+        main_window.showStatus  ("Start monitor XY coil....")
+        teach.monitorTeachMode()
+
+#================================================================================================
 class workingWindow():
     def __init__(self):
 
@@ -552,13 +588,15 @@ class workingWindow():
         self.go_machine_home = False
         self.checkValue = -1
 
+        self.thread = {}
+
     def showWorkingWindow(self):
         self.window.show()
 
     def defineSliders(self):
         self.uiWorking.verticalSlider_speedMotor.valueChanged.connect(self.speedMotor)
         self.uiWorking.verticalSlider_spray.valueChanged.connect(self.speedSpray)
-        self.uiWorking.label_speedMotor.setText("M"+ str(self.uiWorking.verticalSlider_speedMotor.value()))
+        self.uiWorking.label_speedMotor.setText("F"+ str(self.uiWorking.verticalSlider_speedMotor.value()))
         self.uiWorking.value_speedSpray.setText("S"+ str(self.uiWorking.verticalSlider_spray.value()))
      
     def defineControlButton(self):
@@ -761,28 +799,22 @@ class workingWindow():
             self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
             comWindow.workSerial.commandCheckXYZAsensor()
             
-            pulse_to_machine_axis_X = [-25600, 0, 0, 0, 0, 0]
-            pulse_to_machine_axis_Y = [0, -25600, 0, 0, 0, 0]
-            pulse_to_machine_axis_Z = [0, 0, -25600, 0, 0, 0]
-            pulse_to_machine_axis_A = [0, 0, 0, -16000, 0, 0]
-            pulse_to_machine_axis_B = [0, 0, 0, 0, -6400, 0]
-            pulse_to_machine_axis_C = [0, 0, 0, 0, 0, -12800]
+            pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
+            pulse_to_machine_axis_Y = [0, -70000, 0, 0, 0, 0]
+            pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
+            pulse_to_machine_axis_A = [0, 0, 0, -32000, 0, 0]
+            pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
+            pulse_to_machine_axis_C = [0, 0, 0, 0, 0, 0]
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 6400, 3200, 0, 0, 0]
-            speed_axis = [100,100,100,100,100,200]
+            pulse_to_begin_position = [1600, 3200, 1600, -3200, 0, 0]
+            speed_axis = [100,100,100,100,100,100]
 
             self.disable_control_option(True)
-            # khai báo mảng chứa giá trị cảm biến gốc máy
-            sensor_machine_axis = [ main_window.coilXY.sensor_value[main_window.coilXY.xhomeBit], 
-                                    main_window.coilXY.sensor_value[main_window.coilXY.yhomeBit], 
-                                    main_window.coilXY.sensor_value[main_window.coilXY.zhomeBit],
-                                    main_window.coilXY.sensor_value[main_window.coilXY.ahomeBit], 1, 1]
-
             # set lại các thông số motor, đưa giá trị current_position về 0
             comWindow.workSerial.setZeroPositions()
-            time.sleep(0.5)
+            time.sleep(0.1)
             for i in range(self.MAX_AXIS):
                 run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                 self.go_machine_axis_state = False
@@ -790,7 +822,7 @@ class workingWindow():
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                     positionCompleted = comWindow.workSerial.commandPositionCompleted()
                     self.showCurrentPositions()
-                    if (positionCompleted[0]==1 or sensor_machine_axis[i] == 0):
+                    if (positionCompleted[0]==1 or main_window.coilXY.sensor_machine_axis[i] == 0):
                         # dừng động cơ
                         run.stop_motor()
                         self.go_machine_axis_state = True
@@ -799,7 +831,7 @@ class workingWindow():
             # sau khi chạy hết các động cơ về vị trí cảm biến
             # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
             time.sleep(0.5)
-            run.send_to_execute_board(pulse_to_begin_position,120)
+            run.send_to_execute_board(pulse_to_begin_position,100)
             while True:
                 
                 # Đọc trạng thái phát xung đã hoàn tất chưa
@@ -810,6 +842,7 @@ class workingWindow():
                     # set lại các thông số motor, đưa giá trị current_position về 0
                     comWindow.workSerial.setZeroPositions()
                     comWindow.workSerial.commandCheckXYZAsensor()
+                    self.showCurrentPositions()
                     break
        
             self.disable_control_option(False)
@@ -829,6 +862,7 @@ class runMotor:
         self.new_Fspeed = 0
         self.run_auto_mode = False          # trạng thái vào chế độ auto run
         self.counter = 0                    # lưu tổng số điểm đã truyền tới data_packet slave để chạy block mode
+        self.delayTimer = 0
     
         self.MAX_POINT_IN_BLOCK = 140       # số điểm tối đa có thể truyền tới data_packet slave trong block mode
         self.end_symbol = 'M30\n'           #command kết thúc chương trình
@@ -845,6 +879,14 @@ class runMotor:
 
 #=============================================================
     def activate_run_mode(self):
+        
+        for i in main_window.MAX_AXIS:
+            if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
+                pass
+            else:
+                main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
+                return
+        
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
             #main_window.disable_screen_option()
@@ -874,6 +916,17 @@ class runMotor:
                     self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
                     comWindow.workSerial.commandPointToPoint()  # phát lệnh chạy mode point to point bình thường
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
+                
+                    if self.executeDelay == True: # có lệnh delay
+                        main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer))
+                        comWindow.workSerial.command_delayTimer(self.delayTimer)
+                        while True:
+                            excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
+                            time.sleep(0.1)
+                            #print("gia tri excecuteTimerDone: ", excecuteTimerDone)
+                            if excecuteTimerDone[0] == 1:
+                                self.executeDelay = False
+                                break
                 else:
 
                     if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
@@ -971,6 +1024,7 @@ class runMotor:
             if point_done[0] == 1: # slave đã chạy xong hết block
                 self.run_block_done = True
                 break
+
             if self.pause_on == 1: # dừng motor
                 comWindow.workSerial.commandPauseMotor()
                         
@@ -980,13 +1034,17 @@ class runMotor:
 # 
     def monitor_run_auto_next(self):
         self.pause_on = 0
+
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
             main_window.showCurrentPositions()
+
             if point_done[0] == 1: 
                 break
+
             if self.pause_on == 1: # dừng motor
                 comWindow.workSerial.commandPauseMotor()
+
             if self.pause_on == 2: # tiếp tục chạy
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
@@ -1042,7 +1100,7 @@ class runMotor:
             for i in range(len(self.pre_result_value)):
                 self.pre_result_value[i] = result_value[i]  
 
-            self.new_state_spray = int(result_value[6])     # trạng thái coil súng sơn
+            self.delayTimer = int(float(result_value[6])*10)     # thời gian delay
             self.new_Fspeed = int(result_value[7])          # tốc độ sơn
 
         except Exception as e:
@@ -1153,9 +1211,11 @@ class runMotor:
                          'X', 'Y', 'Z', 'A', 'B', 'C', 'S', 'F', '.', '-', '\n', '\0']
         for char in StringArr:
             if char in RecognizeChar[0:]: 
+                if char == 'S': self.executeDelay = True    #kiểm tra dòng lệnh có S hay không
                 pass
             else:
               Recognize_command = False
+              self.executeDelay = False
               main_window.showStatus ("Ky tu khong dung systax: " + str(StringArr))
               break
         return Recognize_command
@@ -1184,8 +1244,9 @@ class monitorInputOutput:
         self.numCoilXY = 16
         self.valueCoilY = 0
         # khai báo vị trí home sensor và limit sensor trong value
-        self.xhomeBit = 0; self.yhomeBit = 1;  self.zhomeBit = 2;  self.ahomeBit = 3; 
-        self.xlimitBit = 4;  self.ylimitBit = 5;  self.zlimitBit = 6; 
+        self.xhomeBit = 1; self.yhomeBit = 3;  self.zhomeBit = 5;  self.ahomeBit = 6; 
+        self.xlimitBit = 0;  self.ylimitBit = 2;  self.zlimitBit = 4; 
+
         self.bitPos = [self.xhomeBit, self.yhomeBit, self.zhomeBit, self.ahomeBit, 
                                     self.xlimitBit, self.ylimitBit, self.zlimitBit]
     
@@ -1269,8 +1330,15 @@ class monitorInputOutput:
             while True:
                 self.sensor_value = self.read_coilXY()
                 self.showWarning(self.sensor_value)
-                main_window.showStatus(str(self.sensor_value))
-                time.sleep(0.1) # 100 ms đọc data coilXY 1 lần   
+                #main_window.showStatus(str(self.sensor_value))
+                self.sensor_machine_axis = [self.sensor_value[self.xhomeBit], self.sensor_value[self.yhomeBit], 
+                                            self.sensor_value[self.zhomeBit], self.sensor_value[self.ahomeBit], 0, 0]
+
+                self.sensor_limmit = [self.sensor_value[self.xlimitBit],self.sensor_value[self.xhomeBit],
+                                        self.sensor_value[self.ylimitBit],self.sensor_value[self.yhomeBit],
+                                        self.sensor_value[self.zlimitBit],self.sensor_value[self.zhomeBit]]
+
+                time.sleep(0.1) # 100 ms đọc data coilXY 1 lần
 
         except Exception as error:
             main_window.showStatus("===> Lỗi trong quá trình giám sát cổng input/output")
@@ -1281,7 +1349,7 @@ class monitorInputOutput:
         for i in range(len(self.bitPos)):
             if value[self.bitPos[i]]: # Không có tín hiệu
                 main_window.warningLabel[i].setStyleSheet("background-color: " + main_window.orgColorWarningLabel[i] + ";")
-            else:    
+            else:
                 main_window.warningLabel[i].setStyleSheet("background-color: #00aa00;")
 
 #================================================================================================
@@ -1299,10 +1367,10 @@ if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
 
     main_window.showWorkingWindow()
 
+
     def creat_threading():
         monitor_coil = threading.Thread(name='monitor_coil', target=main_window.coilXY.monitor_coil_XY)
         monitor_coil.setDaemon(True)
         monitor_coil.start()
-    
-    #creat_threading()
-    sys.exit(app.exec_())
+
+    sys.exit(app.exec_()) # creating an event loop for app

@@ -28,6 +28,10 @@ class Read_Write_to_Serial:
         self.WRITE_YCOIL = 24
         self.CHANGE_STATE_COIL_Y_MODBUS_ADDR = 12
 
+        self.DELAY_VALUE = 16
+        self.DELAY_MODBUS_ADDR = 2
+        self.EXECUTE_DELAY_DONE = 1
+
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
         try:
@@ -123,3 +127,12 @@ class Read_Write_to_Serial:
     def sendCoilValue(self, value):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_REGISTER, self.WRITE_YCOIL, output_value = value)
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.CHANGE_STATE_COIL_Y_MODBUS_ADDR, output_value= self.CHOOSE)
+
+    # command delay
+    def command_delayTimer(self, value):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_REGISTER, self.DELAY_VALUE, output_value = value)
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.DELAY_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandDelayCompleted(self):
+        status = self.master.execute(self.SLAVE_02, cst.READ_COILS, self.EXECUTE_DELAY_DONE, 1)
+        return status
