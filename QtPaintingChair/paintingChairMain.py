@@ -4,12 +4,12 @@ from pathlib import Path
 import sys
 import time
 import math
-import threading 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import QThread
+from PyQt5.QtCore import QThread, QRunnable, QThreadPool, pyqtSignal
+
 from comWindow import Ui_communication
 from workWindow import Ui_MainWindow
 from teachWindow import Ui_teachMode
@@ -31,6 +31,7 @@ class checkComWindow():
         self.reset_comports()
         self.uic.pushButton.clicked.connect(self.choose_comports)
         self.uic.pushButton_2.clicked.connect(self.reset_comports)
+        self.connectSignal = False
      
     def showComWindow(self):
         self.comWindow.show()
@@ -53,7 +54,8 @@ class checkComWindow():
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
               main_window.showCurrentPositions()
-              #creat_threading() # bật chế độ monitor coil XY
+              main_window.threadInputOutput.start()
+              self.connectSignal = True
         else: 
               main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
 #================================================================================================
@@ -153,13 +155,27 @@ class paramWindow:
         result = self.jsonFile.getGearRatio()
         if result != []:
             self.saveGearRatio(result)
+#================================================================================================
+# Confirm to exit teachingWindow
+class MyTeachWindow(QtWidgets.QWidget):
+    def closeEvent(self,event):
+        result = QtWidgets.QMessageBox.question(self,
+                      "Confirm Exit...",
+                      "Are you sure you want to exit ?",
+                      QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
+        event.ignore()
 
+        if result == QtWidgets.QMessageBox.Yes:
+            teachWindow.exitTeachMode()
+            event.accept()
 #================================================================================================
 class teachingWindow:
     def __init__(self):
-        self.teachWin = QWidget()
+        super().__init__() 
+        self.teachWin = MyTeachWindow()
         self.uiteach = Ui_teachMode()
         self.uiteach.setupUi(self.teachWin)
+       
 
         self.forward = 1
         self.reverse = -1
@@ -181,7 +197,7 @@ class teachingWindow:
         self.counter_line = 0
 
         self.defineTeachModeButton()
-
+   
     def showTeachWindow(self):
         try:
             main_window.showStatus  ("HIEN THI TEACH BOX")
@@ -232,30 +248,24 @@ class teachingWindow:
         for i in range(len(self.teachModeButton_control)): 
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
 
+        self.teachModeButton_control[0].setDisabled(True)   # disable nut exit tren teaching Window
+
     def enterTeachMode(self):
         main_window.uiWorking.label_directory.clear()
         main_window.uiWorking.textBrowser_showfile.clear()
+        self.reInitTeachMode()
         self.showTeachWindow()
         # đưa vào Qthread để chạy hàm monitorTeachMode
-        #teach.monitorTeachMode()
-        main_window.thread[1] = MonitorXYThread(parent=None)
-        main_window.thread[1].start()
+        main_window.threadTeachMode.start()
+       
+    def reInitTeachMode(self):
+        self.button_active = 0
+        self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
+        self.monitor_off = False
 
-
-    def activateTeachMode(self,state):
-        if state == True:
-            main_window.showStatus("===> Enable teachMode button")
-        else: 
-            main_window.showStatus("===> Disable teachMode button")
-
-        for i in range(len(self.teachModeButton_Fw)):
-            self.teachModeButton_Fw[i].setEnabled(state)
-        for i in range(len(self.teachModeButton_Rw)):
-            self.teachModeButton_Rw[i].setEnabled(state)
-        for i in range(len(self.teachModeButton_coil)):
-            self.teachModeButton_coil[i].setEnabled(state)
-        for i in range(len(self.teachModeButton_control)):
-            self.teachModeButton_control[i].setEnabled(state)
+        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
+                                 (' S'+'0'),(' F'+'0')]
+        self.counter_line = 0
 
     def buttonX_forward(self):
         main_window.showStatus ("Dang nhan button X-")
@@ -332,9 +342,10 @@ class teachingWindow:
         self.button_active = 0
 
     def exitTeachMode(self):
-        self.detroyTeachWindow()
+        #main_window.threadTeachMode.deleteLater()
         main_window.disable_control_option(False)
         self.monitor_off = True
+        main_window.showStatus ("===> Thoát khỏi chế độ Teach Mode")
 
     def setPoint(self):
         show_line = (' '+ str(self.counter_line))
@@ -343,8 +354,10 @@ class teachingWindow:
 
         # lay gia tri
         F_speed =  main_window.speedMotor()
+    
         X_value = str(round(main_window.currentPos[0],3)); Y_value = str(round(main_window.currentPos[1],3)); Z_value = str(round(main_window.currentPos[2],3))
         A_value = str(round(main_window.currentPos[3],3)); B_value = str(round(main_window.currentPos[4],3)); C_value = str(round(main_window.currentPos[5],3))
+            
         Spray_state = 0 
 
         if  F_speed < 0: F_speed = 0
@@ -406,8 +419,6 @@ class teachingWindow:
     def sprayOFF(self):
         main_window.showStatus  ("===> SÚNG SƠN TẮT")
         run.command_run_spray(0)
-
-
 #================================================================================================
 class workingTeachMode():
     def __init__(self):
@@ -427,14 +438,13 @@ class workingTeachMode():
         state = teachWindow.teach_axis
         return state
 
-    # đưa vào Qthread để chạy hàm monitorTeachMode
     def monitorTeachMode(self): 
         try:
             self.chooseAxis = self.no_choise_axis
             new_pos_X = 0; new_pos_Y = 0; new_pos_A = 0
             new_pos_B = 0; new_pos_C = 0; new_pos_Z = 0
             
-            while True:
+            while comWindow.connectSignal == True:
                 self.pulse_teach_packet = [0,0,0,0,0,0]
                 state_runing = False
                 self.chooseAxis = self.read_teach_axis()
@@ -505,7 +515,6 @@ class workingTeachMode():
                     self.chooseAxis = self.no_choise_axis
                     main_window.showStatus  ("===> Thoát khỏi chế độ teach mode")
                     break
-                time.sleep(0.01)
 
         except Exception as e:
             main_window.showStatus("===> Exit chế độ monitor teach mode")
@@ -560,35 +569,67 @@ class workingTeachMode():
                         break
             else: pass
 #================================================================================================
-class MonitorXYThread(QThread):
+# Thread trong monitor teach mode
+class monitorTeachModeThread(QThread):
     def __init__(self, parent=None):
-        super(MonitorXYThread, self).__init__(parent)
+        super(monitorTeachModeThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus  ("Start monitor XY coil....")
+        main_window.showStatus("Start monitor in teachMode")
         teach.monitorTeachMode()
-
+    
 #================================================================================================
-class workingWindow():
-    def __init__(self):
+# Thread monitor input_output signals
+class monitorInputOutputThread(QThread):
+    change_value = pyqtSignal(int)
+    def __init__(self, parent=None):
+        super(monitorInputOutputThread, self).__init__(parent)
+    def run(self):
+        main_window.showStatus("Start monitor input/output")
+        main_window.coilXY.monitor_coil_XY()
+    #def stop(self):
+#================================================================================================
+# Confirm exit workingWindow
+class MyWindow(QtWidgets.QMainWindow):
 
-        self.window = QMainWindow()
+    def closeEvent(self,event):
+        result = QtWidgets.QMessageBox.question(self,
+                      "Confirm Exit...",
+                      "Are you sure you want to exit ?",
+                      QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
+        event.ignore()
+
+        if result == QtWidgets.QMessageBox.Yes:
+            event.accept()
+#================================================================================================
+class workingWindow:
+    def __init__(self):
+        self.window = MyWindow() 
         self.uiWorking = Ui_MainWindow()
         self.uiWorking.setupUi(self.window)
         self.coilXY = monitorInputOutput()
+        self.threadTeachMode = monitorTeachModeThread()
+        self.threadInputOutput = monitorInputOutputThread()
 
         self.defineControlButton()
         self.defineCheckButton()
         self.defineWarningLabel()
         self.defineSliders()
         
-        self.currentPos = []
+        self.currentPos = [0,0,0,0,0,0,0,0]
         self.gearRatio = []
         self.MAX_AXIS = 6
         self.spray_axis = 550
         self.go_machine_home = False
         self.checkValue = -1
 
-        self.thread = {}
+        # Khai báo sử dụng đa luồng được quản lý bới threadpool
+        # Tính số luồng tối đa có thể sử dụng maxThreadCount bởi threadpool
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        
+
+    #def closeEvent(self, event):
+    #    print ("close event: ")
 
     def showWorkingWindow(self):
         self.window.show()
@@ -726,14 +767,16 @@ class workingWindow():
         self.showStatus(self.gearRatio)
 
     def showCurrentPositions(self):
-        position = []; self.currentPos.clear()
+        position = []
         position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
+        for i in range(len(position)):
+            self.currentPos[i] = position[i]
+
         for i in range(len(self.lableG54Position)):
             self.lableG54Position[i].setText(str(round(position[i],3)))
             self.lableMachinePosition[i].setText(str(round(position[i],3)))
 
-        for i in range(len(position)):
-            self.currentPos.append(position[i])
+        return position
 
     def callMotorSpeed(self):
         return 0
@@ -852,6 +895,14 @@ class workingWindow():
 
     def showStatus(self, value):
         self.uiWorking.textBrowser_terminal.append(str(value))
+        horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
+        verScrollBar = self.uiWorking.textBrowser_terminal.verticalScrollBar()
+        scrollIsAtEnd = verScrollBar.maximum() - verScrollBar.value() <= 10
+        if scrollIsAtEnd:
+            verScrollBar.setValue(verScrollBar.maximum()) # Scrolls to the bottom
+            horScrollBar.setValue(0) # scroll to the left
+        
+        self.uiWorking.textBrowser_terminal.update()   # cập nhật thay đổi trong textBrower
 #================================================================================================
 class runMotor:
     def __init__(self):
@@ -1311,6 +1362,7 @@ class monitorInputOutput:
     def read_coilXY(self):
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
         input_output_packet = comWindow.workSerial.readInputOutputCoil()
+        """""
         input_packet = []
         output_packet = []
         for i in range(self.numCoilXY):
@@ -1324,12 +1376,36 @@ class monitorInputOutput:
             else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
         
         return input_packet  # tra ve gia tri input
+        """
+        return input_output_packet
     
+    def returnXvalue(self, xyValue):
+        input_packet = []
+        for i in range(self.numCoilXY):
+            input_packet.append((xyValue[0] >> i) & 0x0001)
+        return input_packet
+
+    def returnYvalue(self, xyValue):
+        output_packet = []
+        for i in range(self.numCoilXY):
+            output_packet.append((xyValue[1] >> i) & 0x0001) 
+        return output_packet
+
+    def updateLabelXYvalue(self, xValue, yValue):
+        for i in range(self.numCoilXY):
+            if xValue[i] == 1: main_window.labelCoilX[i].setStyleSheet("background-color: " + main_window.orgColorLabelX[i] + ";")
+            else: main_window.labelCoilX[i].setStyleSheet("background-color: #00aa00")    # có tín hiệu input
+            if yValue[i] == 1: main_window.labelCoilY[i].setStyleSheet("background-color: #00aa00")  # có tín hiệu
+            else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
+        
     def monitor_coil_XY(self):
         try:
             while True:
-                self.sensor_value = self.read_coilXY()
-                self.showWarning(self.sensor_value)
+                val = self.read_coilXY()
+                self.sensor_value = self.returnXvalue(val)
+                self.coil_value = self.returnYvalue(val)
+                #self.updateLabelXYvalue(self.sensor_value, self.coil_value)
+                #self.showWarning(self.sensor_value)
                 #main_window.showStatus(str(self.sensor_value))
                 self.sensor_machine_axis = [self.sensor_value[self.xhomeBit], self.sensor_value[self.yhomeBit], 
                                             self.sensor_value[self.zhomeBit], self.sensor_value[self.ahomeBit], 0, 0]
@@ -1354,7 +1430,7 @@ class monitorInputOutput:
 
 #================================================================================================
 if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
-    app = QApplication([])
+    app = QApplication(sys.argv)
 
     main_window = workingWindow()
     comWindow = checkComWindow()
@@ -1366,11 +1442,5 @@ if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     run = runMotor()
 
     main_window.showWorkingWindow()
-
-
-    def creat_threading():
-        monitor_coil = threading.Thread(name='monitor_coil', target=main_window.coilXY.monitor_coil_XY)
-        monitor_coil.setDaemon(True)
-        monitor_coil.start()
 
     sys.exit(app.exec_()) # creating an event loop for app

@@ -11,7 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QtWidgets.QMainWindow):
+
+    def __init__(self, *args, **kwargs):
+        super(Ui_MainWindow, self).__init__(*args, **kwargs)
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1920, 1026)
@@ -1427,7 +1431,16 @@ class Ui_MainWindow(object):
         self.actionContact_3.setText(_translate("MainWindow", "Contact"))
         self.actionTeach_mode_2.setText(_translate("MainWindow", "Teach mode"))
         self.actionTeach_mode_3.setText(_translate("MainWindow", "Teach mode"))
+    
+    def closeEvent(self,event):
+        result = QtWidgets.QMessageBox.question(self,
+                      "Confirm Exit...",
+                      "Are you sure you want to exit ?",
+                      QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
+        event.ignore()
 
+        if result == QtWidgets.QMessageBox.Yes:
+            event.accept()
 
 if __name__ == "__main__":
     import sys
@@ -1436,4 +1449,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    #ui.show()
     sys.exit(app.exec_())
