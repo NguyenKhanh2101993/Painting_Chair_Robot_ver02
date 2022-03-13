@@ -45,7 +45,7 @@ class checkComWindow():
         self.uic.comboBox_comPort.clear()
         self.uic.comboBox_baudRate.clear()
         self.uic.comboBox_comPort.addItems(comports)  
-        self.uic.comboBox_baudRate.addItems(["115200", "9600"])
+        self.uic.comboBox_baudRate.addItems(["9600", "115200"])
 
     def choose_comports(self):
         com = self.uic.comboBox_comPort.currentText()
@@ -54,6 +54,7 @@ class checkComWindow():
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
               main_window.showCurrentPositions()
+              main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
               main_window.threadInputOutput.start()
               self.connectSignal = True
         else: 
@@ -159,6 +160,7 @@ class paramWindow:
 # Confirm to exit teachingWindow
 class MyTeachWindow(QtWidgets.QWidget):
     def closeEvent(self,event):
+        """"
         result = QtWidgets.QMessageBox.question(self,
                       "Confirm Exit...",
                       "Are you sure you want to exit ?",
@@ -168,6 +170,8 @@ class MyTeachWindow(QtWidgets.QWidget):
         if result == QtWidgets.QMessageBox.Yes:
             teachWindow.exitTeachMode()
             event.accept()
+        """
+        teachWindow.exitTeachMode()
 #================================================================================================
 class teachingWindow:
     def __init__(self):
@@ -244,7 +248,7 @@ class teachingWindow:
 
         self.teachModeButton_control = [self.uiteach.pushButton_exitTeach, self.uiteach.pushButton_savePoint, 
                                         self.uiteach.pushButton_setZero, self.uiteach.pushButton_saveFile]
-        teachModeButton_controlCommand = [self.exitTeachMode, self.setPoint, self.setZero, self.saveTofile]
+        teachModeButton_controlCommand = [self.testGotoZero, self.setPoint, self.setZero, self.saveTofile]
         for i in range(len(self.teachModeButton_control)): 
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
 
@@ -341,11 +345,14 @@ class teachingWindow:
         main_window.showStatus  ("Thả nút nhấn")
         self.button_active = 0
 
+    def testGotoZero(self):
+        comWindow.workSerial.commandGotoZero()
+    
     def exitTeachMode(self):
-        #main_window.threadTeachMode.deleteLater()
         main_window.disable_control_option(False)
         self.monitor_off = True
         main_window.showStatus ("===> Thoát khỏi chế độ Teach Mode")
+        main_window.threadTeachMode.exit()
 
     def setPoint(self):
         show_line = (' '+ str(self.counter_line))
@@ -580,13 +587,41 @@ class monitorTeachModeThread(QThread):
 #================================================================================================
 # Thread monitor input_output signals
 class monitorInputOutputThread(QThread):
-    change_value = pyqtSignal(int)
+    change_value = pyqtSignal(tuple)
     def __init__(self, parent=None):
         super(monitorInputOutputThread, self).__init__(parent)
     def run(self):
         main_window.showStatus("Start monitor input/output")
-        main_window.coilXY.monitor_coil_XY()
-    #def stop(self):
+        while True:
+            val = main_window.coilXY.read_coilXY()
+            main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(val)
+            main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(val)
+            #print(main_window.coilXY.coil_value)
+            self.change_value.emit(val)
+            time.sleep(0.1)
+#================================================================================================
+# Thread trong go to zero point
+class gotoZeroPosThread(QThread):
+    def __init__(self, parent=None):
+        super(gotoZeroPosThread, self).__init__(parent)
+    def run(self):
+        main_window.showStatus("Go to zero position")
+        main_window.gotoZeroPosition()
+#================================================================================================
+# Thread trong go to machine point
+class gotoMachinePosThread(QThread):
+    def __init__(self, parent=None):
+        super(gotoMachinePosThread, self).__init__(parent)
+    def run(self):
+        main_window.showStatus("Go to machine position")
+        main_window.gotoMachinePosition()    
+
+class autoRunThread(QThread):
+    def __init__(self, parent=None):
+        super(autoRunThread, self).__init__(parent)
+    def run(self):
+        main_window.showStatus("Auto run mode")
+        run.activate_run_mode()
 #================================================================================================
 # Confirm exit workingWindow
 class MyWindow(QtWidgets.QMainWindow):
@@ -598,7 +633,9 @@ class MyWindow(QtWidgets.QMainWindow):
                       QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
         event.ignore()
 
-        if result == QtWidgets.QMessageBox.Yes:
+        if result == QtWidgets.QMessageBox.Yes:   
+            teachWindow.detroyTeachWindow()
+            teachWindow.exitTeachMode()
             event.accept()
 #================================================================================================
 class workingWindow:
@@ -609,6 +646,9 @@ class workingWindow:
         self.coilXY = monitorInputOutput()
         self.threadTeachMode = monitorTeachModeThread()
         self.threadInputOutput = monitorInputOutputThread()
+        self.threadGotoZeroPos = gotoZeroPosThread()
+        self.threadGotoMachinePos = gotoMachinePosThread()
+        self.threadAutoRun = autoRunThread()
 
         self.defineControlButton()
         self.defineCheckButton()
@@ -626,10 +666,6 @@ class workingWindow:
         # Tính số luồng tối đa có thể sử dụng maxThreadCount bởi threadpool
         self.threadpool = QThreadPool()
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
-        
-
-    #def closeEvent(self, event):
-    #    print ("close event: ")
 
     def showWorkingWindow(self):
         self.window.show()
@@ -652,7 +688,7 @@ class workingWindow:
                                 self.uiWorking.pushButton_auto,  self.uiWorking.pushButton_jog, self.uiWorking.pushButton_pause,
                                 self.uiWorking.pushButton_estop]
 
-        self.controlButtonCommand = [ self.gotoZeroPosition, self.gotoMachinePosition, self.runAutoCycle,
+        self.controlButtonCommand = [ self.startgotoZeroPosition, self.startgotoMachinePosition, self.runAutoCycle,
                                          self.runJog, self.pauseMotor, self.eStopMotor]
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].clicked.connect(self.controlButtonCommand[i])
@@ -745,8 +781,8 @@ class workingWindow:
         self.showStatus("Chế độ manual bật tắt coilY")
 
     def runAutoCycle(self):
-        self.showStatus("Chế độ chạy auto")
-        run.activate_run_mode()
+        if not self.threadAutoRun.isRunning():
+            self.threadAutoRun.start()
 
     def runJog(self):
         self.showStatus("Chế độ JOG - chạy từng dòng")
@@ -767,15 +803,17 @@ class workingWindow:
         self.showStatus(self.gearRatio)
 
     def showCurrentPositions(self):
-        position = []
+        #position = []
         position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
-        for i in range(len(position)):
-            self.currentPos[i] = position[i]
+        if position != None:
+            #print(position, '/n')
+            for i in range(self.MAX_AXIS + 2):
+                self.currentPos[i] = position[i]
 
-        for i in range(len(self.lableG54Position)):
-            self.lableG54Position[i].setText(str(round(position[i],3)))
-            self.lableMachinePosition[i].setText(str(round(position[i],3)))
-
+            for i in range(len(self.lableG54Position)):
+                self.lableG54Position[i].setText(str(round(position[i],3)))
+                self.lableMachinePosition[i].setText(str(round(position[i],3)))
+              
         return position
 
     def callMotorSpeed(self):
@@ -784,25 +822,29 @@ class workingWindow:
     def read_pulse_from_slaves(self, gearRatio):
         current_position_motor = []
         current_pulse = []
-        resultCurrentPos = []
+        #resultCurrentPos = []
         index = 0
         # Đọc giá trị xung của tất cả động cơ 
         try:
             # Đọc giá trị current position ở địa chỉ bắt đầu từ 0, đọc 12 giá trị 16 bit
             current_position = comWindow.workSerial.readCurrentPosition()
+            #print(current_position)
             for i in range(self.MAX_AXIS):
                 current_position_motor.append((current_position[index] << 16) | (current_position[index+1] & 65535))
                 index = index + 2
                 current_pulse.append(self.check_negative_num(current_position_motor[i]))
-           
+            
             resultCurrentPos = self.calculateCurrentPos(current_pulse, gearRatio)
 
+            #time.sleep(0.05) # delay quan trọng 
             return resultCurrentPos
+
 
         except Exception as error:
             self.showStatus("===> read_pulse_from_slaves function failed")
             self.showStatus(error)
-            return
+            print(str(error))
+            #return
 
     def check_negative_num(self, x):
         if ((x & (1<<31)) != 0):
@@ -827,15 +869,31 @@ class workingWindow:
         # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
         return currentPosition
 
+    def startgotoZeroPosition(self):
+        if not self.threadGotoZeroPos.isRunning():
+            self.threadGotoZeroPos.start()
+            
     def gotoZeroPosition(self):
         self.showStatus("Đưa tay máy về vị trí 0")
-        comWindow.workSerial.commandGotoZero()
-        while True:
-            positionCompleted = comWindow.workSerial.commandPositionCompleted()
-            self.showCurrentPositions()
-            if positionCompleted[0] == 1: 
-                break
-        self.showStatus("Tay máy đã về vị trí 0")
+        try:
+            comWindow.workSerial.commandGotoZero()
+            waiting = True
+            while waiting:
+                positionCompleted = comWindow.workSerial.commandPositionCompleted()
+                self.showCurrentPositions()
+             
+                if positionCompleted[0] == 1:
+                    waiting = False
+            self.showStatus("Tay máy đã về vị trí 0")
+            self.threadGotoZeroPos.exit()
+        except Exception as e:
+            main_window.showStatus(str(e))
+            self.threadGotoZeroPos.exit()
+            print(str(e))
+
+    def startgotoMachinePosition(self):
+        if not self.threadGotoMachinePos.isRunning():
+            self.threadGotoMachinePos.start()
 
     def gotoMachinePosition(self):
         if self.go_machine_home == False:
@@ -890,7 +948,8 @@ class workingWindow:
        
             self.disable_control_option(False)
             self.go_machine_home = True # đã về home
-        
+            
+        self.threadGotoMachinePos.exit()
         self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
 
     def showStatus(self, value):
@@ -914,9 +973,10 @@ class runMotor:
         self.run_auto_mode = False          # trạng thái vào chế độ auto run
         self.counter = 0                    # lưu tổng số điểm đã truyền tới data_packet slave để chạy block mode
         self.delayTimer = 0
-    
+        self.executeDelay = False
+
         self.MAX_POINT_IN_BLOCK = 140       # số điểm tối đa có thể truyền tới data_packet slave trong block mode
-        self.end_symbol = 'M30\n'           #command kết thúc chương trình
+        self.end_symbol = 'M30'           #command kết thúc chương trình
         self.start_run_block = 'G05.0'    #command bắt đầu chạy theo block N điểm
         self.end_run_block = 'G05.1'      #command kết thúc chạy theo block N điểm
         self.go_to_2nd_point = 'G30'      #command quay về điểm gốc thứ 2
@@ -931,26 +991,24 @@ class runMotor:
 #=============================================================
     def activate_run_mode(self):
         
-        for i in main_window.MAX_AXIS:
+        for i in range(main_window.MAX_AXIS):
             if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
                 pass
             else:
                 main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
-                return
+                #return
         
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
-            #main_window.disable_screen_option()
-            #main_window.disable_button_control(0)
             self.run_auto_mode = True
-            
             for str_content in wFile.file:
+                
                 if self.e_stop == True: # nếu có tín hiệu nhấn E-STOP
                     wFile.file.close()
                     break
-
+                
                 main_window.showStatus ('========================================================================')
-                content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
+                content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 main_window.showStatus (content_line)
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content)       # hiện thị từng dòng trong file
@@ -980,25 +1038,30 @@ class runMotor:
                                 break
                 else:
 
-                    if content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                    if content_line == self.end_symbol + '\n': # gặp ký hiệu báo kết thúc file
+                        main_window.showStatus("Ket thuc chuong trinh")
                         break
 
-                    if content_line == self.turn_on_spray: # bật súng sơn
+                    if content_line == self.turn_on_spray + '\n': # bật súng sơn
+                        main_window.showStatus("Bat sung son")
                         self.command_run_spray(1)
                         
-                    if content_line == self.turn_off_spray: # tắt súng sơn
+                    if content_line == self.turn_off_spray + '\n' : # tắt súng sơn
+                        main_window.showStatus("Tat sung son")
                         self.command_run_spray(0)
                         
-                    if content_line == self.table_rotary: # xoay bàn sơn
+                    if content_line == self.table_rotary + '\n' : # xoay bàn sơn
+                        main_window.showStatus("Xoay bàn sơn")
                         self.command_table_rotate()
 
-                    if content_line == self.go_to_1st_point: # đi tới điểm gốc đầu tiên, điểm 0
+                    if content_line == self.go_to_1st_point + '\n' : # đi tới điểm gốc đầu tiên, điểm 0
+                        main_window.showStatus("Ve vi tri 0")
                         main_window.gotoZeroPosition()
 
-                    if content_line == self.go_to_2nd_point: # đi tới điểm gốc thứ 2
+                    if content_line == self.go_to_2nd_point + '\n': # đi tới điểm gốc thứ 2
                         pass
                     
-                    if content_line == self.start_run_block:
+                    if content_line == self.start_run_block + '\n':
                         main_window.showStatus ("=====> G05.0 START BLOCK RUN MODE")
                         result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
                         if result_run_block == False: 
@@ -1011,13 +1074,14 @@ class runMotor:
 
         except Exception as e:
                 main_window.showStatus('activate_run_mode error: '+str(e))
-                main_window.showStatus("===> Run Auto", "Error: ")
+                main_window.showStatus("===> Run Auto" + "Error: ")
 
         finally:
             main_window.showStatus ('========================================================================')
             self.re_init()
             main_window.showStatus("--------------------------------------------------------------------------")
             main_window.showStatus("END")
+            main_window.threadAutoRun.exit()
 
 # gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
     def send_packet_to_slave(self):
@@ -1049,7 +1113,7 @@ class runMotor:
                 if sent_point == self.MAX_POINT_IN_BLOCK:  # nếu đã lưu đủ 140 điểm (bên slave có bộ nhớ 150 điểm)
                     sent_packet_done = True
 
-            if content_line == self.end_run_block or sent_packet_done == True:    
+            if content_line == self.end_run_block + '\n' or sent_packet_done == True:    
                 main_window.showStatus("=====> G05.1 END BLOCK RUN MODE")
                 self.monitor_str_content(target_line)  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
@@ -1244,6 +1308,7 @@ class runMotor:
         self.run_block_done = False
         self.counter = 0
         self.e_stop = False
+        self.executeDelay = False
         #main_window.enable_button_control(0)
         #main_window.enable_screen_option()
 
@@ -1300,6 +1365,7 @@ class monitorInputOutput:
 
         self.bitPos = [self.xhomeBit, self.yhomeBit, self.zhomeBit, self.ahomeBit, 
                                     self.xlimitBit, self.ylimitBit, self.zlimitBit]
+        self.sensor_value = []; self.coil_value = []
     
     def returnCoilY1(self):
         checkValue = 0; self.writeCoilY(checkValue)
@@ -1354,6 +1420,8 @@ class monitorInputOutput:
             #main_window.labelCoilY[checkValue].setStyleSheet("background-color: " + main_window.orgColorLabelY[checkValue] + ";")
         try: 
             comWindow.workSerial.sendCoilValue(self.valueCoilY)
+            #print(self.valueCoilY)
+
         except Exception as error:
             main_window.showStatus("===> Kích coil Y bị lỗi đường truyền tín hiệu")
             return
@@ -1362,21 +1430,7 @@ class monitorInputOutput:
     def read_coilXY(self):
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
         input_output_packet = comWindow.workSerial.readInputOutputCoil()
-        """""
-        input_packet = []
-        output_packet = []
-        for i in range(self.numCoilXY):
-            input_packet.append((input_output_packet[0] >> i) & 0x0001)
-            if input_packet[i] == 1: main_window.labelCoilX[i].setStyleSheet("background-color: " + main_window.orgColorLabelX[i] + ";")
-            else: main_window.labelCoilX[i].setStyleSheet("background-color: #00aa00")    # có tín hiệu input
-        
-        for i in range(self.numCoilXY):
-            output_packet.append((input_output_packet[1] >> i) & 0x0001)   
-            if output_packet[i] == 1: main_window.labelCoilY[i].setStyleSheet("background-color: #00aa00")  # có tín hiệu
-            else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
-        
-        return input_packet  # tra ve gia tri input
-        """
+        #print(input_output_packet)
         return input_output_packet
     
     def returnXvalue(self, xyValue):
@@ -1391,35 +1445,23 @@ class monitorInputOutput:
             output_packet.append((xyValue[1] >> i) & 0x0001) 
         return output_packet
 
+    def monitor_coil_XY(self):
+        
+        self.updateLabelXYvalue(self.sensor_value, self.coil_value)
+        self.showWarning(self.sensor_value)
+        self.sensor_machine_axis = [self.sensor_value[self.xhomeBit], self.sensor_value[self.yhomeBit], 
+                                    self.sensor_value[self.zhomeBit], self.sensor_value[self.ahomeBit], 0, 0]
+
+        self.sensor_limmit = [self.sensor_value[self.xlimitBit],self.sensor_value[self.xhomeBit],
+                                self.sensor_value[self.ylimitBit],self.sensor_value[self.yhomeBit],
+                                self.sensor_value[self.zlimitBit],self.sensor_value[self.zhomeBit]]
+
     def updateLabelXYvalue(self, xValue, yValue):
         for i in range(self.numCoilXY):
             if xValue[i] == 1: main_window.labelCoilX[i].setStyleSheet("background-color: " + main_window.orgColorLabelX[i] + ";")
             else: main_window.labelCoilX[i].setStyleSheet("background-color: #00aa00")    # có tín hiệu input
             if yValue[i] == 1: main_window.labelCoilY[i].setStyleSheet("background-color: #00aa00")  # có tín hiệu
             else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
-        
-    def monitor_coil_XY(self):
-        try:
-            while True:
-                val = self.read_coilXY()
-                self.sensor_value = self.returnXvalue(val)
-                self.coil_value = self.returnYvalue(val)
-                #self.updateLabelXYvalue(self.sensor_value, self.coil_value)
-                #self.showWarning(self.sensor_value)
-                #main_window.showStatus(str(self.sensor_value))
-                self.sensor_machine_axis = [self.sensor_value[self.xhomeBit], self.sensor_value[self.yhomeBit], 
-                                            self.sensor_value[self.zhomeBit], self.sensor_value[self.ahomeBit], 0, 0]
-
-                self.sensor_limmit = [self.sensor_value[self.xlimitBit],self.sensor_value[self.xhomeBit],
-                                        self.sensor_value[self.ylimitBit],self.sensor_value[self.yhomeBit],
-                                        self.sensor_value[self.zlimitBit],self.sensor_value[self.zhomeBit]]
-
-                time.sleep(0.1) # 100 ms đọc data coilXY 1 lần
-
-        except Exception as error:
-            main_window.showStatus("===> Lỗi trong quá trình giám sát cổng input/output")
-            main_window.showStatus("===> Nhấn nút ResetCOIL để khởi động lại quá trình giám sát")
-            return
 
     def showWarning(self, value):
         for i in range(len(self.bitPos)):
@@ -1427,6 +1469,7 @@ class monitorInputOutput:
                 main_window.warningLabel[i].setStyleSheet("background-color: " + main_window.orgColorWarningLabel[i] + ";")
             else:
                 main_window.warningLabel[i].setStyleSheet("background-color: #00aa00;")
+     
 
 #================================================================================================
 if __name__ == "__main__": # define điểm bắt đầu chạy chương trình

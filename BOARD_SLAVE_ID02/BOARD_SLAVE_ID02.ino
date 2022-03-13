@@ -1,4 +1,4 @@
-// Máy sơn ghế update 04/12/2021
+// Máy sơn ghế update 03/03/2022
 
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
@@ -398,7 +398,7 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
 //============================================================================================
 uint8_t readMemory(uint8_t fc, uint16_t address, uint16_t length)
 {
-    uint16_t value[32]; uint8_t count; count = 0;
+    static uint16_t value[32]; uint8_t count; count = 0;
     if (address < 0 ||(address + length) > 32) { return STATUS_ILLEGAL_DATA_ADDRESS; }
     switch (address) {
       case CURRENT_POSITION_MODBUS_ADDR: 
