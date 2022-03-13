@@ -9,6 +9,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QThread, QRunnable, QThreadPool, pyqtSignal
+from PyQt5.QtGui import QTextCursor
 
 from comWindow import Ui_communication
 from workWindow import Ui_MainWindow
@@ -54,6 +55,8 @@ class checkComWindow():
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
               main_window.showCurrentPositions()
+              #main_window.threadreadCurrentPos.change_pos.connect(main_window.updateLabelPosition)
+              #main_window.threadreadCurrentPos.start()
               main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
               main_window.threadInputOutput.start()
               self.connectSignal = True
@@ -608,6 +611,16 @@ class gotoZeroPosThread(QThread):
         main_window.showStatus("Go to zero position")
         main_window.gotoZeroPosition()
 #================================================================================================
+# THread read current position
+class readCurrentPosThread(QThread):
+    change_pos = pyqtSignal(list)
+    def __init__(self, parent=None):
+        super(readCurrentPosThread, self).__init__(parent)
+    def run(self):
+        while True:
+            val = main_window.showCurrentPositions()
+            self.change_pos.emit(val)
+#================================================================================================
 # Thread trong go to machine point
 class gotoMachinePosThread(QThread):
     def __init__(self, parent=None):
@@ -649,6 +662,7 @@ class workingWindow:
         self.threadGotoZeroPos = gotoZeroPosThread()
         self.threadGotoMachinePos = gotoMachinePosThread()
         self.threadAutoRun = autoRunThread()
+        self.threadreadCurrentPos = readCurrentPosThread()
 
         self.defineControlButton()
         self.defineCheckButton()
@@ -684,6 +698,8 @@ class workingWindow:
         self.lableMachinePosition = [self.uiWorking.label_Xhome, self.uiWorking.label_Yhome, self.uiWorking.label_Zhome, self.uiWorking.label_Ahome,
                                         self.uiWorking.label_Bhome,self.uiWorking.label_Chome]
 
+        self.labelGunPosition = [self.uiWorking.label_xSpray, self.uiWorking.label_ySpray, self.uiWorking.label_zSpray]
+        
         self.controlButtonName = [ self.uiWorking.pushButton_gotozero, self.uiWorking.pushButton_machinehome, 
                                 self.uiWorking.pushButton_auto,  self.uiWorking.pushButton_jog, self.uiWorking.pushButton_pause,
                                 self.uiWorking.pushButton_estop]
@@ -803,18 +819,23 @@ class workingWindow:
         self.showStatus(self.gearRatio)
 
     def showCurrentPositions(self):
-        #position = []
         position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
+        
         if position != None:
-            #print(position, '/n')
             for i in range(self.MAX_AXIS + 2):
                 self.currentPos[i] = position[i]
-
-            for i in range(len(self.lableG54Position)):
-                self.lableG54Position[i].setText(str(round(position[i],3)))
-                self.lableMachinePosition[i].setText(str(round(position[i],3)))
-              
+            
+        self.updateLabelPosition()    
         return position
+    def updateLabelPosition(self):
+
+        for i in range(len(self.lableG54Position)):
+                self.lableG54Position[i].setText(str(round(self.currentPos[i],3)))
+                self.lableMachinePosition[i].setText(str(round(self.currentPos[i],3)))
+
+        self.labelGunPosition[0].setText(str(round(self.currentPos[0],3)))
+        self.labelGunPosition[1].setText(str(round(self.currentPos[6],3)))
+        self.labelGunPosition[2].setText(str(round(self.currentPos[7],3)))
 
     def callMotorSpeed(self):
         return 0
@@ -953,14 +974,14 @@ class workingWindow:
         self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
 
     def showStatus(self, value):
-        self.uiWorking.textBrowser_terminal.append(str(value))
+        
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
         verScrollBar = self.uiWorking.textBrowser_terminal.verticalScrollBar()
-        scrollIsAtEnd = verScrollBar.maximum() - verScrollBar.value() <= 10
-        if scrollIsAtEnd:
-            verScrollBar.setValue(verScrollBar.maximum()) # Scrolls to the bottom
-            horScrollBar.setValue(0) # scroll to the left
-        
+        self.uiWorking.textBrowser_terminal.append(str(value))
+        #self.uiWorking.textBrowser_terminal.insertPlainText(str(value) + '\n')
+        self.uiWorking.textBrowser_terminal.moveCursor(QTextCursor.End)
+        verScrollBar.setValue(verScrollBar.maximum()) # Scrolls to the bottom
+        horScrollBar.setValue(0) # scroll to the left
         self.uiWorking.textBrowser_terminal.update()   # cập nhật thay đổi trong textBrower
 #================================================================================================
 class runMotor:
