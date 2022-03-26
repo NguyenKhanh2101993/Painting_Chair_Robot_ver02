@@ -1,4 +1,4 @@
-// Máy sơn ghế update 03/03/2022
+// Máy sơn ghế update 26/03/2022
 
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
@@ -49,25 +49,6 @@ uint16_t delay_value_received = 0;
 //===============================================================================================================
 
 //===============================================================================================================
-// Read the rotary encoder
-void encoder() {
-  uint8_t state_encoder_channel_B = PINA&B00000010; //digitalRead(EncoderB);
-  switch (state_encoder_channel_B) {
-    case 0: pulsecounter--; break;
-    case 1: pulsecounter++; break;
-    default: break;       
-  }
-}
-// Enable interrupts number 4
-void attach_rotary_encoder(void) {
-  attachInterrupt(4, encoder, RISING); 
-  pulsecounter = 0;
-}
-// Disable interrupts number 4
-void detach_rotary_encoder(void) {
-  detachInterrupt(4); // tắt ngắt 4
-  pulsecounter = 0;
-}
 //================================================================
 void delay_value(uint8_t value){
  
@@ -205,6 +186,25 @@ TIMSKn: Thanh ghi điều khiển ngắt.
 + bit 0 - TOIEn: Overflow Interrupt Enable 1 - Cho phép ngắt khi xảy ra tràn trên T/C.
 */
 /////////////////////////////////////////////////////////////////////////////
+// Tạo Hàm timer 4. Dùng đọc giá trị input, output sau 100 ms
+void timer4_setting(void) {
+  // timer 4 setting prescale = 64 
+    cli();
+    TCCR4A = 0;
+    TCCR4B = 0;
+    TIMSK4 = 0;
+    TCCR4B |= ((0 << CS42) | (1 << CS41) | (1 << CS40));    // clk/64 prescaler (1 xung = 4 us)
+    TCNT4 = 40536; // 100 ms tạo ngắt 1 lần để thực hiện đọc giá trị input, output
+    sei();
+}
+ISR (TIMER4_OVF_vect) {
+  
+  monitor_input_value = read_input_register();  
+  monitor_output_value = read_output_register();
+  TCNT4 = 40536;
+
+}
+/////////////////////////////////////////////////////////////////////////////
 // Tạo Hàm delay timer 3. Dùng cho lệnh delay.
 void timer3_setting(void) {
   // timer 3 setting prescale = 64 
@@ -223,6 +223,7 @@ ISR (TIMER3_OVF_vect) {
   //Serial.println(timer_cnt);
 }
 /////////////////////////////////////////////////////////////////////////////
+// timer1 dùng để phát xung điều khiển động cơ
 void timer1_setting(void){
   // timer 1 setting prescale = 64 and CTC mode 4
     cli();
@@ -315,15 +316,16 @@ void change_state_coilY(uint16_t value){
 void setup() {   
   
   Serial.begin(115200);
-  MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); function_modbus_slave();
-  pinMode(EncoderA, INPUT_PULLUP); pinMode(EncoderB, INPUT_PULLUP);
+  MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); 
+  function_modbus_slave();
   for (int i = 0; i < coilY_size; i++) { pinMode(coilY[i],OUTPUT); digitalWrite(coilY[i],LOW);}
   for (int i = 0; i < coilX_size; i++) { pinMode(coilX[i], INPUT_PULLUP); }
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
   command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
-  timer1_setting(); timer3_setting();
+  timer1_setting(); timer3_setting(); timer4_setting();
   table_change_state();  // setup trạng thái ban đầu của bàn xoay
+  TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   Serial.println("Slave id2 Setup OK");
 }
 //============================================================================================
@@ -331,31 +333,6 @@ void setup() {
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
-  monitor_input_value = read_input_register();
-  monitor_output_value = read_output_register();
-
-  //Serial.println(command_motor.delayValue);
-  /*
-  //Serial.println(command_motor.motor[3]->currentPosition);
-  userInput = "";
-  while (Serial.available() >0)
-  {
-    userInput += char(Serial.read());
-    delay(2);
-    
-    if (userInput ==  "O")
-    {
-      go_to_zero_position();
-    }
-    if (userInput == "R"){
-      set_zero_position();
-    }
-    if (userInput == "P"){ pause_motor();}
-    if (userInput == "S") {resume_motor();}
-    if (userInput == "1") {go_to_1_position();}
-    if (userInput == "2") {go_to_2_position();}
-  }
-*/
 } // End loop
 //============================================================================================
 //============================================================================================
@@ -406,10 +383,6 @@ uint8_t readMemory(uint8_t fc, uint16_t address, uint16_t length)
               value[count++] = highWord(command_motor.motor[i]->currentPosition);
               value[count++] = lowWord(command_motor.motor[i]->currentPosition);
             } break;
-      case ROTARY_ENCODER_MODBUS_ADDR:
-            value[0] = highWord(pulsecounter);
-            value[1] = lowWord(pulsecounter);
-            break;
       case INPUT_OUTPUT_VALUE_MODBUS_ADDR:
             value[0] = monitor_input_value;
             value[1] = monitor_output_value;
@@ -442,8 +415,6 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case SPRAY_ON_MODBUS_ADDR:              spray_gun_on(); break;
               case POINT2POINT_MODBUS_ADDR:           execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
-              case DISABLE_ROTARY_ENCODER_ADDR:       detach_rotary_encoder();  break;
-              case ENABLE_ROTARY_ENCODER_ADDR:        attach_rotary_encoder(); break;
               case ENABLE_HOME_MOBUS_ADDR:            go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
               case SET_ZERO_POSITION_ADDR:            set_zero_position(); break;    // set 0 tọa độ chương trình
               case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
