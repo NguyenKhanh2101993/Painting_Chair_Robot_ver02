@@ -1,5 +1,5 @@
-// Máy sơn ghế update 26/03/2022
-
+// Máy sơn ghế update 18/04/2022
+#include "Encoder.h"
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
 #include "StepperMotorBresenham.h"
@@ -10,6 +10,8 @@
 // Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
 // Sẽ lưu các điểm đó vào bộ nhớ tạm packet_data để chạy.
 #define MAX_POINT_IN_BLOCK          150   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
+#define EncoderA    19
+#define EncoderB    23
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
 //================================================================
 Motor Motor_X; 
@@ -20,6 +22,13 @@ Motor Motor_B;
 Motor Motor_C;
 
 World command_motor(&Motor_X);
+//================================================================
+Encoder myEncoder(EncoderA, EncoderB);
+int32_t oldPosition  = -999;
+static int32_t newPosition = 0;
+bool MPG_Mode = false;
+int32_t initPos[MAX_AXIS];
+static int32_t newPos[MAX_AXIS];
 //================================================================
 String userInput ="";
 bool coil[128]; uint8_t coil_size = sizeof(coil) / sizeof(coil[0]); // Khai bao số lượng coil dùng cho write single coil
@@ -45,9 +54,7 @@ static uint16_t write_output_value; // giá trị coilY cần out
 static uint16_t monitor_input_value;  static uint16_t monitor_output_value; 
 static uint8_t  start_address = 0;
 uint16_t delay_value_received = 0;
-
 //===============================================================================================================
-
 //===============================================================================================================
 //================================================================
 void delay_value(uint8_t value){
@@ -98,6 +105,19 @@ void execute_point_to_point(int32_t *pulse, uint16_t _speed) {
                             target_pos[3],target_pos[4],target_pos[5],_speed);
     }
   }
+}
+//================================================================
+// test run using rotary encoder.
+// khong su dung giai thuat tang toc, giam toc khi chay motor
+void execute_motor_run(int32_t *pulse, uint16_t _speed) {
+  static int32_t target_pos[MAX_AXIS]; // Lưu vị trí cần chạy tới theo đơn vị xung
+    if (command_motor.movingDone()){
+        for (int i = 0; i < MAX_AXIS; i++) {
+          target_pos[i] = pulse[i]; 
+        }
+        command_motor.moving(target_pos[0],target_pos[1],target_pos[2],
+                            target_pos[3],target_pos[4],target_pos[5],_speed);
+    }
 }
 //================================================================
 // Dừng động cơ ở vị trí bất kỳ
@@ -240,20 +260,21 @@ void timer1_setting(void){
 /// clk/64: 21 ~ 23 tick
 /// clk/ 8: 200 tick
 /// đếm từ TCNT1 và so sánh với OCR1A cho tới khi TCNT1 = OCR1A thì sẽ có hàm ngắt xảy ra
-/// trường hợp này TCNT1 ban đầu mặc định = 0
+/// trường hợp này TCNT1 ban đầu mặc định = 0, OCR1A = 0; 
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
   
-  if (!command_motor.movingDone()) { // nếu các motor vẫn chưa chạy xong
-      OCR1A = command_motor.setDelay2();   // setting delay between steps
+  if (!command_motor.movingDone()) {        // nếu các motor vẫn chưa chạy xong
+      OCR1A = command_motor.setDelay2();    // setting delay between steps
       TCNT1 = 0;
       command_motor.sensorValue = monitor_input_value;  // lưu giá trị cảm biến
       command_motor.execute_one_pulse();
   }
   // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
-  // kiểm tra chế độ auto mode để chạy tiếp hoặc cho tắt ngắt timer1
-  else { 
-        if (STATE_RUN_BLOCK == true) { 
+  // kiểm tra chế độ STATE_RUN_BLOCK để chạy tiếp hoặc cho tắt ngắt timer1
+  else { // nếu motor đã chạy xong
+        //----------------------------------------
+        if (STATE_RUN_BLOCK == true) { // STATE_RUN_BLOCK
           command_motor.blockRunMode = true;
           int32_t *get_data; int32_t target[MAX_AXIS];
 
@@ -262,14 +283,19 @@ ISR(TIMER1_COMPA_vect) {
           
           for (int i = 0; i < MAX_AXIS; i++) { target[i] = get_data[i] + command_motor.motor[i]->currentPosition;}
           
-          if (get_data[MAX_AXIS] < 0 ) { // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
-            blockmovingDone = true; start_address = 0; 
-            command_motor.blockRunMode = false; TIMER1_INTERRUPTS_OFF; 
-            STATE_RUN_BLOCK = false;
+          if (get_data[MAX_AXIS] < 0 ) {  // giá trị tốc độ -1 -> tín hiệu kết thúc auto, chạy về zero
+            blockmovingDone = true; 
+            start_address = 0; 
+            command_motor.blockRunMode = false; 
+            TIMER1_INTERRUPTS_OFF; 
+            STATE_RUN_BLOCK = false; 
           }
          
           else { command_motor.moving(target[0],target[1],target[2],target[3],target[4],target[5],get_data[6]);} 
         }
+        //----------------------------------------
+        
+        //----------------------------------------
         else { TIMER1_INTERRUPTS_OFF; }
       }
 }
@@ -313,6 +339,16 @@ void change_state_coilY(uint16_t value){
   }
 }
 //============================================================================================
+void enable_MPG_mode(void){
+  for (int i = 0; i < MAX_AXIS; i++){ 
+      initPos[i] = command_motor.motor[i]-> currentPosition;
+  }
+  MPG_Mode = true;
+}
+void disable_MPG_mode(void){
+  MPG_Mode = false;
+}
+//============================================================================================
 void setup() {   
   
   Serial.begin(115200);
@@ -327,12 +363,22 @@ void setup() {
   table_change_state();  // setup trạng thái ban đầu của bàn xoay
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   Serial.println("Slave id2 Setup OK");
+  //enable_MPG_mode();
+
 }
 //============================================================================================
 //============================================================================================
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
+  if (MPG_Mode == true){ // MPG_Mode
+      newPosition = myEncoder.read();
+      if (newPosition != oldPosition) {
+          oldPosition = newPosition;
+          newPos[0] = newPosition + initPos[0]; newPos[1] = newPos[2] = newPos[3] = newPos[4] = newPos[5] = 0;
+          execute_motor_run(newPos, 180);
+      }
+  }
 } // End loop
 //============================================================================================
 //============================================================================================
@@ -415,13 +461,15 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case SPRAY_ON_MODBUS_ADDR:              spray_gun_on(); break;
               case POINT2POINT_MODBUS_ADDR:           execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
-              case ENABLE_HOME_MOBUS_ADDR:            go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
+              case ENABLE_HOME_MODBUS_ADDR:            go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
               case SET_ZERO_POSITION_ADDR:            set_zero_position(); break;    // set 0 tọa độ chương trình
               case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
               case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
               case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;
               case CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR: change_state_run_block(); break;
               case CHANGE_STATE_COIL_Y_MODBUS_ADDR:    change_state_coilY(write_output_value); break;
+              case ENABLE_MPG_MODE_MOBUS_ADDR:                enable_MPG_mode(); break;
+              case DISABLE_MPG_MODE_MOBUS_ADDR:               disable_MPG_mode(); break;
               default: break;
             }
         } 

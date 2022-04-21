@@ -42,6 +42,7 @@
             "includePath": [
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\mega",
+                "C:\\Users\\P52\\Documents\\Arduino\\libraries\\Encoder",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\ModbusSlave\\src",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\Define_TayMay",
                 "C:\\Users\\P52\\Documents\\Arduino\\libraries\\StepperMotorBresenham",
