@@ -206,6 +206,23 @@ TIMSKn: Thanh ghi điều khiển ngắt.
 + bit 0 - TOIEn: Overflow Interrupt Enable 1 - Cho phép ngắt khi xảy ra tràn trên T/C.
 */
 /////////////////////////////////////////////////////////////////////////////
+// Tạo Hàm timer 5. Dùng để set độ rộng xung (thời gian xung ở mức cao): Stepper Port Reset Interrupt
+void timer5_setting(void) {
+  // timer 5 setting prescale = 64 
+    cli();
+    TIMSK5 &= ~((1 << OCIE5B) | (1 << OCIE5A) | (1 << TOIE5));
+    TCCR5A = 0; // Normal operation
+    TCCR5B = 0; // Disable Timer0 until needed
+    TIMSK5 |= (1 << TOIE5); // Enable Timer5 overflow interrupt
+    //TCCR5B |= ((0 << CS52) | (1 << CS51) | (1 << CS50));    // clk/64 prescaler (1 xung = 4 us)
+    sei();
+}
+ISR (TIMER5_OVF_vect) {
+  reset_pulse_to_ports();
+  TCCR5B = 0; // Disable Timer5 to prevent re-entering this interrupt when it's not needed.
+  command_motor.busy = false;
+}
+/////////////////////////////////////////////////////////////////////////////
 // Tạo Hàm timer 4. Dùng đọc giá trị input, output sau 100 ms
 void timer4_setting(void) {
   // timer 4 setting prescale = 64 
@@ -218,11 +235,9 @@ void timer4_setting(void) {
     sei();
 }
 ISR (TIMER4_OVF_vect) {
-  
   monitor_input_value = read_input_register();  
   monitor_output_value = read_output_register();
   TCNT4 = 40536;
-
 }
 /////////////////////////////////////////////////////////////////////////////
 // Tạo Hàm delay timer 3. Dùng cho lệnh delay.
@@ -251,8 +266,8 @@ void timer1_setting(void){
     TCCR1B = 0;
     TCCR1B |= (1 << WGM12);                   // CTC mode 4 OCR1A(TOP)
     //TCCR1B |= ((1 << CS12) | (0 << CS11) | (1 << CS10));    // clk/1024 prescaler
-    TCCR1B |= ((0 << CS12) | (1 << CS11) | (1 << CS10));    // clk/64 prescaler (1 xung = 4 us)
-    //TCCR1B |= ((0 << CS12) | (1 << CS11) | (0 << CS10));    // clk/8  prescaler
+    //TCCR1B |= ((0 << CS12) | (1 << CS11) | (1 << CS10));    // clk/64 prescaler (1 xung = 4 us)
+    TCCR1B |= ((0 << CS12) | (1 << CS11) | (0 << CS10));    // clk/8  prescaler (1 xung = 0.5us)
     sei();
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -263,11 +278,12 @@ void timer1_setting(void){
 /// trường hợp này TCNT1 ban đầu mặc định = 0, OCR1A = 0; 
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
-  
+  command_motor.sensorValue = monitor_input_value;  // lưu giá trị cảm biến
+  if (command_motor.busy == true) { return;}
   if (!command_motor.movingDone()) {        // nếu các motor vẫn chưa chạy xong
-      OCR1A = command_motor.setDelay2();    // setting delay between steps
+      OCR1A = command_motor.setDelay2();    // setting delay between steps (tần số xung)
       TCNT1 = 0;
-      command_motor.sensorValue = monitor_input_value;  // lưu giá trị cảm biến
+      command_motor.pulseWidth = 65536 - OCR1A/2; // độ rộng xung = 50%
       command_motor.execute_one_pulse();
   }
   // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
@@ -350,7 +366,6 @@ void disable_MPG_mode(void){
 }
 //============================================================================================
 void setup() {   
-  
   Serial.begin(115200);
   MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); 
   function_modbus_slave();
@@ -359,12 +374,14 @@ void setup() {
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
   command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
-  timer1_setting(); timer3_setting(); timer4_setting();
+  timer1_setting(); timer3_setting(); timer4_setting(); timer5_setting();
   table_change_state();  // setup trạng thái ban đầu của bàn xoay
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   Serial.println("Slave id2 Setup OK");
+  delay(100);
+  newPos[0] = 20000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
+  execute_motor_run(newPos, 200);
   //enable_MPG_mode();
-
 }
 //============================================================================================
 //============================================================================================
