@@ -233,6 +233,7 @@ void timer4_setting(void) {
     TCCR4B |= ((0 << CS42) | (1 << CS41) | (1 << CS40));    // clk/64 prescaler (1 xung = 4 us)
     TCNT4 = 40536; // 100 ms tạo ngắt 1 lần để thực hiện đọc giá trị input, output
     sei();
+  // end setting timer 4
 }
 ISR (TIMER4_OVF_vect) {
   monitor_input_value = read_input_register();  
@@ -269,6 +270,7 @@ void timer1_setting(void){
     //TCCR1B |= ((0 << CS12) | (1 << CS11) | (1 << CS10));    // clk/64 prescaler (1 xung = 4 us)
     TCCR1B |= ((0 << CS12) | (1 << CS11) | (0 << CS10));    // clk/8  prescaler (1 xung = 0.5us)
     sei();
+  // end setting timer 1
 }
 /////////////////////////////////////////////////////////////////////////////
 /// ISR
@@ -281,9 +283,9 @@ ISR(TIMER1_COMPA_vect) {
   command_motor.sensorValue = monitor_input_value;  // lưu giá trị cảm biến
   if (command_motor.busy == true) { return;}
   if (!command_motor.movingDone()) {        // nếu các motor vẫn chưa chạy xong
-      OCR1A = command_motor.setDelay2();    // setting delay between steps (tần số xung)
+      OCR1A = command_motor.pulsePeriod; // command_motor.setDelay2();  //  setting delay between steps (tần số xung)
       TCNT1 = 0;
-      command_motor.pulseWidth = 65536 - OCR1A/2; // độ rộng xung = 50%
+      command_motor.pulseWidth = 65536 - command_motor.pulsePeriod/2; // độ rộng xung = 50%
       command_motor.execute_one_pulse();
   }
   // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
@@ -379,8 +381,8 @@ void setup() {
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   Serial.println("Slave id2 Setup OK");
   delay(100);
-  newPos[0] = 20000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
-  execute_motor_run(newPos, 200);
+  newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
+  execute_motor_run(newPos, 180);
   //enable_MPG_mode();
 }
 //============================================================================================
@@ -388,6 +390,7 @@ void setup() {
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
+  /*
   if (MPG_Mode == true){ // MPG_Mode
       newPosition = myEncoder.read();
       if (newPosition != oldPosition) {
@@ -396,6 +399,7 @@ void loop() {
           execute_motor_run(newPos, 180);
       }
   }
+  */
 } // End loop
 //============================================================================================
 //============================================================================================
