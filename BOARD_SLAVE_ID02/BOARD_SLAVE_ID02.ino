@@ -5,6 +5,7 @@
 #include "StepperMotorBresenham.h"
 #include "input_output.h"
 //================================================================
+// Sửa ngày 28/03/2023
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
 // Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
