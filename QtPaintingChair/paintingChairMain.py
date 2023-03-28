@@ -1005,7 +1005,7 @@ class runMotor:
         self.delayTimer = 0
         self.executeDelay = False
 
-        self.MAX_POINT_IN_BLOCK = 140       # số điểm tối đa có thể truyền tới data_packet slave trong block mode
+        self.MAX_POINT_IN_BLOCK = 140     # số điểm tối đa có thể truyền tới data_packet slave trong block mode
         self.end_symbol = 'M30'           #command kết thúc chương trình
         self.start_run_block = 'G05.0'    #command bắt đầu chạy theo block N điểm
         self.end_run_block = 'G05.1'      #command kết thúc chạy theo block N điểm
@@ -1020,13 +1020,13 @@ class runMotor:
 
 #=============================================================
     def activate_run_mode(self):
-        
+        # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
         for i in range(main_window.MAX_AXIS):
             if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
                 pass
             else:
                 main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
-                #return
+                return
         
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
@@ -1057,7 +1057,7 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer))
+                        main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
