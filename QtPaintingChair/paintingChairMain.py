@@ -486,10 +486,10 @@ class workingTeachMode():
                         self.button_state = self.pre_button_state
 
                 if self.chooseAxis == self.aAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_A = -180
-                    if (self.button_state < self.pre_button_state):  new_pos_A = 180
+                    if (self.button_state > self.pre_button_state):  new_pos_A = 0 #-180
+                    if (self.button_state < self.pre_button_state):  new_pos_A = 90 #180
                     pulse_teach = int((new_pos_A -  main_window.currentPos[self.aAXIS])/main_window.gearRatio[self.aAXIS])
-                    if main_window.currentPos[self.aAXIS] < -180 or main_window.currentPos[self.aAXIS] > 180: 
+                    if main_window.currentPos[self.aAXIS] < 0 or main_window.currentPos[self.aAXIS] > 90: 
                         self.button_state = self.pre_button_state
 
                 if (self.chooseAxis == self.bAXIS): 
@@ -597,11 +597,15 @@ class monitorInputOutputThread(QThread):
         main_window.showStatus("Start monitor input/output")
         while True:
             val = main_window.coilXY.read_coilXY()
-            main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(val)
-            main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(val)
-            #print(main_window.coilXY.coil_value)
-            self.change_value.emit(val)
-            time.sleep(0.1)
+            if val != None:
+                main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(val)
+                #print(main_window.coilXY.sensor_value)
+                #main_window.showStatus(str(main_window.coilXY.sensor_value))
+                main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(val)
+                #print(main_window.coilXY.coil_value)
+                self.change_value.emit(val)
+            else: pass
+            time.sleep(0.1) #0.1s
 #================================================================================================
 # Thread trong go to zero point
 class gotoZeroPosThread(QThread):
@@ -648,6 +652,7 @@ class MyWindow(QtWidgets.QMainWindow):
 
         if result == QtWidgets.QMessageBox.Yes:   
             teachWindow.detroyTeachWindow()
+            comWindow.detroyComWindow()
             teachWindow.exitTeachMode()
             event.accept()
 #================================================================================================
@@ -820,12 +825,15 @@ class workingWindow:
 
     def showCurrentPositions(self):
         position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
-        
         if position != None:
             for i in range(self.MAX_AXIS + 2):
                 self.currentPos[i] = position[i]
-            
-        self.updateLabelPosition()    
+        else:
+            position = []
+            for i in range(self.MAX_AXIS + 2):
+                position.append(self.currentPos[i])
+
+        self.updateLabelPosition()  
         return position
     def updateLabelPosition(self):
 
@@ -838,7 +846,8 @@ class workingWindow:
         self.labelGunPosition[2].setText(str(round(self.currentPos[7],3)))
 
     def callMotorSpeed(self):
-        return 0
+        setSpeed = self.speedMotor()
+        return setSpeed
 
     def read_pulse_from_slaves(self, gearRatio):
         current_position_motor = []
@@ -857,7 +866,7 @@ class workingWindow:
             
             resultCurrentPos = self.calculateCurrentPos(current_pulse, gearRatio)
 
-            #time.sleep(0.05) # delay quan trọng 
+            #time.sleep(0.1) # delay quan trọng 
             return resultCurrentPos
 
 
@@ -865,7 +874,7 @@ class workingWindow:
             self.showStatus("===> read_pulse_from_slaves function failed")
             self.showStatus(error)
             print(str(error))
-            #return
+            return None
 
     def check_negative_num(self, x):
         if ((x & (1<<31)) != 0):
@@ -930,8 +939,8 @@ class workingWindow:
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 3200, 1600, -3200, 0, 0]
-            speed_axis = [100,100,100,100,100,100]
+            pulse_to_begin_position = [1600, 1600, 1600, 0, 0, 0]
+            speed_axis = [30,30,30,10,10,10]
 
             self.disable_control_option(True)
             # set lại các thông số motor, đưa giá trị current_position về 0
@@ -1286,7 +1295,7 @@ class runMotor:
         send_to_slave_id2 = [] # gói giá trị 16 bit
 
         # tính tốc độ của trục x,y,z,a,b,c
-        if _speed <= 30:
+        if _speed <= 0:
             speed_slaves = main_window.callMotorSpeed()
         else: speed_slaves = _speed
 
@@ -1381,8 +1390,8 @@ class monitorInputOutput:
         self.numCoilXY = 16
         self.valueCoilY = 0
         # khai báo vị trí home sensor và limit sensor trong value
-        self.xhomeBit = 1; self.yhomeBit = 3;  self.zhomeBit = 5;  self.ahomeBit = 6; 
-        self.xlimitBit = 0;  self.ylimitBit = 2;  self.zlimitBit = 4; 
+        self.xhomeBit = 1; self.yhomeBit = 5;  self.zhomeBit = 7;  self.ahomeBit = 10; 
+        self.xlimitBit = 0;  self.ylimitBit = 2;  self.zlimitBit = 6; self.alimityBit = 13
 
         self.bitPos = [self.xhomeBit, self.yhomeBit, self.zhomeBit, self.ahomeBit, 
                                     self.xlimitBit, self.ylimitBit, self.zlimitBit]
@@ -1450,8 +1459,13 @@ class monitorInputOutput:
 # Cho phép đọc trạng thái coil X từ board slave
     def read_coilXY(self):
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
-        input_output_packet = comWindow.workSerial.readInputOutputCoil()
-        #print(input_output_packet)
+        try: 
+            input_output_packet = comWindow.workSerial.readInputOutputCoil()
+            #print(input_output_packet)
+        except: 
+            main_window.showStatus("===> Giám sát tín hiệu In/Out bị lỗi")
+            input_output_packet = None
+
         return input_output_packet
     
     def returnXvalue(self, xyValue):

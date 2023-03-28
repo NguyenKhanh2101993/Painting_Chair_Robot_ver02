@@ -37,6 +37,10 @@ uint8_t coilY[] = {Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Y11, Y12, Y13, Y14, 
 uint8_t coilX[] = {X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16};
 uint8_t coilY_size = sizeof(coilY)/sizeof(coilY[0]);
 uint8_t coilX_size = sizeof(coilX)/sizeof(coilX[0]);
+// chú ý: các giá trị trong mảng motorSensor nên được nhận từ software truyền xuống nhằm giúp người dùng tự define chân cảm biến motor.
+// hiện tại đang hardcode
+uint8_t motorSensor[] = {XLIMIT, XHOME, YLIMIT, YHOME, ZLIMIT, ZHOME, ALIMIT, AHOME};
+uint8_t motorSensor_size = sizeof(motorSensor)/sizeof(motorSensor[0]);
 int16_t speed;                     // Lưu tốc độ trục X,Y,Z,A,B,C cần chạy nhận từ modbus
 int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần chạy nhận từ modbus
 // mảng 2 chiều: 
@@ -52,13 +56,13 @@ bool executeTimerDone = true;        // cờ báo đã thực thi xong thời gi
 int32_t pulsecounter = 0;
 static uint16_t write_output_value; // giá trị coilY cần out 
 static uint16_t monitor_input_value;  static uint16_t monitor_output_value; 
+static uint16_t sensorValueMask = 0xFFFF;
 static uint8_t  start_address = 0;
 uint16_t delay_value_received = 0;
 //===============================================================================================================
 //===============================================================================================================
 //================================================================
 void delay_value(uint8_t value){
- 
   if (value > 0) { 
     executeTimerDone = false;
     TIMER3_INTERRUPTS_ON;
@@ -238,6 +242,9 @@ void timer4_setting(void) {
 ISR (TIMER4_OVF_vect) {
   monitor_input_value = read_input_register();  
   monitor_output_value = read_output_register();
+  for (int i = 0; i < motorSensor_size; i++){
+    ((monitor_input_value >> motorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
+  }
   TCNT4 = 40536;
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -280,12 +287,11 @@ void timer1_setting(void){
 /// trường hợp này TCNT1 ban đầu mặc định = 0, OCR1A = 0; 
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
-  command_motor.sensorValue = monitor_input_value;  // lưu giá trị cảm biến
+  command_motor.sensorValue = sensorValueMask;  // lưu giá trị cảm biến
   if (command_motor.busy == true) { return;}
   if (!command_motor.movingDone()) {        // nếu các motor vẫn chưa chạy xong
       OCR1A = command_motor.pulsePeriod; // command_motor.setDelay2();  //  setting delay between steps (tần số xung)
       TCNT1 = 0;
-      command_motor.pulseWidth = 65536 - command_motor.pulsePeriod/2; // độ rộng xung = 50%
       command_motor.execute_one_pulse();
   }
   // nếu đã chạy xong 1 packet data (command_motor.movingDone() == true)
@@ -376,13 +382,13 @@ void setup() {
   command_motor.addMotor(&Motor_Y); command_motor.addMotor(&Motor_Z); command_motor.addMotor(&Motor_A);
   command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
-  timer1_setting(); timer3_setting(); timer4_setting(); timer5_setting();
-  table_change_state();  // setup trạng thái ban đầu của bàn xoay
+  timer1_setting(); timer5_setting(); timer3_setting(); timer4_setting();
+  //table_change_state();  // setup trạng thái ban đầu của bàn xoay
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
-  Serial.println("Slave id2 Setup OK");
-  delay(100);
-  newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
-  execute_motor_run(newPos, 180);
+  //Serial.println("Slave id2 Setup OK");
+  //delay(100);
+  //newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
+  //execute_motor_run(newPos, 200);
   //enable_MPG_mode();
 }
 //============================================================================================
