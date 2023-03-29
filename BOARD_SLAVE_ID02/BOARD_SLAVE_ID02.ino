@@ -6,6 +6,7 @@
 #include "input_output.h"
 //================================================================
 // Sửa ngày 28/03/2023
+// Sửa pause algorithm ngày 29/03/2023
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
 // Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
@@ -389,9 +390,9 @@ void setup() {
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   //Serial.println("Slave id2 Setup OK");
   //delay(100);
-  //newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
-  //execute_motor_run(newPos, 200);
-  //delay_value(25);
+  //newPos[0] = 100; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
+  //execute_motor_run(newPos, 10);
+  //delay_value(1);
   //enable_MPG_mode();
 }
 //============================================================================================
@@ -399,6 +400,7 @@ void setup() {
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
+  //Serial.println(command_motor.motor[0]->currentPosition);
   /*
   if (MPG_Mode == true){ // MPG_Mode
       newPosition = myEncoder.read();

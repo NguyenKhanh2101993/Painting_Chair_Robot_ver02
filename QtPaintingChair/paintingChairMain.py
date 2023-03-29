@@ -832,6 +832,8 @@ class workingWindow:
             position = []
             for i in range(self.MAX_AXIS + 2):
                 position.append(self.currentPos[i])
+            
+            self.showStatus("===> Lỗi đọc giá trị tọa độ")
 
         self.updateLabelPosition()  
         return position
