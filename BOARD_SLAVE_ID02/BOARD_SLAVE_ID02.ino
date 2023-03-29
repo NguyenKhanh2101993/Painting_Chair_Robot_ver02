@@ -1,5 +1,5 @@
 // Máy sơn ghế update 18/04/2022
-#include "Encoder.h"
+//#include "Encoder.h"
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
 #include "StepperMotorBresenham.h"
@@ -11,8 +11,8 @@
 // Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
 // Sẽ lưu các điểm đó vào bộ nhớ tạm packet_data để chạy.
 #define MAX_POINT_IN_BLOCK          150   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
-#define EncoderA    19
-#define EncoderB    23
+//#define EncoderA    19
+//#define EncoderB    23
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
 //================================================================
 Motor Motor_X; 
@@ -24,7 +24,7 @@ Motor Motor_C;
 
 World command_motor(&Motor_X);
 //================================================================
-Encoder myEncoder(EncoderA, EncoderB);
+//Encoder myEncoder(EncoderA, EncoderB);
 int32_t oldPosition  = -999;
 static int32_t newPosition = 0;
 bool MPG_Mode = false;
@@ -59,12 +59,13 @@ static uint16_t write_output_value; // giá trị coilY cần out
 static uint16_t monitor_input_value;  static uint16_t monitor_output_value; 
 static uint16_t sensorValueMask = 0xFFFF;
 static uint8_t  start_address = 0;
-uint16_t delay_value_received = 0;
+uint8_t delay_value_received = 0; uint8_t delayValue;
 //===============================================================================================================
 //===============================================================================================================
 //================================================================
 void delay_value(uint8_t value){
-  if (value > 0) { 
+  if (value > 0) {
+    delay_value_received = value + 1;
     executeTimerDone = false;
     TIMER3_INTERRUPTS_ON;
   }
@@ -257,13 +258,13 @@ void timer3_setting(void) {
     TCCR3B = 0;
     TIMSK3 = 0;
     TCCR3B |= ((0 << CS32) | (1 << CS31) | (1 << CS30));    // clk/64 prescaler (1 xung = 4 us)
-    TCNT3 = 40536; // 0.1 s tạo ngắt 1 lần
+    TCNT3 = 40536; // 0.1 s = 100 ms tạo ngắt 1 lần
     sei();
 }
 ISR (TIMER3_OVF_vect) {
   static uint8_t timer_cnt = 0; timer_cnt ++;
   TCNT3 = 40536;
-  if (timer_cnt == delay_value_received) {timer_cnt = 0; executeTimerDone = true; TIMER3_INTERRUPTS_OFF}
+  if (timer_cnt == delay_value_received) {timer_cnt = 0; executeTimerDone = true; TIMER3_INTERRUPTS_OFF;}
   //Serial.println(timer_cnt);
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -390,6 +391,7 @@ void setup() {
   //delay(100);
   //newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
   //execute_motor_run(newPos, 200);
+  //delay_value(25);
   //enable_MPG_mode();
 }
 //============================================================================================
@@ -438,7 +440,7 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
                                                               speed = i32readdata[MAX_AXIS]; break;   
     // Ghi giá trị coil Y ra các chân đã define
     case WRITE_YCOIL:   write_output_value = read_data[0]; break;
-    case DELAY_VALUE: delay_value_received = read_data[0]; break;
+    case DELAY_VALUE: delayValue = read_data[0]; break;
     default: break;
   }
 
@@ -482,14 +484,14 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
         if (coil[address+i] == 1){
             switch (address + i) {
 
-              case DELAY_MODBUS_ADDR:                 delay_value(delay_value_received);    break;
+              case DELAY_MODBUS_ADDR:                 delay_value(delayValue);    break;
               case CHECK_SENSOR_XYZA_ADDR:            check_sensor_XYZA(); break;
               case TABLE_CHANGE_STATE_MODBUS_ADDR:    table_change_state(); break;
               case SPRAY_OFF_MODBUS_ADDR:             spray_gun_off(); break;
               case SPRAY_ON_MODBUS_ADDR:              spray_gun_on(); break;
               case POINT2POINT_MODBUS_ADDR:           execute_point_to_point(xung_nguyen,speed); break;
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
-              case ENABLE_HOME_MODBUS_ADDR:            go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
+              case ENABLE_HOME_MODBUS_ADDR:           go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
               case SET_ZERO_POSITION_ADDR:            set_zero_position(); break;    // set 0 tọa độ chương trình
               case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
               case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
