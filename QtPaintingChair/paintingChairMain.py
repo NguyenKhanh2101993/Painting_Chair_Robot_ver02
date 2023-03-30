@@ -941,7 +941,7 @@ class workingWindow:
 
             pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                         pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 1600, 1600, 0, 0, 0]
+            pulse_to_begin_position = [1600, 1600, 1600, 1000, 0, 0]
             speed_axis = [30,30,30,10,10,10]
 
             self.disable_control_option(True)
@@ -985,7 +985,6 @@ class workingWindow:
         self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
 
     def showStatus(self, value):
-        
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
         verScrollBar = self.uiWorking.textBrowser_terminal.verticalScrollBar()
         self.uiWorking.textBrowser_terminal.append(str(value))
@@ -994,6 +993,7 @@ class workingWindow:
         verScrollBar.setValue(verScrollBar.maximum()) # Scrolls to the bottom
         horScrollBar.setValue(0) # scroll to the left
         self.uiWorking.textBrowser_terminal.update()   # cập nhật thay đổi trong textBrower
+        time.sleep(0.01)
 #================================================================================================
 class runMotor:
     def __init__(self):
