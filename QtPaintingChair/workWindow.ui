@@ -397,7 +397,7 @@ border-radius: 5px</string>
      <widget class="QLabel" name="label_xhome">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>10</x>
         <y>10</y>
         <width>121</width>
         <height>41</height>
@@ -426,7 +426,7 @@ border-radius: 20px</string>
      <widget class="QLabel" name="label_yhome">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>140</x>
         <y>10</y>
         <width>121</width>
         <height>41</height>
@@ -455,7 +455,7 @@ border-radius: 20px</string>
      <widget class="QLabel" name="label_zhome">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>270</x>
         <y>10</y>
         <width>121</width>
         <height>41</height>
@@ -484,7 +484,7 @@ border-radius: 20px</string>
      <widget class="QLabel" name="label_ahome">
       <property name="geometry">
        <rect>
-        <x>440</x>
+        <x>400</x>
         <y>10</y>
         <width>121</width>
         <height>41</height>
@@ -513,9 +513,9 @@ border-radius: 20px</string>
      <widget class="QLabel" name="label_xlimit">
       <property name="geometry">
        <rect>
-        <x>600</x>
+        <x>570</x>
         <y>10</y>
-        <width>151</width>
+        <width>121</width>
         <height>41</height>
        </rect>
       </property>
@@ -542,9 +542,9 @@ border-radius: 20px</string>
      <widget class="QLabel" name="label_ylimit">
       <property name="geometry">
        <rect>
-        <x>775</x>
+        <x>700</x>
         <y>10</y>
-        <width>141</width>
+        <width>121</width>
         <height>41</height>
        </rect>
       </property>
@@ -571,9 +571,9 @@ border-radius: 20px</string>
      <widget class="QLabel" name="label_zlimit">
       <property name="geometry">
        <rect>
-        <x>940</x>
+        <x>830</x>
         <y>10</y>
-        <width>141</width>
+        <width>121</width>
         <height>41</height>
        </rect>
       </property>
@@ -595,6 +595,35 @@ border-radius: 20px</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Z-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_alimit">
+      <property name="geometry">
+       <rect>
+        <x>960</x>
+        <y>10</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial bold</family>
+        <pointsize>14</pointsize>
+        <weight>9</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(255, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 20px</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;A-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -1192,7 +1221,7 @@ border-radius: 5px</string>
        </rect>
       </property>
       <property name="minimum">
-       <number>30</number>
+       <number>10</number>
       </property>
       <property name="maximum">
        <number>200</number>
@@ -2676,6 +2705,8 @@ border-top-color: rgb(208, 208, 208);</string>
      <string>SETTINGS</string>
     </property>
     <addaction name="actionMotor"/>
+    <addaction name="actionDefine_XY"/>
+    <addaction name="actionSettings_Distance"/>
    </widget>
    <widget class="QMenu" name="menuComunication">
     <property name="title">
@@ -2811,6 +2842,30 @@ border-top-color: rgb(208, 208, 208);</string>
   <action name="actionTeach_mode_3">
    <property name="text">
     <string>Teach mode</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionDefine_XY">
+   <property name="text">
+    <string>Define XY</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionSettings_Distance">
+   <property name="text">
+    <string>Settings Distance</string>
    </property>
    <property name="font">
     <font>

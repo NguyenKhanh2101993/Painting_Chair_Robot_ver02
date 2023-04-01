@@ -224,7 +224,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>X+</string>
+     <string>X-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -265,7 +265,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>X-</string>
+     <string>X+</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -306,7 +306,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>Y+</string>
+     <string>Y-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -347,7 +347,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>Z+</string>
+     <string>Z-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -388,7 +388,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>A+</string>
+     <string>A-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -429,7 +429,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>B+</string>
+     <string>B-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -470,7 +470,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>C+</string>
+     <string>C-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -511,7 +511,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>Y-</string>
+     <string>Y+</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -552,7 +552,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>Z-</string>
+     <string>Z+</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -593,7 +593,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>A-</string>
+     <string>A+</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -634,7 +634,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>B-</string>
+     <string>B+</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -675,7 +675,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>C-</string>
+     <string>C+</string>
     </property>
     <property name="flat">
      <bool>false</bool>

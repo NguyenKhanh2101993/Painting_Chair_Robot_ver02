@@ -11,11 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(QtWidgets.QMainWindow):
-
-    def __init__(self, *args, **kwargs):
-        super(Ui_MainWindow, self).__init__(*args, **kwargs)
-
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1920, 1026)
@@ -198,7 +194,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.frame_button.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_button.setObjectName("frame_button")
         self.label_xhome = QtWidgets.QLabel(self.frame_button)
-        self.label_xhome.setGeometry(QtCore.QRect(20, 10, 121, 41))
+        self.label_xhome.setGeometry(QtCore.QRect(10, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -213,7 +209,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border-radius: 20px")
         self.label_xhome.setObjectName("label_xhome")
         self.label_yhome = QtWidgets.QLabel(self.frame_button)
-        self.label_yhome.setGeometry(QtCore.QRect(160, 10, 121, 41))
+        self.label_yhome.setGeometry(QtCore.QRect(140, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -228,7 +224,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border-radius: 20px")
         self.label_yhome.setObjectName("label_yhome")
         self.label_zhome = QtWidgets.QLabel(self.frame_button)
-        self.label_zhome.setGeometry(QtCore.QRect(300, 10, 121, 41))
+        self.label_zhome.setGeometry(QtCore.QRect(270, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -243,7 +239,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border-radius: 20px")
         self.label_zhome.setObjectName("label_zhome")
         self.label_ahome = QtWidgets.QLabel(self.frame_button)
-        self.label_ahome.setGeometry(QtCore.QRect(440, 10, 121, 41))
+        self.label_ahome.setGeometry(QtCore.QRect(400, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -258,7 +254,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border-radius: 20px")
         self.label_ahome.setObjectName("label_ahome")
         self.label_xlimit = QtWidgets.QLabel(self.frame_button)
-        self.label_xlimit.setGeometry(QtCore.QRect(600, 10, 151, 41))
+        self.label_xlimit.setGeometry(QtCore.QRect(570, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -273,7 +269,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border-radius: 20px")
         self.label_xlimit.setObjectName("label_xlimit")
         self.label_ylimit = QtWidgets.QLabel(self.frame_button)
-        self.label_ylimit.setGeometry(QtCore.QRect(775, 10, 141, 41))
+        self.label_ylimit.setGeometry(QtCore.QRect(700, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -288,7 +284,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border-radius: 20px")
         self.label_ylimit.setObjectName("label_ylimit")
         self.label_zlimit = QtWidgets.QLabel(self.frame_button)
-        self.label_zlimit.setGeometry(QtCore.QRect(940, 10, 141, 41))
+        self.label_zlimit.setGeometry(QtCore.QRect(830, 10, 121, 41))
         font = QtGui.QFont()
         font.setFamily("Arial bold")
         font.setPointSize(14)
@@ -302,6 +298,21 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 20px")
         self.label_zlimit.setObjectName("label_zlimit")
+        self.label_alimit = QtWidgets.QLabel(self.frame_button)
+        self.label_alimit.setGeometry(QtCore.QRect(960, 10, 121, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_alimit.setFont(font)
+        self.label_alimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_alimit.setObjectName("label_alimit")
         self.frame_position = QtWidgets.QFrame(self.frame0)
         self.frame_position.setGeometry(QtCore.QRect(1345, 510, 571, 431))
         self.frame_position.setStyleSheet("border: 2px solid rgb(255, 255, 255);\n"
@@ -553,7 +564,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.frame.setObjectName("frame")
         self.verticalSlider_speedMotor = QtWidgets.QSlider(self.frame)
         self.verticalSlider_speedMotor.setGeometry(QtCore.QRect(460, 70, 22, 341))
-        self.verticalSlider_speedMotor.setMinimum(30)
+        self.verticalSlider_speedMotor.setMinimum(10)
         self.verticalSlider_speedMotor.setMaximum(200)
         self.verticalSlider_speedMotor.setOrientation(QtCore.Qt.Vertical)
         self.verticalSlider_speedMotor.setTickPosition(QtWidgets.QSlider.TicksAbove)
@@ -1297,9 +1308,25 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         font.setPointSize(10)
         self.actionTeach_mode_3.setFont(font)
         self.actionTeach_mode_3.setObjectName("actionTeach_mode_3")
+        self.actionDefine_XY = QtWidgets.QAction(MainWindow)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.actionDefine_XY.setFont(font)
+        self.actionDefine_XY.setObjectName("actionDefine_XY")
+        self.actionSettings_Distance = QtWidgets.QAction(MainWindow)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        self.actionSettings_Distance.setFont(font)
+        self.actionSettings_Distance.setObjectName("actionSettings_Distance")
         self.menuFile.addAction(self.actionChoose_File_pnt)
         self.menuFile.addAction(self.actionSave_file)
         self.menuSetting.addAction(self.actionMotor)
+        self.menuSetting.addAction(self.actionDefine_XY)
+        self.menuSetting.addAction(self.actionSettings_Distance)
         self.menuComunication.addAction(self.actionConnect_to_Slave)
         self.menuAbout.addAction(self.actionAbout_Machine)
         self.menuAbout.addAction(self.actionTeach_mode_3)
@@ -1330,6 +1357,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_xlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X-LIMIT</span></p></body></html>"))
         self.label_ylimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y-LIMIT</span></p></body></html>"))
         self.label_zlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Z-LIMIT</span></p></body></html>"))
+        self.label_alimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">A-LIMIT</span></p></body></html>"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">AXIS -- G54WORK --- MACHINE ------ GUN</span></p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y</span></p></body></html>"))
@@ -1431,16 +1459,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.actionContact_3.setText(_translate("MainWindow", "Contact"))
         self.actionTeach_mode_2.setText(_translate("MainWindow", "Teach mode"))
         self.actionTeach_mode_3.setText(_translate("MainWindow", "Teach mode"))
-    
-    def closeEvent(self,event):
-        result = QtWidgets.QMessageBox.question(self,
-                      "Confirm Exit...",
-                      "Are you sure you want to exit ?",
-                      QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
-        event.ignore()
+        self.actionDefine_XY.setText(_translate("MainWindow", "Define XY"))
+        self.actionSettings_Distance.setText(_translate("MainWindow", "Settings Distance"))
 
-        if result == QtWidgets.QMessageBox.Yes:
-            event.accept()
 
 if __name__ == "__main__":
     import sys
@@ -1449,5 +1470,4 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    #ui.show()
     sys.exit(app.exec_())

@@ -15,6 +15,7 @@ from comWindow import Ui_communication
 from workWindow import Ui_MainWindow
 from teachWindow import Ui_teachMode
 from settingWindow import Ui_motorSettings
+from defineXYWindow import Ui_definePinsXY
 
 from initSerial import Read_Write_to_Serial 
 from workFile import workingFile 
@@ -63,6 +64,173 @@ class checkComWindow():
         else: 
               main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
 #================================================================================================
+class setPinsWindow:
+    def __init__(self):
+        self.pinsWindow = QWidget()
+        self.uiPinsWindow = Ui_definePinsXY()
+        self.uiPinsWindow.setupUi(self.pinsWindow)
+        self.uiPinsWindow.pushButton_Save.clicked.connect(self.saveXYpinsToJson)
+        self.uiPinsWindow.pushButton_Edit.clicked.connect(self.editModePins)
+
+        self.pinX = []; self.pinY = [] # luu thu tu cac chan dieu khien input output
+        self.xSensor = []; self.yOutput = []
+        self.xSensorDefined = []
+
+        self.pinXspinBox = [self.uiPinsWindow.spinBox_X1, self.uiPinsWindow.spinBox_X2, self.uiPinsWindow.spinBox_X3, self.uiPinsWindow.spinBox_X4,
+                             self.uiPinsWindow.spinBox_X5, self.uiPinsWindow.spinBox_X6, self.uiPinsWindow.spinBox_X7, self.uiPinsWindow.spinBox_X8,
+                             self.uiPinsWindow.spinBox_X9, self.uiPinsWindow.spinBox_X10, self.uiPinsWindow.spinBox_X11, self.uiPinsWindow.spinBox_X12,
+                             self.uiPinsWindow.spinBox_X13, self.uiPinsWindow.spinBox_X14, self.uiPinsWindow.spinBox_X15, self.uiPinsWindow.spinBox_X16]
+        
+        self.pinYspinBox = [self.uiPinsWindow.spinBox_Y1, self.uiPinsWindow.spinBox_Y2, self.uiPinsWindow.spinBox_Y3, self.uiPinsWindow.spinBox_Y4,
+                             self.uiPinsWindow.spinBox_Y5, self.uiPinsWindow.spinBox_Y6, self.uiPinsWindow.spinBox_Y7, self.uiPinsWindow.spinBox_Y8,
+                             self.uiPinsWindow.spinBox_Y9, self.uiPinsWindow.spinBox_Y10, self.uiPinsWindow.spinBox_Y11, self.uiPinsWindow.spinBox_Y12,
+                             self.uiPinsWindow.spinBox_Y13, self.uiPinsWindow.spinBox_Y14, self.uiPinsWindow.spinBox_Y15, self.uiPinsWindow.spinBox_Y16]
+        
+        self.xSensorSpinBox = [self.uiPinsWindow.spinBox_xhome, self.uiPinsWindow.spinBox_yhome,self.uiPinsWindow.spinBox_zhome,self.uiPinsWindow.spinBox_ahome,
+                               self.uiPinsWindow.spinBox_xlimit,self.uiPinsWindow.spinBox_ylimit,self.uiPinsWindow.spinBox_zlimit,self.uiPinsWindow.spinBox_alimit]
+        
+        self.yOutputSpinBox = [self.uiPinsWindow.spinBox_spray1, self.uiPinsWindow.spinBox_spray2,self.uiPinsWindow.spinBox_spray3, self.uiPinsWindow.spinBox_spray4,
+                               self.uiPinsWindow.spinBox_rotateTable1, self.uiPinsWindow.spinBox_rotateTable2,
+                               self.uiPinsWindow.spinBox_rotateTable3, self.uiPinsWindow.spinBox_rotateTable4]
+
+    def closePinsWindow(self):
+        self.pinsWindow.close()
+
+    def showPinsWindow(self):
+        self.getXpinsFromJson()
+        self.getYpinsFromJson()
+        self.getSensorPinFromJson()
+        self.getOutputPinFromJson()
+        
+        for i in range(len(self.pinXspinBox)):
+            self.pinXspinBox[i].setDisabled(True)
+        for i in range(len(self.pinYspinBox)):
+            self.pinYspinBox[i].setDisabled(True)
+        for i in range(len(self.xSensorSpinBox)):
+            self.xSensorSpinBox[i].setDisabled(True)
+        for i in range(len(self.yOutputSpinBox)):
+            self.yOutputSpinBox[i].setDisabled(True)
+        self.pinsWindow.show()
+
+    def editModePins(self):
+        for i in range(len(self.pinXspinBox)):
+            self.pinXspinBox[i].setDisabled(False)
+        for i in range(len(self.pinYspinBox)):
+            self.pinYspinBox[i].setDisabled(False)
+        for i in range(len(self.xSensorSpinBox)):
+            self.xSensorSpinBox[i].setDisabled(False)
+        for i in range(len(self.yOutputSpinBox)):
+            self.yOutputSpinBox[i].setDisabled(False)
+        main_window.showStatus("===> Cho phép chỉnh sửa khai báo Pins X/Y")
+
+    def getxSensorBitPositon(self):
+        self.xSensorDefined = []
+        for i in range(len(self.xSensorSpinBox)):
+            pinX = self.xSensorSpinBox[i].value() #truy xuất chân X
+            for index in range(len(self.pinXspinBox)):  #index = 0 ... 15
+                if pinX == index +1:
+                    self.xSensorDefined.append(self.pinXspinBox[index].value())
+                    break
+
+    def getXpinsFromJson(self):
+        self.pinX = []
+        pinXcomboBox = []
+
+        xPins = main_window.jsonFile.getXpinsInfor()
+        if xPins == None:
+            main_window.showStatus("===> Không đọc được giá trị cài đặt pins X")
+            return
+        else:
+            for i in range(len(xPins)):
+                self.pinX.append(xPins[i])
+                pinXcomboBox.append((xPins[i]))
+                self.pinXspinBox[i].setValue(pinXcomboBox[i])
+
+    def setXpinsToJson(self):
+        currentXpins = []; result = []; self.pinX = []
+        for i in range(len(self.pinXspinBox)):
+            currentXpins.append(self.pinXspinBox[i].value())
+            result.append(currentXpins[i])
+            self.pinX.append(currentXpins[i])
+        main_window.jsonFile.setXpinsInfor(result)
+    
+    def getYpinsFromJson(self):
+        self.pinY = []
+        pinYcomboBox = []
+        yPins = main_window.jsonFile.getYpinsInfor()
+        if yPins == None:
+            main_window.showStatus("===> Không đọc được giá trị cài đặt pins Y")
+            return
+        else:
+            for i in range(len(yPins)):
+                self.pinY.append(yPins[i])
+                pinYcomboBox.append((yPins[i]))
+                self.pinYspinBox[i].setValue(pinYcomboBox[i])
+
+    def setYpinsToJson(self):
+        currentYpins = []; result = []; self.pinY = []
+        for i in range(len(self.pinYspinBox)):
+            currentYpins.append(self.pinYspinBox[i].value())
+            result.append(currentYpins[i])
+            self.pinY.append(currentYpins[i])
+        main_window.jsonFile.setYpinsInfor(result)
+    
+    def setSensorPinToJson(self):
+        currentSensor = []; result = []; self.xSensor = []
+        for i in range(len(self.xSensorSpinBox)):
+            currentSensor.append(self.xSensorSpinBox[i].value())
+            result.append(currentSensor[i])
+            self.xSensor.append(currentSensor[i])
+        main_window.jsonFile.setXsensorInfor(result)
+    
+    def getSensorPinFromJson(self):
+        self.xSensor = []
+        xSensorSpinBox = []
+
+        xSensor = main_window.jsonFile.getXsensorInfor()
+        if xSensor == None:
+            main_window.showStatus("===> Không đọc được giá trị sensor")
+            return
+        else:
+            for i in range(len(xSensor)):
+                self.xSensor.append(xSensor[i])
+                xSensorSpinBox.append((xSensor[i]))
+                self.xSensorSpinBox[i].setValue(xSensorSpinBox[i])
+
+    def setOutputPinToJson(self):
+        currentOutput = []; result = []; self.yOutput = []
+        for i in range(len(self.yOutputSpinBox)):
+            currentOutput.append(self.yOutputSpinBox[i].value())
+            result.append(currentOutput[i])
+            self.yOutput.append(currentOutput[i])
+        main_window.jsonFile.setYoutputInfor(result)
+    
+    def getOutputPinFromJson(self):
+        self.yOutput = []
+        yOutputSpinBox = []
+
+        yOutput = main_window.jsonFile.getYoutputInfor()
+        if yOutput == None:
+            main_window.showStatus("===> Không đọc được giá trị output")
+            return
+        else:
+            for i in range(len(yOutput)):
+                self.yOutput.append(yOutput[i])
+                yOutputSpinBox.append((yOutput[i]))
+                self.yOutputSpinBox[i].setValue(yOutputSpinBox[i])
+
+    def saveXYpinsToJson(self):
+        self.setXpinsToJson()
+        self.setYpinsToJson()
+        self.setSensorPinToJson()
+        self.setOutputPinToJson()
+        self.getxSensorBitPositon()
+        main_window.getSpecsOfSensor() # cập nhật giá trị cảm biến
+        self.closePinsWindow()
+        #main_window.showStatus("===> Chân Pin X: " + str(self.xSensor))
+        #main_window.showStatus("===> Chân Pin Y: " + str(self.yOutput))
+
+#================================================================================================
 # ====> test ok
 class paramWindow:
     def __init__(self):
@@ -73,9 +241,6 @@ class paramWindow:
 
         self.uiSetting.buttonBox.rejected.connect(self.closeParamWindow)
         self.uiSetting.buttonBox.accepted.connect(self.save_settings)
-
-        self.jsonFile = makeJsonSetting()
-        self.getGearRatioFromJson()
 
     def closeParamWindow(self):
         self.settingWin.close()
@@ -88,7 +253,7 @@ class paramWindow:
     def getParameter(self):
         gearbox_value = []; microStep_value = []; diameter_value = []
         try:
-            motorSetting = self.jsonFile.getMotorInfo() 
+            motorSetting = main_window.jsonFile.getMotorInfo() 
 
             for i in range(len(motorSetting)):
                 gearbox_value.append(motorSetting[i]["gear"]) 
@@ -123,28 +288,21 @@ class paramWindow:
         main_window.showStatus(diameter)
         main_window.showStatus("=======================================================")
 
-        self.jsonFile.setMotorInfor(gear, microstep, diameter)   # lưu các thông số cài đặt motor
+        main_window.jsonFile.setMotorInfor(gear, microstep, diameter)   # lưu các thông số cài đặt motor
         result = self.calculate_gearRatio(gear, microstep, diameter)
         if result != []:
-            self.jsonFile.setGearInfor(result)                       #lưu giá trị gearratio đã tính toán được
-            self.saveGearRatio(result)
+            main_window.jsonFile.setGearInfor(result)                       #lưu giá trị gearratio đã tính toán được
+            main_window.saveGearRatio(result)
 
     def calculate_gearRatio(self, gear, microstep, diameter):
         result = []
         try:
-            #((80*math.pi)/(1600*5))
             gear_ratio_X = (float(diameter[0])*math.pi)/(int(microstep[0])*float(gear[0]))
-            #((80*math.pi)/(25600))
             gear_ratio_Y = (float(diameter[1])*math.pi)/(int(microstep[1])*float(gear[1]))
-            #((80*math.pi)/(3200*5))
             gear_ratio_Z = (float(diameter[2])*math.pi)/(int(microstep[2])*float(gear[2]))
-            #(360/(12800*5))
             gear_ratio_A = float(diameter[3])/(int(microstep[3])*float(gear[3]))
-            #(360/12800)
             gear_ratio_B = float(diameter[4])/(int(microstep[4])*float(gear[4]))
-            #(360/12800)
             gear_ratio_C = float(diameter[5])/(int(microstep[5])*float(gear[5]))
-
             result = [gear_ratio_X, gear_ratio_Y, gear_ratio_Z,gear_ratio_A, gear_ratio_B, gear_ratio_C]
 
         except Exception as e:
@@ -152,13 +310,6 @@ class paramWindow:
 
         return result
 
-    def saveGearRatio(self, result):
-        main_window.getGearRatioCalculated(result)
-
-    def getGearRatioFromJson(self):
-        result = self.jsonFile.getGearRatio()
-        if result != []:
-            self.saveGearRatio(result)
 #================================================================================================
 # Confirm to exit teachingWindow
 class MyTeachWindow(QtWidgets.QWidget):
@@ -377,7 +528,7 @@ class teachingWindow:
                                 (' B'+B_value),(' C'+C_value), (' S'+ str(Spray_state)), (' F'+ str(F_speed))]
         
         # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
-        for ii in range(main_window.MAX_AXIS):
+        for ii in range(len(main_window.coilXY.sensor_limmit)):
             if main_window.coilXY.sensor_limmit[ii] == 0:
                 exceed_limit = True
                 break
@@ -654,6 +805,8 @@ class MyWindow(QtWidgets.QMainWindow):
             teachWindow.detroyTeachWindow()
             comWindow.detroyComWindow()
             teachWindow.exitTeachMode()
+            main_window.definePinsWindow.closePinsWindow()
+            setMotor.closeParamWindow()
             event.accept()
 #================================================================================================
 class workingWindow:
@@ -661,6 +814,8 @@ class workingWindow:
         self.window = MyWindow() 
         self.uiWorking = Ui_MainWindow()
         self.uiWorking.setupUi(self.window)
+        self.jsonFile = makeJsonSetting()
+        self.definePinsWindow = setPinsWindow()
         self.coilXY = monitorInputOutput()
         self.threadTeachMode = monitorTeachModeThread()
         self.threadInputOutput = monitorInputOutputThread()
@@ -684,7 +839,8 @@ class workingWindow:
         # Khai báo sử dụng đa luồng được quản lý bới threadpool
         # Tính số luồng tối đa có thể sử dụng maxThreadCount bởi threadpool
         self.threadpool = QThreadPool()
-        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        
+        #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
     def showWorkingWindow(self):
         self.window.show()
@@ -718,6 +874,7 @@ class workingWindow:
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
         self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
+        self.uiWorking.actionDefine_XY.triggered.connect(self.openDefinePinsWindow)
 
     def defineCheckButton(self):
         self.checkButtonCoilY = [self.uiWorking.checkBoxY1, self.uiWorking.checkBoxY2, self.uiWorking.checkBoxY3, self.uiWorking.checkBoxY4,
@@ -752,7 +909,7 @@ class workingWindow:
     def defineWarningLabel(self):
         self.warningLabel = [self.uiWorking.label_xhome, self.uiWorking.label_yhome, self.uiWorking.label_zhome,
                             self.uiWorking.label_ahome, self.uiWorking.label_xlimit, self.uiWorking.label_ylimit,
-                            self.uiWorking.label_zlimit]
+                            self.uiWorking.label_zlimit, self.uiWorking.label_alimit]
         self.orgColorWarningLabel = []
         for i in range(len(self.warningLabel)):
             self.orgColorWarningLabel.append(self.warningLabel[i].palette().window().color().name())
@@ -793,6 +950,10 @@ class workingWindow:
         self.showStatus("Chế độ cài đặt thông số motor")
         setMotor.showParamWindow()
 
+    def openDefinePinsWindow(self):
+        self.showStatus("Chế độ khai báo chân XY")
+        self.definePinsWindow.showPinsWindow()
+
     def openTeachWindow(self):
         self.showStatus("Chế độ dạy chương trình")
         self.disable_control_option(True)
@@ -815,6 +976,35 @@ class workingWindow:
     def eStopMotor(self):
         self.showStatus("Dừng motor khẩn cấp")
         run.disable_run_mode()
+
+    def getSpecsOfSensor(self):
+        self.coilXY.xhomeBit = self.definePinsWindow.xSensorDefined[0]; self.coilXY.yhomeBit = self.definePinsWindow.xSensorDefined[1] 
+        self.coilXY.zhomeBit = self.definePinsWindow.xSensorDefined[2];  self.coilXY.ahomeBit = self.definePinsWindow.xSensorDefined[3]
+        self.coilXY.xlimitBit = self.definePinsWindow.xSensorDefined[4];  self.coilXY.ylimitBit = self.definePinsWindow.xSensorDefined[5]
+        self.coilXY.zlimitBit = self.definePinsWindow.xSensorDefined[6]; self.coilXY.alimitBit = self.definePinsWindow.xSensorDefined[7]
+
+        self.coilXY.bitPos = [self.coilXY.xhomeBit, self.coilXY.yhomeBit, self.coilXY.zhomeBit, self.coilXY.ahomeBit, 
+                                    self.coilXY.xlimitBit, self.coilXY.ylimitBit, self.coilXY.zlimitBit, self.coilXY.alimitBit]
+
+        self.showStatus("===> Vị trí khai báo bit sensor: "+ str(self.coilXY.bitPos))
+        #self.showStatus(self.coilXY.alimitBit)
+        
+    def getXYdefinePins(self):
+        self.definePinsWindow.getXpinsFromJson()
+        self.definePinsWindow.getYpinsFromJson()
+        self.definePinsWindow.getSensorPinFromJson()
+        self.definePinsWindow.getOutputPinFromJson()
+        self.definePinsWindow.getxSensorBitPositon()
+        #self.showStatus("===> Sensor: " + str(self.definePinsWindow.xSensor))
+        #self.showStatus("===> Output: " + str(self.definePinsWindow.yOutput))
+    
+    def getGearRatioFromJson(self):
+        result = self.jsonFile.getGearRatio()
+        if result != []:
+            self.saveGearRatio(result)
+
+    def saveGearRatio(self, result):
+        self.getGearRatioCalculated(result)
 
     def getGearRatioCalculated(self, value):
         self.gearRatio.clear()
@@ -1109,9 +1299,9 @@ class runMotor:
                 main_window.showStatus("===> Run Auto" + "Error: ")
 
         finally:
-            main_window.showStatus ('========================================================================')
             self.re_init()
-            main_window.showStatus("--------------------------------------------------------------------------")
+            #main_window.showStatus ('========================================================================')
+            #main_window.showStatus("--------------------------------------------------------------------------")
             main_window.showStatus("END")
             main_window.threadAutoRun.exit()
 
@@ -1260,7 +1450,7 @@ class runMotor:
     # result_array là mảng chứa kết quả của hàm separate_string    
     # tính giá trị xung tịnh tiến
         main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
-        main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
+        #main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
         result_value    = []
         delta           = []
         print_delta     = []
@@ -1270,7 +1460,7 @@ class runMotor:
             result_value.append(float(delta[i])/main_window.gearRatio[i])
             print_delta.append(round(delta[i],3))
 
-        main_window.showStatus('Gia tri delta cua X,Y,Z,A,B,C là:'+ str(print_delta))
+        #main_window.showStatus('Gia tri delta cua X,Y,Z,A,B,C là:'+ str(print_delta))
         return result_value
 
 # tách xung nguyên và xung lẻ
@@ -1285,11 +1475,11 @@ class runMotor:
             xung_nguyen.append(math.trunc(so_xung[x]))
             self.sum_xung_le[x] = so_xung[x] - xung_nguyen[x]
             xung_le.append(round(self.sum_xung_le[x],3))  
-        main_window.showStatus ("------------------------------------")
-        main_window.showStatus ('>>> Gia tri xung x,y,z,a,b,c chua calib lan luot la: ' + str(print_delta_array))
-        main_window.showStatus ('>>> So xung nguyen truc x,y,z,a,b,c: ' + str(xung_nguyen))
-        main_window.showStatus ('>>> So xung le truc x,y,z,a,b,c:     '+ str(xung_le))
-        main_window.showStatus ("------------------------------------")
+        #main_window.showStatus ("------------------------------------")
+        #main_window.showStatus ('>>> Gia tri xung x,y,z,a,b,c chua calib lan luot la: ' + str(print_delta_array))
+        #main_window.showStatus ('>>> So xung nguyen truc x,y,z,a,b,c: ' + str(xung_nguyen))
+        #main_window.showStatus ('>>> So xung le truc x,y,z,a,b,c:     '+ str(xung_le))
+        #main_window.showStatus ("------------------------------------")
         return xung_nguyen
 
 # truyền giá trị xung và tốc độ x,y,z,a,b,c tới board execute; giá trị 32 bit
@@ -1392,11 +1582,12 @@ class monitorInputOutput:
         self.numCoilXY = 16
         self.valueCoilY = 0
         # khai báo vị trí home sensor và limit sensor trong value
-        self.xhomeBit = 1; self.yhomeBit = 5;  self.zhomeBit = 7;  self.ahomeBit = 10; 
-        self.xlimitBit = 0;  self.ylimitBit = 2;  self.zlimitBit = 6; self.alimityBit = 13
+        #self.xhomeBit = 1; self.yhomeBit = 5;  self.zhomeBit = 7;  self.ahomeBit = 10; 
+        #self.xlimitBit = 0;  self.ylimitBit = 2;  self.zlimitBit = 6; self.alimityBit = 13
+        self.xhomeBit = 0; self.yhomeBit = 0;  self.zhomeBit = 0;  self.ahomeBit = 0; 
+        self.xlimitBit = 0;  self.ylimitBit = 0;  self.zlimitBit = 0; self.alimitBit = 0
 
-        self.bitPos = [self.xhomeBit, self.yhomeBit, self.zhomeBit, self.ahomeBit, 
-                                    self.xlimitBit, self.ylimitBit, self.zlimitBit]
+        self.bitPos = []
         self.sensor_value = []; self.coil_value = []
     
     def returnCoilY1(self):
@@ -1491,7 +1682,8 @@ class monitorInputOutput:
 
         self.sensor_limmit = [self.sensor_value[self.xlimitBit],self.sensor_value[self.xhomeBit],
                                 self.sensor_value[self.ylimitBit],self.sensor_value[self.yhomeBit],
-                                self.sensor_value[self.zlimitBit],self.sensor_value[self.zhomeBit]]
+                                self.sensor_value[self.zlimitBit],self.sensor_value[self.zhomeBit],
+                                self.sensor_value[self.alimitBit],self.sensor_value[self.ahomeBit]]
 
     def updateLabelXYvalue(self, xValue, yValue):
         for i in range(self.numCoilXY):
@@ -1521,6 +1713,9 @@ if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     wFile = workingFile()
     run = runMotor()
 
+    main_window.getGearRatioFromJson() #lấy thông số gear từ Json
+    main_window.getXYdefinePins()      #lấy thông số pins XY defined từ Json
+    main_window.getSpecsOfSensor()     #lưu thông số pins XY vào giá trị cảm biến
     main_window.showWorkingWindow()
 
     sys.exit(app.exec_()) # creating an event loop for app
