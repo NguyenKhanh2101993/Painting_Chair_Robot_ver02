@@ -61,6 +61,7 @@ class checkComWindow():
               main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
               main_window.threadInputOutput.start()
               self.connectSignal = True
+              self.detroyComWindow()
         else: 
               main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
 #================================================================================================
@@ -113,10 +114,10 @@ class setPinsWindow:
         self.pinsWindow.show()
 
     def editModePins(self):
-        for i in range(len(self.pinXspinBox)):
-            self.pinXspinBox[i].setDisabled(False)
-        for i in range(len(self.pinYspinBox)):
-            self.pinYspinBox[i].setDisabled(False)
+        #for i in range(len(self.pinXspinBox)):
+        #    self.pinXspinBox[i].setDisabled(False)
+        #for i in range(len(self.pinYspinBox)):
+        #    self.pinYspinBox[i].setDisabled(False)
         for i in range(len(self.xSensorSpinBox)):
             self.xSensorSpinBox[i].setDisabled(False)
         for i in range(len(self.yOutputSpinBox)):
@@ -364,6 +365,7 @@ class teachingWindow:
             print(str(e))
 
     def detroyTeachWindow(self):
+        self.exitTeachMode()
         self.teachWin.close()
 
     def defineTeachModeButton(self):
@@ -402,11 +404,11 @@ class teachingWindow:
 
         self.teachModeButton_control = [self.uiteach.pushButton_exitTeach, self.uiteach.pushButton_savePoint, 
                                         self.uiteach.pushButton_setZero, self.uiteach.pushButton_saveFile]
-        teachModeButton_controlCommand = [self.testGotoZero, self.setPoint, self.setZero, self.saveTofile]
+        teachModeButton_controlCommand = [self.detroyTeachWindow, self.setPoint, self.setZero, self.saveTofile]
         for i in range(len(self.teachModeButton_control)): 
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
 
-        self.teachModeButton_control[0].setDisabled(True)   # disable nut exit tren teaching Window
+        #self.teachModeButton_control[0].setDisabled(True)   # disable nut exit tren teaching Window
 
     def enterTeachMode(self):
         main_window.uiWorking.label_directory.clear()
@@ -804,7 +806,7 @@ class MyWindow(QtWidgets.QMainWindow):
         if result == QtWidgets.QMessageBox.Yes:   
             teachWindow.detroyTeachWindow()
             comWindow.detroyComWindow()
-            teachWindow.exitTeachMode()
+            #teachWindow.exitTeachMode()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
             event.accept()
@@ -1120,7 +1122,10 @@ class workingWindow:
     def gotoMachinePosition(self):
         if self.go_machine_home == False:
             self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
-            comWindow.workSerial.commandCheckXYZAsensor()
+            try:
+                comWindow.workSerial.commandCheckXYZAsensor()
+            except:
+                return
             
             pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
             pulse_to_machine_axis_Y = [0, -70000, 0, 0, 0, 0]
@@ -1229,7 +1234,7 @@ class runMotor:
                     wFile.file.close()
                     break
                 
-                main_window.showStatus ('========================================================================')
+                main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 main_window.showStatus (content_line)
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
@@ -1313,7 +1318,7 @@ class runMotor:
         run_block = False
 
         for str_content in wFile.file:
-            main_window.showStatus('========================================================================')
+            main_window.showStatus('===========================================')
             content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
             main_window.showStatus(content_line)
             content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
@@ -1449,7 +1454,7 @@ class runMotor:
     def calculate_delta(self,result_array):
     # result_array là mảng chứa kết quả của hàm separate_string    
     # tính giá trị xung tịnh tiến
-        main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
+        #main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
         #main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
         result_value    = []
         delta           = []
@@ -1492,7 +1497,7 @@ class runMotor:
         else: speed_slaves = _speed
 
         main_window.showStatus ("===> Tốc độ tay máy: " + str(speed_slaves) +"%")
-        main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
+        #main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
