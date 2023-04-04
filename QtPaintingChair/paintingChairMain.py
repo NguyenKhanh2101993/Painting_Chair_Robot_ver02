@@ -509,6 +509,17 @@ class teachingWindow:
         self.monitor_off = True
         main_window.showStatus ("===> Thoát khỏi chế độ Teach Mode")
         main_window.threadTeachMode.exit()
+    
+    def getSpeedMotor(self):
+        str_result = self.uiteach.lineEdit_speed.text()
+        try:
+            int_result = int(str_result)
+            if int_result <= 0:  int_result = 0
+            if int_result >= 200: int_result = 200
+        except:
+            int_result = 0
+        main_window.showStatus(int_result)
+        return int_result
 
     def setPoint(self):
         show_line = (' '+ str(self.counter_line))
@@ -516,7 +527,8 @@ class teachingWindow:
         exceed_limit = False
 
         # lay gia tri
-        F_speed =  main_window.speedMotor()
+        #F_speed =  main_window.speedMotor()
+        F_speed = self.getSpeedMotor()
     
         X_value = str(round(main_window.currentPos[0],3)); Y_value = str(round(main_window.currentPos[1],3)); Z_value = str(round(main_window.currentPos[2],3))
         A_value = str(round(main_window.currentPos[3],3)); B_value = str(round(main_window.currentPos[4],3)); C_value = str(round(main_window.currentPos[5],3))
@@ -528,15 +540,16 @@ class teachingWindow:
 
         current_string_value = [(' X'+X_value), (' Y'+Y_value), (' Z'+Z_value), (' A'+ A_value), 
                                 (' B'+B_value),(' C'+C_value), (' S'+ str(Spray_state)), (' F'+ str(F_speed))]
-        
-        # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
-        for ii in range(len(main_window.coilXY.sensor_limmit)):
-            if main_window.coilXY.sensor_limmit[ii] == 0:
-                exceed_limit = True
-                break
-        if exceed_limit == True:
-            main_window.showStatus ("Limited: EXCEED SENSOR LIMIT")
-
+        try:
+            # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
+            for ii in range(len(main_window.coilXY.sensor_limmit)):
+                if main_window.coilXY.sensor_limmit[ii] == 0:
+                    exceed_limit = True
+                    break
+            if exceed_limit == True:
+                main_window.showStatus ("Limited: EXCEED SENSOR LIMIT")
+        except:
+            return
         # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
         # sau đó lưu vào chuỗi
         for i in range(len(current_string_value)):
@@ -554,8 +567,11 @@ class teachingWindow:
             main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
 
     def setZero(self):
-        main_window.showStatus("===> SET ZERO POSITION")
-        comWindow.workSerial.setZeroPositions()
+        try:
+            main_window.showStatus("===> SET ZERO POSITION")
+            comWindow.workSerial.setZeroPositions()
+        except:
+            main_window.showStatus("===> SET ZERO POSITION: ERROR")
 
     def saveTofile(self):
         main_window.showStatus ('===> Lưu file.pnt')
@@ -569,18 +585,22 @@ class teachingWindow:
 
     def tableRorateFW(self):
         main_window.showStatus  ("===> BÀN XOAY 1")
+        main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def tableRorateRW(self):
         main_window.showStatus  ("===> BÀN XOAY 2")
+        main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def sprayON(self):
         main_window.showStatus  ("===> SÚNG SƠN BẬT")
+        main_window.uiWorking.textBrowser_showfile.append(run.turn_on_spray)
         run.command_run_spray(1)
 
     def sprayOFF(self):
         main_window.showStatus  ("===> SÚNG SƠN TẮT")
+        main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         run.command_run_spray(0)
 #================================================================================================
 class workingTeachMode():
@@ -1565,12 +1585,15 @@ class runMotor:
 
 # command bật tắt súng sơn 
     def command_run_spray(self, state):
-        if state:
-            main_window.showStatus("===> SÚNG SƠN BẬT")
-            comWindow.workSerial.commandTurnOnSpray()
-        else:
-            main_window.showStatus("===> SÚNG SƠN TẮT")
-            comWindow.workSerial.commandTurnOffSpray()    
+        try: 
+            if state:
+                main_window.showStatus("===> SÚNG SƠN BẬT")
+                comWindow.workSerial.commandTurnOnSpray()
+            else:
+                main_window.showStatus("===> SÚNG SƠN TẮT")
+                comWindow.workSerial.commandTurnOffSpray()    
+        except:
+            main_window.showStatus("===> LỖI BẬT/TẮT SÚNG SƠN")
 
 # Dừng động cơ
     def stop_motor(self):
@@ -1579,8 +1602,11 @@ class runMotor:
 
 # command xoay bàn sơn
     def command_table_rotate(self):
-        main_window.showStatus("===> Xoay bàn sơn")
-        comWindow.workSerial.commandRotateTable()
+        try:
+            main_window.showStatus("===> Xoay bàn sơn")
+            comWindow.workSerial.commandRotateTable()
+        except:
+            main_window.showStatus("===> Không kích được bàn xoay")
 #================================================================================================
 class monitorInputOutput:
     def __init__(self):
