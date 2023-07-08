@@ -1,8 +1,8 @@
 import modbus_tk.defines as cst
 import modbus_tk.modbus_rtu as rtu
 import serial
-import serial.tools.list_ports_windows # check avaiable comports của windows
-#import serial.tools.list_ports # check avaiable comports linux
+#import serial.tools.list_ports_windows # check avaiable comports của windows
+import serial.tools.list_ports # check avaiable comports linux
 
 class Read_Write_to_Serial:
     def __init__(self):
@@ -61,7 +61,8 @@ class Read_Write_to_Serial:
 
     def detect_comports(self):
         comports = []
-        portdata = serial.tools.list_ports_windows.comports()
+        #portdata = serial.tools.list_ports_windows.comports()
+        portdata = serial.tools.list_ports.comports()
         print(str(portdata))
         for i in range(len(portdata)):
             port = portdata[i]
