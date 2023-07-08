@@ -217,18 +217,39 @@ TIMSKn: Thanh ghi điều khiển ngắt.
 void timer5_setting(void) {
   // timer 5 setting prescale = 64 
     cli();
+    
     TIMSK5 &= ~((1 << OCIE5B) | (1 << OCIE5A) | (1 << TOIE5));
     TCCR5A = 0; // Normal operation
     TCCR5B = 0; // Disable Timer0 until needed
     TIMSK5 |= (1 << TOIE5); // Enable Timer5 overflow interrupt
     //TCCR5B |= ((0 << CS52) | (1 << CS51) | (1 << CS50));    // clk/64 prescaler (1 xung = 4 us)
+    TCCR5B |= ((0 << CS52) | (1 << CS51) | (0 << CS50));    // clk/8  prescaler (1 xung = 0.5us)
+    
+   /*
+    TIMSK5 &= ~((1 << OCIE5B) | (1 << OCIE5A) | (1 << TOIE5));
+    TCCR5A = 0;
+    TCCR5B = 0;
+    TCCR5B |= (1 << WGM52);                   // CTC mode 4 OCR1A(TOP)
+    TIMSK5 |=  (1 << OCIE5A);
+    TCCR5B |= ((0 << CS52) | (1 << CS51) | (0 << CS50));    // clk/8  prescaler (1 xung = 0.5us)
+    */
     sei();
 }
+
 ISR (TIMER5_OVF_vect) {
   reset_pulse_to_ports();
   TCCR5B = 0; // Disable Timer5 to prevent re-entering this interrupt when it's not needed.
   command_motor.busy = false;
 }
+
+/*
+ISR(TIMER5_COMPA_vect) {
+  reset_pulse_to_ports();
+  TCNT5 = 0;
+  TCCR5B = 0; // Disable Timer5 to prevent re-entering this interrupt when it's not needed.
+  command_motor.busy = false;
+}
+*/
 /////////////////////////////////////////////////////////////////////////////
 // Tạo Hàm timer 4. Dùng đọc giá trị input, output sau 100 ms
 void timer4_setting(void) {
@@ -291,9 +312,12 @@ void timer1_setting(void){
 ////////////////////////////////////////////////////////////////////////////
 ISR(TIMER1_COMPA_vect) {
   command_motor.sensorValue = sensorValueMask;  // lưu giá trị cảm biến
+  static uint16_t prev_pulsePeriod = 0;
   if (command_motor.busy == true) { return;}
   if (!command_motor.movingDone()) {        // nếu các motor vẫn chưa chạy xong
-      OCR1A = command_motor.pulsePeriod; // command_motor.setDelay2();  //  setting delay between steps (tần số xung)
+      //  setting delay between steps (tần số xung)
+      //if (command_motor.pulsePeriod != prev_pulsePeriod) {OCR1A = command_motor.pulsePeriod; prev_pulsePeriod = command_motor.pulsePeriod;}  
+      OCR1A = command_motor.pulsePeriod;
       TCNT1 = 0;
       command_motor.execute_one_pulse();
   }
@@ -315,6 +339,7 @@ ISR(TIMER1_COMPA_vect) {
             start_address = 0; 
             command_motor.blockRunMode = false; 
             TIMER1_INTERRUPTS_OFF; 
+            prev_pulsePeriod = 0;
             STATE_RUN_BLOCK = false; 
           }
          
@@ -323,7 +348,7 @@ ISR(TIMER1_COMPA_vect) {
         //----------------------------------------
         
         //----------------------------------------
-        else { TIMER1_INTERRUPTS_OFF; }
+        else { TIMER1_INTERRUPTS_OFF; prev_pulsePeriod = 0;}
       }
 }
 //============================================================================================
@@ -389,9 +414,9 @@ void setup() {
   //table_change_state();  // setup trạng thái ban đầu của bàn xoay
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   //Serial.println("Slave id2 Setup OK");
-  //delay(100);
-  //newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
-  //execute_motor_run(newPos, 200);
+  delay(100);
+  newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
+  execute_motor_run(newPos, 200);
   //delay_value(1);
   //enable_MPG_mode();
 }

@@ -1720,6 +1720,7 @@ class monitorInputOutput:
         for i in range(self.numCoilXY):
             if xValue[i] == 1: main_window.labelCoilX[i].setStyleSheet("background-color: " + main_window.orgColorLabelX[i] + ";")
             else: main_window.labelCoilX[i].setStyleSheet("background-color: #00aa00")    # có tín hiệu input
+            
             if yValue[i] == 1: main_window.labelCoilY[i].setStyleSheet("background-color: #00aa00")  # có tín hiệu
             else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
 
