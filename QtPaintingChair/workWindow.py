@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1200, 750)
+        MainWindow.resize(1070, 610)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -25,8 +25,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.gridLayout_8 = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout_8.setObjectName("gridLayout_8")
         self.frame0 = QtWidgets.QFrame(self.centralwidget)
         self.frame0.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -41,8 +41,8 @@ class Ui_MainWindow(object):
         self.frame0.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame0.setLineWidth(2)
         self.frame0.setObjectName("frame0")
-        self.gridLayout_8 = QtWidgets.QGridLayout(self.frame0)
-        self.gridLayout_8.setObjectName("gridLayout_8")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.frame0)
+        self.gridLayout_4.setObjectName("gridLayout_4")
         self.frame_showtext = QtWidgets.QFrame(self.frame0)
         self.frame_showtext.setStyleSheet("background-color: rgb(122, 122, 122);")
         self.frame_showtext.setFrameShape(QtWidgets.QFrame.Panel)
@@ -172,7 +172,7 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.label_showtime.setObjectName("label_showtime")
         self.gridLayout_2.addWidget(self.label_showtime, 5, 3, 1, 1)
-        self.gridLayout_8.addWidget(self.frame_showtext, 0, 0, 1, 2)
+        self.gridLayout_4.addWidget(self.frame_showtext, 0, 0, 1, 2)
         self.frame = QtWidgets.QFrame(self.frame0)
         self.frame.setStyleSheet("border: 2px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -771,235 +771,7 @@ class Ui_MainWindow(object):
         self.checkBoxY8.setTristate(False)
         self.checkBoxY8.setObjectName("checkBoxY8")
         self.gridLayout_7.addWidget(self.checkBoxY8, 7, 2, 1, 1)
-        self.gridLayout_8.addWidget(self.frame, 0, 2, 2, 1)
-        self.frame_button = QtWidgets.QFrame(self.frame0)
-        self.frame_button.setStyleSheet("background-color: rgb(122, 122, 122);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.frame_button.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_button.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_button.setObjectName("frame_button")
-        self.gridLayout_5 = QtWidgets.QGridLayout(self.frame_button)
-        self.gridLayout_5.setObjectName("gridLayout_5")
-        self.label_xhome = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_xhome.setFont(font)
-        self.label_xhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_xhome.setObjectName("label_xhome")
-        self.gridLayout_5.addWidget(self.label_xhome, 0, 0, 1, 1)
-        self.label_xlimit = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_xlimit.setFont(font)
-        self.label_xlimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_xlimit.setObjectName("label_xlimit")
-        self.gridLayout_5.addWidget(self.label_xlimit, 0, 4, 1, 1)
-        self.label_ahome = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_ahome.setFont(font)
-        self.label_ahome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_ahome.setObjectName("label_ahome")
-        self.gridLayout_5.addWidget(self.label_ahome, 0, 3, 1, 1)
-        self.label_yhome = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_yhome.setFont(font)
-        self.label_yhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_yhome.setObjectName("label_yhome")
-        self.gridLayout_5.addWidget(self.label_yhome, 0, 1, 1, 1)
-        self.label_ylimit = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_ylimit.setFont(font)
-        self.label_ylimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_ylimit.setObjectName("label_ylimit")
-        self.gridLayout_5.addWidget(self.label_ylimit, 0, 5, 1, 1)
-        self.label_alimit = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_alimit.setFont(font)
-        self.label_alimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_alimit.setObjectName("label_alimit")
-        self.gridLayout_5.addWidget(self.label_alimit, 0, 7, 1, 1)
-        self.label_zhome = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_zhome.setFont(font)
-        self.label_zhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_zhome.setObjectName("label_zhome")
-        self.gridLayout_5.addWidget(self.label_zhome, 0, 2, 1, 1)
-        self.label_zlimit = QtWidgets.QLabel(self.frame_button)
-        font = QtGui.QFont()
-        font.setFamily("Arial bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_zlimit.setFont(font)
-        self.label_zlimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(255, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
-        self.label_zlimit.setObjectName("label_zlimit")
-        self.gridLayout_5.addWidget(self.label_zlimit, 0, 6, 1, 1)
-        self.gridLayout_8.addWidget(self.frame_button, 1, 0, 1, 2)
-        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
-        self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
-"font: 75 14pt \"Arial\";\n"
-"color: rgb(0, 250, 0);\n"
-"border: 3px solid  rgb(56, 56, 56);\n"
-"border-radius: 10px")
-        self.textBrowser_terminal.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.textBrowser_terminal.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.textBrowser_terminal.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
-        self.textBrowser_terminal.setReadOnly(True)
-        self.textBrowser_terminal.setOverwriteMode(False)
-        self.textBrowser_terminal.setObjectName("textBrowser_terminal")
-        self.gridLayout_8.addWidget(self.textBrowser_terminal, 2, 0, 1, 1)
-        self.frame_button_2 = QtWidgets.QFrame(self.frame0)
-        self.frame_button_2.setStyleSheet("background-color: rgb(122, 122, 122);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.frame_button_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_button_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_button_2.setObjectName("frame_button_2")
-        self.gridLayout = QtWidgets.QGridLayout(self.frame_button_2)
-        self.gridLayout.setObjectName("gridLayout")
-        self.pushButton_power = QtWidgets.QPushButton(self.frame_button_2)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(22)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_power.setFont(font)
-        self.pushButton_power.setMouseTracking(False)
-        self.pushButton_power.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_power.setAutoFillBackground(False)
-        self.pushButton_power.setStyleSheet("background-color: rgb(0, 170, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.pushButton_power.setObjectName("pushButton_power")
-        self.gridLayout.addWidget(self.pushButton_power, 0, 0, 1, 1)
-        self.pushButton_estop = QtWidgets.QPushButton(self.frame_button_2)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(22)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_estop.setFont(font)
-        self.pushButton_estop.setMouseTracking(True)
-        self.pushButton_estop.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_estop.setAutoFillBackground(False)
-        self.pushButton_estop.setStyleSheet("background-color: rgb(255, 0, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
-        self.pushButton_estop.setFlat(False)
-        self.pushButton_estop.setObjectName("pushButton_estop")
-        self.gridLayout.addWidget(self.pushButton_estop, 0, 1, 1, 1)
-        self.pushButton_gotozero = QtWidgets.QPushButton(self.frame_button_2)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_gotozero.setFont(font)
-        self.pushButton_gotozero.setMouseTracking(False)
-        self.pushButton_gotozero.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_gotozero.setAutoFillBackground(False)
-        self.pushButton_gotozero.setStyleSheet("background-color: rgb(85, 85, 127);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.pushButton_gotozero.setObjectName("pushButton_gotozero")
-        self.gridLayout.addWidget(self.pushButton_gotozero, 0, 2, 1, 1)
-        self.pushButton_machinehome = QtWidgets.QPushButton(self.frame_button_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_machinehome.sizePolicy().hasHeightForWidth())
-        self.pushButton_machinehome.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_machinehome.setFont(font)
-        self.pushButton_machinehome.setMouseTracking(False)
-        self.pushButton_machinehome.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_machinehome.setAutoFillBackground(False)
-        self.pushButton_machinehome.setStyleSheet("background-color: rgb(173, 51, 10);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid  rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.pushButton_machinehome.setObjectName("pushButton_machinehome")
-        self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
-        self.gridLayout_8.addWidget(self.frame_button_2, 3, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.frame, 0, 2, 2, 1)
         self.frame_termial = QtWidgets.QFrame(self.frame0)
         self.frame_termial.setStyleSheet("background-color: rgb(122, 122, 122);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
@@ -1259,11 +1031,239 @@ class Ui_MainWindow(object):
         self.label_Cposition.setObjectName("label_Cposition")
         self.gridLayout_6.addWidget(self.label_Cposition, 10, 1, 1, 1)
         self.gridLayout_3.addWidget(self.frame_position, 4, 4, 1, 1)
-        self.gridLayout_8.addWidget(self.frame_termial, 2, 1, 2, 2)
-        self.gridLayout_4.addWidget(self.frame0, 0, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.frame_termial, 2, 2, 3, 1)
+        self.frame_button = QtWidgets.QFrame(self.frame0)
+        self.frame_button.setStyleSheet("background-color: rgb(122, 122, 122);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.frame_button.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_button.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_button.setObjectName("frame_button")
+        self.gridLayout_5 = QtWidgets.QGridLayout(self.frame_button)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.label_xhome = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_xhome.setFont(font)
+        self.label_xhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_xhome.setObjectName("label_xhome")
+        self.gridLayout_5.addWidget(self.label_xhome, 0, 0, 1, 1)
+        self.label_xlimit = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_xlimit.setFont(font)
+        self.label_xlimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_xlimit.setObjectName("label_xlimit")
+        self.gridLayout_5.addWidget(self.label_xlimit, 0, 4, 1, 1)
+        self.label_ahome = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_ahome.setFont(font)
+        self.label_ahome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_ahome.setObjectName("label_ahome")
+        self.gridLayout_5.addWidget(self.label_ahome, 0, 3, 1, 1)
+        self.label_yhome = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_yhome.setFont(font)
+        self.label_yhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_yhome.setObjectName("label_yhome")
+        self.gridLayout_5.addWidget(self.label_yhome, 0, 1, 1, 1)
+        self.label_ylimit = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_ylimit.setFont(font)
+        self.label_ylimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_ylimit.setObjectName("label_ylimit")
+        self.gridLayout_5.addWidget(self.label_ylimit, 0, 5, 1, 1)
+        self.label_alimit = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_alimit.setFont(font)
+        self.label_alimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_alimit.setObjectName("label_alimit")
+        self.gridLayout_5.addWidget(self.label_alimit, 0, 7, 1, 1)
+        self.label_zhome = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_zhome.setFont(font)
+        self.label_zhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_zhome.setObjectName("label_zhome")
+        self.gridLayout_5.addWidget(self.label_zhome, 0, 2, 1, 1)
+        self.label_zlimit = QtWidgets.QLabel(self.frame_button)
+        font = QtGui.QFont()
+        font.setFamily("Arial bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_zlimit.setFont(font)
+        self.label_zlimit.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(255, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 20px")
+        self.label_zlimit.setObjectName("label_zlimit")
+        self.gridLayout_5.addWidget(self.label_zlimit, 0, 6, 1, 1)
+        self.gridLayout_4.addWidget(self.frame_button, 1, 0, 2, 2)
+        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
+        self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
+"font: 75 14pt \"Arial\";\n"
+"color: rgb(0, 250, 0);\n"
+"border: 3px solid  rgb(56, 56, 56);\n"
+"border-radius: 10px")
+        self.textBrowser_terminal.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.textBrowser_terminal.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.textBrowser_terminal.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
+        self.textBrowser_terminal.setReadOnly(True)
+        self.textBrowser_terminal.setOverwriteMode(False)
+        self.textBrowser_terminal.setObjectName("textBrowser_terminal")
+        self.gridLayout_4.addWidget(self.textBrowser_terminal, 3, 0, 1, 2)
+        self.frame_button_2 = QtWidgets.QFrame(self.frame0)
+        self.frame_button_2.setStyleSheet("background-color: rgb(122, 122, 122);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.frame_button_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_button_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_button_2.setObjectName("frame_button_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame_button_2)
+        self.gridLayout.setObjectName("gridLayout")
+        self.pushButton_power = QtWidgets.QPushButton(self.frame_button_2)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(22)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_power.setFont(font)
+        self.pushButton_power.setMouseTracking(False)
+        self.pushButton_power.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_power.setAutoFillBackground(False)
+        self.pushButton_power.setStyleSheet("background-color: rgb(0, 170, 0);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.pushButton_power.setObjectName("pushButton_power")
+        self.gridLayout.addWidget(self.pushButton_power, 0, 0, 1, 1)
+        self.pushButton_estop = QtWidgets.QPushButton(self.frame_button_2)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(22)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_estop.setFont(font)
+        self.pushButton_estop.setMouseTracking(True)
+        self.pushButton_estop.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_estop.setAutoFillBackground(False)
+        self.pushButton_estop.setStyleSheet("background-color: rgb(255, 0, 0);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-top-color: rgb(208, 208, 208);")
+        self.pushButton_estop.setFlat(False)
+        self.pushButton_estop.setObjectName("pushButton_estop")
+        self.gridLayout.addWidget(self.pushButton_estop, 0, 1, 1, 1)
+        self.pushButton_gotozero = QtWidgets.QPushButton(self.frame_button_2)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_gotozero.setFont(font)
+        self.pushButton_gotozero.setMouseTracking(False)
+        self.pushButton_gotozero.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_gotozero.setAutoFillBackground(False)
+        self.pushButton_gotozero.setStyleSheet("background-color: rgb(85, 85, 127);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.pushButton_gotozero.setObjectName("pushButton_gotozero")
+        self.gridLayout.addWidget(self.pushButton_gotozero, 0, 2, 1, 1)
+        self.pushButton_machinehome = QtWidgets.QPushButton(self.frame_button_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_machinehome.sizePolicy().hasHeightForWidth())
+        self.pushButton_machinehome.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_machinehome.setFont(font)
+        self.pushButton_machinehome.setMouseTracking(False)
+        self.pushButton_machinehome.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_machinehome.setAutoFillBackground(False)
+        self.pushButton_machinehome.setStyleSheet("background-color: rgb(173, 51, 10);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid  rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.pushButton_machinehome.setObjectName("pushButton_machinehome")
+        self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.frame_button_2, 4, 0, 1, 2)
+        self.gridLayout_8.addWidget(self.frame0, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1070, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -1435,18 +1435,6 @@ class Ui_MainWindow(object):
         self.checkBoxY3.setText(_translate("MainWindow", "CheckBoxY3"))
         self.checkBoxY7.setText(_translate("MainWindow", "CheckBoxY7"))
         self.checkBoxY8.setText(_translate("MainWindow", "CheckBoxY8"))
-        self.label_xhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X-HOME</span></p></body></html>"))
-        self.label_xlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X-LIMIT</span></p></body></html>"))
-        self.label_ahome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">A-HOME</span></p></body></html>"))
-        self.label_yhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y-HOME</span></p></body></html>"))
-        self.label_ylimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y-LIMIT</span></p></body></html>"))
-        self.label_alimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">A-LIMIT</span></p></body></html>"))
-        self.label_zhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Z-HOME</span></p></body></html>"))
-        self.label_zlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Z-LIMIT</span></p></body></html>"))
-        self.pushButton_power.setText(_translate("MainWindow", "POWER"))
-        self.pushButton_estop.setText(_translate("MainWindow", "E-STOP"))
-        self.pushButton_gotozero.setText(_translate("MainWindow", "GO TO ZERO"))
-        self.pushButton_machinehome.setText(_translate("MainWindow", "MACHINE HOME"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">AXIS -- G54WORK --- MACHINE ------ GUN</span></p></body></html>"))
         self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">X</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y</span></p></body></html>"))
@@ -1472,6 +1460,18 @@ class Ui_MainWindow(object):
         self.label_Chome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Z</span></p></body></html>"))
         self.label_Cposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_xhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X-HOME</span></p></body></html>"))
+        self.label_xlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X-LIMIT</span></p></body></html>"))
+        self.label_ahome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">A-HOME</span></p></body></html>"))
+        self.label_yhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y-HOME</span></p></body></html>"))
+        self.label_ylimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y-LIMIT</span></p></body></html>"))
+        self.label_alimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">A-LIMIT</span></p></body></html>"))
+        self.label_zhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Z-HOME</span></p></body></html>"))
+        self.label_zlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Z-LIMIT</span></p></body></html>"))
+        self.pushButton_power.setText(_translate("MainWindow", "POWER"))
+        self.pushButton_estop.setText(_translate("MainWindow", "E-STOP"))
+        self.pushButton_gotozero.setText(_translate("MainWindow", "GO TO ZERO"))
+        self.pushButton_machinehome.setText(_translate("MainWindow", "MACHINE HOME"))
         self.menuFile.setTitle(_translate("MainWindow", "FILE"))
         self.menuSetting.setTitle(_translate("MainWindow", "SETTINGS"))
         self.menuComunication.setTitle(_translate("MainWindow", "COMMUNICATION"))
