@@ -778,8 +778,7 @@ class monitorInputOutputThread(QThread):
                 #print(main_window.coilXY.coil_value)
                 self.change_value.emit(val)
             else: pass
-            time.sleep(0.1) #0.1s
-#================================================================================================
+            time.sleep(0.1) #0.1s        
 # Thread trong go to zero point
 class gotoZeroPosThread(QThread):
     def __init__(self, parent=None):
