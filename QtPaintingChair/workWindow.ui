@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>566</width>
+    <width>423</width>
     <height>566</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
     <normaloff>Robot.ico</normaloff>Robot.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_4">
+   <layout class="QGridLayout" name="gridLayout_8">
     <item row="0" column="0">
      <widget class="QFrame" name="frame0">
       <property name="enabled">
@@ -54,7 +54,7 @@
       <property name="lineWidth">
        <number>2</number>
       </property>
-      <layout class="QGridLayout" name="gridLayout_8">
+      <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
         <widget class="QFrame" name="frame_showtext">
          <property name="styleSheet">
@@ -2136,7 +2136,7 @@ border-radius: 5px</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>566</width>
+     <width>423</width>
      <height>26</height>
     </rect>
    </property>
