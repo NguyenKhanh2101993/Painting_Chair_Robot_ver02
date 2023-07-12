@@ -414,9 +414,9 @@ void setup() {
   //table_change_state();  // setup trạng thái ban đầu của bàn xoay
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
   //Serial.println("Slave id2 Setup OK");
-  delay(100);
-  newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
-  execute_motor_run(newPos, 200);
+  //delay(100);
+  //newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
+  //execute_motor_run(newPos, 200);
   //delay_value(1);
   //enable_MPG_mode();
 }
