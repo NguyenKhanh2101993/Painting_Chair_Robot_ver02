@@ -1734,8 +1734,7 @@ class monitorInputOutput:
 #================================================================================================
 if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
-    QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+    #QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
 
 
     app = QApplication(sys.argv)
