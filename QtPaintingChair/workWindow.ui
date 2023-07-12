@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
-    <height>566</height>
+    <width>1458</width>
+    <height>748</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1993,8 +1993,8 @@ border-radius: 5px</string>
            <widget class="QPushButton" name="pushButton_power">
             <property name="font">
              <font>
-              <family>Arial 12</family>
-              <pointsize>22</pointsize>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>16</pointsize>
               <weight>75</weight>
               <italic>false</italic>
               <bold>true</bold>
@@ -2024,8 +2024,8 @@ border-radius: 5px</string>
            <widget class="QPushButton" name="pushButton_estop">
             <property name="font">
              <font>
-              <family>Arial 12</family>
-              <pointsize>22</pointsize>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>16</pointsize>
               <weight>75</weight>
               <italic>false</italic>
               <bold>true</bold>
@@ -2059,8 +2059,8 @@ border-top-color: rgb(208, 208, 208);</string>
            <widget class="QPushButton" name="pushButton_gotozero">
             <property name="font">
              <font>
-              <family>Arial 12</family>
-              <pointsize>14</pointsize>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>16</pointsize>
               <weight>75</weight>
               <italic>false</italic>
               <bold>true</bold>
@@ -2096,8 +2096,8 @@ border-radius: 5px</string>
             </property>
             <property name="font">
              <font>
-              <family>Arial 12</family>
-              <pointsize>14</pointsize>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>16</pointsize>
               <weight>75</weight>
               <italic>false</italic>
               <bold>true</bold>
@@ -2136,7 +2136,7 @@ border-radius: 5px</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>423</width>
+     <width>1458</width>
      <height>26</height>
     </rect>
    </property>
