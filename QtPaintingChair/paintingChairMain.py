@@ -330,8 +330,9 @@ class MyTeachWindow(QtWidgets.QWidget):
 #================================================================================================
 class teachingWindow:
     def __init__(self):
-        super().__init__() 
-        self.teachWin = MyTeachWindow()
+        #super().__init__() 
+        #self.teachWin = MyTeachWindow()
+        self.teachWin = QWidget()
         self.uiteach = Ui_teachMode()
         self.uiteach.setupUi(self.teachWin)
        
@@ -832,7 +833,6 @@ class MyWindow(QtWidgets.QMainWindow):
         if result == QtWidgets.QMessageBox.Yes:   
             teachWindow.detroyTeachWindow()
             comWindow.detroyComWindow()
-            #teachWindow.exitTeachMode()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
             event.accept()
