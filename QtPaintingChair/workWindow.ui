@@ -1314,7 +1314,7 @@ border-radius: 5px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1337,7 +1337,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1360,7 +1360,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;A-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1383,7 +1383,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Y-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1406,7 +1406,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Y-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1429,7 +1429,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;A-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1452,7 +1452,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Z-HOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1475,7 +1475,7 @@ border-radius: 20px</string>
 color: rgb(255, 0, 0);
 font: 75 14pt &quot;Arial&quot; &quot;bold&quot;;
 border: 1px solid rgb(255, 255, 255);
-border-radius: 20px</string>
+border-radius: 2px</string>
             </property>
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Z-LIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1499,7 +1499,7 @@ border-radius: 5px</string>
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="4" column="4">
+          <item row="0" column="0">
            <widget class="QFrame" name="frame_position">
             <property name="styleSheet">
              <string notr="true">border: 2px solid rgb(255, 255, 255);
@@ -1522,7 +1522,7 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
                </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AXIS -- G54WORK --- MACHINE ------ GUN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AXIS -- G54WORK --- MACHINE ---- GUN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -1944,6 +1944,21 @@ border-radius: 5px</string>
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="font">
+             <font>
+              <family>Arial</family>
+              <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Design by: Khanh.Q.N - Khoi Nguyen Plastic.jsc - 0348777219</string>
+            </property>
            </widget>
           </item>
          </layout>

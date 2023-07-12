@@ -793,7 +793,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_xhome.setObjectName("label_xhome")
         self.gridLayout_5.addWidget(self.label_xhome, 0, 0, 1, 1)
         self.label_xlimit = QtWidgets.QLabel(self.frame_button)
@@ -808,7 +808,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_xlimit.setObjectName("label_xlimit")
         self.gridLayout_5.addWidget(self.label_xlimit, 0, 4, 1, 1)
         self.label_ahome = QtWidgets.QLabel(self.frame_button)
@@ -823,7 +823,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_ahome.setObjectName("label_ahome")
         self.gridLayout_5.addWidget(self.label_ahome, 0, 3, 1, 1)
         self.label_yhome = QtWidgets.QLabel(self.frame_button)
@@ -838,7 +838,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_yhome.setObjectName("label_yhome")
         self.gridLayout_5.addWidget(self.label_yhome, 0, 1, 1, 1)
         self.label_ylimit = QtWidgets.QLabel(self.frame_button)
@@ -853,7 +853,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_ylimit.setObjectName("label_ylimit")
         self.gridLayout_5.addWidget(self.label_ylimit, 0, 5, 1, 1)
         self.label_alimit = QtWidgets.QLabel(self.frame_button)
@@ -868,7 +868,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_alimit.setObjectName("label_alimit")
         self.gridLayout_5.addWidget(self.label_alimit, 0, 7, 1, 1)
         self.label_zhome = QtWidgets.QLabel(self.frame_button)
@@ -883,7 +883,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_zhome.setObjectName("label_zhome")
         self.gridLayout_5.addWidget(self.label_zhome, 0, 2, 1, 1)
         self.label_zlimit = QtWidgets.QLabel(self.frame_button)
@@ -898,7 +898,7 @@ class Ui_MainWindow(object):
 "color: rgb(255, 0, 0);\n"
 "font: 75 14pt \"Arial\" \"bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 20px")
+"border-radius: 2px")
         self.label_zlimit.setObjectName("label_zlimit")
         self.gridLayout_5.addWidget(self.label_zlimit, 0, 6, 1, 1)
         self.gridLayout_4.addWidget(self.frame_button, 1, 0, 1, 1)
@@ -1160,7 +1160,16 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.label_Cposition.setObjectName("label_Cposition")
         self.gridLayout_6.addWidget(self.label_Cposition, 10, 1, 1, 1)
-        self.gridLayout_3.addWidget(self.frame_position, 4, 4, 1, 1)
+        self.gridLayout_3.addWidget(self.frame_position, 0, 0, 1, 1)
+        self.label_11 = QtWidgets.QLabel(self.frame_termial)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_11.setFont(font)
+        self.label_11.setObjectName("label_11")
+        self.gridLayout_3.addWidget(self.label_11, 1, 0, 1, 1)
         self.gridLayout_4.addWidget(self.frame_termial, 1, 1, 3, 1)
         self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
         self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
@@ -1443,7 +1452,7 @@ class Ui_MainWindow(object):
         self.label_alimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">A-LIMIT</span></p></body></html>"))
         self.label_zhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Z-HOME</span></p></body></html>"))
         self.label_zlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Z-LIMIT</span></p></body></html>"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">AXIS -- G54WORK --- MACHINE ------ GUN</span></p></body></html>"))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600;\">AXIS -- G54WORK --- MACHINE ---- GUN</span></p></body></html>"))
         self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">X</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y</span></p></body></html>"))
         self.label_Xposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
@@ -1468,6 +1477,7 @@ class Ui_MainWindow(object):
         self.label_Chome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Z</span></p></body></html>"))
         self.label_Cposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_11.setText(_translate("MainWindow", "Design by: Khanh.Q.N - Khoi Nguyen Plastic.jsc - 0348777219"))
         self.pushButton_power.setText(_translate("MainWindow", "POWER"))
         self.pushButton_estop.setText(_translate("MainWindow", "E-STOP"))
         self.pushButton_gotozero.setText(_translate("MainWindow", "GO TO ZERO"))
