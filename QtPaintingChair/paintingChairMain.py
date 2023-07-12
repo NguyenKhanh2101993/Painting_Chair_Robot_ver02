@@ -55,9 +55,9 @@ class checkComWindow():
         result = self.workSerial.choose_comports(baud,com)
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
-              main_window.showCurrentPositions()
-              #main_window.threadreadCurrentPos.change_pos.connect(main_window.updateLabelPosition)
-              #main_window.threadreadCurrentPos.start()
+              #main_window.showCurrentPositions()
+              main_window.threadreadCurrentPos.change_pos.connect(main_window.updateLabelPosition)
+              main_window.threadreadCurrentPos.start()
               main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
               main_window.threadInputOutput.start()
               self.connectSignal = True
@@ -632,7 +632,7 @@ class workingTeachMode():
                 state_runing = False
                 self.chooseAxis = self.read_teach_axis()
                 self.button_state = self.read_state_button()
-                main_window.showCurrentPositions()
+                #main_window.showCurrentPositions()
                 self.Kinematics_Zaxis_mode_02()
                 
                 # gửi command quay chiều thuận trục được chọn
@@ -686,18 +686,21 @@ class workingTeachMode():
         
                 while state_runing:
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                    main_window.showCurrentPositions()
+                    #main_window.showCurrentPositions()
                     self.button_state = self.read_state_button()
                     if self.button_state == self.pre_button_state:
                         run.stop_motor()
                         state_runing = False
                         break  # thoat khỏi vong lặp while
+                    time.sleep(0.1)
                 
                 if (teachWindow.monitor_off == True):
                     teachWindow.monitor_off = False
                     self.chooseAxis = self.no_choise_axis
                     main_window.showStatus  ("===> Thoát khỏi chế độ teach mode")
                     break
+
+                time.sleep(0.1)
 
         except Exception as e:
             main_window.showStatus("===> Exit chế độ monitor teach mode")
@@ -711,7 +714,7 @@ class workingTeachMode():
                 while True:
                     running = False
                     self.button_state = self.read_state_button()
-                    main_window.showCurrentPositions()
+                    #main_window.showCurrentPositions()
                     if (self.button_state > self.pre_button_state): # nhấn Z1-
                         # tính động học
                         new_pos_A = main_window.currentPos[self.aAXIS] - 2
@@ -741,15 +744,18 @@ class workingTeachMode():
 
                     while running:
                         self.button_state = self.read_state_button()
-                        main_window.showCurrentPositions()
+                        #main_window.showCurrentPositions()
                         if self.button_state == self.pre_button_state:
                             run.stop_motor()
                             running = False
                             break  # thoat khỏi vong lặp while
+                        time.sleep(0.1)
                     
                     # nếu disable teach mode thì thoát khỏi 
                     if (teachWindow.monitor_off == True) or (self.chooseAxis != self.zAXIS):
                         break
+
+                    time.sleep(0.1)
             else: pass
 #================================================================================================
 # Thread trong monitor teach mode
@@ -796,6 +802,7 @@ class readCurrentPosThread(QThread):
         while True:
             val = main_window.showCurrentPositions()
             self.change_pos.emit(val)
+            time.sleep(0.05)
 #================================================================================================
 # Thread trong go to machine point
 class gotoMachinePosThread(QThread):
@@ -849,6 +856,7 @@ class workingWindow:
         self.defineCheckButton()
         self.defineWarningLabel()
         self.defineSliders()
+
         
         self.currentPos = [0,0,0,0,0,0,0,0]
         self.gearRatio = []
@@ -1046,7 +1054,7 @@ class workingWindow:
             
             self.showStatus("===> Lỗi đọc giá trị tọa độ")
 
-        self.updateLabelPosition()  
+        #self.updateLabelPosition()  
         return position
     def updateLabelPosition(self):
 
@@ -1123,10 +1131,12 @@ class workingWindow:
             waiting = True
             while waiting:
                 positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                self.showCurrentPositions()
+                #self.showCurrentPositions()
              
                 if positionCompleted[0] == 1:
                     waiting = False
+                time.sleep(0.1)
+
             self.showStatus("Tay máy đã về vị trí 0")
             self.threadGotoZeroPos.exit()
         except Exception as e:
@@ -1168,12 +1178,13 @@ class workingWindow:
                 while True: 
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                     positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                    self.showCurrentPositions()
+                    #self.showCurrentPositions()
                     if (positionCompleted[0]==1 or main_window.coilXY.sensor_machine_axis[i] == 0):
                         # dừng động cơ
                         run.stop_motor()
                         self.go_machine_axis_state = True
                         break  # thoat khỏi vong lặp while
+                    time.sleep(0.1)
 
             # sau khi chạy hết các động cơ về vị trí cảm biến
             # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
@@ -1184,13 +1195,15 @@ class workingWindow:
                 # Đọc trạng thái phát xung đã hoàn tất chưa
                 positionCompleted = comWindow.workSerial.commandPositionCompleted()
                 # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                self.showCurrentPositions()
+                #self.showCurrentPositions()
                 if positionCompleted[0] == 1: 
                     # set lại các thông số motor, đưa giá trị current_position về 0
                     comWindow.workSerial.setZeroPositions()
                     comWindow.workSerial.commandCheckXYZAsensor()
-                    self.showCurrentPositions()
+                    #self.showCurrentPositions()
                     break
+
+                time.sleep(0.1)
        
             self.disable_control_option(False)
             self.go_machine_home = True # đã về home
@@ -1380,7 +1393,7 @@ class runMotor:
         comWindow.workSerial.commandChangeStateBlockRun()
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
-            main_window.showCurrentPositions()
+            #main_window.showCurrentPositions()
 
             if point_done[0] == 1: # slave đã chạy xong hết block
                 self.run_block_done = True
@@ -1392,13 +1405,15 @@ class runMotor:
             if self.pause_on == 2: # tiếp tục chạy
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
+            
+            time.sleep(0.1)
 # 
     def monitor_run_auto_next(self):
         self.pause_on = 0
 
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
-            main_window.showCurrentPositions()
+            #main_window.showCurrentPositions()
 
             if point_done[0] == 1: 
                 break
@@ -1409,6 +1424,8 @@ class runMotor:
             if self.pause_on == 2: # tiếp tục chạy
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
+
+            time.sleep(0.1)
 
 # gửi mã thoát khỏi chế độ run block point tới board slave
     def send_end_run_block_mode(self):
