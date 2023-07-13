@@ -15,20 +15,22 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1280, 720)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMaximumSize(QtCore.QSize(1280, 720))
+        MainWindow.setTabletTracking(False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
+        MainWindow.setAutoFillBackground(True)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout_4.setObjectName("gridLayout_4")
         self.frame0 = QtWidgets.QFrame(self.centralwidget)
         self.frame0.setEnabled(True)
+        self.frame0.setGeometry(QtCore.QRect(70, 20, 1181, 641))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -181,85 +183,6 @@ class Ui_MainWindow(object):
         self.frame.setObjectName("frame")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.frame)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        self.label_x3 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x3.setFont(font)
-        self.label_x3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x3.setObjectName("label_x3")
-        self.gridLayout_7.addWidget(self.label_x3, 2, 0, 1, 1)
-        self.label_y10 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y10.setFont(font)
-        self.label_y10.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y10.setObjectName("label_y10")
-        self.gridLayout_7.addWidget(self.label_y10, 1, 6, 1, 1)
-        self.checkBoxY10 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY10.setTristate(False)
-        self.checkBoxY10.setObjectName("checkBoxY10")
-        self.gridLayout_7.addWidget(self.checkBoxY10, 1, 5, 1, 1)
-        self.label_x11 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x11.setFont(font)
-        self.label_x11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x11.setObjectName("label_x11")
-        self.gridLayout_7.addWidget(self.label_x11, 2, 1, 1, 1)
-        self.label_x5 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x5.setFont(font)
-        self.label_x5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x5.setObjectName("label_x5")
-        self.gridLayout_7.addWidget(self.label_x5, 4, 0, 1, 1)
-        self.label_x13 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x13.setFont(font)
-        self.label_x13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x13.setObjectName("label_x13")
-        self.gridLayout_7.addWidget(self.label_x13, 4, 1, 1, 1)
         self.label_y5 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -275,350 +198,85 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.label_y5.setObjectName("label_y5")
         self.gridLayout_7.addWidget(self.label_y5, 4, 4, 1, 1)
-        self.label_y13 = QtWidgets.QLabel(self.frame)
+        self.label_x13 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_y13.setFont(font)
-        self.label_y13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_x13.setFont(font)
+        self.label_x13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_y13.setObjectName("label_y13")
-        self.gridLayout_7.addWidget(self.label_y13, 4, 6, 1, 1)
-        self.label_x14 = QtWidgets.QLabel(self.frame)
+        self.label_x13.setObjectName("label_x13")
+        self.gridLayout_7.addWidget(self.label_x13, 4, 1, 1, 1)
+        self.checkBoxY10 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY10.setTristate(False)
+        self.checkBoxY10.setObjectName("checkBoxY10")
+        self.gridLayout_7.addWidget(self.checkBoxY10, 1, 5, 1, 1)
+        self.label_x5 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_x14.setFont(font)
-        self.label_x14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_x5.setFont(font)
+        self.label_x5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_x14.setObjectName("label_x14")
-        self.gridLayout_7.addWidget(self.label_x14, 5, 1, 1, 1)
-        self.label_y11 = QtWidgets.QLabel(self.frame)
+        self.label_x5.setObjectName("label_x5")
+        self.gridLayout_7.addWidget(self.label_x5, 4, 0, 1, 1)
+        self.label_x11 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_y11.setFont(font)
-        self.label_y11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_x11.setFont(font)
+        self.label_x11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_y11.setObjectName("label_y11")
-        self.gridLayout_7.addWidget(self.label_y11, 2, 6, 1, 1)
-        self.label_y6 = QtWidgets.QLabel(self.frame)
+        self.label_x11.setObjectName("label_x11")
+        self.gridLayout_7.addWidget(self.label_x11, 2, 1, 1, 1)
+        self.label_y10 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_y6.setFont(font)
-        self.label_y6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_y10.setFont(font)
+        self.label_y10.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_y6.setObjectName("label_y6")
-        self.gridLayout_7.addWidget(self.label_y6, 5, 4, 1, 1)
-        self.checkBoxY14 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY14.setTristate(False)
-        self.checkBoxY14.setObjectName("checkBoxY14")
-        self.gridLayout_7.addWidget(self.checkBoxY14, 5, 5, 1, 1)
-        self.label_x6 = QtWidgets.QLabel(self.frame)
+        self.label_y10.setObjectName("label_y10")
+        self.gridLayout_7.addWidget(self.label_y10, 1, 6, 1, 1)
+        self.label_x3 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_x6.setFont(font)
-        self.label_x6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_x3.setFont(font)
+        self.label_x3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_x6.setObjectName("label_x6")
-        self.gridLayout_7.addWidget(self.label_x6, 5, 0, 1, 1)
-        self.label_x10 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x10.setFont(font)
-        self.label_x10.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x10.setObjectName("label_x10")
-        self.gridLayout_7.addWidget(self.label_x10, 1, 1, 1, 1)
-        self.label_y12 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y12.setFont(font)
-        self.label_y12.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y12.setObjectName("label_y12")
-        self.gridLayout_7.addWidget(self.label_y12, 3, 6, 1, 1)
-        self.checkBoxY13 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY13.setTristate(False)
-        self.checkBoxY13.setObjectName("checkBoxY13")
-        self.gridLayout_7.addWidget(self.checkBoxY13, 4, 5, 1, 1)
-        self.checkBoxY11 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY11.setTristate(False)
-        self.checkBoxY11.setObjectName("checkBoxY11")
-        self.gridLayout_7.addWidget(self.checkBoxY11, 2, 5, 1, 1)
-        self.label_x4 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x4.setFont(font)
-        self.label_x4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x4.setObjectName("label_x4")
-        self.gridLayout_7.addWidget(self.label_x4, 3, 0, 1, 1)
-        self.label_x2 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x2.setFont(font)
-        self.label_x2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x2.setObjectName("label_x2")
-        self.gridLayout_7.addWidget(self.label_x2, 1, 0, 1, 1)
-        self.label_y2 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y2.setFont(font)
-        self.label_y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y2.setObjectName("label_y2")
-        self.gridLayout_7.addWidget(self.label_y2, 1, 4, 1, 1)
-        self.verticalSlider_speedMotor = QtWidgets.QSlider(self.frame)
-        self.verticalSlider_speedMotor.setMinimum(10)
-        self.verticalSlider_speedMotor.setMaximum(200)
-        self.verticalSlider_speedMotor.setOrientation(QtCore.Qt.Vertical)
-        self.verticalSlider_speedMotor.setTickPosition(QtWidgets.QSlider.TicksAbove)
-        self.verticalSlider_speedMotor.setTickInterval(1)
-        self.verticalSlider_speedMotor.setObjectName("verticalSlider_speedMotor")
-        self.gridLayout_7.addWidget(self.verticalSlider_speedMotor, 1, 8, 7, 1)
-        self.checkBoxY12 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY12.setTristate(False)
-        self.checkBoxY12.setObjectName("checkBoxY12")
-        self.gridLayout_7.addWidget(self.checkBoxY12, 3, 5, 1, 1)
-        self.label_y3 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y3.setFont(font)
-        self.label_y3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y3.setObjectName("label_y3")
-        self.gridLayout_7.addWidget(self.label_y3, 2, 4, 1, 1)
-        self.label_x12 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x12.setFont(font)
-        self.label_x12.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x12.setObjectName("label_x12")
-        self.gridLayout_7.addWidget(self.label_x12, 3, 1, 1, 1)
-        self.label_speedMotor = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_speedMotor.setFont(font)
-        self.label_speedMotor.setStyleSheet("background-color: rgb(100, 100, 100);\n"
-"color: rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_speedMotor.setObjectName("label_speedMotor")
-        self.gridLayout_7.addWidget(self.label_speedMotor, 0, 8, 1, 1)
-        self.label_x15 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x15.setFont(font)
-        self.label_x15.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x15.setObjectName("label_x15")
-        self.gridLayout_7.addWidget(self.label_x15, 6, 1, 1, 1)
-        self.checkBoxY16 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY16.setTristate(False)
-        self.checkBoxY16.setObjectName("checkBoxY16")
-        self.gridLayout_7.addWidget(self.checkBoxY16, 7, 5, 1, 1)
-        self.label_y7 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y7.setFont(font)
-        self.label_y7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y7.setObjectName("label_y7")
-        self.gridLayout_7.addWidget(self.label_y7, 6, 4, 1, 1)
-        self.label_x8 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x8.setFont(font)
-        self.label_x8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x8.setObjectName("label_x8")
-        self.gridLayout_7.addWidget(self.label_x8, 7, 0, 1, 1)
-        self.label_x7 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x7.setFont(font)
-        self.label_x7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x7.setObjectName("label_x7")
-        self.gridLayout_7.addWidget(self.label_x7, 6, 0, 1, 1)
-        self.label_x16 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x16.setFont(font)
-        self.label_x16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x16.setObjectName("label_x16")
-        self.gridLayout_7.addWidget(self.label_x16, 7, 1, 1, 1)
-        self.label_y16 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y16.setFont(font)
-        self.label_y16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y16.setObjectName("label_y16")
-        self.gridLayout_7.addWidget(self.label_y16, 7, 6, 1, 1)
-        self.label_y14 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y14.setFont(font)
-        self.label_y14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y14.setObjectName("label_y14")
-        self.gridLayout_7.addWidget(self.label_y14, 5, 6, 1, 1)
-        self.label_y8 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y8.setFont(font)
-        self.label_y8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y8.setObjectName("label_y8")
-        self.gridLayout_7.addWidget(self.label_y8, 7, 4, 1, 1)
-        self.checkBoxY15 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY15.setTristate(False)
-        self.checkBoxY15.setObjectName("checkBoxY15")
-        self.gridLayout_7.addWidget(self.checkBoxY15, 6, 5, 1, 1)
+        self.label_x3.setObjectName("label_x3")
+        self.gridLayout_7.addWidget(self.label_x3, 2, 0, 1, 1)
         self.label_y15 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -696,25 +354,6 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.label_x9.setObjectName("label_x9")
         self.gridLayout_7.addWidget(self.label_x9, 0, 1, 1, 1)
-        self.checkBoxY9 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY9.setTristate(False)
-        self.checkBoxY9.setObjectName("checkBoxY9")
-        self.gridLayout_7.addWidget(self.checkBoxY9, 0, 5, 1, 1)
-        self.label_y9 = QtWidgets.QLabel(self.frame)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y9.setFont(font)
-        self.label_y9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y9.setObjectName("label_y9")
-        self.gridLayout_7.addWidget(self.label_y9, 0, 6, 1, 1)
         self.value_speedSpray = QtWidgets.QLabel(self.frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -733,40 +372,403 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.value_speedSpray.setObjectName("value_speedSpray")
         self.gridLayout_7.addWidget(self.value_speedSpray, 0, 7, 1, 1)
+        self.label_y9 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y9.setFont(font)
+        self.label_y9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y9.setObjectName("label_y9")
+        self.gridLayout_7.addWidget(self.label_y9, 0, 6, 1, 1)
+        self.checkBoxY9 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY9.setTristate(False)
+        self.checkBoxY9.setObjectName("checkBoxY9")
+        self.gridLayout_7.addWidget(self.checkBoxY9, 0, 5, 1, 1)
+        self.label_x14 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x14.setFont(font)
+        self.label_x14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x14.setObjectName("label_x14")
+        self.gridLayout_7.addWidget(self.label_x14, 5, 1, 1, 1)
+        self.label_y13 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y13.setFont(font)
+        self.label_y13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y13.setObjectName("label_y13")
+        self.gridLayout_7.addWidget(self.label_y13, 4, 6, 1, 1)
+        self.label_y11 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y11.setFont(font)
+        self.label_y11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y11.setObjectName("label_y11")
+        self.gridLayout_7.addWidget(self.label_y11, 2, 6, 1, 1)
+        self.checkBoxY14 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY14.setTristate(False)
+        self.checkBoxY14.setObjectName("checkBoxY14")
+        self.gridLayout_7.addWidget(self.checkBoxY14, 5, 5, 1, 1)
+        self.label_y6 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y6.setFont(font)
+        self.label_y6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y6.setObjectName("label_y6")
+        self.gridLayout_7.addWidget(self.label_y6, 5, 4, 1, 1)
+        self.label_x6 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x6.setFont(font)
+        self.label_x6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x6.setObjectName("label_x6")
+        self.gridLayout_7.addWidget(self.label_x6, 5, 0, 1, 1)
+        self.checkBoxY13 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY13.setTristate(False)
+        self.checkBoxY13.setObjectName("checkBoxY13")
+        self.gridLayout_7.addWidget(self.checkBoxY13, 4, 5, 1, 1)
+        self.label_x10 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x10.setFont(font)
+        self.label_x10.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x10.setObjectName("label_x10")
+        self.gridLayout_7.addWidget(self.label_x10, 1, 1, 1, 1)
+        self.label_y12 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y12.setFont(font)
+        self.label_y12.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y12.setObjectName("label_y12")
+        self.gridLayout_7.addWidget(self.label_y12, 3, 6, 1, 1)
+        self.checkBoxY11 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY11.setTristate(False)
+        self.checkBoxY11.setObjectName("checkBoxY11")
+        self.gridLayout_7.addWidget(self.checkBoxY11, 2, 5, 1, 1)
+        self.label_x4 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x4.setFont(font)
+        self.label_x4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x4.setObjectName("label_x4")
+        self.gridLayout_7.addWidget(self.label_x4, 3, 0, 1, 1)
+        self.label_x2 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x2.setFont(font)
+        self.label_x2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x2.setObjectName("label_x2")
+        self.gridLayout_7.addWidget(self.label_x2, 1, 0, 1, 1)
+        self.label_y2 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y2.setFont(font)
+        self.label_y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y2.setObjectName("label_y2")
+        self.gridLayout_7.addWidget(self.label_y2, 1, 4, 1, 1)
+        self.verticalSlider_speedMotor = QtWidgets.QSlider(self.frame)
+        self.verticalSlider_speedMotor.setMinimum(10)
+        self.verticalSlider_speedMotor.setMaximum(200)
+        self.verticalSlider_speedMotor.setOrientation(QtCore.Qt.Vertical)
+        self.verticalSlider_speedMotor.setTickPosition(QtWidgets.QSlider.TicksAbove)
+        self.verticalSlider_speedMotor.setTickInterval(1)
+        self.verticalSlider_speedMotor.setObjectName("verticalSlider_speedMotor")
+        self.gridLayout_7.addWidget(self.verticalSlider_speedMotor, 1, 8, 7, 1)
+        self.checkBoxY12 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY12.setTristate(False)
+        self.checkBoxY12.setObjectName("checkBoxY12")
+        self.gridLayout_7.addWidget(self.checkBoxY12, 3, 5, 1, 1)
+        self.label_x12 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x12.setFont(font)
+        self.label_x12.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x12.setObjectName("label_x12")
+        self.gridLayout_7.addWidget(self.label_x12, 3, 1, 1, 1)
+        self.label_y3 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y3.setFont(font)
+        self.label_y3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y3.setObjectName("label_y3")
+        self.gridLayout_7.addWidget(self.label_y3, 2, 4, 1, 1)
+        self.label_speedMotor = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_speedMotor.setFont(font)
+        self.label_speedMotor.setStyleSheet("background-color: rgb(100, 100, 100);\n"
+"color: rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_speedMotor.setObjectName("label_speedMotor")
+        self.gridLayout_7.addWidget(self.label_speedMotor, 0, 8, 1, 1)
+        self.label_x15 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x15.setFont(font)
+        self.label_x15.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x15.setObjectName("label_x15")
+        self.gridLayout_7.addWidget(self.label_x15, 6, 1, 1, 1)
+        self.checkBoxY16 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY16.setTristate(False)
+        self.checkBoxY16.setObjectName("checkBoxY16")
+        self.gridLayout_7.addWidget(self.checkBoxY16, 7, 5, 1, 1)
+        self.label_x8 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x8.setFont(font)
+        self.label_x8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x8.setObjectName("label_x8")
+        self.gridLayout_7.addWidget(self.label_x8, 7, 0, 1, 1)
+        self.label_x7 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x7.setFont(font)
+        self.label_x7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x7.setObjectName("label_x7")
+        self.gridLayout_7.addWidget(self.label_x7, 6, 0, 1, 1)
+        self.label_y7 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y7.setFont(font)
+        self.label_y7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y7.setObjectName("label_y7")
+        self.gridLayout_7.addWidget(self.label_y7, 6, 4, 1, 1)
+        self.label_x16 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x16.setFont(font)
+        self.label_x16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x16.setObjectName("label_x16")
+        self.gridLayout_7.addWidget(self.label_x16, 7, 1, 1, 1)
+        self.label_y16 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y16.setFont(font)
+        self.label_y16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y16.setObjectName("label_y16")
+        self.gridLayout_7.addWidget(self.label_y16, 7, 6, 1, 1)
+        self.label_y14 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y14.setFont(font)
+        self.label_y14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y14.setObjectName("label_y14")
+        self.gridLayout_7.addWidget(self.label_y14, 5, 6, 1, 1)
+        self.checkBoxY15 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY15.setTristate(False)
+        self.checkBoxY15.setObjectName("checkBoxY15")
+        self.gridLayout_7.addWidget(self.checkBoxY15, 6, 5, 1, 1)
+        self.label_y8 = QtWidgets.QLabel(self.frame)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y8.setFont(font)
+        self.label_y8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y8.setObjectName("label_y8")
+        self.gridLayout_7.addWidget(self.label_y8, 7, 4, 1, 1)
+        self.checkBoxY4 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY4.setTristate(False)
+        self.checkBoxY4.setObjectName("checkBoxY4")
+        self.gridLayout_7.addWidget(self.checkBoxY4, 3, 2, 1, 1)
+        self.checkBoxY1 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY1.setTristate(False)
+        self.checkBoxY1.setObjectName("checkBoxY1")
+        self.gridLayout_7.addWidget(self.checkBoxY1, 0, 2, 1, 1)
         self.verticalSlider_spray = QtWidgets.QSlider(self.frame)
         self.verticalSlider_spray.setOrientation(QtCore.Qt.Vertical)
         self.verticalSlider_spray.setTickPosition(QtWidgets.QSlider.TicksAbove)
         self.verticalSlider_spray.setTickInterval(1)
         self.verticalSlider_spray.setObjectName("verticalSlider_spray")
         self.gridLayout_7.addWidget(self.verticalSlider_spray, 1, 7, 7, 1)
-        self.checkBoxY1 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY1.setTristate(False)
-        self.checkBoxY1.setObjectName("checkBoxY1")
-        self.gridLayout_7.addWidget(self.checkBoxY1, 0, 2, 1, 1)
-        self.checkBoxY4 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY4.setTristate(False)
-        self.checkBoxY4.setObjectName("checkBoxY4")
-        self.gridLayout_7.addWidget(self.checkBoxY4, 3, 2, 1, 1)
         self.checkBoxY2 = QtWidgets.QCheckBox(self.frame)
         self.checkBoxY2.setTristate(False)
         self.checkBoxY2.setObjectName("checkBoxY2")
         self.gridLayout_7.addWidget(self.checkBoxY2, 1, 2, 1, 1)
-        self.checkBoxY6 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY6.setTristate(False)
-        self.checkBoxY6.setObjectName("checkBoxY6")
-        self.gridLayout_7.addWidget(self.checkBoxY6, 5, 2, 1, 1)
-        self.checkBoxY5 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY5.setTristate(False)
-        self.checkBoxY5.setObjectName("checkBoxY5")
-        self.gridLayout_7.addWidget(self.checkBoxY5, 4, 2, 1, 1)
-        self.checkBoxY3 = QtWidgets.QCheckBox(self.frame)
-        self.checkBoxY3.setTristate(False)
-        self.checkBoxY3.setObjectName("checkBoxY3")
-        self.gridLayout_7.addWidget(self.checkBoxY3, 2, 2, 1, 1)
         self.checkBoxY7 = QtWidgets.QCheckBox(self.frame)
         self.checkBoxY7.setTristate(False)
         self.checkBoxY7.setObjectName("checkBoxY7")
         self.gridLayout_7.addWidget(self.checkBoxY7, 6, 2, 1, 1)
+        self.checkBoxY5 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY5.setTristate(False)
+        self.checkBoxY5.setObjectName("checkBoxY5")
+        self.gridLayout_7.addWidget(self.checkBoxY5, 4, 2, 1, 1)
+        self.checkBoxY6 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY6.setTristate(False)
+        self.checkBoxY6.setObjectName("checkBoxY6")
+        self.gridLayout_7.addWidget(self.checkBoxY6, 5, 2, 1, 1)
+        self.checkBoxY3 = QtWidgets.QCheckBox(self.frame)
+        self.checkBoxY3.setTristate(False)
+        self.checkBoxY3.setObjectName("checkBoxY3")
+        self.gridLayout_7.addWidget(self.checkBoxY3, 2, 2, 1, 1)
         self.checkBoxY8 = QtWidgets.QCheckBox(self.frame)
         self.checkBoxY8.setTristate(False)
         self.checkBoxY8.setObjectName("checkBoxY8")
@@ -1269,7 +1271,6 @@ class Ui_MainWindow(object):
         self.pushButton_machinehome.setObjectName("pushButton_machinehome")
         self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
         self.gridLayout_8.addWidget(self.frame_button_2, 3, 0, 1, 1)
-        self.gridLayout_4.addWidget(self.frame0, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1280, 26))
@@ -1390,59 +1391,59 @@ class Ui_MainWindow(object):
         self.pushButton_jog.setText(_translate("MainWindow", "JOG"))
         self.pushButton_auto.setText(_translate("MainWindow", "AUTO"))
         self.label_showtime.setText(_translate("MainWindow", "0:00:00"))
-        self.label_x3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X3</span></p></body></html>"))
-        self.label_y10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y10</span></p></body></html>"))
-        self.checkBoxY10.setText(_translate("MainWindow", "CheckBoxY10"))
-        self.label_x11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X11</span></p></body></html>"))
-        self.label_x5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X5</span></p></body></html>"))
-        self.label_x13.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X13</span></p></body></html>"))
         self.label_y5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y5</span></p></body></html>"))
-        self.label_y13.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y13</span></p></body></html>"))
-        self.label_x14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X14</span></p></body></html>"))
-        self.label_y11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y11</span></p></body></html>"))
-        self.label_y6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y6</span></p></body></html>"))
-        self.checkBoxY14.setText(_translate("MainWindow", "CheckBoxY14"))
-        self.label_x6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X6</span></p></body></html>"))
-        self.label_x10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X10</span></p></body></html>"))
-        self.label_y12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y12</span></p></body></html>"))
-        self.checkBoxY13.setText(_translate("MainWindow", "CheckBoxY13"))
-        self.checkBoxY11.setText(_translate("MainWindow", "CheckBoxY11"))
-        self.label_x4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X4</span></p></body></html>"))
-        self.label_x2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X2</span></p></body></html>"))
-        self.label_y2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y2</span></p></body></html>"))
-        self.checkBoxY12.setText(_translate("MainWindow", "CheckBoxY12"))
-        self.label_y3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y3</span></p></body></html>"))
-        self.label_x12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X12</span></p></body></html>"))
-        self.label_speedMotor.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ff0000;\">0</span></p></body></html>"))
-        self.label_x15.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X15</span></p></body></html>"))
-        self.checkBoxY16.setText(_translate("MainWindow", "CheckBoxY16"))
-        self.label_y7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y7</span></p></body></html>"))
-        self.label_x8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X8</span></p></body></html>"))
-        self.label_x7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X7</span></p></body></html>"))
-        self.label_x16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X16</span></p></body></html>"))
-        self.label_y16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y16</span></p></body></html>"))
-        self.label_y14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y14</span></p></body></html>"))
-        self.label_y8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y8</span></p></body></html>"))
-        self.checkBoxY15.setText(_translate("MainWindow", "CheckBoxY15"))
+        self.label_x13.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X13</span></p></body></html>"))
+        self.checkBoxY10.setText(_translate("MainWindow", "CheckBoxY10"))
+        self.label_x5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X5</span></p></body></html>"))
+        self.label_x11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X11</span></p></body></html>"))
+        self.label_y10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y10</span></p></body></html>"))
+        self.label_x3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X3</span></p></body></html>"))
         self.label_y15.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y15</span></p></body></html>"))
         self.label_y4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y4</span></p></body></html>"))
         self.label_y1.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y1</span></p></body></html>"))
         self.label_x1.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X1</span></p></body></html>"))
         self.label_x9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X9</span></p></body></html>"))
-        self.checkBoxY9.setText(_translate("MainWindow", "CheckBoxY9"))
-        self.label_y9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y9</span></p></body></html>"))
         self.value_speedSpray.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Arial\'; font-size:14pt; font-weight:600; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ff0000;\">0</span></p></body></html>"))
-        self.checkBoxY1.setText(_translate("MainWindow", "CheckBoxY1"))
+        self.label_y9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y9</span></p></body></html>"))
+        self.checkBoxY9.setText(_translate("MainWindow", "CheckBoxY9"))
+        self.label_x14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X14</span></p></body></html>"))
+        self.label_y13.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y13</span></p></body></html>"))
+        self.label_y11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y11</span></p></body></html>"))
+        self.checkBoxY14.setText(_translate("MainWindow", "CheckBoxY14"))
+        self.label_y6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y6</span></p></body></html>"))
+        self.label_x6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X6</span></p></body></html>"))
+        self.checkBoxY13.setText(_translate("MainWindow", "CheckBoxY13"))
+        self.label_x10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X10</span></p></body></html>"))
+        self.label_y12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y12</span></p></body></html>"))
+        self.checkBoxY11.setText(_translate("MainWindow", "CheckBoxY11"))
+        self.label_x4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X4</span></p></body></html>"))
+        self.label_x2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X2</span></p></body></html>"))
+        self.label_y2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y2</span></p></body></html>"))
+        self.checkBoxY12.setText(_translate("MainWindow", "CheckBoxY12"))
+        self.label_x12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X12</span></p></body></html>"))
+        self.label_y3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y3</span></p></body></html>"))
+        self.label_speedMotor.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ff0000;\">0</span></p></body></html>"))
+        self.label_x15.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X15</span></p></body></html>"))
+        self.checkBoxY16.setText(_translate("MainWindow", "CheckBoxY16"))
+        self.label_x8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X8</span></p></body></html>"))
+        self.label_x7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X7</span></p></body></html>"))
+        self.label_y7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y7</span></p></body></html>"))
+        self.label_x16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X16</span></p></body></html>"))
+        self.label_y16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y16</span></p></body></html>"))
+        self.label_y14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y14</span></p></body></html>"))
+        self.checkBoxY15.setText(_translate("MainWindow", "CheckBoxY15"))
+        self.label_y8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y8</span></p></body></html>"))
         self.checkBoxY4.setText(_translate("MainWindow", "CheckBoxY4"))
+        self.checkBoxY1.setText(_translate("MainWindow", "CheckBoxY1"))
         self.checkBoxY2.setText(_translate("MainWindow", "CheckBoxY2"))
-        self.checkBoxY6.setText(_translate("MainWindow", "CheckBoxY6"))
-        self.checkBoxY5.setText(_translate("MainWindow", "CheckBoxY5"))
-        self.checkBoxY3.setText(_translate("MainWindow", "CheckBoxY3"))
         self.checkBoxY7.setText(_translate("MainWindow", "CheckBoxY7"))
+        self.checkBoxY5.setText(_translate("MainWindow", "CheckBoxY5"))
+        self.checkBoxY6.setText(_translate("MainWindow", "CheckBoxY6"))
+        self.checkBoxY3.setText(_translate("MainWindow", "CheckBoxY3"))
         self.checkBoxY8.setText(_translate("MainWindow", "CheckBoxY8"))
         self.label_xhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X-HOME</span></p></body></html>"))
         self.label_xlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X-LIMIT</span></p></body></html>"))
