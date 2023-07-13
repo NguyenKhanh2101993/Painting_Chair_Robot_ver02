@@ -1141,7 +1141,7 @@ class workingWindow:
 
             self.showStatus("Tay máy đã về vị trí 0")
             
-            self.threadGotoZeroPos.finished()
+            self.threadGotoZeroPos.terminate()
             #self.threadGotoZeroPos.exit()
             self.threadGotoZeroPos.wait(100)
             self.showStatus("Tay máy đã về vị trí 0000")
