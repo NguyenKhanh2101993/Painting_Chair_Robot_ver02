@@ -804,6 +804,7 @@ class readCurrentPosThread(QThread):
         while True:
             val = main_window.showCurrentPositions()
             self.change_pos.emit(val)
+            print(self.change_pos)
             time.sleep(0.05)
 #================================================================================================
 # Thread trong go to machine point
@@ -1136,7 +1137,7 @@ class workingWindow:
              
                 if positionCompleted[0] == 1:
                     waiting = False
-                self.threadGotoZeroPos.waiting.emit(waiting)
+                #self.threadGotoZeroPos.waiting.emit(waiting)
                 time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
