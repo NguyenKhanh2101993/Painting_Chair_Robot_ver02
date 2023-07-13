@@ -1121,9 +1121,10 @@ class workingWindow:
         return currentPosition
 
     def startgotoZeroPosition(self):
-        if not self.threadGotoZeroPos.isRunning():
-            self.threadGotoZeroPos.start()
+        #if not self.threadGotoZeroPos.isRunning():
+        #    self.threadGotoZeroPos.start()
         #self.gotoZeroPosition()
+        self.threadreadCurrentPos.exit()
 
             
     def gotoZeroPosition(self):
