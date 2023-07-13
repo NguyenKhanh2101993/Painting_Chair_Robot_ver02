@@ -1141,15 +1141,17 @@ class workingWindow:
                 time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
-            #self.threadGotoZeroPos.exit()
-            self.threadGotoZeroPos.terminate()
+            
+            #self.threadGotoZeroPos.terminate()
             self.threadGotoZeroPos.wait(100)
+            self.threadGotoZeroPos.exit()
            
         except Exception as e:
             main_window.showStatus(str(e))
-            #self.threadGotoZeroPos.exit()
-            self.threadGotoZeroPos.terminate()
+            
+            #self.threadGotoZeroPos.terminate()
             self.threadGotoZeroPos.wait(100)
+            self.threadGotoZeroPos.exit()
             
             print("gotoZero Error status: "+str(e))
 
