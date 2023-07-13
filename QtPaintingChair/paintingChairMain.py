@@ -508,7 +508,7 @@ class teachingWindow:
     def exitTeachMode(self):
         main_window.disable_control_option(False)
         self.monitor_off = True
-        main_window.showStatus ("===> Thoát khỏi chế độ Teach Mode")
+        main_window.showStatus ("===> 1.Thoát khỏi chế độ Teach Mode")
         main_window.threadTeachMode.exit()
     
     def getSpeedMotor(self):
@@ -698,7 +698,7 @@ class workingTeachMode():
                 if (teachWindow.monitor_off == True):
                     teachWindow.monitor_off = False
                     self.chooseAxis = self.no_choise_axis
-                    main_window.showStatus  ("===> Thoát khỏi chế độ teach mode")
+                    main_window.showStatus  ("===> 2.Thoát khỏi chế độ teach mode")
                     break
 
                 time.sleep(0.1)
