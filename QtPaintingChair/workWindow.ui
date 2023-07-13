@@ -45,6 +45,9 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(51, 51, 51);</string>
       </property>

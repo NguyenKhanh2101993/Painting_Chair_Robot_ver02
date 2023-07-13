@@ -36,6 +36,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame0.sizePolicy().hasHeightForWidth())
         self.frame0.setSizePolicy(sizePolicy)
+        self.frame0.setMouseTracking(False)
         self.frame0.setStyleSheet("background-color: rgb(51, 51, 51);")
         self.frame0.setFrameShape(QtWidgets.QFrame.Panel)
         self.frame0.setFrameShadow(QtWidgets.QFrame.Raised)
