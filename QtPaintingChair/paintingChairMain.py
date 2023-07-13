@@ -1146,7 +1146,7 @@ class workingWindow:
             main_window.showStatus(str(e))
             #self.threadGotoZeroPos.exit()
             
-            print(str(e))
+            print("gotoZero Error status: "+str(e))
 
     def startgotoMachinePosition(self):
         if not self.threadGotoMachinePos.isRunning():
