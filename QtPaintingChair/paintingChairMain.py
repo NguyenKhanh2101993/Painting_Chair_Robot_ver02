@@ -1130,21 +1130,21 @@ class workingWindow:
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
-            while waiting:
-                positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                #self.showCurrentPositions()
+            #while waiting:
+            #    positionCompleted = comWindow.workSerial.commandPositionCompleted()
+            #    #self.showCurrentPositions()
              
-                if positionCompleted[0] == 1:
-                    waiting = False
-                print(str(positionCompleted[0]))
-                time.sleep(0.1)
+            #    if positionCompleted[0] == 1:
+            #        waiting = False
+            #    print(str(positionCompleted[0]))
+            #    time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
-            #self.threadGotoZeroPos.exit()
+            self.threadGotoZeroPos.exit()
            
         except Exception as e:
             main_window.showStatus(str(e))
-            #self.threadGotoZeroPos.exit()
+            self.threadGotoZeroPos.exit()
             
             print("gotoZero Error status: "+str(e))
 
