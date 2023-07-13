@@ -804,7 +804,6 @@ class readCurrentPosThread(QThread):
         while True:
             val = main_window.showCurrentPositions()
             self.change_pos.emit(val)
-            print(self.change_pos)
             time.sleep(0.05)
 #================================================================================================
 # Thread trong go to machine point
@@ -1143,15 +1142,15 @@ class workingWindow:
             self.showStatus("Tay máy đã về vị trí 0")
             
             self.threadGotoZeroPos.finished()
-            self.threadGotoZeroPos.exit()
-            #self.threadGotoZeroPos.wait(100)
-           
+            #self.threadGotoZeroPos.exit()
+            self.threadGotoZeroPos.wait(100)
+            self.showStatus("Tay máy đã về vị trí 0000")
            
         except Exception as e:
             main_window.showStatus(str(e))
             
             self.threadGotoZeroPos.terminate()
-            #self.threadGotoZeroPos.wait(100)
+            self.threadGotoZeroPos.wait(100)
             
             print("gotoZero Error status: "+str(e))
 
