@@ -1136,6 +1136,7 @@ class workingWindow:
              
                 if positionCompleted[0] == 1:
                     waiting = False
+                print(str(positionCompleted[0]))
                 time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
