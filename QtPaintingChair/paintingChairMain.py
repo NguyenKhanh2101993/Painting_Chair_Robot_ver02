@@ -1124,7 +1124,8 @@ class workingWindow:
         #if not self.threadGotoZeroPos.isRunning():
         #    self.threadGotoZeroPos.start()
         #self.gotoZeroPosition()
-        self.threadreadCurrentPos.exit()
+        self.showStatus("Đưa tay máy về vị trí 0")
+        self.threadreadCurrentPos.terminate()
 
             
     def gotoZeroPosition(self):
