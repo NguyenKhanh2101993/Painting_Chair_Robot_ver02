@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1458, 748)
+        MainWindow.resize(1280, 720)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -25,8 +25,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout_8 = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout_8.setObjectName("gridLayout_8")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout_4.setObjectName("gridLayout_4")
         self.frame0 = QtWidgets.QFrame(self.centralwidget)
         self.frame0.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -41,8 +41,8 @@ class Ui_MainWindow(object):
         self.frame0.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame0.setLineWidth(2)
         self.frame0.setObjectName("frame0")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.frame0)
-        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.gridLayout_8 = QtWidgets.QGridLayout(self.frame0)
+        self.gridLayout_8.setObjectName("gridLayout_8")
         self.frame_showtext = QtWidgets.QFrame(self.frame0)
         self.frame_showtext.setStyleSheet("background-color: rgb(122, 122, 122);")
         self.frame_showtext.setFrameShape(QtWidgets.QFrame.Panel)
@@ -172,7 +172,7 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.label_showtime.setObjectName("label_showtime")
         self.gridLayout_2.addWidget(self.label_showtime, 5, 3, 1, 1)
-        self.gridLayout_4.addWidget(self.frame_showtext, 0, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.frame_showtext, 0, 0, 1, 1)
         self.frame = QtWidgets.QFrame(self.frame0)
         self.frame.setStyleSheet("border: 2px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
@@ -771,7 +771,7 @@ class Ui_MainWindow(object):
         self.checkBoxY8.setTristate(False)
         self.checkBoxY8.setObjectName("checkBoxY8")
         self.gridLayout_7.addWidget(self.checkBoxY8, 7, 2, 1, 1)
-        self.gridLayout_4.addWidget(self.frame, 0, 1, 1, 1)
+        self.gridLayout_8.addWidget(self.frame, 0, 1, 1, 1)
         self.frame_button = QtWidgets.QFrame(self.frame0)
         self.frame_button.setStyleSheet("background-color: rgb(122, 122, 122);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
@@ -901,7 +901,7 @@ class Ui_MainWindow(object):
 "border-radius: 2px")
         self.label_zlimit.setObjectName("label_zlimit")
         self.gridLayout_5.addWidget(self.label_zlimit, 0, 6, 1, 1)
-        self.gridLayout_4.addWidget(self.frame_button, 1, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.frame_button, 1, 0, 1, 1)
         self.frame_termial = QtWidgets.QFrame(self.frame0)
         self.frame_termial.setStyleSheet("background-color: rgb(122, 122, 122);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
@@ -1170,7 +1170,7 @@ class Ui_MainWindow(object):
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
         self.gridLayout_3.addWidget(self.label_11, 1, 0, 1, 1)
-        self.gridLayout_4.addWidget(self.frame_termial, 1, 1, 3, 1)
+        self.gridLayout_8.addWidget(self.frame_termial, 1, 1, 3, 1)
         self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
         self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
 "font: 75 14pt \"Arial\";\n"
@@ -1183,7 +1183,7 @@ class Ui_MainWindow(object):
         self.textBrowser_terminal.setReadOnly(True)
         self.textBrowser_terminal.setOverwriteMode(False)
         self.textBrowser_terminal.setObjectName("textBrowser_terminal")
-        self.gridLayout_4.addWidget(self.textBrowser_terminal, 2, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.textBrowser_terminal, 2, 0, 1, 1)
         self.frame_button_2 = QtWidgets.QFrame(self.frame0)
         self.frame_button_2.setStyleSheet("background-color: rgb(122, 122, 122);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
@@ -1268,11 +1268,11 @@ class Ui_MainWindow(object):
 "border-radius: 5px")
         self.pushButton_machinehome.setObjectName("pushButton_machinehome")
         self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
-        self.gridLayout_4.addWidget(self.frame_button_2, 3, 0, 1, 1)
-        self.gridLayout_8.addWidget(self.frame0, 0, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.frame_button_2, 3, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.frame0, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1458, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1280, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")

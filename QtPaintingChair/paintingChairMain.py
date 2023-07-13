@@ -1140,13 +1140,11 @@ class workingWindow:
 
             self.showStatus("Tay máy đã về vị trí 0")
             #self.threadGotoZeroPos.exit()
-            self.threadGotoZeroPos.quit()
-            self.threadGotoZeroPos.wait()
+           
         except Exception as e:
             main_window.showStatus(str(e))
             #self.threadGotoZeroPos.exit()
-            self.threadGotoZeroPos.quit()
-            self.threadGotoZeroPos.wait()
+            
             print(str(e))
 
     def startgotoMachinePosition(self):
