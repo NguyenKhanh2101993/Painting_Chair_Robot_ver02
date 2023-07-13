@@ -703,6 +703,9 @@ class workingTeachMode():
 
                 time.sleep(0.1)
 
+            main_window.threadTeachMode.terminate()
+            main_window.threadTeachMode.wait(100)
+
         except Exception as e:
             main_window.showStatus("===> Exit chế độ monitor teach mode")
             main_window.showStatus (str(e))
