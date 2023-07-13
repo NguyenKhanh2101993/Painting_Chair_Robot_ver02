@@ -788,6 +788,7 @@ class monitorInputOutputThread(QThread):
             time.sleep(0.1) #0.1s        
 # Thread trong go to zero point
 class gotoZeroPosThread(QThread):
+    waiting = pyqtSignal(bool)
     def __init__(self, parent=None):
         super(gotoZeroPosThread, self).__init__(parent)
     def run(self):
@@ -1121,13 +1122,9 @@ class workingWindow:
         return currentPosition
 
     def startgotoZeroPosition(self):
-        #if not self.threadGotoZeroPos.isRunning():
-        #    self.threadGotoZeroPos.start()
-        #self.gotoZeroPosition()
-        self.showStatus("Đưa tay máy về vị trí 0")
-        self.threadreadCurrentPos.terminate()
-
-            
+        if not self.threadGotoZeroPos.isRunning():
+            self.threadGotoZeroPos.start()
+      
     def gotoZeroPosition(self):
         self.showStatus("Đưa tay máy về vị trí 0")
         try:
@@ -1139,21 +1136,20 @@ class workingWindow:
              
                 if positionCompleted[0] == 1:
                     waiting = False
-                print(str(positionCompleted[0]))
+                self.threadGotoZeroPos.waiting.emit(waiting)
                 time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
             
-            #self.threadGotoZeroPos.terminate()
+            self.threadGotoZeroPos.terminate()
             self.threadGotoZeroPos.wait(100)
-            self.threadGotoZeroPos.exit()
+           
            
         except Exception as e:
             main_window.showStatus(str(e))
             
-            #self.threadGotoZeroPos.terminate()
+            self.threadGotoZeroPos.terminate()
             self.threadGotoZeroPos.wait(100)
-            self.threadGotoZeroPos.exit()
             
             print("gotoZero Error status: "+str(e))
 
