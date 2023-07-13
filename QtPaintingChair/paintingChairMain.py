@@ -1121,8 +1121,9 @@ class workingWindow:
         return currentPosition
 
     def startgotoZeroPosition(self):
-        if not self.threadGotoZeroPos.isRunning():
-            self.threadGotoZeroPos.start()
+        #if not self.threadGotoZeroPos.isRunning():
+        #    self.threadGotoZeroPos.start()
+        self.gotoZeroPosition()
 
             
     def gotoZeroPosition(self):
@@ -1130,14 +1131,14 @@ class workingWindow:
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
-            #while waiting:
-            #    positionCompleted = comWindow.workSerial.commandPositionCompleted()
-            #    #self.showCurrentPositions()
+            while waiting:
+                positionCompleted = comWindow.workSerial.commandPositionCompleted()
+                #self.showCurrentPositions()
              
-            #    if positionCompleted[0] == 1:
-            #        waiting = False
-            #    print(str(positionCompleted[0]))
-            #    time.sleep(0.1)
+                if positionCompleted[0] == 1:
+                    waiting = False
+                print(str(positionCompleted[0]))
+                time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
             #self.threadGotoZeroPos.exit()
