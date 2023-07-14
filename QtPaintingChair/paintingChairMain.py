@@ -55,11 +55,14 @@ class checkComWindow():
         result = self.workSerial.choose_comports(baud,com)
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
-              #main_window.showCurrentPositions()
-              main_window.threadreadCurrentPos.change_pos.connect(main_window.updateLabelPosition)
-              main_window.threadreadCurrentPos.start()
-              main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
-              main_window.threadInputOutput.start()
+              #main_window.threadreadCurrentPos.change_pos.connect(main_window.updateLabelPosition)
+              #main_window.threadreadCurrentPos.start()
+              #main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
+              #main_window.threadInputOutput.start()
+              main_window.threadMonitorDataFromArduino.coilValue.connect(main_window.coilXY.monitor_coil_XY)
+              main_window.threadMonitorDataFromArduino.posValue.connect(main_window.updateLabelPosition)
+              main_window.threadMonitorDataFromArduino.start()
+
               self.connectSignal = True
               self.detroyComWindow()
         else: 
@@ -703,8 +706,8 @@ class workingTeachMode():
 
                 time.sleep(0.1)
 
-            main_window.threadTeachMode.terminate()
-            main_window.threadTeachMode.wait(100)
+            #main_window.threadTeachMode.terminate()
+            #main_window.threadTeachMode.wait(100)
 
         except Exception as e:
             main_window.showStatus("===> Exit chế độ monitor teach mode")
@@ -769,26 +772,26 @@ class monitorTeachModeThread(QThread):
     def run(self):
         main_window.showStatus("Start monitor in teachMode")
         teach.monitorTeachMode()
-    
 #================================================================================================
-# Thread monitor input_output signals
-class monitorInputOutputThread(QThread):
-    change_value = pyqtSignal(tuple)
+# Thread monitor input/ouput and current position
+class monitorDatafromArduinoThread(QThread):
+    coilValue =  pyqtSignal(tuple)  
+    posValue = pyqtSignal(list)
     def __init__(self, parent=None):
-        super(monitorInputOutputThread, self).__init__(parent)
+        super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Start monitor input/output")
+        main_window.showStatus("Start monitor input/output and current position")
         while True:
-            val = main_window.coilXY.read_coilXY()
-            if val != None:
-                main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(val)
-                #print(main_window.coilXY.sensor_value)
-                #main_window.showStatus(str(main_window.coilXY.sensor_value))
-                main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(val)
-                #print(main_window.coilXY.coil_value)
-                self.change_value.emit(val)
+            coil_Value = main_window.coilXY.read_coilXY()
+            pos_Value = main_window.showCurrentPositions()
+            self.posValue.emit(pos_Value)
+            if coil_Value != None:
+                main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
+                main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
+                self.coilValue.emit(coil_Value)
             else: pass
-            time.sleep(0.1) #0.1s        
+            time.sleep(0.05)
+#================================================================================================
 # Thread trong go to zero point
 class gotoZeroPosThread(QThread):
     waiting = pyqtSignal(bool)
@@ -796,18 +799,7 @@ class gotoZeroPosThread(QThread):
         super(gotoZeroPosThread, self).__init__(parent)
     def run(self):
         main_window.showStatus("Go to zero position")
-        main_window.gotoZeroPosition()
-#================================================================================================
-# THread read current position
-class readCurrentPosThread(QThread):
-    change_pos = pyqtSignal(list)
-    def __init__(self, parent=None):
-        super(readCurrentPosThread, self).__init__(parent)
-    def run(self):
-        while True:
-            val = main_window.showCurrentPositions()
-            self.change_pos.emit(val)
-            time.sleep(0.05)
+        main_window.gotoZeroPosition()   
 #================================================================================================
 # Thread trong go to machine point
 class gotoMachinePosThread(QThread):
@@ -816,7 +808,8 @@ class gotoMachinePosThread(QThread):
     def run(self):
         main_window.showStatus("Go to machine position")
         main_window.gotoMachinePosition()    
-
+#================================================================================================
+# Thread trong autoRun
 class autoRunThread(QThread):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
@@ -850,11 +843,10 @@ class workingWindow:
         self.definePinsWindow = setPinsWindow()
         self.coilXY = monitorInputOutput()
         self.threadTeachMode = monitorTeachModeThread()
-        self.threadInputOutput = monitorInputOutputThread()
         self.threadGotoZeroPos = gotoZeroPosThread()
         self.threadGotoMachinePos = gotoMachinePosThread()
         self.threadAutoRun = autoRunThread()
-        self.threadreadCurrentPos = readCurrentPosThread()
+        self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
 
         self.defineControlButton()
         self.defineCheckButton()
@@ -1135,19 +1127,17 @@ class workingWindow:
             waiting = True
             while waiting:
                 positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                #self.showCurrentPositions()
-             
                 if positionCompleted[0] == 1:
                     waiting = False
-                #self.threadGotoZeroPos.waiting.emit(waiting)
                 time.sleep(0.1)
 
             self.showStatus("Tay máy đã về vị trí 0")
             
-            self.threadGotoZeroPos.terminate()
-            #self.threadGotoZeroPos.exit()
-            self.threadGotoZeroPos.wait(100)
+            #self.threadGotoZeroPos.terminate()
+            
+            #self.threadGotoZeroPos.wait(100)
             self.showStatus("Tay máy đã về vị trí 0000")
+            self.threadGotoZeroPos.exit()
            
         except Exception as e:
             main_window.showStatus(str(e))
