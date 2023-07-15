@@ -55,10 +55,8 @@ class checkComWindow():
         result = self.workSerial.choose_comports(baud,com)
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
-              #main_window.threadMonitorDataFromArduino.coilValue.connect(main_window.coilXY.monitor_coil_XY)
-              #main_window.threadMonitorDataFromArduino.posValue.connect(main_window.updateLabelPosition)
-              #main_window.threadMonitorDataFromArduino.start()
-              main_window._runMonitorDataFromArduino()
+              main_window.startMonitorDataFromArduinoThread()
+              main_window.startTeachModeThread()
               self.connectSignal = True
               self.detroyComWindow()
         else: 
@@ -314,7 +312,7 @@ class paramWindow:
 # Confirm to exit teachingWindow
 class MyTeachWindow(QtWidgets.QWidget):
     def closeEvent(self,event):
-        teachWindow.exitTeachMode()
+        teachWindow.closeTeachWindow()
 #================================================================================================
 class teachingWindow:
     def __init__(self):
@@ -347,17 +345,17 @@ class teachingWindow:
         self.defineTeachModeButton()
    
     def showTeachWindow(self):
-        try:
-            main_window.showStatus  ("HIEN THI TEACH BOX")
-            self.teachWin.show()
-        except Exception as e:
-            print(str(e))
+        main_window.showStatus("Open Teaching Box")
+        main_window.uiWorking.label_directory.clear()
+        main_window.uiWorking.textBrowser_showfile.clear()
+        main_window.disable_control_option(True)
+        self.reInitTeachMode()
+        self.teachWin.show()
 
     def closeTeachWindow(self):
         self.teachWin.close()
-
-    def detroyTeachWindow(self):
-        self.exitTeachMode()
+        main_window.disable_control_option(False)
+        main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
 
@@ -395,25 +393,14 @@ class teachingWindow:
 
         self.teachModeButton_control = [self.uiteach.pushButton_exitTeach, self.uiteach.pushButton_savePoint, 
                                         self.uiteach.pushButton_setZero, self.uiteach.pushButton_saveFile]
-        teachModeButton_controlCommand = [self.detroyTeachWindow, self.setPoint, self.setZero, self.saveTofile]
+        teachModeButton_controlCommand = [self.closeTeachWindow, self.setPoint, self.setZero, self.saveTofile]
         for i in range(len(self.teachModeButton_control)): 
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
-
-        #self.teachModeButton_control[0].setDisabled(True)   # disable nut exit tren teaching Window
-
-    def enterTeachMode(self):
-        main_window.uiWorking.label_directory.clear()
-        main_window.uiWorking.textBrowser_showfile.clear()
-        self.reInitTeachMode()
-        self.showTeachWindow()
-        # đưa vào Qthread để chạy hàm monitorTeachMode
-        #main_window.threadTeachMode.start()
        
     def reInitTeachMode(self):
         self.button_active = 0
         self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
         self.monitor_off = False
-
         self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
                                  (' S'+'0'),(' F'+'0')]
         self.counter_line = 0
@@ -494,11 +481,6 @@ class teachingWindow:
 
     def testGotoZero(self):
         comWindow.workSerial.commandGotoZero()
-    
-    def exitTeachMode(self):
-        main_window.disable_control_option(False)
-        main_window.showStatus ("===> 1.Thoát khỏi chế độ Teach Mode")
-        self.monitor_off = True
     
     def getSpeedMotor(self):
         str_result = self.uiteach.lineEdit_speed.text()
@@ -622,7 +604,6 @@ class workingTeachMode():
                 state_runing = False
                 self.chooseAxis = self.read_teach_axis()
                 self.button_state = self.read_state_button()
-                #main_window.showCurrentPositions()
                 self.Kinematics_Zaxis_mode_02()
                 
                 # gửi command quay chiều thuận trục được chọn
@@ -676,7 +657,6 @@ class workingTeachMode():
         
                 while state_runing:
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                    #main_window.showCurrentPositions()
                     self.button_state = self.read_state_button()
                     if self.button_state == self.pre_button_state:
                         run.stop_motor()
@@ -684,22 +664,11 @@ class workingTeachMode():
                         break  # thoat khỏi vong lặp while
                     time.sleep(0.1)
                 
-                if (teachWindow.monitor_off == True):
-                    teachWindow.monitor_off = False
-                    self.chooseAxis = self.no_choise_axis
-                    main_window.showStatus  ("===> 2.Thoát khỏi chế độ teach mode")
-                    break
-                
                 print ("2. teachMode Thread")
                 time.sleep(0.1)
-
-            #main_window.threadTeachMode.finished.emit()
             
-
         except Exception as e:
-            main_window.showStatus("===> Exit chế độ monitor teach mode")
-            main_window.showStatus (str(e))
-            print(str(e))
+            main_window.showStatus("===> Teaching mode warning: "+ str(e))
 
         main_window.threadTeachMode.finished.emit()
 
@@ -709,7 +678,6 @@ class workingTeachMode():
                 while True:
                     running = False
                     self.button_state = self.read_state_button()
-                    #main_window.showCurrentPositions()
                     if (self.button_state > self.pre_button_state): # nhấn Z1-
                         # tính động học
                         new_pos_A = main_window.currentPos[self.aAXIS] - 2
@@ -739,7 +707,6 @@ class workingTeachMode():
 
                     while running:
                         self.button_state = self.read_state_button()
-                        #main_window.showCurrentPositions()
                         if self.button_state == self.pre_button_state:
                             run.stop_motor()
                             running = False
@@ -747,7 +714,7 @@ class workingTeachMode():
                         time.sleep(0.1)
                     
                     # nếu disable teach mode thì thoát khỏi 
-                    if (teachWindow.monitor_off == True) or (self.chooseAxis != self.zAXIS):
+                    if self.chooseAxis != self.zAXIS:
                         break
 
                     time.sleep(0.1)
@@ -761,11 +728,8 @@ class monitorTeachModeThread(QObject):
 
     def run(self):
         main_window.showStatus("Thread: Start monitor in teachMode")
-        teach.monitorTeachMode()
-
-    def stop(self):
-        teachWindow.closeTeachWindow()
-        
+        while True:
+            teach.monitorTeachMode()
 
 #================================================================================================
 # Thread monitor input/ouput and current position
@@ -775,7 +739,7 @@ class monitorDatafromArduinoThread(QObject):
     def __init__(self, parent=None):
         super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Start monitor input/output and current position")
+        main_window.showStatus("Thread: Monitor input/output and current position")
         while True:
             coil_Value = main_window.coilXY.read_coilXY()
             pos_Value = main_window.showCurrentPositions()
@@ -860,42 +824,32 @@ class workingWindow:
         self.go_machine_home = False
         self.checkValue = -1
 
-        # Khai báo sử dụng đa luồng được quản lý bới threadpool
-        # Tính số luồng tối đa có thể sử dụng maxThreadCount bởi threadpool
-        self.threadpool = QThreadPool()
+        # Khai báo sử dụng đa luồng được quản lý bới Qthread
+   
+        self.declareThreadMonitorDataFromArduino()
+        self.declareThreadTeachingMode()
+
+    def declareThreadMonitorDataFromArduino(self):
         self._threadMonitorDataFromArduino = QThread()
         self.threadMonitorDataFromArduino.moveToThread(self._threadMonitorDataFromArduino)
         self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
         self.threadMonitorDataFromArduino.posValue.connect(self.updateLabelPosition)
         self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
-
-        self._threadTeachMode = QThread()
         
-
-        #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
-        
-    def _runMonitorDataFromArduino(self):
-        # move to thread
+    def startMonitorDataFromArduinoThread(self):
         self._threadMonitorDataFromArduino.start()
 
-    def _runTeachingMode(self):
-        self.openTeachWindow()
+    def declareThreadTeachingMode(self):
+        self._threadTeachMode = QThread()
         self.threadTeachMode.moveToThread(self._threadTeachMode)
         self._threadTeachMode.started.connect(self.threadTeachMode.run)
-        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
-        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
-        self.threadTeachMode.finished.connect(self.stop)
-        self._threadTeachMode.start()
+        self.threadTeachMode.finished.connect(self.closeTeachWindow)
 
-    def stop(self):
+    def closeTeachWindow(self):
         teachWindow.closeTeachWindow()
-        
-        self._threadTeachMode.terminate()
-        #self._threadTeachMode.quit()
-        self._threadTeachMode.wait(500)
-        #self.threadTeachMode.deleteLater()
-        #self._threadTeachMode.deleteLater()
-        self.showStatus("THoat khoi teachmode thread")
+    
+    def startTeachModeThread(self):
+        self._threadTeachMode.start()
 
     def showWorkingWindow(self):
         self.window.show()
@@ -928,8 +882,7 @@ class workingWindow:
         self.uiWorking.actionChoose_File_pnt.triggered.connect(self.chooseFile)
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
-        #self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
-        self.uiWorking.actionTeach_mode_3.triggered.connect(self._runTeachingMode)
+        self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
         self.uiWorking.actionDefine_XY.triggered.connect(self.openDefinePinsWindow)
 
     def defineCheckButton(self):
@@ -1011,10 +964,8 @@ class workingWindow:
         self.definePinsWindow.showPinsWindow()
 
     def openTeachWindow(self):
-        self.showStatus("Chế độ dạy chương trình")
-        self.disable_control_option(True)
-        teachWindow.enterTeachMode()
-
+        teachWindow.showTeachWindow()
+       
     def enterManual(self):
         self.showStatus("Chế độ manual bật tắt coilY")
 
