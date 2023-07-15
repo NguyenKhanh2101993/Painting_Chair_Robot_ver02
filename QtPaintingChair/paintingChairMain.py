@@ -310,10 +310,15 @@ class paramWindow:
 
 #================================================================================================
 # teaching Window
+class MyTeachingWindow(QtWidgets.QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        pass
+
 #================================================================================================
 class teachingWindow:
     def __init__(self):
-        self.teachWin = QWidget()
+        self.teachWin = MyTeachingWindow() #QWidget()
         self.uiteach = Ui_teachMode()
         self.uiteach.setupUi(self.teachWin)
        
@@ -344,6 +349,7 @@ class teachingWindow:
         main_window.uiWorking.textBrowser_showfile.clear()
         main_window.disable_control_option(True)
         self.reInitTeachMode()
+        
         self.teachWin.show()
 
     def closeTeachWindow(self):
@@ -778,6 +784,7 @@ class autoRunThread(QObject):
 class MyWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self,event):
+        #QtWidgets.QMessageBox.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         result = QtWidgets.QMessageBox.question(self,
                       "Confirm Exit...",
                       "Are you sure you want to exit ?",

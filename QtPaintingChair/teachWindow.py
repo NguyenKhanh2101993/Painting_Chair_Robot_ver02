@@ -20,6 +20,7 @@ class Ui_teachMode(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         teachMode.setWindowIcon(icon)
+        teachMode.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.frame_teachmode = QtWidgets.QFrame(teachMode)
         self.frame_teachmode.setGeometry(QtCore.QRect(10, 0, 601, 431))
         self.frame_teachmode.setStyleSheet("background-color: rgb(170, 170, 127);\n"

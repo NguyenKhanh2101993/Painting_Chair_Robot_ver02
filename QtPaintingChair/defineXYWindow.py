@@ -18,6 +18,7 @@ class Ui_definePinsXY(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         definePinsXY.setWindowIcon(icon)
+        definePinsXY.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.frame_definePins = QtWidgets.QFrame(definePinsXY)
         self.frame_definePins.setGeometry(QtCore.QRect(0, 0, 951, 801))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)

@@ -25,6 +25,7 @@ class Ui_motorSettings(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         motorSettings.setWindowIcon(icon)
+        motorSettings.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.frame2 = QtWidgets.QFrame(motorSettings)
         self.frame2.setGeometry(QtCore.QRect(0, 0, 871, 351))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
