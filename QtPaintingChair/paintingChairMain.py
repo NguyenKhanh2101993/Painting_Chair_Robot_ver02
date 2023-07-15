@@ -693,7 +693,7 @@ class workingTeachMode():
                 print ("2. teachMode Thread")
                 time.sleep(0.1)
 
-            main_window.threadTeachMode.finished.emit()
+            #main_window.threadTeachMode.finished.emit()
             
 
         except Exception as e:
@@ -887,7 +887,7 @@ class workingWindow:
         self._threadTeachMode.start()
 
     def stop(self):
-        #teachWindow.closeTeachWindow()
+        teachWindow.closeTeachWindow()
         self._threadTeachMode.quit()
         self._threadTeachMode.wait()
         self.showStatus("THoat khoi teachmode thread")
