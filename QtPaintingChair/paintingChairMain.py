@@ -693,6 +693,7 @@ class workingTeachMode():
                 print ("2. teachMode Thread")
                 time.sleep(0.1)
 
+            main_window.threadTeachMode.finished.emit()
             
 
         except Exception as e:
@@ -757,13 +758,14 @@ class monitorTeachModeThread(QObject):
     finished = pyqtSignal()
     def __init__(self, parent=None):
         super(monitorTeachModeThread, self).__init__(parent)
+
     def run(self):
-        #main_window.openTeachWindow()
-        main_window.showStatus("Start monitor in teachMode")
+        main_window.showStatus("Thread: Start monitor in teachMode")
         teach.monitorTeachMode()
 
     def stop(self):
         teachWindow.closeTeachWindow()
+        
 
 #================================================================================================
 # Thread monitor input/ouput and current position
@@ -861,11 +863,17 @@ class workingWindow:
         # Khai báo sử dụng đa luồng được quản lý bới threadpool
         # Tính số luồng tối đa có thể sử dụng maxThreadCount bởi threadpool
         self.threadpool = QThreadPool()
-        
-        #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
-
-    def _runMonitorDataFromArduino(self):
         self._threadMonitorDataFromArduino = QThread()
+        self._threadTeachMode = QThread()
+        self.threadTeachMode.moveToThread(self._threadTeachMode)
+        self._threadTeachMode.started.connect(self.threadTeachMode.run)
+        self.threadTeachMode.finished.connect(self.threadTeachMode.stop)
+        
+        self.threadTeachMode.finished.connect(self.stop)
+
+        #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+        
+    def _runMonitorDataFromArduino(self):
         # move to thread
         self.threadMonitorDataFromArduino.moveToThread(self._threadMonitorDataFromArduino)
         self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
@@ -874,13 +882,24 @@ class workingWindow:
         self._threadMonitorDataFromArduino.start()
 
     def _runTeachingMode(self):
-        self._threadTeachMode = QThread()
-        self.threadTeachMode.moveToThread(self._threadTeachMode)
-        self._threadTeachMode.started.connect(self.threadTeachMode.run)
-        self.threadTeachMode.finished.connect(self.threadTeachMode.stop)
-        self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
-        self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
+
+        self.openTeachWindow()
+        
+       
+        
+        
+        #self.threadTeachMode.finished.connect(self._threadTeachMode.wait)
+        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
+        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
         self._threadTeachMode.start()
+
+    def stop(self):
+        #self.threadTeachMode.stop()
+        self._threadTeachMode.quit()
+        self._threadTeachMode.wait()
+        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
+        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
+        self.showStatus("THoat khoi teachmode thread")
 
     def showWorkingWindow(self):
         self.window.show()
