@@ -8,7 +8,7 @@ import math
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import QThread, QRunnable, QThreadPool, pyqtSignal
+from PyQt5.QtCore import QObject, QThread, QRunnable, QThreadPool, pyqtSignal
 from PyQt5.QtGui import QTextCursor
 
 from comWindow import Ui_communication
@@ -55,14 +55,10 @@ class checkComWindow():
         result = self.workSerial.choose_comports(baud,com)
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
-              #main_window.threadreadCurrentPos.change_pos.connect(main_window.updateLabelPosition)
-              #main_window.threadreadCurrentPos.start()
-              #main_window.threadInputOutput.change_value.connect(main_window.coilXY.monitor_coil_XY)
-              #main_window.threadInputOutput.start()
-              main_window.threadMonitorDataFromArduino.coilValue.connect(main_window.coilXY.monitor_coil_XY)
-              main_window.threadMonitorDataFromArduino.posValue.connect(main_window.updateLabelPosition)
-              main_window.threadMonitorDataFromArduino.start()
-
+              #main_window.threadMonitorDataFromArduino.coilValue.connect(main_window.coilXY.monitor_coil_XY)
+              #main_window.threadMonitorDataFromArduino.posValue.connect(main_window.updateLabelPosition)
+              #main_window.threadMonitorDataFromArduino.start()
+              main_window._runMonitorDataFromArduino()
               self.connectSignal = True
               self.detroyComWindow()
         else: 
@@ -318,17 +314,6 @@ class paramWindow:
 # Confirm to exit teachingWindow
 class MyTeachWindow(QtWidgets.QWidget):
     def closeEvent(self,event):
-        """"
-        result = QtWidgets.QMessageBox.question(self,
-                      "Confirm Exit...",
-                      "Are you sure you want to exit ?",
-                      QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
-        event.ignore()
-
-        if result == QtWidgets.QMessageBox.Yes:
-            teachWindow.exitTeachMode()
-            event.accept()
-        """
         teachWindow.exitTeachMode()
 #================================================================================================
 class teachingWindow:
@@ -368,10 +353,12 @@ class teachingWindow:
         except Exception as e:
             print(str(e))
 
-    def detroyTeachWindow(self):
-        self.exitTeachMode()
+    def closeTeachWindow(self):
         self.teachWin.close()
 
+    def detroyTeachWindow(self):
+        self.exitTeachMode()
+        
     def defineTeachModeButton(self):
 
         teach_command_deactive = [self.deactive, self.deactive, self.deactive, self.deactive, 
@@ -420,7 +407,7 @@ class teachingWindow:
         self.reInitTeachMode()
         self.showTeachWindow()
         # đưa vào Qthread để chạy hàm monitorTeachMode
-        main_window.threadTeachMode.start()
+        #main_window.threadTeachMode.start()
        
     def reInitTeachMode(self):
         self.button_active = 0
@@ -510,9 +497,8 @@ class teachingWindow:
     
     def exitTeachMode(self):
         main_window.disable_control_option(False)
-        self.monitor_off = True
         main_window.showStatus ("===> 1.Thoát khỏi chế độ Teach Mode")
-        main_window.threadTeachMode.exit()
+        self.monitor_off = True
     
     def getSpeedMotor(self):
         str_result = self.uiteach.lineEdit_speed.text()
@@ -703,17 +689,18 @@ class workingTeachMode():
                     self.chooseAxis = self.no_choise_axis
                     main_window.showStatus  ("===> 2.Thoát khỏi chế độ teach mode")
                     break
-
+                
+                main_window.showStatus  ("2. teachMode Thread")
                 time.sleep(0.1)
 
-            #main_window.threadTeachMode.terminate()
-            #main_window.threadTeachMode.wait(100)
+            
 
         except Exception as e:
             main_window.showStatus("===> Exit chế độ monitor teach mode")
             main_window.showStatus (str(e))
             print(str(e))
-            return
+
+        main_window.threadTeachMode.finished.emit()
 
     def Kinematics_Zaxis_mode_02(self):
             if self.chooseAxis == self.z1AXIS:
@@ -766,15 +753,21 @@ class workingTeachMode():
             else: pass
 #================================================================================================
 # Thread trong monitor teach mode
-class monitorTeachModeThread(QThread):
+class monitorTeachModeThread(QObject):
+    finished = pyqtSignal()
     def __init__(self, parent=None):
         super(monitorTeachModeThread, self).__init__(parent)
     def run(self):
+        #main_window.openTeachWindow()
         main_window.showStatus("Start monitor in teachMode")
         teach.monitorTeachMode()
+
+    def stop(self):
+        teachWindow.closeTeachWindow()
+
 #================================================================================================
 # Thread monitor input/ouput and current position
-class monitorDatafromArduinoThread(QThread):
+class monitorDatafromArduinoThread(QObject):
     coilValue =  pyqtSignal(tuple)  
     posValue = pyqtSignal(list)
     def __init__(self, parent=None):
@@ -790,11 +783,12 @@ class monitorDatafromArduinoThread(QThread):
                 main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
                 self.coilValue.emit(coil_Value)
             else: pass
-            time.sleep(0.05)
+            main_window.showStatus("1. monitorArduino Thread")
+            time.sleep(0.1)
 #================================================================================================
 # Thread trong go to zero point
-class gotoZeroPosThread(QThread):
-    waiting = pyqtSignal(bool)
+class gotoZeroPosThread(QObject):
+    finished = pyqtSignal()
     def __init__(self, parent=None):
         super(gotoZeroPosThread, self).__init__(parent)
     def run(self):
@@ -802,7 +796,8 @@ class gotoZeroPosThread(QThread):
         main_window.gotoZeroPosition()   
 #================================================================================================
 # Thread trong go to machine point
-class gotoMachinePosThread(QThread):
+class gotoMachinePosThread(QObject):
+    finished = pyqtSignal()
     def __init__(self, parent=None):
         super(gotoMachinePosThread, self).__init__(parent)
     def run(self):
@@ -810,13 +805,15 @@ class gotoMachinePosThread(QThread):
         main_window.gotoMachinePosition()    
 #================================================================================================
 # Thread trong autoRun
-class autoRunThread(QThread):
+class autoRunThread(QObject):
+    finished = pyqtSignal()
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
         main_window.showStatus("Auto run mode")
         run.activate_run_mode()
 #================================================================================================
+
 # Confirm exit workingWindow
 class MyWindow(QtWidgets.QMainWindow):
 
@@ -828,7 +825,7 @@ class MyWindow(QtWidgets.QMainWindow):
         event.ignore()
 
         if result == QtWidgets.QMessageBox.Yes:   
-            teachWindow.detroyTeachWindow()
+            teachWindow.closeTeachWindow()
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
@@ -867,6 +864,24 @@ class workingWindow:
         
         #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
+    def _runMonitorDataFromArduino(self):
+        self._threadMonitorDataFromArduino = QThread()
+        # move to thread
+        self.threadMonitorDataFromArduino.moveToThread(self._threadMonitorDataFromArduino)
+        self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
+        self.threadMonitorDataFromArduino.posValue.connect(self.updateLabelPosition)
+        self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
+        self._threadMonitorDataFromArduino.start()
+
+    def _runTeachingMode(self):
+        self._threadTeachMode = QThread()
+        self.threadTeachMode.moveToThread(self._threadTeachMode)
+        self._threadTeachMode.started.connect(self.threadTeachMode.run)
+        self.threadTeachMode.finished.connect(self.threadTeachMode.stop)
+        self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
+        self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
+        self._threadTeachMode.start()
+
     def showWorkingWindow(self):
         self.window.show()
 
@@ -898,7 +913,8 @@ class workingWindow:
         self.uiWorking.actionChoose_File_pnt.triggered.connect(self.chooseFile)
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
-        self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
+        #self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
+        self.uiWorking.actionTeach_mode_3.triggered.connect(self._runTeachingMode)
         self.uiWorking.actionDefine_XY.triggered.connect(self.openDefinePinsWindow)
 
     def defineCheckButton(self):
@@ -1039,7 +1055,7 @@ class workingWindow:
         self.showStatus(self.gearRatio)
 
     def showCurrentPositions(self):
-        position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
+        position = [10,10,10,10,10,10,10,10]#self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
         if position != None:
             for i in range(self.MAX_AXIS + 2):
                 self.currentPos[i] = position[i]
@@ -1703,8 +1719,7 @@ class monitorInputOutput:
     def read_coilXY(self):
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
         try: 
-            input_output_packet = comWindow.workSerial.readInputOutputCoil()
-            #print(input_output_packet)
+            input_output_packet = None #comWindow.workSerial.readInputOutputCoil()
         except: 
             main_window.showStatus("===> Giám sát tín hiệu In/Out bị lỗi")
             input_output_packet = None
