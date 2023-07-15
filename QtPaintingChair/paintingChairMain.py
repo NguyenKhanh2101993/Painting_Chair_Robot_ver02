@@ -893,7 +893,7 @@ class workingWindow:
         self._threadTeachMode.terminate()
         #self._threadTeachMode.quit()
         self._threadTeachMode.wait(500)
-        self.threadTeachMode.deleteLater()
+        #self.threadTeachMode.deleteLater()
         #self._threadTeachMode.deleteLater()
         self.showStatus("THoat khoi teachmode thread")
 
