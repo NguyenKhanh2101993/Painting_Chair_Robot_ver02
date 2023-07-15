@@ -864,6 +864,10 @@ class workingWindow:
         # Tính số luồng tối đa có thể sử dụng maxThreadCount bởi threadpool
         self.threadpool = QThreadPool()
         self._threadMonitorDataFromArduino = QThread()
+        self.threadMonitorDataFromArduino.moveToThread(self._threadMonitorDataFromArduino)
+        self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
+        self.threadMonitorDataFromArduino.posValue.connect(self.updateLabelPosition)
+        self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
         self._threadTeachMode = QThread()
         self.threadTeachMode.moveToThread(self._threadTeachMode)
         self._threadTeachMode.started.connect(self.threadTeachMode.run)
@@ -875,10 +879,7 @@ class workingWindow:
         
     def _runMonitorDataFromArduino(self):
         # move to thread
-        self.threadMonitorDataFromArduino.moveToThread(self._threadMonitorDataFromArduino)
-        self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
-        self.threadMonitorDataFromArduino.posValue.connect(self.updateLabelPosition)
-        self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
+        
         self._threadMonitorDataFromArduino.start()
 
     def _runTeachingMode(self):
@@ -889,7 +890,7 @@ class workingWindow:
     def stop(self):
         teachWindow.closeTeachWindow()
         #self._threadTeachMode.quit()
-        self._threadTeachMode.deleteLater()
+        #self._threadTeachMode.deleteLater()
         self._threadTeachMode.terminate()
         self._threadTeachMode.wait(100)
         self.showStatus("THoat khoi teachmode thread")
