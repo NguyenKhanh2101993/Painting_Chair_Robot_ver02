@@ -868,6 +868,7 @@ class workingWindow:
         self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
         self.threadMonitorDataFromArduino.posValue.connect(self.updateLabelPosition)
         self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
+
         self._threadTeachMode = QThread()
         self.threadTeachMode.moveToThread(self._threadTeachMode)
         self._threadTeachMode.started.connect(self.threadTeachMode.run)
@@ -879,20 +880,17 @@ class workingWindow:
         
     def _runMonitorDataFromArduino(self):
         # move to thread
-        
         self._threadMonitorDataFromArduino.start()
 
     def _runTeachingMode(self):
-
         self.openTeachWindow()
         self._threadTeachMode.start()
 
     def stop(self):
         teachWindow.closeTeachWindow()
-        #self._threadTeachMode.quit()
-        #self._threadTeachMode.deleteLater()
+        
         self._threadTeachMode.terminate()
-        self._threadTeachMode.wait(100)
+        self._threadTeachMode.wait(1000)
         self.showStatus("THoat khoi teachmode thread")
 
     def showWorkingWindow(self):
