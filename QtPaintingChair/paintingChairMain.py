@@ -690,7 +690,7 @@ class workingTeachMode():
                     main_window.showStatus  ("===> 2.Thoát khỏi chế độ teach mode")
                     break
                 
-                main_window.showStatus  ("2. teachMode Thread")
+                print ("2. teachMode Thread")
                 time.sleep(0.1)
 
             
@@ -783,7 +783,7 @@ class monitorDatafromArduinoThread(QObject):
                 main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
                 self.coilValue.emit(coil_Value)
             else: pass
-            main_window.showStatus("1. monitorArduino Thread")
+            print ("1. monitorArduino Thread")
             time.sleep(0.1)
 #================================================================================================
 # Thread trong go to zero point
