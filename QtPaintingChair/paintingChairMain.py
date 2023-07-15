@@ -889,7 +889,8 @@ class workingWindow:
     def stop(self):
         teachWindow.closeTeachWindow()
         
-        self._threadTeachMode.terminate()
+        #self._threadTeachMode.terminate()
+        self._threadTeachMode.quit()
         self._threadTeachMode.wait(1000)
         self.showStatus("THoat khoi teachmode thread")
 
