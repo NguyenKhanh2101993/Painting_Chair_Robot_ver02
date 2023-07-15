@@ -309,20 +309,14 @@ class paramWindow:
         return result
 
 #================================================================================================
-# Confirm to exit teachingWindow
-class MyTeachWindow(QtWidgets.QWidget):
-    def closeEvent(self,event):
-        teachWindow.closeTeachWindow()
+# teaching Window
 #================================================================================================
 class teachingWindow:
     def __init__(self):
-        #super().__init__() 
-        #self.teachWin = MyTeachWindow()
         self.teachWin = QWidget()
         self.uiteach = Ui_teachMode()
         self.uiteach.setupUi(self.teachWin)
        
-
         self.forward = 1
         self.reverse = -1
        
@@ -795,6 +789,10 @@ class MyWindow(QtWidgets.QMainWindow):
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
+            main_window._threadTeachMode.terminate()
+            main_window._threadTeachMode.wait(100)
+            main_window._threadMonitorDataFromArduino.terminate()
+            main_window._threadMonitorDataFromArduino.wait(100)
             event.accept()
 #================================================================================================
 class workingWindow:
