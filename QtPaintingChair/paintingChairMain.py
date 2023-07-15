@@ -867,8 +867,8 @@ class workingWindow:
         self._threadTeachMode = QThread()
         self.threadTeachMode.moveToThread(self._threadTeachMode)
         self._threadTeachMode.started.connect(self.threadTeachMode.run)
-        self.threadTeachMode.finished.connect(self.threadTeachMode.stop)
-        
+        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
+        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
         self.threadTeachMode.finished.connect(self.stop)
 
         #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
@@ -884,21 +884,12 @@ class workingWindow:
     def _runTeachingMode(self):
 
         self.openTeachWindow()
-        
-       
-        
-        
-        #self.threadTeachMode.finished.connect(self._threadTeachMode.wait)
-        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
-        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
         self._threadTeachMode.start()
 
     def stop(self):
-        #self.threadTeachMode.stop()
+        #teachWindow.closeTeachWindow()
         self._threadTeachMode.quit()
         self._threadTeachMode.wait()
-        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
-        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
         self.showStatus("THoat khoi teachmode thread")
 
     def showWorkingWindow(self):
