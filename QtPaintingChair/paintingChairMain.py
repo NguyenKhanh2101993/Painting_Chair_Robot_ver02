@@ -870,11 +870,7 @@ class workingWindow:
         self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
 
         self._threadTeachMode = QThread()
-        self.threadTeachMode.moveToThread(self._threadTeachMode)
-        self._threadTeachMode.started.connect(self.threadTeachMode.run)
-        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
-        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
-        self.threadTeachMode.finished.connect(self.stop)
+        
 
         #print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
         
@@ -884,13 +880,18 @@ class workingWindow:
 
     def _runTeachingMode(self):
         self.openTeachWindow()
+        self.threadTeachMode.moveToThread(self._threadTeachMode)
+        self._threadTeachMode.started.connect(self.threadTeachMode.run)
+        #self.threadTeachMode.finished.connect(self.threadTeachMode.deleteLater)
+        #self._threadTeachMode.finished.connect(self._threadTeachMode.deleteLater)
+        self.threadTeachMode.finished.connect(self.stop)
         self._threadTeachMode.start()
 
     def stop(self):
         teachWindow.closeTeachWindow()
         
-        #self._threadTeachMode.terminate()
-        self._threadTeachMode.quit()
+        self._threadTeachMode.terminate()
+        #self._threadTeachMode.quit()
         self._threadTeachMode.wait(1000)
         self.showStatus("THoat khoi teachmode thread")
 
