@@ -766,7 +766,7 @@ class workingTeachMode():
             else: pass
 #================================================================================================
 # Thread trong monitor teach mode
-class monitorTeachModeThread(QThreadPool):
+class monitorTeachModeThread(QThread):
     def __init__(self, parent=None):
         super(monitorTeachModeThread, self).__init__(parent)
     def run(self):
@@ -774,7 +774,7 @@ class monitorTeachModeThread(QThreadPool):
         teach.monitorTeachMode()
 #================================================================================================
 # Thread monitor input/ouput and current position
-class monitorDatafromArduinoThread(QThreadPool):
+class monitorDatafromArduinoThread(QThread):
     coilValue =  pyqtSignal(tuple)  
     posValue = pyqtSignal(list)
     def __init__(self, parent=None):
@@ -793,7 +793,7 @@ class monitorDatafromArduinoThread(QThreadPool):
             time.sleep(0.05)
 #================================================================================================
 # Thread trong go to zero point
-class gotoZeroPosThread(QThreadPool):
+class gotoZeroPosThread(QThread):
     waiting = pyqtSignal(bool)
     def __init__(self, parent=None):
         super(gotoZeroPosThread, self).__init__(parent)
@@ -802,7 +802,7 @@ class gotoZeroPosThread(QThreadPool):
         main_window.gotoZeroPosition()   
 #================================================================================================
 # Thread trong go to machine point
-class gotoMachinePosThread(QThreadPool):
+class gotoMachinePosThread(QThread):
     def __init__(self, parent=None):
         super(gotoMachinePosThread, self).__init__(parent)
     def run(self):
@@ -810,7 +810,7 @@ class gotoMachinePosThread(QThreadPool):
         main_window.gotoMachinePosition()    
 #================================================================================================
 # Thread trong autoRun
-class autoRunThread(QThreadPool):
+class autoRunThread(QThread):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
@@ -847,9 +847,6 @@ class workingWindow:
         self.threadGotoMachinePos = gotoMachinePosThread()
         self.threadAutoRun = autoRunThread()
         self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
-
-        self.threadpool = QThreadPool()
-        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
         self.defineControlButton()
         self.defineCheckButton()
