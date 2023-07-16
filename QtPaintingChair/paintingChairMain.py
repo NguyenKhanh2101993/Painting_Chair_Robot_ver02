@@ -57,6 +57,7 @@ class checkComWindow():
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
               main_window.startMonitorDataFromArduinoThread()
               main_window.startTeachModeThread()
+              main_window.startAutoRunThread()
               self.connectSignal = True
               self.detroyComWindow()
         else: 
@@ -732,10 +733,8 @@ class monitorTeachModeThread(QObject):
     def run(self):
         main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
         while True:
-            #if dieu kien de chay TeachMode: Mo cua so TeachWindow
             if teachWindow.monitor_off == False:
                 teach.monitorTeachMode()
-            #if dieu kien de chay goto Zero: Nhan nut
             if main_window.gotoZeroFlag == True:
                 main_window.gotoZeroPosition() 
             if main_window.gotoHomeFlag == True:
@@ -768,8 +767,16 @@ class autoRunThread(QObject):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Auto run mode")
-        run.activate_run_mode()
+        main_window.showStatus("Thread: Auto run mode")
+        while True:
+            if main_window.autoRunFlag == True:
+                run.activate_run_mode()
+
+            print ("3. autoRun Thread")
+            time.sleep(0.1)
+    def stop(self):
+        main_window.autoRunFlag = False
+        main_window.showStatus("Exit execute: Auto run mode")
 #================================================================================================
 
 # Confirm exit workingWindow
@@ -792,6 +799,8 @@ class MyWindow(QtWidgets.QMainWindow):
             main_window._threadTeachMode.wait(100)
             main_window._threadMonitorDataFromArduino.terminate()
             main_window._threadMonitorDataFromArduino.wait(100)
+            main_window._threadAutoRun.terminate()
+            main_window._threadAutoRun.wait(100)
             event.accept()
 #================================================================================================
 class workingWindow:
@@ -802,6 +811,7 @@ class workingWindow:
         self.jsonFile = makeJsonSetting()
         self.definePinsWindow = setPinsWindow()
         self.coilXY = monitorInputOutput()
+        # Orange pi pc plus su dung Quad-core CPU (4 loi) -> Qthread tao toi da them 3 worker Thread + 1 main Thread
         self.threadTeachMode = monitorTeachModeThread()
         self.threadAutoRun = autoRunThread()
         self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
@@ -821,11 +831,22 @@ class workingWindow:
 
         self.gotoZeroFlag = False
         self.gotoHomeFlag = False
+        self.autoRunFlag = False
 
         # Khai báo sử dụng đa luồng được quản lý bới Qthread
    
         self.declareThreadMonitorDataFromArduino()
         self.declareThreadTeachingMode()
+        self.declareThreadAutoRun()
+
+    def declareThreadAutoRun(self):
+        self._threadAutoRun = QThread()
+        self.threadAutoRun.moveToThread(self._threadAutoRun)
+        self._threadAutoRun.started.connect(self.threadAutoRun.run)
+        self.threadAutoRun.finished.connect(self.threadAutoRun.stop)
+
+    def startAutoRunThread(self):
+        self._threadAutoRun.start()
 
     def declareThreadMonitorDataFromArduino(self):
         self._threadMonitorDataFromArduino = QThread()
@@ -968,8 +989,10 @@ class workingWindow:
         self.showStatus("Chế độ manual bật tắt coilY")
 
     def runAutoCycle(self):
-        if not self.threadAutoRun.isRunning():
-            self.threadAutoRun.start()
+        if comWindow.connectSignal == True:
+            self.autoRunFlag = True
+        else:
+            self.showStatus("===> Open COM port first!!! ")
 
     def runJog(self):
         self.showStatus("Chế độ JOG - chạy từng dòng")
@@ -1240,6 +1263,7 @@ class runMotor:
                 pass
             else:
                 main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
+                main_window.threadAutoRun.finished.emit()
                 return
         
         try:
@@ -1276,7 +1300,6 @@ class runMotor:
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
                             time.sleep(0.1)
-                            #print("gia tri excecuteTimerDone: ", excecuteTimerDone)
                             if excecuteTimerDone[0] == 1:
                                 self.executeDelay = False
                                 break
@@ -1317,13 +1340,12 @@ class runMotor:
                             self.counter = 0
 
         except Exception as e:
-                main_window.showStatus('activate_run_mode error: '+str(e))
-                main_window.showStatus("===> Run Auto" + "Error: ")
+                main_window.showStatus("===> Run Auto" + "Error: " + str(e))
 
         finally:
             self.re_init()
             main_window.showStatus("END")
-            main_window.threadAutoRun.exit()
+            main_window.threadAutoRun.finished.emit()
 
 # gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
     def send_packet_to_slave(self):
