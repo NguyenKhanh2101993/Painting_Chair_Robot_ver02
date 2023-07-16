@@ -8,7 +8,7 @@ import math
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import QObject, QThread, QRunnable, QThreadPool, pyqtSignal
+from PyQt5.QtCore import QDate, QTime ,QObject, QThread, pyqtSignal
 from PyQt5.QtGui import QTextCursor
 
 from comWindow import Ui_communication
@@ -669,7 +669,7 @@ class workingTeachMode():
                 if teachWindow.monitor_off == True:
                     break
 
-                print ("2. teachMode Thread")
+                #print ("2. teachMode Thread")
                 time.sleep(0.1)
             
         except Exception as e:
@@ -773,7 +773,7 @@ class monitorDatafromArduinoThread(QObject):
                 main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
                 self.coilValue.emit(coil_Value)
             else: pass
-            print ("1. monitorArduino Thread")
+            #print ("1. monitorArduino Thread")
             time.sleep(0.1)
 #================================================================================================
 # Thread trong autoRun
@@ -787,7 +787,10 @@ class autoRunThread(QObject):
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
 
-            print ("3. autoRun Thread")
+            #print ("3. autoRun Thread")
+            getTime = QTime.currentTime()
+            mytime = getTime.toString()
+            main_window.uiWorking.label_showtime.setText(mytime)
             time.sleep(0.1)
     def stop(self):
         main_window.autoRunFlag = False
@@ -1104,9 +1107,7 @@ class workingWindow:
 
 
         except Exception as error:
-            self.showStatus("===> read_pulse_from_slaves function failed")
-            self.showStatus(error)
-            print(str(error))
+            self.showStatus("===> read_pulse_from_slaves function failed"+ str(error))
             return None
 
     def check_negative_num(self, x):
@@ -1710,7 +1711,7 @@ class monitorInputOutput:
             #main_window.labelCoilY[checkValue].setStyleSheet("background-color: " + main_window.orgColorLabelY[checkValue] + ";")
         try: 
             comWindow.workSerial.sendCoilValue(self.valueCoilY)
-            #print(self.valueCoilY)
+         
 
         except Exception as error:
             main_window.showStatus("===> Kích coil Y bị lỗi đường truyền tín hiệu")
