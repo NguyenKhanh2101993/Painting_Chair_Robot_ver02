@@ -1098,13 +1098,14 @@ class workingWindow:
 
     def startgotoZeroPosition(self):
         if comWindow.connectSignal == True:
+            self.disable_control_option(True)
             self.gotoZeroFlag = True
         else:
             self.showStatus("===> Open COM port first!!! ")
       
     def gotoZeroPosition(self):
         self.showStatus("Đưa tay máy về vị trí 0")
-        self.disable_control_option(True)
+        #self.disable_control_option(True)
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
@@ -1124,16 +1125,17 @@ class workingWindow:
 
     def startgotoMachinePosition(self):
         if comWindow.connectSignal == True:
+            self.disable_control_option(True)
             self.gotoHomeFlag = True
         else:
             self.showStatus("===> Open COM port first!!! ")
 
     def gotoMachinePosition(self):
-        self.disable_control_option(True)
+        self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
+       
         try:
             if self.go_machine_home == False:
-                self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
-                
+              
                 comWindow.workSerial.commandCheckXYZAsensor()
                 
                 pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
