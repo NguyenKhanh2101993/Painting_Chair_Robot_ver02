@@ -335,7 +335,7 @@ class teachingWindow:
 
         self.button_active = 0
         self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
-        self.monitor_off = False
+        self.monitor_off = True
 
         self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
                                  (' S'+'0'),(' F'+'0')]
@@ -355,6 +355,7 @@ class teachingWindow:
     def closeTeachWindow(self):
         self.teachWin.close()
         main_window.disable_control_option(False)
+        self.monitor_off = True
         main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
@@ -663,14 +664,16 @@ class workingTeachMode():
                         state_runing = False
                         break  # thoat khỏi vong lặp while
                     time.sleep(0.1)
-                
+
+                if teachWindow.monitor_off == True:
+                    break
+
                 print ("2. teachMode Thread")
                 time.sleep(0.1)
             
         except Exception as e:
             main_window.showStatus("===> Teaching mode warning: "+ str(e))
-
-        main_window.threadTeachMode.finished.emit()
+            main_window.threadTeachMode.finished.emit()
 
     def Kinematics_Zaxis_mode_02(self):
             if self.chooseAxis == self.z1AXIS:
@@ -714,23 +717,30 @@ class workingTeachMode():
                         time.sleep(0.1)
                     
                     # nếu disable teach mode thì thoát khỏi 
-                    if self.chooseAxis != self.zAXIS:
+                    if teachWindow.monitor_off == True | self.chooseAxis != self.zAXIS:
                         break
 
                     time.sleep(0.1)
             else: pass
 #================================================================================================
-# Thread trong monitor teach mode
+# Thread trong monitor teach mode/goto zero/ goto Home
 class monitorTeachModeThread(QObject):
     finished = pyqtSignal()
     def __init__(self, parent=None):
         super(monitorTeachModeThread, self).__init__(parent)
 
     def run(self):
-        main_window.showStatus("Thread: Start monitor in teachMode")
+        main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
         while True:
-            teach.monitorTeachMode()
-
+            #if dieu kien de chay TeachMode: Mo cua so TeachWindow
+            if teachWindow.monitor_off == False:
+                teach.monitorTeachMode()
+            #if dieu kien de chay goto Zero: Nhan nut
+            if main_window.gotoZeroFlag == True:
+                main_window.gotoZeroPosition() 
+            if main_window.gotoHomeFlag == True:
+                main_window.gotoMachinePosition() 
+            time.sleep(0.05)
 #================================================================================================
 # Thread monitor input/ouput and current position
 class monitorDatafromArduinoThread(QObject):
@@ -752,24 +762,6 @@ class monitorDatafromArduinoThread(QObject):
             print ("1. monitorArduino Thread")
             time.sleep(0.1)
 #================================================================================================
-# Thread trong go to zero point
-class gotoZeroPosThread(QObject):
-    finished = pyqtSignal()
-    def __init__(self, parent=None):
-        super(gotoZeroPosThread, self).__init__(parent)
-    def run(self):
-        main_window.showStatus("Go to zero position")
-        main_window.gotoZeroPosition()   
-#================================================================================================
-# Thread trong go to machine point
-class gotoMachinePosThread(QObject):
-    finished = pyqtSignal()
-    def __init__(self, parent=None):
-        super(gotoMachinePosThread, self).__init__(parent)
-    def run(self):
-        main_window.showStatus("Go to machine position")
-        main_window.gotoMachinePosition()    
-#================================================================================================
 # Thread trong autoRun
 class autoRunThread(QObject):
     finished = pyqtSignal()
@@ -784,7 +776,7 @@ class autoRunThread(QObject):
 class MyWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self,event):
-        #QtWidgets.QMessageBox.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         result = QtWidgets.QMessageBox.question(self,
                       "Confirm Exit...",
                       "Are you sure you want to exit ?",
@@ -811,8 +803,6 @@ class workingWindow:
         self.definePinsWindow = setPinsWindow()
         self.coilXY = monitorInputOutput()
         self.threadTeachMode = monitorTeachModeThread()
-        self.threadGotoZeroPos = gotoZeroPosThread()
-        self.threadGotoMachinePos = gotoMachinePosThread()
         self.threadAutoRun = autoRunThread()
         self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
 
@@ -828,6 +818,9 @@ class workingWindow:
         self.spray_axis = 550
         self.go_machine_home = False
         self.checkValue = -1
+
+        self.gotoZeroFlag = False
+        self.gotoHomeFlag = False
 
         # Khai báo sử dụng đa luồng được quản lý bới Qthread
    
@@ -1104,11 +1097,14 @@ class workingWindow:
         return currentPosition
 
     def startgotoZeroPosition(self):
-        if not self.threadGotoZeroPos.isRunning():
-            self.threadGotoZeroPos.start()
+        if comWindow.connectSignal == True:
+            self.gotoZeroFlag = True
+        else:
+            self.showStatus("===> Open COM port first!!! ")
       
     def gotoZeroPosition(self):
         self.showStatus("Đưa tay máy về vị trí 0")
+        self.disable_control_option(True)
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
@@ -1120,86 +1116,83 @@ class workingWindow:
 
             self.showStatus("Tay máy đã về vị trí 0")
             
-            #self.threadGotoZeroPos.terminate()
-            
-            #self.threadGotoZeroPos.wait(100)
-            self.showStatus("Tay máy đã về vị trí 0000")
-            self.threadGotoZeroPos.exit()
-           
         except Exception as e:
-            main_window.showStatus(str(e))
+            main_window.showStatus("===> gotoZero Error status: "+str(e))
             
-            self.threadGotoZeroPos.terminate()
-            self.threadGotoZeroPos.wait(100)
-            
-            print("gotoZero Error status: "+str(e))
+        self.disable_control_option(False)
+        self.gotoZeroFlag = False
 
     def startgotoMachinePosition(self):
-        if not self.threadGotoMachinePos.isRunning():
-            self.threadGotoMachinePos.start()
+        if comWindow.connectSignal == True:
+            self.gotoHomeFlag = True
+        else:
+            self.showStatus("===> Open COM port first!!! ")
 
     def gotoMachinePosition(self):
-        if self.go_machine_home == False:
-            self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
-            try:
-                comWindow.workSerial.commandCheckXYZAsensor()
-            except:
-                return
-            
-            pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
-            pulse_to_machine_axis_Y = [0, -70000, 0, 0, 0, 0]
-            pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
-            pulse_to_machine_axis_A = [0, 0, 0, -32000, 0, 0]
-            pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
-            pulse_to_machine_axis_C = [0, 0, 0, 0, 0, 0]
-
-            pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
-                                        pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-            pulse_to_begin_position = [1600, 1600, 1600, 1000, 0, 0]
-            speed_axis = [30,30,30,10,10,10]
-
-            self.disable_control_option(True)
-            # set lại các thông số motor, đưa giá trị current_position về 0
-            comWindow.workSerial.setZeroPositions()
-            time.sleep(0.1)
-            for i in range(self.MAX_AXIS):
-                run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
-                self.go_machine_axis_state = False
-                while True: 
-                    # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                    positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                    #self.showCurrentPositions()
-                    if (positionCompleted[0]==1 or main_window.coilXY.sensor_machine_axis[i] == 0):
-                        # dừng động cơ
-                        run.stop_motor()
-                        self.go_machine_axis_state = True
-                        break  # thoat khỏi vong lặp while
-                    time.sleep(0.1)
-
-            # sau khi chạy hết các động cơ về vị trí cảm biến
-            # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
-            time.sleep(0.5)
-            run.send_to_execute_board(pulse_to_begin_position,100)
-            while True:
+        self.disable_control_option(True)
+        try:
+            if self.go_machine_home == False:
+                self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
                 
-                # Đọc trạng thái phát xung đã hoàn tất chưa
-                positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                #self.showCurrentPositions()
-                if positionCompleted[0] == 1: 
-                    # set lại các thông số motor, đưa giá trị current_position về 0
-                    comWindow.workSerial.setZeroPositions()
-                    comWindow.workSerial.commandCheckXYZAsensor()
-                    #self.showCurrentPositions()
-                    break
+                comWindow.workSerial.commandCheckXYZAsensor()
+                
+                pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
+                pulse_to_machine_axis_Y = [0, -70000, 0, 0, 0, 0]
+                pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
+                pulse_to_machine_axis_A = [0, 0, 0, -32000, 0, 0]
+                pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
+                pulse_to_machine_axis_C = [0, 0, 0, 0, 0, 0]
 
+                pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
+                                            pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
+                pulse_to_begin_position = [1600, 1600, 1600, 1000, 0, 0]
+                speed_axis = [30,30,30,10,10,10]
+
+                
+                # set lại các thông số motor, đưa giá trị current_position về 0
+                comWindow.workSerial.setZeroPositions()
                 time.sleep(0.1)
-       
-            self.disable_control_option(False)
-            self.go_machine_home = True # đã về home
-            
-        self.threadGotoMachinePos.exit()
-        self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
+                for i in range(self.MAX_AXIS):
+                    run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
+                    self.go_machine_axis_state = False
+                    while True: 
+                        # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
+                        positionCompleted = comWindow.workSerial.commandPositionCompleted()
+                        #self.showCurrentPositions()
+                        if (positionCompleted[0]==1 or main_window.coilXY.sensor_machine_axis[i] == 0):
+                            # dừng động cơ
+                            run.stop_motor()
+                            self.go_machine_axis_state = True
+                            break  # thoat khỏi vong lặp while
+                        time.sleep(0.1)
+
+                # sau khi chạy hết các động cơ về vị trí cảm biến
+                # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
+                time.sleep(0.5)
+                run.send_to_execute_board(pulse_to_begin_position,100)
+                while True:
+                    
+                    # Đọc trạng thái phát xung đã hoàn tất chưa
+                    positionCompleted = comWindow.workSerial.commandPositionCompleted()
+                    # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
+                    #self.showCurrentPositions()
+                    if positionCompleted[0] == 1: 
+                        # set lại các thông số motor, đưa giá trị current_position về 0
+                        comWindow.workSerial.setZeroPositions()
+                        comWindow.workSerial.commandCheckXYZAsensor()
+                        #self.showCurrentPositions()
+                        break
+
+                    time.sleep(0.1)
+                self.go_machine_home = True # đã về home
+
+            self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
+
+        except Exception as error:
+            self.showStatus("===> goto Zero Position error: "+ str(error))
+
+        self.disable_control_option(False)
+        self.gotoHomeFlag = False
 
     def showStatus(self, value):
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
@@ -1327,8 +1320,6 @@ class runMotor:
 
         finally:
             self.re_init()
-            #main_window.showStatus ('========================================================================')
-            #main_window.showStatus("--------------------------------------------------------------------------")
             main_window.showStatus("END")
             main_window.threadAutoRun.exit()
 
