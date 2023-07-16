@@ -6,26 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>873</width>
-    <height>352</height>
+    <width>800</width>
+    <height>290</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>873</width>
-    <height>352</height>
+    <width>500</width>
+    <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>873</width>
-    <height>352</height>
+    <width>800</width>
+    <height>290</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -35,171 +29,151 @@
    <iconset>
     <normaloff>Robot.ico</normaloff>Robot.ico</iconset>
   </property>
-  <widget class="QFrame" name="frame2">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>871</width>
-     <height>351</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(170, 170, 127);
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(170, 170, 127);
 </string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Panel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <property name="lineWidth">
-    <number>2</number>
-   </property>
-   <property name="midLineWidth">
-    <number>0</number>
-   </property>
-   <widget class="QLabel" name="label_39">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>851</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(130, 130, 130);
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="lineWidth">
+      <number>2</number>
+     </property>
+     <property name="midLineWidth">
+      <number>0</number>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_39">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(130, 130, 130);
 font: 75 14pt &quot;Arial&quot; bold;
 color: rgb(255, 255, 255);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;MOTOR SETTINGS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QDialogButtonBox" name="buttonBox">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>270</y>
-      <width>193</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(200, 196, 190);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;MOTOR SETTINGS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(156, 156, 156);</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <property name="lineWidth">
+         <number>2</number>
+        </property>
+        <property name="rowCount">
+         <number>3</number>
+        </property>
+        <property name="columnCount">
+         <number>6</number>
+        </property>
+        <row>
+         <property name="text">
+          <string>GearBox</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>MicroStep</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>Diameter</string>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>Motor X</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor Y</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor Z</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>MotorA</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor B</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor C</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QDialogButtonBox" name="buttonBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+          <kerning>true</kerning>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(200, 196, 190);
 </string>
-    </property>
-    <property name="standardButtons">
-     <set>QDialogButtonBox::Close|QDialogButtonBox::Save</set>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>851</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(156, 156, 156);</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <property name="lineWidth">
-     <number>2</number>
-    </property>
-    <property name="rowCount">
-     <number>3</number>
-    </property>
-    <property name="columnCount">
-     <number>6</number>
-    </property>
-    <row>
-     <property name="text">
-      <string>GearBox</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>MicroStep</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>Diameter</string>
-     </property>
-    </row>
-    <column>
-     <property name="text">
-      <string>Motor X</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Motor Y</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Motor Z</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>MotorA</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Motor B</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Motor C</string>
-     </property>
-    </column>
-   </widget>
-  </widget>
+        </property>
+        <property name="standardButtons">
+         <set>QDialogButtonBox::Close|QDialogButtonBox::Save</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

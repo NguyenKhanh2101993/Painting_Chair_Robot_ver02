@@ -10,7 +10,7 @@ class workingFile:
         self.saveFileStatus = ''
 
     def show_initial_directory(self):
-        fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\',filter = 'pnt files (*.pnt)')
+        fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\Desktop\\',filter = 'pnt files (*.pnt)')
         if fname[0] != '':
             self.fileDirectory = fname[0]
         return self.fileDirectory
@@ -23,7 +23,7 @@ class workingFile:
         return text
 
     def save_file(self, content):
-        savefilePath = myfile.getSaveFileName(caption = 'Save file', directory =  'C:\\',filter = 'pnt files (*.pnt)')
+        savefilePath = myfile.getSaveFileName(caption = 'Save file', directory =  'C:\\Desktop\\',filter = 'pnt files (*.pnt)')
         if savefilePath[0] != '':
             self.saveFileDirectory = savefilePath[0]
         try:
@@ -31,7 +31,7 @@ class workingFile:
                 f.write(content)  # retrieve_text phải là các ký tự không có dấu.
                 f.close()
 
-            self.saveFileStatus = ("===> LƯU FILE THÀNH CÔNG")
+            self.saveFileStatus = ("===> Save file done")
         except Exception as err:
-            self.saveFileStatus = ("===> LƯU FILE BỊ LỖI: "+ str(err))
+            self.saveFileStatus = ("===> Save file error: "+ str(err))
             return

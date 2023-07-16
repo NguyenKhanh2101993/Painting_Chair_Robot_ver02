@@ -435,7 +435,7 @@ class Ui_teachMode(object):
         self.pushButton_sprayOff.setMouseTracking(False)
         self.pushButton_sprayOff.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_sprayOff.setAutoFillBackground(False)
-        self.pushButton_sprayOff.setStyleSheet("background-color: rgb(170, 170, 127);\n"
+        self.pushButton_sprayOff.setStyleSheet("background-color: rgb(77, 77, 77);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -454,7 +454,7 @@ class Ui_teachMode(object):
         self.pushButton_sprayOn.setMouseTracking(False)
         self.pushButton_sprayOn.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_sprayOn.setAutoFillBackground(False)
-        self.pushButton_sprayOn.setStyleSheet("background-color: rgb(170, 170, 127);\n"
+        self.pushButton_sprayOn.setStyleSheet("background-color: rgb(77, 77, 77);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -473,7 +473,7 @@ class Ui_teachMode(object):
         self.pushButton_tableRw.setMouseTracking(False)
         self.pushButton_tableRw.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_tableRw.setAutoFillBackground(False)
-        self.pushButton_tableRw.setStyleSheet("background-color: rgb(170, 170, 127);\n"
+        self.pushButton_tableRw.setStyleSheet("background-color: rgb(77, 77, 77);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -492,7 +492,7 @@ class Ui_teachMode(object):
         self.pushButton_tableFw.setMouseTracking(False)
         self.pushButton_tableFw.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_tableFw.setAutoFillBackground(False)
-        self.pushButton_tableFw.setStyleSheet("background-color: rgb(170, 170, 127);\n"
+        self.pushButton_tableFw.setStyleSheet("background-color: rgb(77, 77, 77);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -563,8 +563,8 @@ class Ui_teachMode(object):
         self.pushButton_aRw.setText(_translate("teachMode", "A+"))
         self.pushButton_bRw.setText(_translate("teachMode", "B+"))
         self.pushButton_cRw.setText(_translate("teachMode", "C+"))
-        self.pushButton_z1Up.setText(_translate("teachMode", "Z1+"))
-        self.pushButton_z1down.setText(_translate("teachMode", "Z1-"))
+        self.pushButton_z1Up.setText(_translate("teachMode", "Z1-"))
+        self.pushButton_z1down.setText(_translate("teachMode", "Z1+"))
         self.pushButton_savePoint.setText(_translate("teachMode", "SET POINT"))
         self.pushButton_setZero.setText(_translate("teachMode", "SET ZERO"))
         self.pushButton_exitTeach.setText(_translate("teachMode", "EXIT"))

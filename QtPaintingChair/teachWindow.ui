@@ -729,7 +729,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>Z1+</string>
+     <string>Z1-</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -770,7 +770,7 @@ border-radius: 5px;
 border-top-color: rgb(208, 208, 208);</string>
     </property>
     <property name="text">
-     <string>Z1-</string>
+     <string>Z1+</string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -953,7 +953,7 @@ border-top-color: rgb(208, 208, 208);</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(170, 170, 127);
+     <string notr="true">background-color: rgb(77, 77, 77);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
@@ -994,7 +994,7 @@ border-top-color: rgb(208, 208, 208);</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(170, 170, 127);
+     <string notr="true">background-color: rgb(77, 77, 77);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
@@ -1035,7 +1035,7 @@ border-top-color: rgb(208, 208, 208);</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(170, 170, 127);
+     <string notr="true">background-color: rgb(77, 77, 77);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
@@ -1076,7 +1076,7 @@ border-top-color: rgb(208, 208, 208);</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(170, 170, 127);
+     <string notr="true">background-color: rgb(77, 77, 77);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
