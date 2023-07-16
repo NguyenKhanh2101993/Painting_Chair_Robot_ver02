@@ -354,9 +354,9 @@ class teachingWindow:
         self.teachWin.show()
 
     def closeTeachWindow(self):
+        self.monitor_off = True
         self.teachWin.close()
         main_window.disable_control_option(False)
-        self.monitor_off = True
         main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
@@ -674,7 +674,7 @@ class workingTeachMode():
             
         except Exception as e:
             main_window.showStatus("===> Teaching mode warning: "+ str(e))
-            main_window.threadTeachMode.finished.emit()
+            main_window.threadTeachMode.finishedTeachMode.emit()
 
     def Kinematics_Zaxis_mode_02(self):
             if self.chooseAxis == self.z1AXIS:
@@ -726,7 +726,10 @@ class workingTeachMode():
 #================================================================================================
 # Thread trong monitor teach mode/goto zero/ goto Home
 class monitorTeachModeThread(QObject):
-    finished = pyqtSignal()
+    finishedTeachMode = pyqtSignal()
+    finishedGotoZeroMode = pyqtSignal()
+    finishedGotoHomeMode = pyqtSignal()
+
     def __init__(self, parent=None):
         super(monitorTeachModeThread, self).__init__(parent)
 
@@ -740,6 +743,18 @@ class monitorTeachModeThread(QObject):
             if main_window.gotoHomeFlag == True:
                 main_window.gotoMachinePosition() 
             time.sleep(0.05)
+
+    def stopGotoZero(self):
+        main_window.gotoZeroFlag = False
+        main_window.showStatus("Exit execute: goto Zero")
+
+    def stopGotoHome(self):
+        main_window.gotoHomeFlag = False
+        main_window.showStatus("Exit execute: goto Home")
+    
+    def stopTeachMode(self):
+        teachWindow.closeTeachWindow()
+        main_window.showStatus("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
 class monitorDatafromArduinoThread(QObject):
@@ -795,17 +810,17 @@ class MyWindow(QtWidgets.QMainWindow):
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
-            main_window._threadTeachMode.terminate()
-            main_window._threadTeachMode.wait(100)
-            main_window._threadMonitorDataFromArduino.terminate()
-            main_window._threadMonitorDataFromArduino.wait(100)
-            main_window._threadAutoRun.terminate()
-            main_window._threadAutoRun.wait(100)
+            main_window._threadTeachMode.quit()
+            #main_window._threadTeachMode.wait(100)
+            main_window._threadMonitorDataFromArduino.quit()
+            #main_window._threadMonitorDataFromArduino.wait(100)
+            main_window._threadAutoRun.quit()
+            #main_window._threadAutoRun.wait(100)
             event.accept()
 #================================================================================================
 class workingWindow:
     def __init__(self):
-        self.window = MyWindow() 
+        self.window = MyWindow()
         self.uiWorking = Ui_MainWindow()
         self.uiWorking.setupUi(self.window)
         self.jsonFile = makeJsonSetting()
@@ -821,7 +836,6 @@ class workingWindow:
         self.defineWarningLabel()
         self.defineSliders()
 
-        
         self.currentPos = [0,0,0,0,0,0,0,0]
         self.gearRatio = []
         self.MAX_AXIS = 6
@@ -862,11 +876,10 @@ class workingWindow:
         self._threadTeachMode = QThread()
         self.threadTeachMode.moveToThread(self._threadTeachMode)
         self._threadTeachMode.started.connect(self.threadTeachMode.run)
-        self.threadTeachMode.finished.connect(self.closeTeachWindow)
-
-    def closeTeachWindow(self):
-        teachWindow.closeTeachWindow()
-    
+        self.threadTeachMode.finishedTeachMode.connect(self.threadTeachMode.stopTeachMode)
+        self.threadTeachMode.finishedGotoZeroMode.connect(self.threadTeachMode.stopGotoZero)
+        self.threadTeachMode.finishedGotoHomeMode.connect(self.threadTeachMode.stopGotoHome)
+        
     def startTeachModeThread(self):
         self._threadTeachMode.start()
 
@@ -1144,7 +1157,8 @@ class workingWindow:
             main_window.showStatus("===> gotoZero Error status: "+str(e))
             
         self.disable_control_option(False)
-        self.gotoZeroFlag = False
+        self.threadTeachMode.finishedGotoZeroMode.emit()
+        #self.gotoZeroFlag = False
 
     def startgotoMachinePosition(self):
         if comWindow.connectSignal == True:
@@ -1217,7 +1231,8 @@ class workingWindow:
             self.showStatus("===> goto Zero Position error: "+ str(error))
 
         self.disable_control_option(False)
-        self.gotoHomeFlag = False
+        self.threadTeachMode.finishedGotoHomeMode.emit()
+        #self.gotoHomeFlag = False
 
     def showStatus(self, value):
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
