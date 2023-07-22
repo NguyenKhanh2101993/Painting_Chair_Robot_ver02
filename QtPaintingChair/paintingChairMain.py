@@ -353,15 +353,16 @@ class teachingWindow:
         main_window.uiWorking.textBrowser_showfile.clear()
         main_window.disable_control_option(True)
         self.reInitTeachMode()
-        
         self.teachWin.show()
 
-
     def closeTeachWindow(self):
-        self.monitor_off = True
-        self.teachWin.close()
-        main_window.disable_control_option(False)
-        main_window.showStatus("Close Teaching Box")
+        if comWindow.connectSignal == True:
+            teachWindow.monitor_off = True
+        else:
+            self.monitor_off = True
+            self.teachWin.close()
+            main_window.disable_control_option(False)
+            main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
 
@@ -760,7 +761,7 @@ class monitorTeachModeThread(QObject):
         main_window.window.custom_signal.emit("Exit execute: goto Home")
     
     def stopTeachMode(self):
-        teachWindow.closeTeachWindow()
+        teachWindow.teachWin.close()
         main_window.window.custom_signal.emit("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
@@ -1293,7 +1294,6 @@ class runMotor:
         for i in range(main_window.MAX_AXIS):
             #if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
             if round(main_window.currentPos[i],3) == 0:
-
                 pass
             else:
                 main_window.window.custom_signal.emit("Run Auto: Go to zero/machine axis first!!!")
@@ -1371,7 +1371,7 @@ class runMotor:
 
         except Exception as e:
                 main_window.window.custom_signal.emit("===> Run Auto Error: " + str(e))
-                pass
+                main_window.disableMenuButton(False)
 
         finally:
             self.re_init()
