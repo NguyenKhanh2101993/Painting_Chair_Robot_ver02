@@ -1301,8 +1301,6 @@ class runMotor:
                 
                 #main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
-                content_line = content_line.replace("\n","")
-                #main_window.showStatus (content_line)
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content.replace("\n",""))       # hiện thị từng dòng trong file
                 recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
@@ -1404,7 +1402,7 @@ class runMotor:
 
             if content_line == self.end_run_block + '\n' or sent_packet_done == True:    
                 main_window.showStatus("=====> G05.1 END BLOCK RUN MODE")
-                self.monitor_str_content(target_line)  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
+                self.monitor_str_content(target_line.replace("\n",""))  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
                 if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
                     # cho chạy auto 
