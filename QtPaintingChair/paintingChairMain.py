@@ -1330,23 +1330,23 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n': # gặp ký hiệu báo kết thúc file
-                        main_window.showStatus("=>End program")
+                        #main_window.showStatus("=>End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
-                        main_window.showStatus("=>Spray ON")
+                        #main_window.showStatus("=>Spray ON")
                         self.command_run_spray(1)
                         
                     if content_line == self.turn_off_spray + '\n' : # tắt súng sơn
-                        main_window.showStatus("Spray OFF")
+                        #main_window.showStatus("Spray OFF")
                         self.command_run_spray(0)
                         
                     if content_line == self.table_rotary + '\n' : # xoay bàn sơn
-                        main_window.showStatus("=>Rotating Table")
+                        #main_window.showStatus("=>Rotating Table")
                         self.command_table_rotate()
 
                     if content_line == self.go_to_1st_point + '\n' : # đi tới điểm gốc đầu tiên, điểm 0
-                        main_window.showStatus("=>Goto Zero")
+                        #main_window.showStatus("=>Goto Zero")
                         main_window.gotoZeroPosition()
 
                     if content_line == self.go_to_2nd_point + '\n': # đi tới điểm gốc thứ 2
@@ -1381,7 +1381,7 @@ class runMotor:
         for str_content in wFile.file:
             main_window.showStatus('===========================================')
             content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
-            main_window.showStatus(content_line)
+            #main_window.showStatus(content_line)
             content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
             recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
 
@@ -1651,7 +1651,7 @@ class runMotor:
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            main_window.showStatus("===> Xoay bàn sơn")
+            #main_window.showStatus("===> Xoay bàn sơn")
             comWindow.workSerial.commandRotateTable()
         except:
             main_window.showStatus("===> Không kích được bàn xoay")
