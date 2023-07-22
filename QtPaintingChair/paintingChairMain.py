@@ -816,7 +816,6 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
     custom_signal = pyqtSignal(str)
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
-        #self.custom_signal.connect(main_window.showStatus)
 
     def closeEvent(self,event):
         mBox = QtWidgets.QMessageBox()
@@ -832,9 +831,9 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
-            main_window._threadTeachMode.quit()
-            main_window._threadMonitorDataFromArduino.quit()
-            main_window._threadAutoRun.quit()
+            main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait()
+            main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait()
+            main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait()
             event.accept()
     
 #================================================================================================
