@@ -1021,7 +1021,7 @@ class workingWindow:
         self.showStatus("Chế độ JOG - chạy từng dòng")
 
     def pauseMotor(self):
-        self.showStatus("Tạm dừng motor")
+        #self.showStatus("Tạm dừng motor")
         run.pause_motor()
 
     def eStopMotor(self):
@@ -1301,7 +1301,7 @@ class runMotor:
                 
                 main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
-                main_window.showStatus (content_line)
+                main_window.showStatus (str_content)
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content)       # hiện thị từng dòng trong file
                 recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
@@ -1330,23 +1330,23 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n': # gặp ký hiệu báo kết thúc file
-                        main_window.showStatus("Ket thuc chuong trinh")
+                        main_window.showStatus("=>End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
-                        main_window.showStatus("Bat sung son")
+                        main_window.showStatus("=>Spray ON")
                         self.command_run_spray(1)
                         
                     if content_line == self.turn_off_spray + '\n' : # tắt súng sơn
-                        main_window.showStatus("Tat sung son")
+                        main_window.showStatus("Spray OFF")
                         self.command_run_spray(0)
                         
                     if content_line == self.table_rotary + '\n' : # xoay bàn sơn
-                        main_window.showStatus("Xoay bàn sơn")
+                        main_window.showStatus("=>Rotating Table")
                         self.command_table_rotate()
 
                     if content_line == self.go_to_1st_point + '\n' : # đi tới điểm gốc đầu tiên, điểm 0
-                        main_window.showStatus("Ve vi tri 0")
+                        main_window.showStatus("=>Goto Zero")
                         main_window.gotoZeroPosition()
 
                     if content_line == self.go_to_2nd_point + '\n': # đi tới điểm gốc thứ 2
@@ -1364,11 +1364,11 @@ class runMotor:
                             self.counter = 0
 
         except Exception as e:
-                main_window.showStatus("===> Run Auto" + "Error: " + str(e))
+                main_window.showStatus("===> Run Auto Error: " + str(e))
 
         finally:
             self.re_init()
-            main_window.showStatus("END")
+            #main_window.showStatus("END")
             main_window.threadAutoRun.finished.emit()
 
 # gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
@@ -1429,9 +1429,11 @@ class runMotor:
                 break
 
             if self.pause_on == 1: # dừng motor
+                main_window.showStatus("===> Pause Motor")
                 comWindow.workSerial.commandPauseMotor()
                         
             if self.pause_on == 2: # tiếp tục chạy
+                main_window.showStatus("===> Resume Motor")
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
             
@@ -1448,9 +1450,11 @@ class runMotor:
                 break
 
             if self.pause_on == 1: # dừng motor
+                main_window.showStatus("===> Pause Motor")
                 comWindow.workSerial.commandPauseMotor()
 
             if self.pause_on == 2: # tiếp tục chạy
+                main_window.showStatus("===> Resume Motor")
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
 
@@ -1582,7 +1586,6 @@ class runMotor:
 # phát lệnh dừng tay máy
     def pause_motor(self):
         self.pause_on += 1
-        main_window.showStatus("===> Tạm dừng động cơ")
 
 # gửi index packet data N điểm tới slaves khi khi gặp G05.0
     def save_to_packet_data(self):
