@@ -44,7 +44,7 @@ class checkComWindow():
     
     def reset_comports(self):
         comports = self.workSerial.detect_comports()
-        main_window.showStatus(comports)
+        #main_window.showStatus(comports)
         self.uic.comboBox_comPort.clear()
         self.uic.comboBox_baudRate.clear()
         self.uic.comboBox_comPort.addItems(comports)  
@@ -55,14 +55,15 @@ class checkComWindow():
         baud = self.uic.comboBox_baudRate.currentText()
         result = self.workSerial.choose_comports(baud,com)
         if result: 
-              main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
+              #main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
               main_window.startMonitorDataFromArduinoThread()
               main_window.startTeachModeThread()
               main_window.startAutoRunThread()
               self.connectSignal = True
               self.detroyComWindow()
         else: 
-              main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
+              #main_window.showStatus("Không nhận được cổng COM (Mất kết nối hoặc bị chặn)")
+              pass
 #================================================================================================
 class setPinsWindow:
     def __init__(self):
@@ -121,7 +122,7 @@ class setPinsWindow:
             self.xSensorSpinBox[i].setDisabled(False)
         for i in range(len(self.yOutputSpinBox)):
             self.yOutputSpinBox[i].setDisabled(False)
-        main_window.showStatus("===> Cho phép chỉnh sửa khai báo Pins X/Y")
+        #main_window.showStatus("===> Cho phép chỉnh sửa khai báo Pins X/Y")
 
     def getxSensorBitPositon(self):
         self.xSensorDefined = []
@@ -138,7 +139,7 @@ class setPinsWindow:
 
         xPins = main_window.jsonFile.getXpinsInfor()
         if xPins == None:
-            main_window.showStatus("===> Không đọc được giá trị cài đặt pins X")
+            #main_window.showStatus("===> Không đọc được giá trị cài đặt pins X")
             return
         else:
             for i in range(len(xPins)):
@@ -159,7 +160,7 @@ class setPinsWindow:
         pinYcomboBox = []
         yPins = main_window.jsonFile.getYpinsInfor()
         if yPins == None:
-            main_window.showStatus("===> Không đọc được giá trị cài đặt pins Y")
+            #main_window.showStatus("===> Không đọc được giá trị cài đặt pins Y")
             return
         else:
             for i in range(len(yPins)):
@@ -189,7 +190,7 @@ class setPinsWindow:
 
         xSensor = main_window.jsonFile.getXsensorInfor()
         if xSensor == None:
-            main_window.showStatus("===> Không đọc được giá trị sensor")
+            #main_window.showStatus("===> Không đọc được giá trị sensor")
             return
         else:
             for i in range(len(xSensor)):
@@ -211,7 +212,7 @@ class setPinsWindow:
 
         yOutput = main_window.jsonFile.getYoutputInfor()
         if yOutput == None:
-            main_window.showStatus("===> Không đọc được giá trị output")
+            #main_window.showStatus("===> Không đọc được giá trị output")
             return
         else:
             for i in range(len(yOutput)):
@@ -227,8 +228,8 @@ class setPinsWindow:
         self.getxSensorBitPositon()
         main_window.getSpecsOfSensor() # cập nhật giá trị cảm biến
         self.closePinsWindow()
-        #main_window.showStatus("===> Chân Pin X: " + str(self.xSensor))
-        #main_window.showStatus("===> Chân Pin Y: " + str(self.yOutput))
+        ##main_window.showStatus("===> Chân Pin X: " + str(self.xSensor))
+        ##main_window.showStatus("===> Chân Pin Y: " + str(self.yOutput))
 
 #================================================================================================
 # ====> test ok
@@ -269,8 +270,8 @@ class paramWindow:
             # truy xuất bắng cách: self.gearbox_X.get()
 
         except Exception as error:
-            main_window.showStatus(error)
-            main_window.showStatus("===> ConfigFile Motor Error")
+            #main_window.showStatus(error)
+            #main_window.showStatus("===> ConfigFile Motor Error")
             return
 
     # lưu giá trị cài đặt từ bảng vào file json        
@@ -281,12 +282,12 @@ class paramWindow:
             microstep.append(self.uiSetting.tableWidget.item(1, i).text())
             diameter.append(self.uiSetting.tableWidget.item(2, i).text())
 
-        main_window.showStatus("=======================================================")
-        main_window.showStatus("Tỉ số truyền hộp số, vi bước và đường kính bánh răng: ") 
-        main_window.showStatus(gear)
-        main_window.showStatus(microstep)
-        main_window.showStatus(diameter)
-        main_window.showStatus("=======================================================")
+        #main_window.showStatus("=======================================================")
+        #main_window.showStatus("Tỉ số truyền hộp số, vi bước và đường kính bánh răng: ") 
+        #main_window.showStatus(gear)
+        #main_window.showStatus(microstep)
+        #main_window.showStatus(diameter)
+        #main_window.showStatus("=======================================================")
 
         main_window.jsonFile.setMotorInfor(gear, microstep, diameter)   # lưu các thông số cài đặt motor
         result = self.calculate_gearRatio(gear, microstep, diameter)
@@ -306,7 +307,8 @@ class paramWindow:
             result = [gear_ratio_X, gear_ratio_Y, gear_ratio_Z,gear_ratio_A, gear_ratio_B, gear_ratio_C]
 
         except Exception as e:
-            main_window.showStatus("Nhập giá trị bị sai, giá trị không phải là số ")
+            #main_window.showStatus("Nhập giá trị bị sai, giá trị không phải là số ")
+            pass
 
         return result
 
@@ -318,7 +320,6 @@ class MyTeachingWindow(QtWidgets.QMainWindow):
         pass
     
     def closeEvent(self,event):
-        #main_window.threadTeachMode.finishedTeachMode.emit()
         teachWindow.closeTeachWindow()
 
 #================================================================================================
@@ -350,7 +351,7 @@ class teachingWindow:
         self.defineTeachModeButton()
    
     def showTeachWindow(self):
-        main_window.showStatus("Open Teaching Box")
+        #main_window.showStatus("Open Teaching Box")
         main_window.uiWorking.label_directory.clear()
         main_window.uiWorking.textBrowser_showfile.clear()
         main_window.disable_control_option(True)
@@ -362,7 +363,7 @@ class teachingWindow:
         self.monitor_off = True
         self.teachWin.close()
         main_window.disable_control_option(False)
-        main_window.showStatus("Close Teaching Box")
+        #main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
 
@@ -413,77 +414,77 @@ class teachingWindow:
         self.counter_line = 0
 
     def buttonX_forward(self):
-        #main_window.showStatus("Dang nhan button X-")
+        ##main_window.showStatus("Dang nhan button X-")
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.forward
 
     def buttonX_reverse(self):
-        #main_window.showStatus("Dang nhan button X+")
+        ##main_window.showStatus("Dang nhan button X+")
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.reverse
 
     def buttonY_forward(self):
-        #main_window.showStatus("Dang nhan button Y-")
+        ##main_window.showStatus("Dang nhan button Y-")
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.forward
 
     def buttonY_reverse(self):
-        #main_window.showStatus("Dang nhan button Y+")
+        ##main_window.showStatus("Dang nhan button Y+")
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.reverse
 
     def buttonZ_forward(self):
-        #main_window.showStatus("Dang nhan button Z-")
+        ##main_window.showStatus("Dang nhan button Z-")
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.forward
 
     def buttonZ_reverse(self):
-        #main_window.showStatus("Dang nhan button Z+")
+        ##main_window.showStatus("Dang nhan button Z+")
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.reverse
 
     def buttonB_forward(self):
-        #main_window.showStatus("Dang nhan button B-")
+        ##main_window.showStatus("Dang nhan button B-")
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.forward
 
     def buttonB_reverse(self):
-        #main_window.showStatus("Dang nhan button B+")
+        ##main_window.showStatus("Dang nhan button B+")
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.reverse
 
     def buttonC_forward(self):
-        #main_window.showStatus("Dang nhan button C-")
+        ##main_window.showStatus("Dang nhan button C-")
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.forward
 
     def buttonC_reverse(self):
-        #main_window.showStatus("Dang nhan button C+")
+        ##main_window.showStatus("Dang nhan button C+")
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.reverse
 
     def buttonA_forward(self):
-        #main_window.showStatus("Dang nhan button A-")
+        ##main_window.showStatus("Dang nhan button A-")
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.forward
 
     def buttonA_reverse(self):
-        #main_window.showStatus("Dang nhan button A+")
+        ##main_window.showStatus("Dang nhan button A+")
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.reverse    
 
     def buttonZ1_forward(self):
-        #main_window.showStatus("Dang nhan button Z1-")
+        ##main_window.showStatus("Dang nhan button Z1-")
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.forward
 
     def buttonZ1_reverse(self):
-        #main_window.showStatus("Dang nhan button Z1+")
+        ##main_window.showStatus("Dang nhan button Z1+")
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.reverse
 
     def deactive(self):
-        #main_window.showStatus("Thả nút nhấn")
+        ##main_window.showStatus("Thả nút nhấn")
         self.button_active = 0
 
     def testGotoZero(self):
@@ -497,7 +498,7 @@ class teachingWindow:
             if int_result >= 200: int_result = 200
         except:
             int_result = 0
-        #main_window.showStatus(str(int_result))
+        ##main_window.showStatus(str(int_result))
         return int_result
 
     def setPoint(self):
@@ -526,7 +527,8 @@ class teachingWindow:
                     exceed_limit = True
                     break
             if exceed_limit == True:
-                main_window.showStatus("Limited: EXCEED SENSOR LIMIT")
+                #main_window.showStatus("Limited: EXCEED SENSOR LIMIT")
+                pass
         except:
             return
         # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
@@ -543,42 +545,43 @@ class teachingWindow:
             #show_line = show_line + '\n'
             self.counter_line += 1
             main_window.uiWorking.textBrowser_showfile.append(show_line) 
-            main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
+            #main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
 
     def setZero(self):
-        try:
-            main_window.showStatus("===> SET ZERO POSITION")
-            comWindow.workSerial.setZeroPositions()
-        except:
-            main_window.showStatus("===> SET ZERO POSITION: ERROR")
+        pass
+        #try:
+        #    #main_window.showStatus("===> SET ZERO POSITION")
+        #    comWindow.workSerial.setZeroPositions()
+        #except:
+        #    #main_window.showStatus("===> SET ZERO POSITION: ERROR")
 
     def saveTofile(self):
-        main_window.showStatus('===> Lưu file.pnt')
+        #main_window.showStatus('===> Lưu file.pnt')
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         main_window.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
         main_window.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
         retrieve_text = main_window.uiWorking.textBrowser_showfile.toPlainText()
         wFile.save_file(retrieve_text)
-        main_window.showStatus(wFile.saveFileStatus)
+        #main_window.showStatus(wFile.saveFileStatus)
 
     def tableRorateFW(self):
-        main_window.showStatus("===> BÀN XOAY 1")
+        #main_window.showStatus("===> BÀN XOAY 1")
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def tableRorateRW(self):
-        main_window.showStatus("===> BÀN XOAY 2")
+        #main_window.showStatus("===> BÀN XOAY 2")
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def sprayON(self):
-        main_window.showStatus("===> SÚNG SƠN BẬT")
+        #main_window.showStatus("===> SÚNG SƠN BẬT")
         main_window.uiWorking.textBrowser_showfile.append(run.turn_on_spray)
         run.command_run_spray(1)
 
     def sprayOFF(self):
-        main_window.showStatus("===> SÚNG SƠN TẮT")
+        #main_window.showStatus("===> SÚNG SƠN TẮT")
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         run.command_run_spray(0)
 #================================================================================================
@@ -678,7 +681,7 @@ class workingTeachMode():
                 time.sleep(0.1)
             
         except Exception as e:
-            main_window.showStatus("===> Teaching mode warning: "+ str(e))
+            #main_window.showStatus("===> Teaching mode warning: "+ str(e))
             main_window.threadTeachMode.finishedTeachMode.emit()
 
     def Kinematics_Zaxis_mode_02(self):
@@ -739,7 +742,7 @@ class monitorTeachModeThread(QObject):
         super(monitorTeachModeThread, self).__init__(parent)
 
     def run(self):
-        main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
+        #main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
         while True:
             if teachWindow.monitor_off == False:
                 teach.monitorTeachMode()
@@ -751,15 +754,15 @@ class monitorTeachModeThread(QObject):
 
     def stopGotoZero(self):
         main_window.gotoZeroFlag = False
-        main_window.showStatus("Exit execute: goto Zero")
+        #main_window.showStatus("Exit execute: goto Zero")
 
     def stopGotoHome(self):
         main_window.gotoHomeFlag = False
-        main_window.showStatus("Exit execute: goto Home")
+        #main_window.showStatus("Exit execute: goto Home")
     
     def stopTeachMode(self):
         teachWindow.closeTeachWindow()
-        main_window.showStatus("Exit execute: teaching Mode")
+        #main_window.showStatus("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
 class monitorDatafromArduinoThread(QObject):
@@ -768,7 +771,7 @@ class monitorDatafromArduinoThread(QObject):
     def __init__(self, parent=None):
         super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Thread: Monitor input/output and current position")
+        #main_window.showStatus("Thread: Monitor input/output and current position")
         while True:
             coil_Value = main_window.coilXY.read_coilXY()
             pos_Value = main_window.showCurrentPositions()
@@ -799,7 +802,7 @@ class autoRunThread(QObject):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Thread: Auto run mode")
+        #main_window.showStatus("Thread: Auto run mode")
         while True:
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
@@ -809,7 +812,7 @@ class autoRunThread(QObject):
             time.sleep(0.1)
     def stop(self):
         main_window.autoRunFlag = False
-        main_window.showStatus("Exit execute: Auto run mode")
+        #main_window.showStatus("Exit execute: Auto run mode")
 #================================================================================================
 
 # Confirm exit workingWindow
@@ -1302,10 +1305,10 @@ class runMotor:
             if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
-                main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
+                #main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
                 main_window.threadAutoRun.finished.emit()
                 return
-        main_window.showStatus("Run Auto: Running...")
+        #main_window.showStatus("Run Auto: Running...")
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
             self.run_auto_mode = True
@@ -1315,7 +1318,7 @@ class runMotor:
                     wFile.file.close()
                     break
                 
-                #main_window.showStatus ('===========================================')
+                ##main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content.replace("\n",""))       # hiện thị từng dòng trong file
@@ -1334,7 +1337,7 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
+                        #main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
@@ -1345,41 +1348,42 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n' or content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                        main_window.showStatus("Run Auto: End program")
+                        #main_window.showStatus("Run Auto: End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
-                        #main_window.showStatus("=>Spray ON")
+                        ##main_window.showStatus("=>Spray ON")
                         self.command_run_spray(1)
                         
                     if content_line == self.turn_off_spray + '\n' : # tắt súng sơn
-                        #main_window.showStatus("Spray OFF")
+                        ##main_window.showStatus("Spray OFF")
                         self.command_run_spray(0)
                         
                     if content_line == self.table_rotary + '\n' : # xoay bàn sơn
-                        #main_window.showStatus("=>Rotating Table")
+                        ##main_window.showStatus("=>Rotating Table")
                         self.command_table_rotate()
 
                     if content_line == self.go_to_1st_point + '\n' : # đi tới điểm gốc đầu tiên, điểm 0
-                        #main_window.showStatus("=>Goto Zero")
+                        ##main_window.showStatus("=>Goto Zero")
                         main_window.gotoZeroPosition()
 
                     if content_line == self.go_to_2nd_point + '\n': # đi tới điểm gốc thứ 2
                         pass
                     
                     if content_line == self.start_run_block + '\n':
-                        main_window.showStatus ("=====> G05.0 START BLOCK RUN MODE")
+                        #main_window.showStatus ("=====> G05.0 START BLOCK RUN MODE")
                         result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
                         if result_run_block == False: 
-                            main_window.showStatus ("=====> G05.1 Error !!!")
+                            #main_window.showStatus ("=====> G05.1 Error !!!")
                             break
                         else: 
                             # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
-                            main_window.showStatus ("===> BLOCK RUN MODE DONE")
+                            #main_window.showStatus ("===> BLOCK RUN MODE DONE")
                             self.counter = 0
 
         except Exception as e:
-                main_window.showStatus("===> Run Auto Error: " + str(e))
+                #main_window.showStatus("===> Run Auto Error: " + str(e))
+                pass
 
         finally:
             self.re_init()
@@ -1393,7 +1397,7 @@ class runMotor:
         run_block = False
 
         for str_content in wFile.file:
-            #main_window.showStatus('===========================================')
+            ##main_window.showStatus('===========================================')
             content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
             content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
             recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
@@ -1415,12 +1419,12 @@ class runMotor:
                     sent_packet_done = True
 
             if content_line == self.end_run_block + '\n' or sent_packet_done == True:    
-                main_window.showStatus("=====> G05.1 END BLOCK RUN MODE")
+                #main_window.showStatus("=====> G05.1 END BLOCK RUN MODE")
                 self.monitor_str_content(target_line.replace("\n",""))  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
                 if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
                     # cho chạy auto 
-                    main_window.showStatus("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
+                    #main_window.showStatus("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
                     self.send_end_run_block_mode()
                     self.monitor_run_block_begin()
                     run_block = self.run_block_done
@@ -1524,7 +1528,7 @@ class runMotor:
             self.new_Fspeed = int(result_value[7])          # tốc độ sơn
 
         except Exception as e:
-            main_window.showStatus('separate_string error: ' + str(e))
+            #main_window.showStatus('separate_string error: ' + str(e))
             return
         return result_value
 
@@ -1532,8 +1536,8 @@ class runMotor:
     def calculate_delta(self,result_array):
     # result_array là mảng chứa kết quả của hàm separate_string    
     # tính giá trị xung tịnh tiến
-        #main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
-        #main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
+        ##main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
+        ##main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
         result_value    = []
         delta           = []
         print_delta     = []
@@ -1543,7 +1547,7 @@ class runMotor:
             result_value.append(float(delta[i])/main_window.gearRatio[i])
             print_delta.append(round(delta[i],3))
 
-        #main_window.showStatus('Gia tri delta cua X,Y,Z,A,B,C là:'+ str(print_delta))
+        ##main_window.showStatus('Gia tri delta cua X,Y,Z,A,B,C là:'+ str(print_delta))
         return result_value
 
 # tách xung nguyên và xung lẻ
@@ -1558,11 +1562,11 @@ class runMotor:
             xung_nguyen.append(math.trunc(so_xung[x]))
             self.sum_xung_le[x] = so_xung[x] - xung_nguyen[x]
             xung_le.append(round(self.sum_xung_le[x],3))  
-        #main_window.showStatus ("------------------------------------")
-        #main_window.showStatus ('>>> Gia tri xung x,y,z,a,b,c chua calib lan luot la: ' + str(print_delta_array))
-        #main_window.showStatus ('>>> So xung nguyen truc x,y,z,a,b,c: ' + str(xung_nguyen))
-        #main_window.showStatus ('>>> So xung le truc x,y,z,a,b,c:     '+ str(xung_le))
-        #main_window.showStatus ("------------------------------------")
+        ##main_window.showStatus ("------------------------------------")
+        ##main_window.showStatus ('>>> Gia tri xung x,y,z,a,b,c chua calib lan luot la: ' + str(print_delta_array))
+        ##main_window.showStatus ('>>> So xung nguyen truc x,y,z,a,b,c: ' + str(xung_nguyen))
+        ##main_window.showStatus ('>>> So xung le truc x,y,z,a,b,c:     '+ str(xung_le))
+        ##main_window.showStatus ("------------------------------------")
         return xung_nguyen
 
 # truyền giá trị xung và tốc độ x,y,z,a,b,c tới board execute; giá trị 32 bit
@@ -1574,7 +1578,7 @@ class runMotor:
             speed_slaves = main_window.callMotorSpeed()
         else: speed_slaves = _speed
 
-        #main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
+        ##main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
@@ -1589,7 +1593,7 @@ class runMotor:
         comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
         if self.run_auto_mode == False:
         # phát command tới board slave chạy đến điểm đã gửi
-            main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
+            #main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
             comWindow.workSerial.commandPointToPoint()
 
 # phát lệnh dừng tay máy
@@ -1623,7 +1627,7 @@ class runMotor:
 # Nhận diện dòng thỏa cú pháp trong file
     def recognize_command_syntax(self, StringArr):
         if StringArr == '\0' or StringArr == '\n':
-            main_window.showStatus("Ky tu khong dung systax: " + str(StringArr))
+            #main_window.showStatus("Ky tu khong dung systax: " + str(StringArr))
             Recognize_command = False
             return Recognize_command
         Recognize_command = True
@@ -1636,7 +1640,7 @@ class runMotor:
             else:
               Recognize_command = False
               self.executeDelay = False
-              main_window.showStatus ("Ký tự: " + str(StringArr).replace("\n", ""))
+              #main_window.showStatus ("Ký tự: " + str(StringArr).replace("\n", ""))
               break
         return Recognize_command
 
@@ -1644,26 +1648,28 @@ class runMotor:
     def command_run_spray(self, state):
         try: 
             if state:
-                main_window.showStatus("===> Spray ON")
+                #main_window.showStatus("===> Spray ON")
                 comWindow.workSerial.commandTurnOnSpray()
             else:
-                main_window.showStatus("===> Spray OFF")
+                #main_window.showStatus("===> Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
-            main_window.showStatus("===> Spray Error: " + str(e))
+            #main_window.showStatus("===> Spray Error: " + str(e))
+            pass
 
 # Dừng động cơ
     def stop_motor(self):
-        main_window.showStatus("===> Motor Stop")
+        #main_window.showStatus("===> Motor Stop")
         comWindow.workSerial.commandStopMotor()
 
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            main_window.showStatus("===> Xoay bàn sơn")
+            #main_window.showStatus("===> Xoay bàn sơn")
             comWindow.workSerial.commandRotateTable()
         except:
-            main_window.showStatus("===> Không kích được bàn xoay")
+            #main_window.showStatus("===> Không kích được bàn xoay")
+            pass
 #================================================================================================
 class monitorInputOutput:
     def __init__(self):
@@ -1723,18 +1729,18 @@ class monitorInputOutput:
     def writeCoilY(self, checkValue):
         if main_window.checkButtonCoilY[checkValue].isChecked():
             self.valueCoilY |= (1 << checkValue)
-            main_window.showStatus("Y"+str(checkValue+1) + "ON " + str(self.valueCoilY))
+            #main_window.showStatus("Y"+str(checkValue+1) + "ON " + str(self.valueCoilY))
             #main_window.labelCoilY[checkValue].setStyleSheet("background-color: #00aa00;")
         else:
             self.valueCoilY &= ~(1 << checkValue)
-            main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
+            #main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
             #main_window.labelCoilY[checkValue].setStyleSheet("background-color: " + main_window.orgColorLabelY[checkValue] + ";")
         try: 
             comWindow.workSerial.sendCoilValue(self.valueCoilY)
          
 
         except Exception as error:
-            main_window.showStatus("===> Kích coil Y bị lỗi đường truyền tín hiệu")
+            #main_window.showStatus("===> Kích coil Y bị lỗi đường truyền tín hiệu")
             return
 
 # Cho phép đọc trạng thái coil X từ board slave
@@ -1743,7 +1749,7 @@ class monitorInputOutput:
         try: 
             input_output_packet = comWindow.workSerial.readInputOutputCoil()
         except: 
-            main_window.showStatus("===> Giám sát tín hiệu In/Out bị lỗi")
+            #main_window.showStatus("===> Giám sát tín hiệu In/Out bị lỗi")
             input_output_packet = None
 
         return input_output_packet
