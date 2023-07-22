@@ -1284,12 +1284,12 @@ class runMotor:
         for i in range(main_window.MAX_AXIS):
             #if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
             if round(main_window.currentPos[i],3) == 0:
-                main_window.showStatus("Run Auto: Running...")
+                pass
             else:
                 main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
                 main_window.threadAutoRun.finished.emit()
                 return
-        
+        main_window.showStatus("Run Auto: Running...")
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
             self.run_auto_mode = True
