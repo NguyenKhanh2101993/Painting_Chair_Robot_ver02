@@ -1337,7 +1337,8 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
+                        #main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
+                        main_window.window.custom_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
@@ -1348,7 +1349,8 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n' or content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                        main_window.showStatus("Run Auto: End program")
+                        #main_window.showStatus("Run Auto: End program")
+                        main_window.window.custom_signal.emit("Run Auto: End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
@@ -1612,7 +1614,6 @@ class runMotor:
 # Nhận diện dòng thỏa cú pháp trong file
     def recognize_command_syntax(self, StringArr):
         if StringArr == '\0' or StringArr == '\n':
-            main_window.showStatus("Ky tu khong dung systax: " + str(StringArr))
             Recognize_command = False
             return Recognize_command
         Recognize_command = True
@@ -1625,7 +1626,8 @@ class runMotor:
             else:
               Recognize_command = False
               self.executeDelay = False
-              main_window.showStatus ("Ký tự: " + str(StringArr).replace("\n", ""))
+              #main_window.showStatus ("Ký tự: " + str(StringArr).replace("\n", ""))
+              main_window.window.custom_signal.emit("Ký tự: " + str(StringArr).replace("\n", ""))
               break
         return Recognize_command
 
@@ -1633,10 +1635,12 @@ class runMotor:
     def command_run_spray(self, state):
         try: 
             if state:
-                main_window.showStatus("===> Spray ON")
+                #main_window.showStatus("===> Spray ON")
+                main_window.window.custom_signal.emit("===> Spray ON")
                 comWindow.workSerial.commandTurnOnSpray()
             else:
-                main_window.showStatus("===> Spray OFF")
+                #main_window.showStatus("===> Spray OFF")
+                main_window.window.custom_signal.emit("===> Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
             main_window.showStatus("===> Spray Error: " + str(e))
@@ -1650,7 +1654,8 @@ class runMotor:
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            main_window.showStatus("===> Rotating table")
+            #main_window.showStatus("===> Rotating table")
+            main_window.window.custom_signal.emit("===> Rotating table")
             comWindow.workSerial.commandRotateTable()
         except Exception as e:
             main_window.showStatus("===> Rotating table error: "+ str(e))
