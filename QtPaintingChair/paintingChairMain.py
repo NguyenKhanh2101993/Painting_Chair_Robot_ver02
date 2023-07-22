@@ -1163,8 +1163,7 @@ class workingWindow:
             self.showStatus("===> Open COM port first!!! ")
       
     def gotoZeroPosition(self):
-        #self.showStatus("Đưa tay máy về vị trí 0")
-        main_window.window.custom_signal.emit("Đưa tay máy về vị trí 0")
+        main_window.window.custom_signal.emit("Sent command: Go to Zero Position")
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
@@ -1174,14 +1173,12 @@ class workingWindow:
                     waiting = False
                 time.sleep(0.1)
 
-            #self.showStatus("Tay máy đã về vị trí 0")
-            main_window.window.custom_signal.emit("Tay máy đã về vị trí 0")
+            main_window.window.custom_signal.emit("Go to zero Done")
         except Exception as e:
-            self.showStatus("===> gotoZero Error status: "+str(e))
+            main_window.window.custom_signal.emit("===> gotoZero Error status: "+str(e))
             
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoZeroMode.emit()
-        #self.gotoZeroFlag = False
 
     def startgotoMachinePosition(self):
         if comWindow.connectSignal == True:
@@ -1191,7 +1188,7 @@ class workingWindow:
             self.showStatus("===> Open COM port first!!! ")
 
     def gotoMachinePosition(self):
-        self.showStatus("Đưa tay máy về vị trí cảm biến gốc máy")
+        main_window.window.custom_signal.emit("Sent command: Go to Home Position")
        
         try:
             if self.go_machine_home == False:
@@ -1248,20 +1245,17 @@ class workingWindow:
                     time.sleep(0.1)
                 self.go_machine_home = True # đã về home
 
-            self.showStatus("===> Tay máy đã về vị trí cảm biến gốc máy")
+            main_window.window.custom_signal.emit("===> Go to Home Done")
 
         except Exception as error:
-            self.showStatus("===> goto Zero Position error: "+ str(error))
+            main_window.window.custom_signal.emit("===> goto Home Position error: "+ str(error))
 
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoHomeMode.emit()
         
 
     def showStatus(self, value):
-        #app_thread = QtWidgets.QApplication.instance().thread()
-        #curr_thread = QtCore.QThread.currentThread()
-        #if app_thread != curr_thread:
-        #    raise Exception('attempt to call MainWindow.append_message from non-app thread')
+        
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
         verScrollBar = self.uiWorking.textBrowser_terminal.verticalScrollBar()
         self.uiWorking.textBrowser_terminal.append(str(value))
