@@ -1092,7 +1092,7 @@ class workingWindow:
             for i in range(self.MAX_AXIS + 2):
                 position.append(self.currentPos[i])
             
-            self.showStatus("===> Lỗi đọc giá trị tọa độ")
+            main_window.window.custom_signal.emit("===> Lỗi đọc giá trị tọa độ")
 
         #self.updateLabelPosition()  
         return position
@@ -1119,7 +1119,6 @@ class workingWindow:
         try:
             # Đọc giá trị current position ở địa chỉ bắt đầu từ 0, đọc 12 giá trị 16 bit
             current_position = comWindow.workSerial.readCurrentPosition()
-            #print(current_position)
             for i in range(self.MAX_AXIS):
                 current_position_motor.append((current_position[index] << 16) | (current_position[index+1] & 65535))
                 index = index + 2
@@ -1127,12 +1126,11 @@ class workingWindow:
             
             resultCurrentPos = self.calculateCurrentPos(current_pulse, gearRatio)
 
-            #time.sleep(0.1) # delay quan trọng 
             return resultCurrentPos
 
 
         except Exception as error:
-            self.showStatus("===> read_pulse_from_slaves function failed"+ str(error))
+            main_window.window.custom_signal.emit("===> read_pulse_from_slaves function failed"+ str(error))
             return None
 
     def check_negative_num(self, x):
@@ -1220,7 +1218,6 @@ class workingWindow:
                     while True: 
                         # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                         positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                        #self.showCurrentPositions()
                         if (positionCompleted[0]==1 or main_window.coilXY.sensor_machine_axis[i] == 0):
                             # dừng động cơ
                             run.stop_motor()
@@ -1237,12 +1234,10 @@ class workingWindow:
                     # Đọc trạng thái phát xung đã hoàn tất chưa
                     positionCompleted = comWindow.workSerial.commandPositionCompleted()
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                    #self.showCurrentPositions()
                     if positionCompleted[0] == 1: 
                         # set lại các thông số motor, đưa giá trị current_position về 0
                         comWindow.workSerial.setZeroPositions()
                         comWindow.workSerial.commandCheckXYZAsensor()
-                        #self.showCurrentPositions()
                         break
 
                     time.sleep(0.1)
@@ -1432,7 +1427,6 @@ class runMotor:
         comWindow.workSerial.commandChangeStateBlockRun()
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
-            #main_window.showCurrentPositions()
 
             if point_done[0] == 1: # slave đã chạy xong hết block
                 self.run_block_done = True
@@ -1723,7 +1717,7 @@ class monitorInputOutput:
          
 
         except Exception as error:
-            main_window.showStatus("===> Kích coil Y bị lỗi đường truyền tín hiệu")
+            main_window.window.custom_signal.emit("===> Toggle coil Y error: " + str(error))
             return
 
 # Cho phép đọc trạng thái coil X từ board slave
@@ -1731,8 +1725,8 @@ class monitorInputOutput:
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
         try: 
             input_output_packet = comWindow.workSerial.readInputOutputCoil()
-        except: 
-            main_window.showStatus("===> Giám sát tín hiệu In/Out bị lỗi")
+        except Exception as error:
+            main_window.window.custom_signal.emit("===> Monitor In/Out error: "+ str(error))
             input_output_packet = None
 
         return input_output_packet
