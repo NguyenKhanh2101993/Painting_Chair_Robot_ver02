@@ -1563,7 +1563,7 @@ class runMotor:
             speed_slaves = main_window.callMotorSpeed()
         else: speed_slaves = _speed
 
-        main_window.showStatus ("===> Tốc độ tay máy: " + str(speed_slaves) +"%")
+        main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
         #main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
@@ -1625,7 +1625,7 @@ class runMotor:
             else:
               Recognize_command = False
               self.executeDelay = False
-              main_window.showStatus ("Ky tu khong dung systax: " + str(StringArr))
+              main_window.showStatus ("Ký tự: " + str(StringArr).replace("\n", ""))
               break
         return Recognize_command
 
@@ -1633,13 +1633,13 @@ class runMotor:
     def command_run_spray(self, state):
         try: 
             if state:
-                main_window.showStatus("===> SÚNG SƠN BẬT")
+                main_window.showStatus("===> Spray ON")
                 comWindow.workSerial.commandTurnOnSpray()
             else:
-                main_window.showStatus("===> SÚNG SƠN TẮT")
+                main_window.showStatus("===> Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
-        except:
-            main_window.showStatus("===> LỖI BẬT/TẮT SÚNG SƠN")
+        except Exception as e:
+            main_window.showStatus("===> Spray Error: " + str(e))
 
 # Dừng động cơ
     def stop_motor(self):
@@ -1649,7 +1649,7 @@ class runMotor:
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            #main_window.showStatus("===> Xoay bàn sơn")
+            main_window.showStatus("===> Xoay bàn sơn")
             comWindow.workSerial.commandRotateTable()
         except:
             main_window.showStatus("===> Không kích được bàn xoay")
