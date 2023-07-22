@@ -78,7 +78,7 @@
        <x>13</x>
        <y>13</y>
        <width>598</width>
-       <height>291</height>
+       <height>301</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -311,8 +311,8 @@ border-radius: 5px</string>
       <rect>
        <x>618</x>
        <y>13</y>
-       <width>597</width>
-       <height>228</height>
+       <width>601</width>
+       <height>221</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -325,1311 +325,1001 @@ border-radius: 5px</string>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
-     <widget class="QLabel" name="label_y5">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>118</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_x1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x13">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>118</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_x9">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X13&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY10">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>40</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY10</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x5">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>118</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X9&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QCheckBox" name="checkBoxY1">
+        <property name="text">
+         <string>CheckBoxY1</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_y1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x11">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>66</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="midLineWidth">
+         <number>0</number>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QCheckBox" name="checkBoxY9">
+        <property name="text">
+         <string>CheckBoxY9</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="label_y9">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y10">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>40</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y10&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x3">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>66</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;X3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y15">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>170</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y4">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>92</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y1">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>13</y>
-        <width>65</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="lineWidth">
-       <number>1</number>
-      </property>
-      <property name="midLineWidth">
-       <number>0</number>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x1">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>13</y>
-        <width>66</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;X1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x9">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>13</y>
-        <width>66</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X9&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="value_speedSpray">
-      <property name="geometry">
-       <rect>
-        <x>515</x>
-        <y>13</y>
-        <width>31</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(100, 100, 100);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y9&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QLabel" name="value_speedSpray">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(100, 100, 100);
 color: rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        </property>
+        <property name="text">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial'; font-size:14pt; font-weight:600; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y9">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>13</y>
-        <width>66</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y9&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY9">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>13</y>
-        <width>95</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY9</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x14">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>144</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X14&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y13">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>118</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y13&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y11">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>66</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY14">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>144</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY14</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y6">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>144</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x6">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>144</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY13">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>118</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY13</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x10">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>40</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X10&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y12">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>92</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y12&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY11">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>66</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY11</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x4">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>92</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x2">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>40</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;X2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y2">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>40</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QSlider" name="verticalSlider_speedMotor">
-      <property name="geometry">
-       <rect>
-        <x>553</x>
-        <y>40</y>
-        <width>31</width>
-        <height>88</height>
-       </rect>
-      </property>
-      <property name="minimum">
-       <number>10</number>
-      </property>
-      <property name="maximum">
-       <number>200</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="tickPosition">
-       <enum>QSlider::TicksAbove</enum>
-      </property>
-      <property name="tickInterval">
-       <number>1</number>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY12">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>92</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY12</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x12">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>92</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X12&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y3">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>66</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_speedMotor">
-      <property name="geometry">
-       <rect>
-        <x>553</x>
-        <y>13</y>
-        <width>31</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(100, 100, 100);
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QLabel" name="label_speedMotor">
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(100, 100, 100);
 color: rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x15">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>170</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_x2">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY16">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>196</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY16</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x8">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>196</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_x10">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x7">
-      <property name="geometry">
-       <rect>
-        <x>13</x>
-        <y>170</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X10&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="checkBoxY2">
+        <property name="text">
+         <string>CheckBoxY2</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_y2">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y7">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>170</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QCheckBox" name="checkBoxY10">
+        <property name="text">
+         <string>CheckBoxY10</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QLabel" name="label_y10">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_x16">
-      <property name="geometry">
-       <rect>
-        <x>86</x>
-        <y>196</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y10&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="6" rowspan="7">
+       <widget class="QSlider" name="verticalSlider_spray">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+        <property name="tickInterval">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7" rowspan="7">
+       <widget class="QSlider" name="verticalSlider_speedMotor">
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>200</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+        <property name="tickInterval">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_x3">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y16">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>196</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_x11">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y14">
-      <property name="geometry">
-       <rect>
-        <x>442</x>
-        <y>144</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="checkBoxY3">
+        <property name="text">
+         <string>CheckBoxY3</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="label_y3">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y14&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY15">
-      <property name="geometry">
-       <rect>
-        <x>333</x>
-        <y>170</y>
-        <width>102</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY15</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_y8">
-      <property name="geometry">
-       <rect>
-        <x>261</x>
-        <y>196</y>
-        <width>65</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial 12</family>
-        <pointsize>14</pointsize>
-        <weight>9</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(222, 222, 222);
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QCheckBox" name="checkBoxY11">
+        <property name="text">
+         <string>CheckBoxY11</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QLabel" name="label_y11">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY4">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>92</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY4</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY1">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>13</y>
-        <width>95</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY1</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QSlider" name="verticalSlider_spray">
-      <property name="geometry">
-       <rect>
-        <x>515</x>
-        <y>40</y>
-        <width>31</width>
-        <height>88</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="tickPosition">
-       <enum>QSlider::TicksAbove</enum>
-      </property>
-      <property name="tickInterval">
-       <number>1</number>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY2">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>40</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY2</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY7">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>170</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY7</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY5">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>118</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY5</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY6">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>144</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY6</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY3">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>66</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY3</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxY8">
-      <property name="geometry">
-       <rect>
-        <x>159</x>
-        <y>196</y>
-        <width>95</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>CheckBoxY8</string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
-      </property>
-     </widget>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_x4">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_x12">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X12&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QCheckBox" name="checkBoxY4">
+        <property name="text">
+         <string>CheckBoxY4</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLabel" name="label_y4">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QCheckBox" name="checkBoxY12">
+        <property name="text">
+         <string>CheckBoxY12</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QLabel" name="label_y12">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y12&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_x5">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_x13">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X13&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QCheckBox" name="checkBoxY5">
+        <property name="text">
+         <string>CheckBoxY5</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QLabel" name="label_y5">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="4">
+       <widget class="QCheckBox" name="checkBoxY13">
+        <property name="text">
+         <string>CheckBoxY13</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="5">
+       <widget class="QLabel" name="label_y13">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y13&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_x6">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_x14">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X14&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QCheckBox" name="checkBoxY6">
+        <property name="text">
+         <string>CheckBoxY6</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="3">
+       <widget class="QLabel" name="label_y6">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="4">
+       <widget class="QCheckBox" name="checkBoxY14">
+        <property name="text">
+         <string>CheckBoxY14</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="5">
+       <widget class="QLabel" name="label_y14">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y14&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_x7">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLabel" name="label_x15">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QCheckBox" name="checkBoxY7">
+        <property name="text">
+         <string>CheckBoxY7</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="3">
+       <widget class="QLabel" name="label_y7">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="4">
+       <widget class="QCheckBox" name="checkBoxY15">
+        <property name="text">
+         <string>CheckBoxY15</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="5">
+       <widget class="QLabel" name="label_y15">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="label_x8">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="label_x16">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QCheckBox" name="checkBoxY8">
+        <property name="text">
+         <string>CheckBoxY8</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="3">
+       <widget class="QLabel" name="label_y8">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="4">
+       <widget class="QCheckBox" name="checkBoxY16">
+        <property name="text">
+         <string>CheckBoxY16</string>
+        </property>
+        <property name="tristate">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="5">
+       <widget class="QLabel" name="label_y16">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>12</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 12pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
     <widget class="QFrame" name="frame_button">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>248</y>
+       <x>618</x>
+       <y>240</y>
        <width>601</width>
-       <height>49</height>
+       <height>51</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1834,9 +1524,9 @@ border-radius: 2px</string>
      <property name="geometry">
       <rect>
        <x>618</x>
-       <y>314</y>
-       <width>597</width>
-       <height>291</height>
+       <y>300</y>
+       <width>601</width>
+       <height>300</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1864,20 +1554,6 @@ border-radius: 5px</string>
          <enum>QFrame::Plain</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0" colspan="4">
-          <widget class="QLabel" name="label">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(130, 130, 130);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(255, 255, 255);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AXIS -- G54WORK --- MACHINE ---- GUN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="3">
           <widget class="QLabel" name="label_8">
            <property name="styleSheet">
@@ -1902,7 +1578,7 @@ border-radius: 5px</string>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -2075,7 +1751,7 @@ border-radius: 5px</string>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -2095,7 +1771,7 @@ border-radius: 5px</string>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -2129,7 +1805,7 @@ border-radius: 5px</string>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -2200,7 +1876,7 @@ border-radius: 5px</string>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -2234,7 +1910,7 @@ border-radius: 5px</string>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 14pt &quot;Arial&quot; bold;
+font: 75 12pt &quot;Arial&quot; bold;
 color: rgb(0, 0, 0);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
@@ -2295,6 +1971,62 @@ border-radius: 5px</string>
            </property>
           </widget>
          </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(130, 130, 130);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(255, 255, 255);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AXIS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="label_12">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(130, 130, 130);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(255, 255, 255);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SPRAY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_13">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(130, 130, 130);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(255, 255, 255);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;MACHINE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_14">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(130, 130, 130);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(255, 255, 255);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;G54&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -2319,9 +2051,9 @@ border-radius: 5px</string>
      <property name="geometry">
       <rect>
        <x>13</x>
-       <y>307</y>
+       <y>317</y>
        <width>601</width>
-       <height>231</height>
+       <height>221</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -2351,9 +2083,9 @@ border-radius: 10px</string>
      <property name="geometry">
       <rect>
        <x>13</x>
-       <y>542</y>
+       <y>540</y>
        <width>598</width>
-       <height>63</height>
+       <height>60</height>
       </rect>
      </property>
      <property name="styleSheet">
