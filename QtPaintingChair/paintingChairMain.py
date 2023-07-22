@@ -1247,8 +1247,8 @@ class workingWindow:
     def showStatus(self, value):
         app_thread = QtWidgets.QApplication.instance().thread()
         curr_thread = QtCore.QThread.currentThread()
-        if app_thread != curr_thread:
-            raise Exception('attempt to call MainWindow.append_message from non-app thread')
+        #if app_thread != curr_thread:
+        #    raise Exception('attempt to call MainWindow.append_message from non-app thread')
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
         verScrollBar = self.uiWorking.textBrowser_terminal.verticalScrollBar()
         self.uiWorking.textBrowser_terminal.append(str(value))
