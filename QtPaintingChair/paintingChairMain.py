@@ -831,9 +831,9 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
-            main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait()
-            main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait()
-            main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait()
+            main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait(100)
+            main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait(100)
+            main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait(100)
             event.accept()
     
 #================================================================================================
