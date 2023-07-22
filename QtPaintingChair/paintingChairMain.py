@@ -1299,7 +1299,7 @@ class runMotor:
                     wFile.file.close()
                     break
                 
-                #main_window.showStatus ('===========================================')
+                main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content.replace("\n",""))       # hiện thị từng dòng trong file
@@ -1380,7 +1380,6 @@ class runMotor:
         for str_content in wFile.file:
             main_window.showStatus('===========================================')
             content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
-            #main_window.showStatus(content_line)
             content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
             recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
 
