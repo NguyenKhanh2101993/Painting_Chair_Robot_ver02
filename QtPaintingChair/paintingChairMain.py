@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 import time
 import math
+#import psutil
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
@@ -773,9 +774,19 @@ class monitorDatafromArduinoThread(QObject):
                 main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
                 self.coilValue.emit(coil_Value)
             else: pass
+            
+            # Getting all memory using os.popen()
+            total_memory, used_memory, free_memory = map(
+                int, os.popen('free -t -m').readlines()[-1].split()[1:])
+ 
+            # Memory usage
+            ramUsed = round((used_memory/total_memory) * 100, 2)
+            #print("RAM memory % used:", round((used_memory/total_memory) * 100, 2))
+
             getTime = QTime.currentTime()
             mytime = getTime.toString()
-            main_window.uiWorking.label_showtime.setText(mytime)
+            main_window.uiWorking.label_showtime.setText(mytime + str(ramUsed))
+
             time.sleep(0.05)
 #================================================================================================
 # Thread trong autoRun
