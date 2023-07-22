@@ -228,9 +228,6 @@ class setPinsWindow:
         self.getxSensorBitPositon()
         main_window.getSpecsOfSensor() # cập nhật giá trị cảm biến
         self.closePinsWindow()
-        #main_window.showStatus("===> Chân Pin X: " + str(self.xSensor))
-        #main_window.showStatus("===> Chân Pin Y: " + str(self.yOutput))
-
 #================================================================================================
 # ====> test ok
 class paramWindow:
@@ -270,8 +267,7 @@ class paramWindow:
             # truy xuất bắng cách: self.gearbox_X.get()
 
         except Exception as error:
-            main_window.showStatus(error)
-            main_window.showStatus("===> ConfigFile Motor Error")
+            main_window.showStatus("===> ConfigFile Motor Error: " + str(error))
             return
 
     # lưu giá trị cài đặt từ bảng vào file json        
@@ -414,77 +410,77 @@ class teachingWindow:
         self.counter_line = 0
 
     def buttonX_forward(self):
-        #main_window.showStatus("Dang nhan button X-")
+        
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.forward
 
     def buttonX_reverse(self):
-        #main_window.showStatus("Dang nhan button X+")
+        
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.reverse
 
     def buttonY_forward(self):
-        #main_window.showStatus("Dang nhan button Y-")
+        
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.forward
 
     def buttonY_reverse(self):
-        #main_window.showStatus("Dang nhan button Y+")
+        
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.reverse
 
     def buttonZ_forward(self):
-        #main_window.showStatus("Dang nhan button Z-")
+        
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.forward
 
     def buttonZ_reverse(self):
-        #main_window.showStatus("Dang nhan button Z+")
+        
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.reverse
 
     def buttonB_forward(self):
-        #main_window.showStatus("Dang nhan button B-")
+       
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.forward
 
     def buttonB_reverse(self):
-        #main_window.showStatus("Dang nhan button B+")
+        
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.reverse
 
     def buttonC_forward(self):
-        #main_window.showStatus("Dang nhan button C-")
+        
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.forward
 
     def buttonC_reverse(self):
-        #main_window.showStatus("Dang nhan button C+")
+       
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.reverse
 
     def buttonA_forward(self):
-        #main_window.showStatus("Dang nhan button A-")
+       
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.forward
 
     def buttonA_reverse(self):
-        #main_window.showStatus("Dang nhan button A+")
+       
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.reverse    
 
     def buttonZ1_forward(self):
-        #main_window.showStatus("Dang nhan button Z1-")
+       
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.forward
 
     def buttonZ1_reverse(self):
-        #main_window.showStatus("Dang nhan button Z1+")
+        
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.reverse
 
     def deactive(self):
-        #main_window.showStatus("Thả nút nhấn")
+        
         self.button_active = 0
 
     def testGotoZero(self):
@@ -498,7 +494,6 @@ class teachingWindow:
             if int_result >= 200: int_result = 200
         except:
             int_result = 0
-        #main_window.showStatus(str(int_result))
         return int_result
 
     def setPoint(self):
@@ -1048,7 +1043,6 @@ class workingWindow:
                                     self.coilXY.xlimitBit, self.coilXY.ylimitBit, self.coilXY.zlimitBit, self.coilXY.alimitBit]
 
         self.showStatus("===> Vị trí khai báo bit sensor: "+ str(self.coilXY.bitPos))
-        #self.showStatus(self.coilXY.alimitBit)
         
     def getXYdefinePins(self):
         self.definePinsWindow.getXpinsFromJson()
@@ -1056,8 +1050,6 @@ class workingWindow:
         self.definePinsWindow.getSensorPinFromJson()
         self.definePinsWindow.getOutputPinFromJson()
         self.definePinsWindow.getxSensorBitPositon()
-        #self.showStatus("===> Sensor: " + str(self.definePinsWindow.xSensor))
-        #self.showStatus("===> Output: " + str(self.definePinsWindow.yOutput))
     
     def getGearRatioFromJson(self):
         result = self.jsonFile.getGearRatio()
@@ -1308,7 +1300,6 @@ class runMotor:
                     wFile.file.close()
                     break
                 
-                #main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content.replace("\n",""))       # hiện thị từng dòng trong file
@@ -1449,7 +1440,6 @@ class runMotor:
 
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
-            #main_window.showCurrentPositions()
 
             if point_done[0] == 1: 
                 break
@@ -1526,8 +1516,6 @@ class runMotor:
     def calculate_delta(self,result_array):
     # result_array là mảng chứa kết quả của hàm separate_string    
     # tính giá trị xung tịnh tiến
-        #main_window.showStatus('Giá trị X,Y,Z,A,B,C,S,F là:' + str(result_array))
-        #main_window.showStatus('Giá trị pre_points: ' + str(self.pre_points))
         result_value    = []
         delta           = []
         print_delta     = []
@@ -1536,8 +1524,6 @@ class runMotor:
             self.pre_points[i] = float(result_array[i])
             result_value.append(float(delta[i])/main_window.gearRatio[i])
             print_delta.append(round(delta[i],3))
-
-        #main_window.showStatus('Gia tri delta cua X,Y,Z,A,B,C là:'+ str(print_delta))
         return result_value
 
 # tách xung nguyên và xung lẻ
@@ -1552,11 +1538,6 @@ class runMotor:
             xung_nguyen.append(math.trunc(so_xung[x]))
             self.sum_xung_le[x] = so_xung[x] - xung_nguyen[x]
             xung_le.append(round(self.sum_xung_le[x],3))  
-        #main_window.showStatus ("------------------------------------")
-        #main_window.showStatus ('>>> Gia tri xung x,y,z,a,b,c chua calib lan luot la: ' + str(print_delta_array))
-        #main_window.showStatus ('>>> So xung nguyen truc x,y,z,a,b,c: ' + str(xung_nguyen))
-        #main_window.showStatus ('>>> So xung le truc x,y,z,a,b,c:     '+ str(xung_le))
-        #main_window.showStatus ("------------------------------------")
         return xung_nguyen
 
 # truyền giá trị xung và tốc độ x,y,z,a,b,c tới board execute; giá trị 32 bit
@@ -1568,7 +1549,6 @@ class runMotor:
             speed_slaves = main_window.callMotorSpeed()
         else: speed_slaves = _speed
 
-        #main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
@@ -1583,7 +1563,7 @@ class runMotor:
         comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
         if self.run_auto_mode == False:
         # phát command tới board slave chạy đến điểm đã gửi
-            main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
+            #main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
             comWindow.workSerial.commandPointToPoint()
 
 # phát lệnh dừng tay máy
@@ -1649,7 +1629,7 @@ class runMotor:
 
 # Dừng động cơ
     def stop_motor(self):
-        main_window.showStatus("===> Motor Stop")
+        #main_window.showStatus("===> Motor Stop")
         comWindow.workSerial.commandStopMotor()
 
 # command xoay bàn sơn
