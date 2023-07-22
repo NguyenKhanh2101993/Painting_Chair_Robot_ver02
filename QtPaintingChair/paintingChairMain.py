@@ -1284,7 +1284,7 @@ class runMotor:
         for i in range(main_window.MAX_AXIS):
             #if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
             if round(main_window.currentPos[i],3) == 0:
-                pass
+                main_window.showStatus("Run Auto: Running...")
             else:
                 main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
                 main_window.threadAutoRun.finished.emit()
@@ -1329,7 +1329,7 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n' or content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                        main_window.showStatus("=>End program")
+                        main_window.showStatus("Run Auto: End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
