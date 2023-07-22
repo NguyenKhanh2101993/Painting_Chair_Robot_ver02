@@ -356,18 +356,12 @@ class teachingWindow:
         
         self.teachWin.show()
 
-    def exitThreadTeachWindow(self):
-        self.monitor_off = True
-        self.teachWin.close()
 
     def closeTeachWindow(self):
-        if comWindow.connectSignal == True:
-            main_window.threadTeachMode.finishedTeachMode.emit()
-        else:
-            self.monitor_off = True
-            self.teachWin.close()
-            main_window.disable_control_option(False)
-            main_window.showStatus("Close Teaching Box")
+        self.monitor_off = True
+        self.teachWin.close()
+        main_window.disable_control_option(False)
+        main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
 
@@ -679,6 +673,7 @@ class workingTeachMode():
 
                 if teachWindow.monitor_off == True:
                     main_window.disable_control_option(False)
+                    main_window.threadTeachMode.finishedTeachMode.emit()
                     break
 
                 time.sleep(0.1)
@@ -765,7 +760,7 @@ class monitorTeachModeThread(QObject):
         main_window.window.custom_signal.emit("Exit execute: goto Home")
     
     def stopTeachMode(self):
-        teachWindow.exitThreadTeachWindow()
+        teachWindow.closeTeachWindow()
         main_window.window.custom_signal.emit("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
