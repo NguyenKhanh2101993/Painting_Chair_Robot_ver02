@@ -1163,8 +1163,8 @@ class workingWindow:
             self.showStatus("===> Open COM port first!!! ")
       
     def gotoZeroPosition(self):
-        self.showStatus("Đưa tay máy về vị trí 0")
-        #self.disable_control_option(True)
+        #self.showStatus("Đưa tay máy về vị trí 0")
+        main_window.window.custom_signal.emit("Đưa tay máy về vị trí 0")
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
@@ -1174,8 +1174,8 @@ class workingWindow:
                     waiting = False
                 time.sleep(0.1)
 
-            self.showStatus("Tay máy đã về vị trí 0")
-            
+            #self.showStatus("Tay máy đã về vị trí 0")
+            main_window.window.custom_signal.emit("Tay máy đã về vị trí 0")
         except Exception as e:
             self.showStatus("===> gotoZero Error status: "+str(e))
             
