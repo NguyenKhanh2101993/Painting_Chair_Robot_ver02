@@ -909,34 +909,59 @@ class Ui_MainWindow(object):
         self.frame_termial.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_termial.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_termial.setObjectName("frame_termial")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.frame_termial)
-        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.gridLayout_6 = QtWidgets.QGridLayout(self.frame_termial)
+        self.gridLayout_6.setObjectName("gridLayout_6")
         self.frame_position = QtWidgets.QFrame(self.frame_termial)
         self.frame_position.setStyleSheet("border: 2px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.frame_position.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_position.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame_position.setObjectName("frame_position")
-        self.gridLayout_6 = QtWidgets.QGridLayout(self.frame_position)
-        self.gridLayout_6.setObjectName("gridLayout_6")
-        self.label_8 = QtWidgets.QLabel(self.frame_position)
-        self.label_8.setStyleSheet("background-color: rgb(59, 59, 59);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(0, 0, 0);\n"
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.frame_position)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.label = QtWidgets.QLabel(self.frame_position)
+        self.label.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_8.setObjectName("label_8")
-        self.gridLayout_6.addWidget(self.label_8, 2, 3, 1, 1)
-        self.label_3 = QtWidgets.QLabel(self.frame_position)
-        self.label_3.setMinimumSize(QtCore.QSize(122, 30))
-        self.label_3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label.setObjectName("label")
+        self.gridLayout_3.addWidget(self.label, 0, 0, 1, 1)
+        self.label_14 = QtWidgets.QLabel(self.frame_position)
+        self.label_14.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_14.setObjectName("label_14")
+        self.gridLayout_3.addWidget(self.label_14, 0, 1, 1, 1)
+        self.label_13 = QtWidgets.QLabel(self.frame_position)
+        self.label_13.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_13.setObjectName("label_13")
+        self.gridLayout_3.addWidget(self.label_13, 0, 2, 1, 1)
+        self.label_12 = QtWidgets.QLabel(self.frame_position)
+        self.label_12.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_12.setObjectName("label_12")
+        self.gridLayout_3.addWidget(self.label_12, 0, 3, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.frame_position)
+        self.label_2.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(0, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_3.setObjectName("label_3")
-        self.gridLayout_6.addWidget(self.label_3, 4, 0, 1, 1)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout_3.addWidget(self.label_2, 1, 0, 1, 1)
         self.label_Xposition = QtWidgets.QLabel(self.frame_position)
+        self.label_Xposition.setMinimumSize(QtCore.QSize(122, 25))
         font = QtGui.QFont()
         font.setFamily("Arial Bold")
         font.setPointSize(14)
@@ -950,8 +975,35 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Xposition.setObjectName("label_Xposition")
-        self.gridLayout_6.addWidget(self.label_Xposition, 2, 1, 2, 1)
+        self.gridLayout_3.addWidget(self.label_Xposition, 1, 1, 1, 1)
+        self.label_Xhome = QtWidgets.QLabel(self.frame_position)
+        self.label_Xhome.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Xhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"color: rgb(255, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_Xhome.setObjectName("label_Xhome")
+        self.gridLayout_3.addWidget(self.label_Xhome, 1, 2, 1, 1)
+        self.label_8 = QtWidgets.QLabel(self.frame_position)
+        self.label_8.setStyleSheet("background-color: rgb(59, 59, 59);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(0, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_8.setObjectName("label_8")
+        self.gridLayout_3.addWidget(self.label_8, 1, 3, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.frame_position)
+        self.label_3.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(0, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_3.setObjectName("label_3")
+        self.gridLayout_3.addWidget(self.label_3, 2, 0, 1, 1)
         self.label_Yposition = QtWidgets.QLabel(self.frame_position)
+        self.label_Yposition.setMinimumSize(QtCore.QSize(122, 25))
         font = QtGui.QFont()
         font.setFamily("Arial Bold")
         font.setPointSize(14)
@@ -965,62 +1017,16 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Yposition.setObjectName("label_Yposition")
-        self.gridLayout_6.addWidget(self.label_Yposition, 4, 1, 1, 1)
-        self.label_Zhome = QtWidgets.QLabel(self.frame_position)
-        self.label_Zhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+        self.gridLayout_3.addWidget(self.label_Yposition, 2, 1, 1, 1)
+        self.label_Yhome = QtWidgets.QLabel(self.frame_position)
+        self.label_Yhome.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Yhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_Zhome.setObjectName("label_Zhome")
-        self.gridLayout_6.addWidget(self.label_Zhome, 5, 2, 2, 1)
-        self.label_9 = QtWidgets.QLabel(self.frame_position)
-        self.label_9.setStyleSheet("background-color: rgb(59, 59, 59);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(0, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_9.setObjectName("label_9")
-        self.gridLayout_6.addWidget(self.label_9, 5, 3, 1, 1)
-        self.label_Aposition = QtWidgets.QLabel(self.frame_position)
-        font = QtGui.QFont()
-        font.setFamily("Arial Bold")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_Aposition.setFont(font)
-        self.label_Aposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Aposition.setObjectName("label_Aposition")
-        self.gridLayout_6.addWidget(self.label_Aposition, 7, 1, 1, 1)
-        self.label_Bposition = QtWidgets.QLabel(self.frame_position)
-        self.label_Bposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Bposition.setObjectName("label_Bposition")
-        self.gridLayout_6.addWidget(self.label_Bposition, 8, 1, 2, 1)
-        self.label_Ahome = QtWidgets.QLabel(self.frame_position)
-        self.label_Ahome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"color: rgb(255, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Ahome.setObjectName("label_Ahome")
-        self.gridLayout_6.addWidget(self.label_Ahome, 7, 2, 1, 1)
-        self.label_Bhome = QtWidgets.QLabel(self.frame_position)
-        self.label_Bhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"color: rgb(255, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Bhome.setObjectName("label_Bhome")
-        self.gridLayout_6.addWidget(self.label_Bhome, 8, 2, 2, 1)
+        self.label_Yhome.setObjectName("label_Yhome")
+        self.gridLayout_3.addWidget(self.label_Yhome, 2, 2, 1, 1)
         self.label_xSpray = QtWidgets.QLabel(self.frame_position)
         self.label_xSpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "font: 75 14pt \"Arial\" \"Bold\";\n"
@@ -1028,43 +1034,18 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_xSpray.setObjectName("label_xSpray")
-        self.gridLayout_6.addWidget(self.label_xSpray, 3, 3, 2, 1)
-        self.label_5 = QtWidgets.QLabel(self.frame_position)
-        self.label_5.setMinimumSize(QtCore.QSize(122, 30))
-        self.label_5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.gridLayout_3.addWidget(self.label_xSpray, 2, 3, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self.frame_position)
+        self.label_4.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(0, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_5.setObjectName("label_5")
-        self.gridLayout_6.addWidget(self.label_5, 7, 0, 1, 1)
-        self.label_6 = QtWidgets.QLabel(self.frame_position)
-        self.label_6.setMinimumSize(QtCore.QSize(122, 37))
-        self.label_6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"font: 75 12pt \"Arial\" bold;\n"
-"color: rgb(0, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_6.setObjectName("label_6")
-        self.gridLayout_6.addWidget(self.label_6, 8, 0, 2, 1)
-        self.label_Yhome = QtWidgets.QLabel(self.frame_position)
-        self.label_Yhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"color: rgb(255, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Yhome.setObjectName("label_Yhome")
-        self.gridLayout_6.addWidget(self.label_Yhome, 4, 2, 1, 1)
-        self.label_2 = QtWidgets.QLabel(self.frame_position)
-        self.label_2.setMinimumSize(QtCore.QSize(122, 37))
-        self.label_2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"font: 75 12pt \"Arial\" bold;\n"
-"color: rgb(0, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_2.setObjectName("label_2")
-        self.gridLayout_6.addWidget(self.label_2, 2, 0, 2, 1)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout_3.addWidget(self.label_4, 3, 0, 1, 1)
         self.label_Zposition = QtWidgets.QLabel(self.frame_position)
+        self.label_Zposition.setMinimumSize(QtCore.QSize(122, 25))
         font = QtGui.QFont()
         font.setFamily("Arial Bold")
         font.setPointSize(14)
@@ -1078,7 +1059,58 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Zposition.setObjectName("label_Zposition")
-        self.gridLayout_6.addWidget(self.label_Zposition, 5, 1, 2, 1)
+        self.gridLayout_3.addWidget(self.label_Zposition, 3, 1, 1, 1)
+        self.label_Zhome = QtWidgets.QLabel(self.frame_position)
+        self.label_Zhome.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Zhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"color: rgb(255, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_Zhome.setObjectName("label_Zhome")
+        self.gridLayout_3.addWidget(self.label_Zhome, 3, 2, 1, 1)
+        self.label_9 = QtWidgets.QLabel(self.frame_position)
+        self.label_9.setStyleSheet("background-color: rgb(59, 59, 59);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(0, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_9.setObjectName("label_9")
+        self.gridLayout_3.addWidget(self.label_9, 3, 3, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self.frame_position)
+        self.label_5.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(0, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_5.setObjectName("label_5")
+        self.gridLayout_3.addWidget(self.label_5, 4, 0, 1, 1)
+        self.label_Aposition = QtWidgets.QLabel(self.frame_position)
+        self.label_Aposition.setMinimumSize(QtCore.QSize(122, 25))
+        font = QtGui.QFont()
+        font.setFamily("Arial Bold")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_Aposition.setFont(font)
+        self.label_Aposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_Aposition.setObjectName("label_Aposition")
+        self.gridLayout_3.addWidget(self.label_Aposition, 4, 1, 1, 1)
+        self.label_Ahome = QtWidgets.QLabel(self.frame_position)
+        self.label_Ahome.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Ahome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"color: rgb(255, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_Ahome.setObjectName("label_Ahome")
+        self.gridLayout_3.addWidget(self.label_Ahome, 4, 2, 1, 1)
         self.label_ySpray = QtWidgets.QLabel(self.frame_position)
         self.label_ySpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "font: 75 14pt \"Arial\" \"Bold\";\n"
@@ -1086,49 +1118,34 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_ySpray.setObjectName("label_ySpray")
-        self.gridLayout_6.addWidget(self.label_ySpray, 6, 3, 2, 1)
-        self.label_Xhome = QtWidgets.QLabel(self.frame_position)
-        self.label_Xhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"color: rgb(255, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Xhome.setObjectName("label_Xhome")
-        self.gridLayout_6.addWidget(self.label_Xhome, 2, 2, 2, 1)
-        self.label_4 = QtWidgets.QLabel(self.frame_position)
-        self.label_4.setMinimumSize(QtCore.QSize(122, 37))
-        self.label_4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.gridLayout_3.addWidget(self.label_ySpray, 4, 3, 1, 1)
+        self.label_6 = QtWidgets.QLabel(self.frame_position)
+        self.label_6.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(0, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_4.setObjectName("label_4")
-        self.gridLayout_6.addWidget(self.label_4, 5, 0, 2, 1)
-        self.label_zSpray = QtWidgets.QLabel(self.frame_position)
-        self.label_zSpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
-"font: 75 14pt \"Arial\" \"Bold\";\n"
-"color: rgb(255, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_zSpray.setObjectName("label_zSpray")
-        self.gridLayout_6.addWidget(self.label_zSpray, 9, 3, 2, 1)
-        self.label_7 = QtWidgets.QLabel(self.frame_position)
-        self.label_7.setMinimumSize(QtCore.QSize(122, 30))
-        self.label_7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"font: 75 12pt \"Arial\" bold;\n"
+        self.label_6.setObjectName("label_6")
+        self.gridLayout_3.addWidget(self.label_6, 5, 0, 1, 1)
+        self.label_Bposition = QtWidgets.QLabel(self.frame_position)
+        self.label_Bposition.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Bposition.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_7.setObjectName("label_7")
-        self.gridLayout_6.addWidget(self.label_7, 10, 0, 1, 1)
-        self.label_Chome = QtWidgets.QLabel(self.frame_position)
-        self.label_Chome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+        self.label_Bposition.setObjectName("label_Bposition")
+        self.gridLayout_3.addWidget(self.label_Bposition, 5, 1, 1, 1)
+        self.label_Bhome = QtWidgets.QLabel(self.frame_position)
+        self.label_Bhome.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Bhome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
 "font: 75 14pt \"Arial\" \"Bold\";\n"
 "color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_Chome.setObjectName("label_Chome")
-        self.gridLayout_6.addWidget(self.label_Chome, 10, 2, 1, 1)
+        self.label_Bhome.setObjectName("label_Bhome")
+        self.gridLayout_3.addWidget(self.label_Bhome, 5, 2, 1, 1)
         self.label_10 = QtWidgets.QLabel(self.frame_position)
         self.label_10.setStyleSheet("background-color: rgb(59, 59, 59);\n"
 "font: 75 14pt \"Arial\" bold;\n"
@@ -1136,8 +1153,18 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_10.setObjectName("label_10")
-        self.gridLayout_6.addWidget(self.label_10, 8, 3, 1, 1)
+        self.gridLayout_3.addWidget(self.label_10, 5, 3, 1, 1)
+        self.label_7 = QtWidgets.QLabel(self.frame_position)
+        self.label_7.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"font: 75 12pt \"Arial\" bold;\n"
+"color: rgb(0, 0, 0);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_7.setObjectName("label_7")
+        self.gridLayout_3.addWidget(self.label_7, 6, 0, 1, 1)
         self.label_Cposition = QtWidgets.QLabel(self.frame_position)
+        self.label_Cposition.setMinimumSize(QtCore.QSize(122, 25))
         font = QtGui.QFont()
         font.setFamily("Arial Bold")
         font.setPointSize(14)
@@ -1151,40 +1178,25 @@ class Ui_MainWindow(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Cposition.setObjectName("label_Cposition")
-        self.gridLayout_6.addWidget(self.label_Cposition, 10, 1, 1, 1)
-        self.label = QtWidgets.QLabel(self.frame_position)
-        self.label.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 12pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
+        self.gridLayout_3.addWidget(self.label_Cposition, 6, 1, 1, 1)
+        self.label_Chome = QtWidgets.QLabel(self.frame_position)
+        self.label_Chome.setMinimumSize(QtCore.QSize(122, 25))
+        self.label_Chome.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label.setObjectName("label")
-        self.gridLayout_6.addWidget(self.label, 0, 0, 1, 1)
-        self.label_12 = QtWidgets.QLabel(self.frame_position)
-        self.label_12.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 12pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
+        self.label_Chome.setObjectName("label_Chome")
+        self.gridLayout_3.addWidget(self.label_Chome, 6, 2, 1, 1)
+        self.label_zSpray = QtWidgets.QLabel(self.frame_position)
+        self.label_zSpray.setStyleSheet("background-color: rgb(241, 241, 241);\n"
+"font: 75 14pt \"Arial\" \"Bold\";\n"
+"color: rgb(255, 0, 0);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_12.setObjectName("label_12")
-        self.gridLayout_6.addWidget(self.label_12, 0, 3, 1, 1)
-        self.label_13 = QtWidgets.QLabel(self.frame_position)
-        self.label_13.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 12pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_13.setObjectName("label_13")
-        self.gridLayout_6.addWidget(self.label_13, 0, 2, 1, 1)
-        self.label_14 = QtWidgets.QLabel(self.frame_position)
-        self.label_14.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 12pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_14.setObjectName("label_14")
-        self.gridLayout_6.addWidget(self.label_14, 0, 1, 1, 1)
-        self.gridLayout_3.addWidget(self.frame_position, 0, 0, 1, 1)
+        self.label_zSpray.setObjectName("label_zSpray")
+        self.gridLayout_3.addWidget(self.label_zSpray, 6, 3, 1, 1)
+        self.gridLayout_6.addWidget(self.frame_position, 0, 0, 1, 1)
         self.label_11 = QtWidgets.QLabel(self.frame_termial)
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -1193,7 +1205,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
-        self.gridLayout_3.addWidget(self.label_11, 1, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.label_11, 1, 0, 1, 1)
         self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
         self.textBrowser_terminal.setGeometry(QtCore.QRect(13, 317, 601, 221))
         self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
@@ -1474,34 +1486,34 @@ class Ui_MainWindow(object):
         self.label_ylimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Y-LIMIT</span></p></body></html>"))
         self.label_zlimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Z-LIMIT</span></p></body></html>"))
         self.label_alimit.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">A-LIMIT</span></p></body></html>"))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">AXIS</span></p></body></html>"))
+        self.label_14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">G54</span></p></body></html>"))
+        self.label_13.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">MACHINE</span></p></body></html>"))
+        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">SPRAY</span></p></body></html>"))
+        self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X</span></p></body></html>"))
+        self.label_Xposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_Xhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">X</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y</span></p></body></html>"))
-        self.label_Xposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_Yposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_Yhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_xSpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Z</span></p></body></html>"))
+        self.label_Zposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_Zhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Y</span></p></body></html>"))
-        self.label_Aposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_Bposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_Ahome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_Bhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_xSpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">A</span></p></body></html>"))
-        self.label_6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">B</span></p></body></html>"))
-        self.label_Yhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X</span></p></body></html>"))
-        self.label_Zposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_Aposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_Ahome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_ySpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_Xhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Z</span></p></body></html>"))
-        self.label_zSpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label_7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">C</span></p></body></html>"))
-        self.label_Chome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">B</span></p></body></html>"))
+        self.label_Bposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_Bhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Z</span></p></body></html>"))
+        self.label_7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">C</span></p></body></html>"))
         self.label_Cposition.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">AXIS</span></p></body></html>"))
-        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">SPRAY</span></p></body></html>"))
-        self.label_13.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">MACHINE</span></p></body></html>"))
-        self.label_14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">G54</span></p></body></html>"))
+        self.label_Chome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
+        self.label_zSpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_11.setText(_translate("MainWindow", "Design by: Khanh.Q.N - Khoi Nguyen Plastic.jsc - 0348777219"))
         self.pushButton_power.setText(_translate("MainWindow", "POWER"))
         self.pushButton_estop.setText(_translate("MainWindow", "E-STOP"))

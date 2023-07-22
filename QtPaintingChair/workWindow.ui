@@ -1540,7 +1540,7 @@ border-radius: 5px</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
+     <layout class="QGridLayout" name="gridLayout_6">
       <item row="0" column="0">
        <widget class="QFrame" name="frame_position">
         <property name="styleSheet">
@@ -1553,424 +1553,7 @@ border-radius: 5px</string>
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
         </property>
-        <layout class="QGridLayout" name="gridLayout_6">
-         <item row="2" column="3">
-          <widget class="QLabel" name="label_8">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(59, 59, 59);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ffffff;&quot;&gt;X&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="minimumSize">
-            <size>
-             <width>122</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 12pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1" rowspan="2">
-          <widget class="QLabel" name="label_Xposition">
-           <property name="font">
-            <font>
-             <family>Arial Bold</family>
-             <pointsize>14</pointsize>
-             <weight>9</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_Yposition">
-           <property name="font">
-            <font>
-             <family>Arial Bold</family>
-             <pointsize>14</pointsize>
-             <weight>9</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="2" rowspan="2">
-          <widget class="QLabel" name="label_Zhome">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="3">
-          <widget class="QLabel" name="label_9">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(59, 59, 59);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ffffff;&quot;&gt;Y&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <widget class="QLabel" name="label_Aposition">
-           <property name="font">
-            <font>
-             <family>Arial Bold</family>
-             <pointsize>14</pointsize>
-             <weight>9</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="1" rowspan="2">
-          <widget class="QLabel" name="label_Bposition">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="2">
-          <widget class="QLabel" name="label_Ahome">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="2" rowspan="2">
-          <widget class="QLabel" name="label_Bhome">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="3" rowspan="2">
-          <widget class="QLabel" name="label_xSpray">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="minimumSize">
-            <size>
-             <width>122</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 12pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;A&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0" rowspan="2">
-          <widget class="QLabel" name="label_6">
-           <property name="minimumSize">
-            <size>
-             <width>122</width>
-             <height>37</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 12pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;B&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QLabel" name="label_Yhome">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0" rowspan="2">
-          <widget class="QLabel" name="label_2">
-           <property name="minimumSize">
-            <size>
-             <width>122</width>
-             <height>37</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 12pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1" rowspan="2">
-          <widget class="QLabel" name="label_Zposition">
-           <property name="font">
-            <font>
-             <family>Arial Bold</family>
-             <pointsize>14</pointsize>
-             <weight>9</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="3" rowspan="2">
-          <widget class="QLabel" name="label_ySpray">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2" rowspan="2">
-          <widget class="QLabel" name="label_Xhome">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0" rowspan="2">
-          <widget class="QLabel" name="label_4">
-           <property name="minimumSize">
-            <size>
-             <width>122</width>
-             <height>37</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 12pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Z&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="3" rowspan="2">
-          <widget class="QLabel" name="label_zSpray">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="minimumSize">
-            <size>
-             <width>122</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(222, 222, 222);
-font: 75 12pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="2">
-          <widget class="QLabel" name="label_Chome">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-color: rgb(255, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="3">
-          <widget class="QLabel" name="label_10">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(59, 59, 59);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(0, 0, 0);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ffffff;&quot;&gt;Z&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="1">
-          <widget class="QLabel" name="label_Cposition">
-           <property name="font">
-            <font>
-             <family>Arial Bold</family>
-             <pointsize>14</pointsize>
-             <weight>9</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(241, 241, 241);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
+        <layout class="QGridLayout" name="gridLayout_3">
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="styleSheet">
@@ -1985,8 +1568,8 @@ border-radius: 5px</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
-          <widget class="QLabel" name="label_12">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_14">
            <property name="styleSheet">
             <string notr="true">background-color: rgb(130, 130, 130);
 font: 75 12pt &quot;Arial&quot; bold;
@@ -1995,7 +1578,7 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SPRAY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;G54&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -2013,8 +1596,8 @@ border-radius: 5px</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_14">
+         <item row="0" column="3">
+          <widget class="QLabel" name="label_12">
            <property name="styleSheet">
             <string notr="true">background-color: rgb(130, 130, 130);
 font: 75 12pt &quot;Arial&quot; bold;
@@ -2023,7 +1606,496 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;G54&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SPRAY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(222, 222, 222);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_Xposition">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial Bold</family>
+             <pointsize>14</pointsize>
+             <weight>9</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="label_Xhome">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="label_8">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(59, 59, 59);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ffffff;&quot;&gt;X&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(222, 222, 222);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_Yposition">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial Bold</family>
+             <pointsize>14</pointsize>
+             <weight>9</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="label_Yhome">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="label_xSpray">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(222, 222, 222);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Z&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="label_Zposition">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial Bold</family>
+             <pointsize>14</pointsize>
+             <weight>9</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLabel" name="label_Zhome">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="3">
+          <widget class="QLabel" name="label_9">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(59, 59, 59);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ffffff;&quot;&gt;Y&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(222, 222, 222);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;A&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_Aposition">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial Bold</family>
+             <pointsize>14</pointsize>
+             <weight>9</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="label_Ahome">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="3">
+          <widget class="QLabel" name="label_ySpray">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(222, 222, 222);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;B&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="label_Bposition">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QLabel" name="label_Bhome">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="3">
+          <widget class="QLabel" name="label_10">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(59, 59, 59);
+font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ffffff;&quot;&gt;Z&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(222, 222, 222);
+font: 75 12pt &quot;Arial&quot; bold;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;C&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLabel" name="label_Cposition">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial Bold</family>
+             <pointsize>14</pointsize>
+             <weight>9</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QLabel" name="label_Chome">
+           <property name="minimumSize">
+            <size>
+             <width>122</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="3">
+          <widget class="QLabel" name="label_zSpray">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(241, 241, 241);
+font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
+color: rgb(255, 0, 0);
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
