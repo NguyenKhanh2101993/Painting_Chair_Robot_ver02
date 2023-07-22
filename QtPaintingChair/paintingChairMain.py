@@ -785,7 +785,7 @@ class monitorDatafromArduinoThread(QObject):
 
             getTime = QTime.currentTime()
             mytime = getTime.toString()
-            main_window.uiWorking.label_showtime.setText(mytime + str(ramUsed))
+            main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
 
             time.sleep(0.05)
 #================================================================================================
