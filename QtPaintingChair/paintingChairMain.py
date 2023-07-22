@@ -408,77 +408,77 @@ class teachingWindow:
         self.counter_line = 0
 
     def buttonX_forward(self):
-        main_window.showStatus("Dang nhan button X-")
+        #main_window.showStatus("Dang nhan button X-")
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.forward
 
     def buttonX_reverse(self):
-        main_window.showStatus("Dang nhan button X+")
+        #main_window.showStatus("Dang nhan button X+")
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.reverse
 
     def buttonY_forward(self):
-        main_window.showStatus("Dang nhan button Y-")
+        #main_window.showStatus("Dang nhan button Y-")
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.forward
 
     def buttonY_reverse(self):
-        main_window.showStatus("Dang nhan button Y+")
+        #main_window.showStatus("Dang nhan button Y+")
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.reverse
 
     def buttonZ_forward(self):
-        main_window.showStatus("Dang nhan button Z-")
+        #main_window.showStatus("Dang nhan button Z-")
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.forward
 
     def buttonZ_reverse(self):
-        main_window.showStatus("Dang nhan button Z+")
+        #main_window.showStatus("Dang nhan button Z+")
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.reverse
 
     def buttonB_forward(self):
-        main_window.showStatus("Dang nhan button B-")
+        #main_window.showStatus("Dang nhan button B-")
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.forward
 
     def buttonB_reverse(self):
-        main_window.showStatus("Dang nhan button B+")
+        #main_window.showStatus("Dang nhan button B+")
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.reverse
 
     def buttonC_forward(self):
-        main_window.showStatus("Dang nhan button C-")
+        #main_window.showStatus("Dang nhan button C-")
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.forward
 
     def buttonC_reverse(self):
-        main_window.showStatus("Dang nhan button C+")
+        #main_window.showStatus("Dang nhan button C+")
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.reverse
 
     def buttonA_forward(self):
-        main_window.showStatus("Dang nhan button A-")
+        #main_window.showStatus("Dang nhan button A-")
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.forward
 
     def buttonA_reverse(self):
-        main_window.showStatus("Dang nhan button A+")
+        #main_window.showStatus("Dang nhan button A+")
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.reverse    
 
     def buttonZ1_forward(self):
-        main_window.showStatus("Dang nhan button Z1-")
+        #main_window.showStatus("Dang nhan button Z1-")
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.forward
 
     def buttonZ1_reverse(self):
-        main_window.showStatus("Dang nhan button Z1+")
+        #main_window.showStatus("Dang nhan button Z1+")
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.reverse
 
     def deactive(self):
-        main_window.showStatus("Thả nút nhấn")
+        #main_window.showStatus("Thả nút nhấn")
         self.button_active = 0
 
     def testGotoZero(self):
@@ -1638,7 +1638,7 @@ class runMotor:
 
 # Dừng động cơ
     def stop_motor(self):
-        main_window.showStatus("===> STOP MOTOR")
+        main_window.showStatus("===> Motor Stop")
         comWindow.workSerial.commandStopMotor()
 
 # command xoay bàn sơn
