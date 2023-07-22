@@ -10,7 +10,8 @@ class workingFile:
         self.saveFileStatus = ''
 
     def show_initial_directory(self):
-        fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\Desktop\\',filter = 'pnt files (*.pnt)')
+        #fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\Desktop\\',filter = 'pnt files (*.pnt)')
+        fname = myfile.getOpenFileName(caption = 'Open file', directory = 'home\\orangepi\\Desktop',filter = 'pnt files (*.pnt)')
         if fname[0] != '':
             self.fileDirectory = fname[0]
         return self.fileDirectory
