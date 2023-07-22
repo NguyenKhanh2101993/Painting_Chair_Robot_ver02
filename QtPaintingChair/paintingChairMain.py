@@ -1328,8 +1328,8 @@ class runMotor:
                                 break
                 else:
 
-                    if content_line == self.end_symbol + '\n': # gặp ký hiệu báo kết thúc file
-                        #main_window.showStatus("=>End program")
+                    if content_line == self.end_symbol + '\n' or content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
+                        main_window.showStatus("=>End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
