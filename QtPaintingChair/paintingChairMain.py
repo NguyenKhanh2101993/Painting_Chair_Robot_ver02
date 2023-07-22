@@ -822,7 +822,7 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
     custom_signal = pyqtSignal(str)
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
-        self.custom_signal.connect(main_window.showStatus)
+        #self.custom_signal.connect(main_window.showStatus)
 
     def closeEvent(self,event):
         mBox = QtWidgets.QMessageBox()
@@ -856,6 +856,8 @@ class workingWindow:
         self.threadTeachMode = monitorTeachModeThread()
         self.threadAutoRun = autoRunThread()
         self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
+
+        self.window.custom_signal.connect(self.showStatus)
 
         self.defineControlButton()
         self.defineCheckButton()
