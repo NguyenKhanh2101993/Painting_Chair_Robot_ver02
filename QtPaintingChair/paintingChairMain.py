@@ -318,8 +318,8 @@ class MyTeachingWindow(QtWidgets.QMainWindow):
         pass
     
     def closeEvent(self,event):
-        main_window.threadTeachMode.finishedTeachMode.emit()
-        
+        #main_window.threadTeachMode.finishedTeachMode.emit()
+        teachWindow.closeTeachWindow()
 
 #================================================================================================
 class teachingWindow:
