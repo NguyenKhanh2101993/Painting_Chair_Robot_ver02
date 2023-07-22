@@ -561,22 +561,22 @@ class teachingWindow:
         main_window.showStatus(wFile.saveFileStatus)
 
     def tableRorateFW(self):
-        main_window.showStatus("===> BÀN XOAY 1")
-        main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
+        main_window.uiWorking.textBrowser_showfile.append("//Xoay bàn sơn" )
+        main_window.uiWorking.textBrowser_showfile.append(run.table_rotary )
         run.command_table_rotate()
 
     def tableRorateRW(self):
-        main_window.showStatus("===> BÀN XOAY 2")
+        main_window.uiWorking.textBrowser_showfile.append("//Xoay bàn sơn" )
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def sprayON(self):
-        main_window.showStatus("===> SÚNG SƠN BẬT")
+        main_window.uiWorking.textBrowser_showfile.append("//Bật súng sơn" )
         main_window.uiWorking.textBrowser_showfile.append(run.turn_on_spray)
         run.command_run_spray(1)
 
     def sprayOFF(self):
-        main_window.showStatus("===> SÚNG SƠN TẮT")
+        main_window.uiWorking.textBrowser_showfile.append("//Tắt súng sơn" )
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         run.command_run_spray(0)
 #================================================================================================
@@ -1333,19 +1333,15 @@ class runMotor:
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
-                        #main_window.showStatus("=>Spray ON")
                         self.command_run_spray(1)
                         
                     if content_line == self.turn_off_spray + '\n' : # tắt súng sơn
-                        #main_window.showStatus("Spray OFF")
                         self.command_run_spray(0)
                         
                     if content_line == self.table_rotary + '\n' : # xoay bàn sơn
-                        #main_window.showStatus("=>Rotating Table")
                         self.command_table_rotate()
 
                     if content_line == self.go_to_1st_point + '\n' : # đi tới điểm gốc đầu tiên, điểm 0
-                        #main_window.showStatus("=>Goto Zero")
                         main_window.gotoZeroPosition()
 
                     if content_line == self.go_to_2nd_point + '\n': # đi tới điểm gốc thứ 2
@@ -1635,10 +1631,10 @@ class runMotor:
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            main_window.showStatus("===> Xoay bàn sơn")
+            main_window.showStatus("===> Rotating table")
             comWindow.workSerial.commandRotateTable()
-        except:
-            main_window.showStatus("===> Không kích được bàn xoay")
+        except Exception as e:
+            main_window.showStatus("===> Rotating table error: "+ str(e))
             pass
 #================================================================================================
 class monitorInputOutput:
