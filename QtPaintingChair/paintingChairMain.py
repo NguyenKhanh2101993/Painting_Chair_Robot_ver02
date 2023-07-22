@@ -676,7 +676,7 @@ class workingTeachMode():
                 time.sleep(0.1)
             
         except Exception as e:
-            main_window.showStatus("===> Teaching mode warning: "+ str(e))
+            main_window.window.custom_signal.emit("===> Teaching mode warning: "+ str(e))
             main_window.threadTeachMode.finishedTeachMode.emit()
 
     def Kinematics_Zaxis_mode_02(self):
@@ -802,21 +802,15 @@ class autoRunThread(QObject):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
-        #main_window.showStatus("Thread: Auto run mode")
         main_window.window.custom_signal.emit("Thread: Auto run mode")
         while True:
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
-
-            #print ("3. autoRun Thread")
-            
             time.sleep(0.1)
     def stop(self):
         main_window.autoRunFlag = False
         main_window.window.custom_signal.emit("Exit execute: Auto run mode")
-        #main_window.showStatus("Exit execute: Auto run mode")
 #================================================================================================
-
 # Confirm exit workingWindow
 class MyWindow(QtWidgets.QMainWindow, QObject):
     custom_signal = pyqtSignal(str)
@@ -1252,10 +1246,8 @@ class workingWindow:
 
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoHomeMode.emit()
-        
 
     def showStatus(self, value):
-        
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
         verScrollBar = self.uiWorking.textBrowser_terminal.verticalScrollBar()
         self.uiWorking.textBrowser_terminal.append(str(value))
@@ -1298,11 +1290,9 @@ class runMotor:
             if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
-                #main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
                 main_window.window.custom_signal.emit("Run Auto: Go to zero/machine axis first!!!")
                 main_window.threadAutoRun.finished.emit()
                 return
-        #main_window.showStatus("Run Auto: Running...")
         main_window.window.custom_signal.emit("Run Auto: Running...")
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
@@ -1363,18 +1353,18 @@ class runMotor:
                         pass
                     
                     if content_line == self.start_run_block + '\n':
-                        main_window.showStatus ("=====> G05.0 START BLOCK RUN MODE")
+                        main_window.window.custom_signal.emit("=====> G05.0 START BLOCK RUN MODE")
                         result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
                         if result_run_block == False: 
-                            main_window.showStatus ("=====> G05.1 Error !!!")
+                            main_window.window.custom_signal.emit("=====> G05.1 Error !!!")
                             break
                         else: 
                             # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
-                            main_window.showStatus ("===> BLOCK RUN MODE DONE")
+                            main_window.window.custom_signal.emit("===> BLOCK RUN MODE DONE")
                             self.counter = 0
 
         except Exception as e:
-                main_window.showStatus("===> Run Auto Error: " + str(e))
+                main_window.window.custom_signal.emit("===> Run Auto Error: " + str(e))
                 pass
 
         finally:
@@ -1389,7 +1379,6 @@ class runMotor:
         run_block = False
 
         for str_content in wFile.file:
-            #main_window.showStatus('===========================================')
             content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
             content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
             recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
@@ -1411,12 +1400,12 @@ class runMotor:
                     sent_packet_done = True
 
             if content_line == self.end_run_block + '\n' or sent_packet_done == True:    
-                main_window.showStatus("=====> G05.1 END BLOCK RUN MODE")
+                main_window.window.custom_signal.emit("===> G05.1 END BLOCK RUN MODE")
                 self.monitor_str_content(target_line.replace("\n",""))  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
                 if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
                     # cho chạy auto 
-                    main_window.showStatus("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
+                    main_window.window.custom_signal.emit("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
                     self.send_end_run_block_mode()
                     self.monitor_run_block_begin()
                     run_block = self.run_block_done
@@ -1519,7 +1508,7 @@ class runMotor:
             self.new_Fspeed = int(result_value[7])          # tốc độ sơn
 
         except Exception as e:
-            main_window.showStatus('separate_string error: ' + str(e))
+            main_window.window.custom_signal.emit('separate_string error: ' + str(e))
             return
         return result_value
 
@@ -1598,8 +1587,6 @@ class runMotor:
         self.counter = 0
         self.e_stop = False
         self.executeDelay = False
-        #main_window.enable_button_control(0)
-        #main_window.enable_screen_option()
 
 # Hiện thị từng dòng đang chạy trong file lên label
     def monitor_str_content(seft, string):
@@ -1637,7 +1624,7 @@ class runMotor:
                 main_window.window.custom_signal.emit("===> Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
-            main_window.showStatus("===> Spray Error: " + str(e))
+            main_window.window.custom_signal.emit("===> Spray Error: " + str(e))
             pass
 
 # Dừng động cơ
@@ -1652,7 +1639,7 @@ class runMotor:
             main_window.window.custom_signal.emit("===> Rotating table")
             comWindow.workSerial.commandRotateTable()
         except Exception as e:
-            main_window.showStatus("===> Rotating table error: "+ str(e))
+            main_window.window.custom_signal.emit("===> Rotating table error: "+ str(e))
             pass
 #================================================================================================
 class monitorInputOutput:
