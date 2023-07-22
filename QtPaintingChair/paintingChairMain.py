@@ -1367,7 +1367,6 @@ class runMotor:
 
         finally:
             self.re_init()
-            #main_window.showStatus("END")
             main_window.threadAutoRun.finished.emit()
 
 # gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
