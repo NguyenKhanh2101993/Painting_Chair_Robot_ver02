@@ -976,6 +976,13 @@ class workingWindow:
         for i in range(len(self.warningLabel)):
             self.orgColorWarningLabel.append(self.warningLabel[i].palette().window().color().name())
 
+    def disableMenuButton(self, state):
+        self.uiWorking.actionChoose_File_pnt.setDisabled(state)
+        self.uiWorking.actionConnect_to_Slave.setDisabled(state)
+        self.uiWorking.actionMotor.setDisabled(state)
+        self.uiWorking.actionTeach_mode_3.setDisabled(state)
+        self.uiWorking.actionDefine_XY.setDisabled(state)    
+
     def disable_control_option(self, state):
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].setDisabled(state)
@@ -1024,6 +1031,7 @@ class workingWindow:
 
     def runAutoCycle(self):
         if comWindow.connectSignal == True:
+            self.disableMenuButton(True)
             self.autoRunFlag = True
         else:
             self.showStatus("===> Open COM port first!!! ")
@@ -1281,12 +1289,14 @@ class runMotor:
 
         self.e_stop = False                 # trạng thái tín hiệu nút nhấn ESTOP
 
+    
 #=============================================================
     def activate_run_mode(self):
         # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
         for i in range(main_window.MAX_AXIS):
             #if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
             if round(main_window.currentPos[i],3) == 0:
+
                 pass
             else:
                 main_window.window.custom_signal.emit("Run Auto: Go to zero/machine axis first!!!")
@@ -1368,6 +1378,7 @@ class runMotor:
 
         finally:
             self.re_init()
+            main_window.disableMenuButton(False)
             main_window.threadAutoRun.finished.emit()
 
 # gui N packet tới board slave, hàm trả về số điểm đã gửi tới board slave            
