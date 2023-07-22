@@ -408,77 +408,77 @@ class teachingWindow:
         self.counter_line = 0
 
     def buttonX_forward(self):
-        main_window.showStatus ("Dang nhan button X-")
+        main_window.showStatus("Dang nhan button X-")
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.forward
 
     def buttonX_reverse(self):
-        main_window.showStatus  ("Dang nhan button X+")
+        main_window.showStatus("Dang nhan button X+")
         self.teach_axis = self.TEACH_X_AXIS
         self.button_active = self.reverse
 
     def buttonY_forward(self):
-        main_window.showStatus  ("Dang nhan button Y-")
+        main_window.showStatus("Dang nhan button Y-")
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.forward
 
     def buttonY_reverse(self):
-        main_window.showStatus  ("Dang nhan button Y+")
+        main_window.showStatus("Dang nhan button Y+")
         self.teach_axis = self.TEACH_Y_AXIS
         self.button_active = self.reverse
 
     def buttonZ_forward(self):
-        main_window.showStatus  ("Dang nhan button Z-")
+        main_window.showStatus("Dang nhan button Z-")
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.forward
 
     def buttonZ_reverse(self):
-        main_window.showStatus  ("Dang nhan button Z+")
+        main_window.showStatus("Dang nhan button Z+")
         self.teach_axis = self.TEACH_Z_AXIS
         self.button_active = self.reverse
 
     def buttonB_forward(self):
-        main_window.showStatus  ("Dang nhan button B-")
+        main_window.showStatus("Dang nhan button B-")
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.forward
 
     def buttonB_reverse(self):
-        main_window.showStatus  ("Dang nhan button B+")
+        main_window.showStatus("Dang nhan button B+")
         self.teach_axis = self.TEACH_B_AXIS
         self.button_active = self.reverse
 
     def buttonC_forward(self):
-        main_window.showStatus  ("Dang nhan button C-")
+        main_window.showStatus("Dang nhan button C-")
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.forward
 
     def buttonC_reverse(self):
-        main_window.showStatus  ("Dang nhan button C+")
+        main_window.showStatus("Dang nhan button C+")
         self.teach_axis = self.TEACH_C_AXIS
         self.button_active = self.reverse
 
     def buttonA_forward(self):
-        main_window.showStatus  ("Dang nhan button A-")
+        main_window.showStatus("Dang nhan button A-")
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.forward
 
     def buttonA_reverse(self):
-        main_window.showStatus  ("Dang nhan button A+")
+        main_window.showStatus("Dang nhan button A+")
         self.teach_axis = self.TEACH_A_AXIS
         self.button_active = self.reverse    
 
     def buttonZ1_forward(self):
-        main_window.showStatus  ("Dang nhan button Z1-")
+        main_window.showStatus("Dang nhan button Z1-")
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.forward
 
     def buttonZ1_reverse(self):
-        main_window.showStatus  ("Dang nhan button Z1+")
+        main_window.showStatus("Dang nhan button Z1+")
         self.teach_axis = self.TEACH_Z1_AXIS
         self.button_active = self.reverse
 
     def deactive(self):
-        main_window.showStatus  ("Thả nút nhấn")
+        main_window.showStatus("Thả nút nhấn")
         self.button_active = 0
 
     def testGotoZero(self):
@@ -492,7 +492,7 @@ class teachingWindow:
             if int_result >= 200: int_result = 200
         except:
             int_result = 0
-        main_window.showStatus(int_result)
+        #main_window.showStatus(str(int_result))
         return int_result
 
     def setPoint(self):
@@ -521,7 +521,7 @@ class teachingWindow:
                     exceed_limit = True
                     break
             if exceed_limit == True:
-                main_window.showStatus ("Limited: EXCEED SENSOR LIMIT")
+                main_window.showStatus("Limited: EXCEED SENSOR LIMIT")
         except:
             return
         # so sánh các phần tử để tìm ra phần tử có giá trị khác so với giá trị của phần tử trước đó.
@@ -548,32 +548,32 @@ class teachingWindow:
             main_window.showStatus("===> SET ZERO POSITION: ERROR")
 
     def saveTofile(self):
-        main_window.showStatus ('===> Lưu file.pnt')
+        main_window.showStatus('===> Lưu file.pnt')
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         main_window.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
         main_window.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
         retrieve_text = main_window.uiWorking.textBrowser_showfile.toPlainText()
         wFile.save_file(retrieve_text)
-        main_window.showStatus (wFile.saveFileStatus)
+        main_window.showStatus(wFile.saveFileStatus)
 
     def tableRorateFW(self):
-        main_window.showStatus  ("===> BÀN XOAY 1")
+        main_window.showStatus("===> BÀN XOAY 1")
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def tableRorateRW(self):
-        main_window.showStatus  ("===> BÀN XOAY 2")
+        main_window.showStatus("===> BÀN XOAY 2")
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def sprayON(self):
-        main_window.showStatus  ("===> SÚNG SƠN BẬT")
+        main_window.showStatus("===> SÚNG SƠN BẬT")
         main_window.uiWorking.textBrowser_showfile.append(run.turn_on_spray)
         run.command_run_spray(1)
 
     def sprayOFF(self):
-        main_window.showStatus  ("===> SÚNG SƠN TẮT")
+        main_window.showStatus("===> SÚNG SƠN TẮT")
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         run.command_run_spray(0)
 #================================================================================================
@@ -773,8 +773,10 @@ class monitorDatafromArduinoThread(QObject):
                 main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
                 self.coilValue.emit(coil_Value)
             else: pass
-            #print ("1. monitorArduino Thread")
-            time.sleep(0.1)
+            getTime = QTime.currentTime()
+            mytime = getTime.toString()
+            main_window.uiWorking.label_showtime.setText(mytime)
+            time.sleep(0.05)
 #================================================================================================
 # Thread trong autoRun
 class autoRunThread(QObject):
@@ -788,9 +790,7 @@ class autoRunThread(QObject):
                 run.activate_run_mode()
 
             #print ("3. autoRun Thread")
-            getTime = QTime.currentTime()
-            mytime = getTime.toString()
-            main_window.uiWorking.label_showtime.setText(mytime)
+            
             time.sleep(0.1)
     def stop(self):
         main_window.autoRunFlag = False
@@ -802,13 +802,20 @@ class MyWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self,event):
         #setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        result = QtWidgets.QMessageBox.question(self,
+        mBox = QtWidgets.QMessageBox()
+        #mBox.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        result = mBox.question(self,
                       "Confirm Exit...",
                       "Are you sure you want to exit ?",
-                      QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
+                      mBox.Yes| mBox.No)
         event.ignore()
+        #result = QtWidgets.QMessageBox.question(self,
+        #              "Confirm Exit...",
+        #              "Are you sure you want to exit ?",
+        #              QtWidgets.QMessageBox.Yes| QtWidgets.QMessageBox.No)
+        #event.ignore()
 
-        if result == QtWidgets.QMessageBox.Yes:   
+        if result == mBox.Yes:   
             teachWindow.closeTeachWindow()
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
@@ -1055,10 +1062,10 @@ class workingWindow:
         for i in range(len(value)):
             self.gearRatio.append(value[i])
         self.showStatus("===> Hệ số xung/mm và xung/deg lưu trong chương trình: ")
-        self.showStatus(self.gearRatio)
+        self.showStatus(str(self.gearRatio))
 
     def showCurrentPositions(self):
-        position = [10,10,10,10,10,10,10,10]#self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
+        position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
         if position != None:
             for i in range(self.MAX_AXIS + 2):
                 self.currentPos[i] = position[i]
@@ -1155,7 +1162,7 @@ class workingWindow:
             self.showStatus("Tay máy đã về vị trí 0")
             
         except Exception as e:
-            main_window.showStatus("===> gotoZero Error status: "+str(e))
+            self.showStatus("===> gotoZero Error status: "+str(e))
             
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoZeroMode.emit()
@@ -1275,7 +1282,8 @@ class runMotor:
     def activate_run_mode(self):
         # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
         for i in range(main_window.MAX_AXIS):
-            if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
+            #if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
+            if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
                 main_window.showStatus("Run Auto: Go to zero/machine axis first!!!")
@@ -1721,7 +1729,7 @@ class monitorInputOutput:
     def read_coilXY(self):
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
         try: 
-            input_output_packet = None #comWindow.workSerial.readInputOutputCoil()
+            input_output_packet = comWindow.workSerial.readInputOutputCoil()
         except: 
             main_window.showStatus("===> Giám sát tín hiệu In/Out bị lỗi")
             input_output_packet = None
