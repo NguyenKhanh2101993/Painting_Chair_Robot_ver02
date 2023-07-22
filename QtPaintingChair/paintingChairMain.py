@@ -1021,7 +1021,7 @@ class workingWindow:
         self.showStatus("Chế độ JOG - chạy từng dòng")
 
     def pauseMotor(self):
-        #self.showStatus("Tạm dừng motor")
+        self.showStatus("Pause/Resume Program")
         run.pause_motor()
 
     def eStopMotor(self):
@@ -1427,11 +1427,9 @@ class runMotor:
                 break
 
             if self.pause_on == 1: # dừng motor
-                main_window.showStatus("===> Pause Motor")
                 comWindow.workSerial.commandPauseMotor()
                         
             if self.pause_on == 2: # tiếp tục chạy
-                main_window.showStatus("===> Resume Motor")
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
             
@@ -1448,11 +1446,9 @@ class runMotor:
                 break
 
             if self.pause_on == 1: # dừng motor
-                main_window.showStatus("===> Pause Motor")
                 comWindow.workSerial.commandPauseMotor()
 
             if self.pause_on == 2: # tiếp tục chạy
-                main_window.showStatus("===> Resume Motor")
                 comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
 
