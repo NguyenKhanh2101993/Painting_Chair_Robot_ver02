@@ -1255,7 +1255,7 @@ class workingWindow:
         verScrollBar.setValue(verScrollBar.maximum()) # Scrolls to the bottom
         horScrollBar.setValue(0) # scroll to the left
         self.uiWorking.textBrowser_terminal.update()   # cập nhật thay đổi trong textBrower
-        time.sleep(0.01)
+        #time.sleep(0.01)
 #================================================================================================
 class runMotor:
     def __init__(self):
