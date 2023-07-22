@@ -1299,7 +1299,7 @@ class runMotor:
                     wFile.file.close()
                     break
                 
-                main_window.showStatus ('===========================================')
+                #main_window.showStatus ('===========================================')
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content.replace("\n",""))       # hiện thị từng dòng trong file
@@ -1377,7 +1377,7 @@ class runMotor:
         run_block = False
 
         for str_content in wFile.file:
-            main_window.showStatus('===========================================')
+            #main_window.showStatus('===========================================')
             content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi
             content_line = content_line.upper()     # chuyen doi chuoi thanh chu IN HOA
             recognizeStringArr = self.recognize_command_syntax(content_line)   # Kiểm tra các ký tự đúng cú pháp hay không
@@ -1558,7 +1558,6 @@ class runMotor:
             speed_slaves = main_window.callMotorSpeed()
         else: speed_slaves = _speed
 
-        main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
         #main_window.showStatus ("===> Giá trị xung cấp vào driver: " + str(pulse)) 
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
@@ -1574,6 +1573,7 @@ class runMotor:
         comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
         if self.run_auto_mode == False:
         # phát command tới board slave chạy đến điểm đã gửi
+            main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
             comWindow.workSerial.commandPointToPoint()
 
 # phát lệnh dừng tay máy
