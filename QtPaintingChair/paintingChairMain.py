@@ -316,11 +316,15 @@ class MyTeachingWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         pass
+    
+    def closeEvent(self,event):
+        main_window.threadTeachMode.finishedTeachMode.emit()
+        
 
 #================================================================================================
 class teachingWindow:
     def __init__(self):
-        self.teachWin = MyTeachingWindow() #QWidget()
+        self.teachWin = MyTeachingWindow() 
         self.uiteach = Ui_teachMode()
         self.uiteach.setupUi(self.teachWin)
        
@@ -838,6 +842,7 @@ class MyWindow(QtWidgets.QMainWindow):
             main_window._threadAutoRun.quit()
             #main_window._threadAutoRun.wait(100)
             event.accept()
+    
 #================================================================================================
 class workingWindow:
     def __init__(self):
