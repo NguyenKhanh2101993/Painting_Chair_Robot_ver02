@@ -737,7 +737,8 @@ class monitorTeachModeThread(QObject):
         super(monitorTeachModeThread, self).__init__(parent)
 
     def run(self):
-        main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
+        #main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
+        main_window.window.custom_signal.emit("Thread: teachMode/gotoZero/gotoHome")
         while True:
             if teachWindow.monitor_off == False:
                 teach.monitorTeachMode()
@@ -749,15 +750,18 @@ class monitorTeachModeThread(QObject):
 
     def stopGotoZero(self):
         main_window.gotoZeroFlag = False
-        main_window.showStatus("Exit execute: goto Zero")
+        #main_window.showStatus("Exit execute: goto Zero")
+        main_window.window.custom_signal.emit("Exit execute: goto Zero")
 
     def stopGotoHome(self):
         main_window.gotoHomeFlag = False
-        main_window.showStatus("Exit execute: goto Home")
+        #main_window.showStatus("Exit execute: goto Home")
+        main_window.window.custom_signal.emit("Exit execute: goto Home")
     
     def stopTeachMode(self):
         teachWindow.closeTeachWindow()
-        main_window.showStatus("Exit execute: teaching Mode")
+        #main_window.showStatus("Exit execute: teaching Mode")
+        main_window.window.custom_signal.emit("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
 class monitorDatafromArduinoThread(QObject):
@@ -766,7 +770,8 @@ class monitorDatafromArduinoThread(QObject):
     def __init__(self, parent=None):
         super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Thread: Monitor input/output and current position")
+        #main_window.showStatus("Thread: Monitor input/output and current position")
+        main_window.window.custom_signal.emit("Thread: Monitor input/output and current position")
         while True:
             coil_Value = main_window.coilXY.read_coilXY()
             pos_Value = main_window.showCurrentPositions()
@@ -797,7 +802,8 @@ class autoRunThread(QObject):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
-        main_window.showStatus("Thread: Auto run mode")
+        #main_window.showStatus("Thread: Auto run mode")
+        main_window.window.custom_signal.emit("Thread: Auto run mode")
         while True:
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
@@ -807,11 +813,16 @@ class autoRunThread(QObject):
             time.sleep(0.1)
     def stop(self):
         main_window.autoRunFlag = False
-        main_window.showStatus("Exit execute: Auto run mode")
+        main_window.window.custom_signal.emit("Exit execute: Auto run mode")
+        #main_window.showStatus("Exit execute: Auto run mode")
 #================================================================================================
 
 # Confirm exit workingWindow
-class MyWindow(QtWidgets.QMainWindow):
+class MyWindow(QtWidgets.QMainWindow, QObject):
+    custom_signal = pyqtSignal(str)
+    def __init__(self, parent=None):
+        super(MyWindow, self).__init__(parent)
+        self.custom_signal.connect(main_window.showStatus)
 
     def closeEvent(self,event):
         mBox = QtWidgets.QMessageBox()
@@ -1245,8 +1256,8 @@ class workingWindow:
         
 
     def showStatus(self, value):
-        app_thread = QtWidgets.QApplication.instance().thread()
-        curr_thread = QtCore.QThread.currentThread()
+        #app_thread = QtWidgets.QApplication.instance().thread()
+        #curr_thread = QtCore.QThread.currentThread()
         #if app_thread != curr_thread:
         #    raise Exception('attempt to call MainWindow.append_message from non-app thread')
         horScrollBar = self.uiWorking.textBrowser_terminal.horizontalScrollBar()
