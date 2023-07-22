@@ -935,7 +935,7 @@ class workingWindow:
         self.uiWorking.actionChoose_File_pnt.triggered.connect(self.chooseFile)
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
-        self.uiWorking.actionTeach_mode_3.triggered.connect(self.openTeachWindow)
+        self.uiWorking.actionTeachMode.triggered.connect(self.openTeachWindow)
         self.uiWorking.actionDefine_XY.triggered.connect(self.openDefinePinsWindow)
 
     def defineCheckButton(self):
@@ -978,11 +978,13 @@ class workingWindow:
 
     def disableMenuButton(self, state):
         self.uiWorking.actionChoose_File_pnt.setDisabled(state)
+        self.uiWorking.actionSave_file.setDisabled(state)
         self.uiWorking.actionConnect_to_Slave.setDisabled(state)
         self.uiWorking.actionMotor.setDisabled(state)
-        self.uiWorking.actionTeach_mode_3.setDisabled(state)
-        self.uiWorking.actionDefine_XY.setDisabled(state)    
-
+        self.uiWorking.actionDefine_XY.setDisabled(state)
+        self.uiWorking.actionToggleCoilY.setDisabled(state)
+        self.uiWorking.actionTeachMode.setDisabled(state)
+        
     def disable_control_option(self, state):
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].setDisabled(state)

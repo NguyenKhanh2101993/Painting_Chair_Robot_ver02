@@ -2340,25 +2340,25 @@ border-radius: 5px</string>
     </property>
     <addaction name="actionConnect_to_Slave"/>
    </widget>
-   <widget class="QMenu" name="menuAbout">
+   <widget class="QMenu" name="menuManual">
     <property name="title">
      <string>MANUAL</string>
     </property>
-    <addaction name="actionAbout_Machine"/>
-    <addaction name="actionTeach_mode_3"/>
+    <addaction name="actionToggleCoilY"/>
+    <addaction name="actionTeachMode"/>
    </widget>
-   <widget class="QMenu" name="menuAbout_3">
+   <widget class="QMenu" name="menuAbout">
     <property name="title">
      <string>ABOUT</string>
     </property>
-    <addaction name="actionAbout_Machine_3"/>
-    <addaction name="actionContact_3"/>
+    <addaction name="actionAbout_Machine"/>
+    <addaction name="actionContact_Machine"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSetting"/>
    <addaction name="menuComunication"/>
+   <addaction name="menuManual"/>
    <addaction name="menuAbout"/>
-   <addaction name="menuAbout_3"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionChoose_File_pnt">
@@ -2396,12 +2396,7 @@ border-radius: 5px</string>
     </font>
    </property>
   </action>
-  <action name="actionTeach_mode">
-   <property name="text">
-    <string>Teach mode</string>
-   </property>
-  </action>
-  <action name="actionAbout_Machine">
+  <action name="actionToggleCoilY">
    <property name="text">
     <string>Toggle coil Y</string>
    </property>
@@ -2410,11 +2405,6 @@ border-radius: 5px</string>
      <family>Arial</family>
      <pointsize>10</pointsize>
     </font>
-   </property>
-  </action>
-  <action name="actionContact">
-   <property name="text">
-    <string>Contact</string>
    </property>
   </action>
   <action name="actionConnect_to_Slave">
@@ -2428,17 +2418,7 @@ border-radius: 5px</string>
     </font>
    </property>
   </action>
-  <action name="actionAbout_Machine_2">
-   <property name="text">
-    <string>About Machine</string>
-   </property>
-  </action>
-  <action name="actionContact_2">
-   <property name="text">
-    <string>Contact</string>
-   </property>
-  </action>
-  <action name="actionAbout_Machine_3">
+  <action name="actionAbout_Machine">
    <property name="text">
     <string>About Machine</string>
    </property>
@@ -2449,7 +2429,7 @@ border-radius: 5px</string>
     </font>
    </property>
   </action>
-  <action name="actionContact_3">
+  <action name="actionContact_Machine">
    <property name="text">
     <string>Contact</string>
    </property>
@@ -2460,12 +2440,7 @@ border-radius: 5px</string>
     </font>
    </property>
   </action>
-  <action name="actionTeach_mode_2">
-   <property name="text">
-    <string>Teach mode</string>
-   </property>
-  </action>
-  <action name="actionTeach_mode_3">
+  <action name="actionTeachMode">
    <property name="text">
     <string>Teach mode</string>
    </property>
