@@ -8,10 +8,11 @@ class workingFile:
         self.fileDirectory = ''
         self.saveFileDirectory = ''
         self.saveFileStatus = ''
+        self._myfile = QtWidgets.QFileDialog
 
     def show_initial_directory(self):
         #fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\Desktop\\',filter = 'pnt files (*.pnt)')
-        myfile.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #myfile.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         fname = myfile.getOpenFileName(caption = 'Open file', directory = '/home/orangepi/Desktop/PhanMemMaySon/FilePNT',filter = 'pnt files (*.pnt)')
         if fname[0] != '':
             self.fileDirectory = fname[0]
