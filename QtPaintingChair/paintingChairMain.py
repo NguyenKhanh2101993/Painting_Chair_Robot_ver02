@@ -114,10 +114,6 @@ class setPinsWindow:
         self.pinsWindow.show()
 
     def editModePins(self):
-        #for i in range(len(self.pinXspinBox)):
-        #    self.pinXspinBox[i].setDisabled(False)
-        #for i in range(len(self.pinYspinBox)):
-        #    self.pinYspinBox[i].setDisabled(False)
         for i in range(len(self.xSensorSpinBox)):
             self.xSensorSpinBox[i].setDisabled(False)
         for i in range(len(self.yOutputSpinBox)):
@@ -357,7 +353,7 @@ class teachingWindow:
 
     def closeTeachWindow(self):
         if comWindow.connectSignal == True:
-            teachWindow.monitor_off = True
+            self.monitor_off = True
         else:
             self.monitor_off = True
             self.teachWin.close()
@@ -398,9 +394,8 @@ class teachingWindow:
         for i in range(len(self.teachModeButton_coil)): 
             self.teachModeButton_coil[i].clicked.connect(steachModeButton_coilCommand[i])
 
-        self.teachModeButton_control = [self.uiteach.pushButton_exitTeach, self.uiteach.pushButton_savePoint, 
-                                        self.uiteach.pushButton_setZero, self.uiteach.pushButton_saveFile]
-        teachModeButton_controlCommand = [self.closeTeachWindow, self.setPoint, self.setZero, self.saveTofile]
+        self.teachModeButton_control = [self.uiteach.pushButton_savePoint, self.uiteach.pushButton_saveFile]
+        teachModeButton_controlCommand = [self.setPoint, self.saveTofile]
         for i in range(len(self.teachModeButton_control)): 
             self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
        
@@ -540,18 +535,9 @@ class teachingWindow:
                 pass
         # nếu xuất hiện phần tử có giá trị khác trước đó thì in ra màn hình
         if (different_value == True):
-            #show_line = show_line + '\n'
             self.counter_line += 1
             main_window.uiWorking.textBrowser_showfile.append(show_line) 
             main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
-
-    def setZero(self):
-        pass
-        #try:
-        #    main_window.showStatus("===> SET ZERO POSITION")
-        #    comWindow.workSerial.setZeroPositions()
-        #except:
-        #    main_window.showStatus("===> SET ZERO POSITION: ERROR")
 
     def saveTofile(self):
         main_window.showStatus('===> Lưu file.pnt')
@@ -741,7 +727,6 @@ class monitorTeachModeThread(QObject):
         super(monitorTeachModeThread, self).__init__(parent)
 
     def run(self):
-        #main_window.showStatus("Thread: teachMode/gotoZero/gotoHome")
         main_window.window.custom_signal.emit("Thread: teachMode/gotoZero/gotoHome")
         while True:
             if teachWindow.monitor_off == False:
@@ -771,7 +756,6 @@ class monitorDatafromArduinoThread(QObject):
     def __init__(self, parent=None):
         super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
-        #main_window.showStatus("Thread: Monitor input/output and current position")
         main_window.window.custom_signal.emit("Thread: Monitor input/output and current position")
         while True:
             coil_Value = main_window.coilXY.read_coilXY()
@@ -1327,7 +1311,6 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        #main_window.showStatus("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
                         main_window.window.custom_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
@@ -1339,7 +1322,6 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n' or content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                        #main_window.showStatus("Run Auto: End program")
                         main_window.window.custom_signal.emit("Run Auto: End program")
                         break
 
@@ -1569,7 +1551,6 @@ class runMotor:
         comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
         if self.run_auto_mode == False:
         # phát command tới board slave chạy đến điểm đã gửi
-            #main_window.showStatus ("===> Tốc độ: " + str(speed_slaves) +"%")
             comWindow.workSerial.commandPointToPoint()
 
 # phát lệnh dừng tay máy
@@ -1613,7 +1594,6 @@ class runMotor:
             else:
               Recognize_command = False
               self.executeDelay = False
-              #main_window.showStatus ("Ký tự: " + str(StringArr).replace("\n", ""))
               main_window.window.custom_signal.emit("Ký tự: " + str(StringArr).replace("\n", ""))
               break
         return Recognize_command
@@ -1622,11 +1602,9 @@ class runMotor:
     def command_run_spray(self, state):
         try: 
             if state:
-                #main_window.showStatus("===> Spray ON")
                 main_window.window.custom_signal.emit("===> Spray ON")
                 comWindow.workSerial.commandTurnOnSpray()
             else:
-                #main_window.showStatus("===> Spray OFF")
                 main_window.window.custom_signal.emit("===> Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
@@ -1635,13 +1613,11 @@ class runMotor:
 
 # Dừng động cơ
     def stop_motor(self):
-        #main_window.showStatus("===> Motor Stop")
         comWindow.workSerial.commandStopMotor()
 
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            #main_window.showStatus("===> Rotating table")
             main_window.window.custom_signal.emit("===> Rotating table")
             comWindow.workSerial.commandRotateTable()
         except Exception as e:
@@ -1707,11 +1683,9 @@ class monitorInputOutput:
         if main_window.checkButtonCoilY[checkValue].isChecked():
             self.valueCoilY |= (1 << checkValue)
             main_window.showStatus("Y"+str(checkValue+1) + "ON " + str(self.valueCoilY))
-            #main_window.labelCoilY[checkValue].setStyleSheet("background-color: #00aa00;")
         else:
             self.valueCoilY &= ~(1 << checkValue)
             main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
-            #main_window.labelCoilY[checkValue].setStyleSheet("background-color: " + main_window.orgColorLabelY[checkValue] + ";")
         try: 
             comWindow.workSerial.sendCoilValue(self.valueCoilY)
          

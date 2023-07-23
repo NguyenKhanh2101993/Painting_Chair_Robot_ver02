@@ -30,7 +30,7 @@ class Ui_teachMode(object):
         self.frame_teachmode.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame_teachmode.setObjectName("frame_teachmode")
         self.label_39 = QtWidgets.QLabel(self.frame_teachmode)
-        self.label_39.setGeometry(QtCore.QRect(10, 10, 461, 51))
+        self.label_39.setGeometry(QtCore.QRect(10, 10, 581, 51))
         self.label_39.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
@@ -357,7 +357,7 @@ class Ui_teachMode(object):
         self.pushButton_z1down.setFlat(False)
         self.pushButton_z1down.setObjectName("pushButton_z1down")
         self.pushButton_savePoint = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_savePoint.setGeometry(QtCore.QRect(330, 70, 141, 51))
+        self.pushButton_savePoint.setGeometry(QtCore.QRect(330, 130, 261, 51))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(12)
@@ -375,51 +375,13 @@ class Ui_teachMode(object):
 "border-top-color: rgb(208, 208, 208);")
         self.pushButton_savePoint.setFlat(False)
         self.pushButton_savePoint.setObjectName("pushButton_savePoint")
-        self.pushButton_setZero = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_setZero.setGeometry(QtCore.QRect(330, 160, 141, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_setZero.setFont(font)
-        self.pushButton_setZero.setMouseTracking(False)
-        self.pushButton_setZero.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_setZero.setAutoFillBackground(False)
-        self.pushButton_setZero.setStyleSheet("background-color: rgb(85, 85, 127);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 3px solid rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
-        self.pushButton_setZero.setFlat(False)
-        self.pushButton_setZero.setObjectName("pushButton_setZero")
-        self.pushButton_exitTeach = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_exitTeach.setGeometry(QtCore.QRect(500, 15, 81, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_exitTeach.setFont(font)
-        self.pushButton_exitTeach.setMouseTracking(False)
-        self.pushButton_exitTeach.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_exitTeach.setAutoFillBackground(False)
-        self.pushButton_exitTeach.setStyleSheet("background-color: rgb(255, 0, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 3px solid rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
-        self.pushButton_exitTeach.setFlat(False)
-        self.pushButton_exitTeach.setObjectName("pushButton_exitTeach")
         self.line_2 = QtWidgets.QFrame(self.frame_teachmode)
-        self.line_2.setGeometry(QtCore.QRect(325, 300, 150, 3))
+        self.line_2.setGeometry(QtCore.QRect(325, 290, 150, 3))
         self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.line_3 = QtWidgets.QFrame(self.frame_teachmode)
-        self.line_3.setGeometry(QtCore.QRect(480, 70, 3, 351))
+        self.line_3.setGeometry(QtCore.QRect(480, 190, 3, 230))
         self.line_3.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
@@ -500,7 +462,7 @@ class Ui_teachMode(object):
         self.pushButton_tableFw.setFlat(False)
         self.pushButton_tableFw.setObjectName("pushButton_tableFw")
         self.lineEdit_speed = QtWidgets.QLineEdit(self.frame_teachmode)
-        self.lineEdit_speed.setGeometry(QtCore.QRect(388, 230, 81, 51))
+        self.lineEdit_speed.setGeometry(QtCore.QRect(388, 210, 81, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -510,7 +472,7 @@ class Ui_teachMode(object):
         self.lineEdit_speed.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit_speed.setObjectName("lineEdit_speed")
         self.label_46 = QtWidgets.QLabel(self.frame_teachmode)
-        self.label_46.setGeometry(QtCore.QRect(330, 230, 51, 51))
+        self.label_46.setGeometry(QtCore.QRect(330, 210, 51, 51))
         self.label_46.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
@@ -518,7 +480,7 @@ class Ui_teachMode(object):
 "border-radius: 5px")
         self.label_46.setObjectName("label_46")
         self.pushButton_saveFile = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_saveFile.setGeometry(QtCore.QRect(500, 100, 81, 51))
+        self.pushButton_saveFile.setGeometry(QtCore.QRect(330, 70, 261, 51))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
@@ -566,14 +528,12 @@ class Ui_teachMode(object):
         self.pushButton_z1Up.setText(_translate("teachMode", "Z1-"))
         self.pushButton_z1down.setText(_translate("teachMode", "Z1+"))
         self.pushButton_savePoint.setText(_translate("teachMode", "SET POINT"))
-        self.pushButton_setZero.setText(_translate("teachMode", "SET ZERO"))
-        self.pushButton_exitTeach.setText(_translate("teachMode", "EXIT"))
         self.pushButton_sprayOff.setText(_translate("teachMode", "SPRAY OFF"))
         self.pushButton_sprayOn.setText(_translate("teachMode", "SPRAY ON"))
         self.pushButton_tableRw.setText(_translate("teachMode", "TABLE RW"))
         self.pushButton_tableFw.setText(_translate("teachMode", "TABLE FW"))
         self.label_46.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">F%</span></p></body></html>"))
-        self.pushButton_saveFile.setText(_translate("teachMode", "SAVE"))
+        self.pushButton_saveFile.setText(_translate("teachMode", "SAVE FILE"))
 
 
 if __name__ == "__main__":
