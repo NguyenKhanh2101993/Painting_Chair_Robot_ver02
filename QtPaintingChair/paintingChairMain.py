@@ -348,6 +348,7 @@ class teachingWindow:
         main_window.uiWorking.label_directory.clear()
         main_window.uiWorking.textBrowser_showfile.clear()
         main_window.disable_control_option(True)
+        main_window.disableMenuButton(True)
         self.reInitTeachMode()
         self.teachWin.show()
 
@@ -358,6 +359,7 @@ class teachingWindow:
             self.monitor_off = True
             self.teachWin.close()
             main_window.disable_control_option(False)
+            main_window.disableMenuButton(False)
             main_window.showStatus("Close Teaching Box")
         
     def defineTeachModeButton(self):
@@ -660,6 +662,7 @@ class workingTeachMode():
 
                 if teachWindow.monitor_off == True:
                     main_window.disable_control_option(False)
+                    main_window.disableMenuButton(False)
                     main_window.threadTeachMode.finishedTeachMode.emit()
                     break
 
