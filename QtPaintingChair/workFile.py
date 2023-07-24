@@ -1,6 +1,11 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog as myfile
+from PyQt5.QtWidgets import QWidget
+
+#class Ui_workingFile(object):
+#    def setupUi(self, workingfile):
+
 
 class workingFile:  
     # hiển thị đường dẫn tới file trong lable directory
@@ -8,7 +13,7 @@ class workingFile:
         self.fileDirectory = ''
         self.saveFileDirectory = ''
         self.saveFileStatus = ''
-        self._myfile = QtWidgets.QFileDialog
+        self._myfile = QWidget()
 
     def show_initial_directory(self):
         #fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\Desktop\\',filter = 'pnt files (*.pnt)')

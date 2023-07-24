@@ -666,7 +666,7 @@ class workingTeachMode():
                 time.sleep(0.1)
             
         except Exception as e:
-            main_window.window.custom_signal.emit("===> Teaching mode warning: "+ str(e))
+            main_window.window.showText_signal.emit("===> Teaching mode warning: "+ str(e))
             main_window.threadTeachMode.finishedTeachMode.emit()
 
     def Kinematics_Zaxis_mode_02(self):
@@ -727,7 +727,7 @@ class monitorTeachModeThread(QObject):
         super(monitorTeachModeThread, self).__init__(parent)
 
     def run(self):
-        main_window.window.custom_signal.emit("Thread: teachMode/gotoZero/gotoHome")
+        main_window.window.showText_signal.emit("Thread: teachMode/gotoZero/gotoHome")
         while True:
             if teachWindow.monitor_off == False:
                 teach.monitorTeachMode()
@@ -739,15 +739,15 @@ class monitorTeachModeThread(QObject):
 
     def stopGotoZero(self):
         main_window.gotoZeroFlag = False
-        main_window.window.custom_signal.emit("Exit execute: goto Zero")
+        main_window.window.showText_signal.emit("Exit execute: goto Zero")
 
     def stopGotoHome(self):
         main_window.gotoHomeFlag = False
-        main_window.window.custom_signal.emit("Exit execute: goto Home")
+        main_window.window.showText_signal.emit("Exit execute: goto Home")
     
     def stopTeachMode(self):
         teachWindow.teachWin.close()
-        main_window.window.custom_signal.emit("Exit execute: teaching Mode")
+        main_window.window.showText_signal.emit("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
 class monitorDatafromArduinoThread(QObject):
@@ -756,7 +756,7 @@ class monitorDatafromArduinoThread(QObject):
     def __init__(self, parent=None):
         super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
-        main_window.window.custom_signal.emit("Thread: Monitor input/output and current position")
+        main_window.window.showText_signal.emit("Thread: Monitor input/output and current position")
         while True:
             coil_Value = main_window.coilXY.read_coilXY()
             pos_Value = main_window.showCurrentPositions()
@@ -787,18 +787,18 @@ class autoRunThread(QObject):
     def __init__(self, parent=None):
         super(autoRunThread, self).__init__(parent)
     def run(self):
-        main_window.window.custom_signal.emit("Thread: Auto run mode")
+        main_window.window.showText_signal.emit("Thread: Auto run mode")
         while True:
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
             time.sleep(0.1)
     def stop(self):
         main_window.autoRunFlag = False
-        main_window.window.custom_signal.emit("Exit execute: Auto run mode")
+        main_window.window.showText_signal.emit("Exit execute: Auto run mode")
 #================================================================================================
 # Confirm exit workingWindow
 class MyWindow(QtWidgets.QMainWindow, QObject):
-    custom_signal = pyqtSignal(str)
+    showText_signal = pyqtSignal(str)
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
 
@@ -835,7 +835,7 @@ class workingWindow:
         self.threadAutoRun = autoRunThread()
         self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
 
-        self.window.custom_signal.connect(self.showStatus)
+        self.window.showText_signal.connect(self.showStatus)
 
         self.defineControlButton()
         self.defineCheckButton()
@@ -961,6 +961,7 @@ class workingWindow:
         for i in range(len(self.warningLabel)):
             self.orgColorWarningLabel.append(self.warningLabel[i].palette().window().color().name())
 
+    # disable when auto running
     def disableMenuButton(self, state):
         self.uiWorking.actionChoose_File_pnt.setDisabled(state)
         self.uiWorking.actionSave_file.setDisabled(state)
@@ -969,6 +970,9 @@ class workingWindow:
         self.uiWorking.actionDefine_XY.setDisabled(state)
         self.uiWorking.actionToggleCoilY.setDisabled(state)
         self.uiWorking.actionTeachMode.setDisabled(state)
+        # disable goto zero and goto Home button when auto running
+        self.uiWorking.pushButton_gotozero.setDisabled(state)
+        self.uiWorking.pushButton_machinehome.setDisabled(state)
         
     def disable_control_option(self, state):
         for i in range(len(self.controlButtonName)):
@@ -1077,9 +1081,8 @@ class workingWindow:
             for i in range(self.MAX_AXIS + 2):
                 position.append(self.currentPos[i])
             
-            main_window.window.custom_signal.emit("===> Lỗi đọc giá trị tọa độ")
-
-        #self.updateLabelPosition()  
+            main_window.window.showText_signal.emit("===> Lỗi đọc giá trị tọa độ")
+ 
         return position
     def updateLabelPosition(self):
 
@@ -1098,7 +1101,6 @@ class workingWindow:
     def read_pulse_from_slaves(self, gearRatio):
         current_position_motor = []
         current_pulse = []
-        #resultCurrentPos = []
         index = 0
         # Đọc giá trị xung của tất cả động cơ 
         try:
@@ -1115,7 +1117,7 @@ class workingWindow:
 
 
         except Exception as error:
-            main_window.window.custom_signal.emit("===> read_pulse_from_slaves function failed"+ str(error))
+            main_window.window.showText_signal.emit("===> Read_pulse_from_slaves function failed"+ str(error))
             return None
 
     def check_negative_num(self, x):
@@ -1149,7 +1151,7 @@ class workingWindow:
             self.showStatus("===> Open COM port first!!! ")
       
     def gotoZeroPosition(self):
-        main_window.window.custom_signal.emit("Sent command: Go to Zero Position")
+        main_window.window.showText_signal.emit("Sent command: Go to Zero Position")
         try:
             comWindow.workSerial.commandGotoZero()
             waiting = True
@@ -1159,9 +1161,9 @@ class workingWindow:
                     waiting = False
                 time.sleep(0.1)
 
-            main_window.window.custom_signal.emit("Go to zero Done")
+            main_window.window.showText_signal.emit("Go to zero Done")
         except Exception as e:
-            main_window.window.custom_signal.emit("===> gotoZero Error status: "+str(e))
+            main_window.window.showText_signal.emit("===> gotoZero Error status: "+str(e))
             
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoZeroMode.emit()
@@ -1174,7 +1176,7 @@ class workingWindow:
             self.showStatus("===> Open COM port first!!! ")
 
     def gotoMachinePosition(self):
-        main_window.window.custom_signal.emit("Sent command: Go to Home Position")
+        main_window.window.showText_signal.emit("Sent command: Go to Home Position")
        
         try:
             if self.go_machine_home == False:
@@ -1228,10 +1230,10 @@ class workingWindow:
                     time.sleep(0.1)
                 self.go_machine_home = True # đã về home
 
-            main_window.window.custom_signal.emit("===> Go to Home Done")
+            main_window.window.showText_signal.emit("===> Go to Home Done")
 
         except Exception as error:
-            main_window.window.custom_signal.emit("===> goto Home Position error: "+ str(error))
+            main_window.window.showText_signal.emit("===> goto Home Position error: "+ str(error))
 
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoHomeMode.emit()
@@ -1280,10 +1282,10 @@ class runMotor:
             if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
-                main_window.window.custom_signal.emit("Run Auto: Go to zero/machine axis first!!!")
+                main_window.window.showText_signal.emit("Run Auto: Go to zero/machine axis first!!!")
                 main_window.threadAutoRun.finished.emit()
                 return
-        main_window.window.custom_signal.emit("Run Auto: Running...")
+        main_window.window.showText_signal.emit("Run Auto: Running...")
         try:
             position = wFile.file.seek(0,0) # Di chuyen con tro vi tri read file ve vi tri đầu file
             self.run_auto_mode = True
@@ -1311,7 +1313,7 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.window.custom_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
+                        main_window.window.showText_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
@@ -1322,7 +1324,7 @@ class runMotor:
                 else:
 
                     if content_line == self.end_symbol + '\n' or content_line == self.end_symbol: # gặp ký hiệu báo kết thúc file
-                        main_window.window.custom_signal.emit("Run Auto: End program")
+                        main_window.window.showText_signal.emit("Run Auto: End program")
                         break
 
                     if content_line == self.turn_on_spray + '\n': # bật súng sơn
@@ -1341,18 +1343,18 @@ class runMotor:
                         pass
                     
                     if content_line == self.start_run_block + '\n':
-                        main_window.window.custom_signal.emit("=====> G05.0 START BLOCK RUN MODE")
+                        main_window.window.showText_signal.emit("=====> G05.0 START BLOCK RUN MODE")
                         result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
                         if result_run_block == False: 
-                            main_window.window.custom_signal.emit("=====> G05.1 Error !!!")
+                            main_window.window.showText_signal.emit("=====> G05.1 Error !!!")
                             break
                         else: 
                             # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
-                            main_window.window.custom_signal.emit("===> BLOCK RUN MODE DONE")
+                            main_window.window.showText_signal.emit("===> BLOCK RUN MODE DONE")
                             self.counter = 0
 
         except Exception as e:
-                main_window.window.custom_signal.emit("===> Run Auto Error: " + str(e))
+                main_window.window.showText_signal.emit("===> Run Auto Error: " + str(e))
                 main_window.disableMenuButton(False)
 
         finally:
@@ -1389,12 +1391,12 @@ class runMotor:
                     sent_packet_done = True
 
             if content_line == self.end_run_block + '\n' or sent_packet_done == True:    
-                main_window.window.custom_signal.emit("===> G05.1 END BLOCK RUN MODE")
+                main_window.window.showText_signal.emit("===> G05.1 END BLOCK RUN MODE")
                 self.monitor_str_content(target_line.replace("\n",""))  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
                 if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
                     # cho chạy auto 
-                    main_window.window.custom_signal.emit("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
+                    main_window.window.showText_signal.emit("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
                     self.send_end_run_block_mode()
                     self.monitor_run_block_begin()
                     run_block = self.run_block_done
@@ -1496,7 +1498,7 @@ class runMotor:
             self.new_Fspeed = int(result_value[7])          # tốc độ sơn
 
         except Exception as e:
-            main_window.window.custom_signal.emit('separate_string error: ' + str(e))
+            main_window.window.showText_signal.emit('separate_string error: ' + str(e))
             return
         return result_value
 
@@ -1594,7 +1596,7 @@ class runMotor:
             else:
               Recognize_command = False
               self.executeDelay = False
-              main_window.window.custom_signal.emit("Ký tự: " + str(StringArr).replace("\n", ""))
+              main_window.window.showText_signal.emit("Ký tự: " + str(StringArr).replace("\n", ""))
               break
         return Recognize_command
 
@@ -1602,13 +1604,13 @@ class runMotor:
     def command_run_spray(self, state):
         try: 
             if state:
-                main_window.window.custom_signal.emit("===> Spray ON")
+                main_window.window.showText_signal.emit("===> Spray ON")
                 comWindow.workSerial.commandTurnOnSpray()
             else:
-                main_window.window.custom_signal.emit("===> Spray OFF")
+                main_window.window.showText_signal.emit("===> Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
-            main_window.window.custom_signal.emit("===> Spray Error: " + str(e))
+            main_window.window.showText_signal.emit("===> Spray Error: " + str(e))
             pass
 
 # Dừng động cơ
@@ -1618,10 +1620,10 @@ class runMotor:
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            main_window.window.custom_signal.emit("===> Rotating table")
+            main_window.window.showText_signal.emit("===> Rotating table")
             comWindow.workSerial.commandRotateTable()
         except Exception as e:
-            main_window.window.custom_signal.emit("===> Rotating table error: "+ str(e))
+            main_window.window.showText_signal.emit("===> Rotating table error: "+ str(e))
             pass
 #================================================================================================
 class monitorInputOutput:
@@ -1691,7 +1693,7 @@ class monitorInputOutput:
          
 
         except Exception as error:
-            main_window.window.custom_signal.emit("===> Toggle coil Y error: " + str(error))
+            main_window.window.showText_signal.emit("===> Toggle coil Y error: " + str(error))
             return
 
 # Cho phép đọc trạng thái coil X từ board slave
@@ -1700,7 +1702,7 @@ class monitorInputOutput:
         try: 
             input_output_packet = comWindow.workSerial.readInputOutputCoil()
         except Exception as error:
-            main_window.window.custom_signal.emit("===> Monitor In/Out error: "+ str(error))
+            main_window.window.showText_signal.emit("===> Monitor In/Out error: "+ str(error))
             input_output_packet = None
 
         return input_output_packet
