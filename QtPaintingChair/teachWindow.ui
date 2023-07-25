@@ -217,11 +217,18 @@ border-radius: 5px</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(77, 77, 77);
-color: rgb(255, 255, 255);
-border: 3px solid rgb(255, 255, 255);
-border-radius: 5px;
-border-top-color: rgb(208, 208, 208);</string>
+     <string notr="true">QPushButton{
+	background-color: rgb(77, 77, 77);
+	color: rgb(255, 255, 255);
+	border: 3px solid rgb(255, 255, 255);
+	border-radius: 5px;
+	border-top-color: rgb(208, 208, 208);
+}
+QPushButton: hover {
+	background-color: rgb(170, 255, 0);
+	border: 3px solid rgb(255, 255, 255);
+	border-radius: 5px;
+}</string>
     </property>
     <property name="text">
      <string>X-</string>

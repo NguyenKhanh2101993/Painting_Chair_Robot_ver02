@@ -20,7 +20,6 @@ class Ui_teachMode(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         teachMode.setWindowIcon(icon)
-        teachMode.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.frame_teachmode = QtWidgets.QFrame(teachMode)
         self.frame_teachmode.setGeometry(QtCore.QRect(10, 0, 601, 431))
         self.frame_teachmode.setStyleSheet("background-color: rgb(170, 170, 127);\n"
@@ -97,12 +96,18 @@ class Ui_teachMode(object):
         self.pushButton_xFw.setMouseTracking(True)
         self.pushButton_xFw.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_xFw.setAutoFillBackground(False)
-        self.pushButton_xFw.setStyleSheet("background-color: rgb(77, 77, 77);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 3px solid rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
-        self.pushButton_xFw.pressed("background-color: #80c342;\n" "color: red;")
+        self.pushButton_xFw.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(77, 77, 77);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton: hover {\n"
+"    background-color: rgb(170, 255, 0);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"}")
         self.pushButton_xFw.setFlat(False)
         self.pushButton_xFw.setObjectName("pushButton_xFw")
         self.pushButton_xRw = QtWidgets.QPushButton(self.frame_teachmode)
