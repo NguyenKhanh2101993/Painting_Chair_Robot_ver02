@@ -1316,7 +1316,7 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.window.showText_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer)+" s")
+                        main_window.window.showText_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer/10)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
