@@ -103,7 +103,7 @@ class Ui_teachMode(object):
 "    border-radius: 5px;\n"
 "    border-top-color: rgb(208, 208, 208);\n"
 "}\n"
-"QPushButton: hover {\n"
+"QPushButton:hover {\n"
 "    background-color: rgb(170, 255, 0);\n"
 "    border: 3px solid rgb(255, 255, 255);\n"
 "    border-radius: 5px;\n"
