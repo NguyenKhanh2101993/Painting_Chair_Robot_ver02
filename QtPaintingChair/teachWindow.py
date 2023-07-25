@@ -102,6 +102,7 @@ class Ui_teachMode(object):
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
 "border-top-color: rgb(208, 208, 208);")
+        self.pushButton_xFw.pressed("background-color: #80c342;\n" "color: red;")
         self.pushButton_xFw.setFlat(False)
         self.pushButton_xFw.setObjectName("pushButton_xFw")
         self.pushButton_xRw = QtWidgets.QPushButton(self.frame_teachmode)
