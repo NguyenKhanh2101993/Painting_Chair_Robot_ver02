@@ -1263,7 +1263,7 @@ class runMotor:
         self.delayTimer = 0
         self.executeDelay = False
 
-        self.MAX_POINT_IN_BLOCK = 140     # số điểm tối đa có thể truyền tới data_packet slave trong block mode
+        self.MAX_POINT_IN_BLOCK = 110     # số điểm tối đa có thể truyền tới data_packet slave trong block mode
         self.end_symbol = 'M30'           #command kết thúc chương trình
         self.start_run_block = 'G05.0'    #command bắt đầu chạy theo block N điểm
         self.end_run_block = 'G05.1'      #command kết thúc chạy theo block N điểm

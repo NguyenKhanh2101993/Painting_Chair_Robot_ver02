@@ -11,7 +11,8 @@
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
 // Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
 // Sẽ lưu các điểm đó vào bộ nhớ tạm packet_data để chạy.
-#define MAX_POINT_IN_BLOCK          150   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
+// MAX_POINT_IN_BLOCK 
+#define MAX_POINT_IN_BLOCK          120   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
 //#define EncoderA    19
 //#define EncoderB    23
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
@@ -411,14 +412,7 @@ void setup() {
   command_motor.addMotor(&Motor_B); command_motor.addMotor(&Motor_C);
   pinMotor_init();
   timer1_setting(); timer5_setting(); timer3_setting(); timer4_setting();
-  //table_change_state();  // setup trạng thái ban đầu của bàn xoay
   TIMER4_INTERRUPTS_ON;  // Bắt đầu đọc giá trị input và output
-  //Serial.println("Slave id2 Setup OK");
-  //delay(100);
-  //newPos[0] = 40000; newPos[1] = 0; newPos[2] = 0; newPos[3] = 0; newPos[4] = 0; newPos[5] = 0; 
-  //execute_motor_run(newPos, 200);
-  //delay_value(1);
-  //enable_MPG_mode();
 }
 //============================================================================================
 //============================================================================================
