@@ -105,6 +105,12 @@ class setPinsWindow:
     def closePinsWindow(self):
         self.pinsWindow.close()
 
+    def center(self):
+        qtRectangle = self.pinsWindow.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.pinsWindow.move(qtRectangle.topLeft()) 
+
     def showPinsWindow(self):
         self.getXpinsFromJson()
         self.getYpinsFromJson()
@@ -119,6 +125,8 @@ class setPinsWindow:
             self.xSensorSpinBox[i].setDisabled(True)
         for i in range(len(self.yOutputSpinBox)):
             self.yOutputSpinBox[i].setDisabled(True)
+        
+        self.center()
         self.pinsWindow.show()
 
     def editModePins(self):
@@ -247,7 +255,14 @@ class paramWindow:
     def closeParamWindow(self):
         self.settingWin.close()
 
+    def center(self):
+        qtRectangle = self.settingWin.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.settingWin.move(qtRectangle.topLeft()) 
+
     def showParamWindow(self):
+        self.center()
         self.settingWin.show()
         self.getParameter()
 
