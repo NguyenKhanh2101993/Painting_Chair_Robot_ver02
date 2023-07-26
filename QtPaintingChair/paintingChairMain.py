@@ -922,7 +922,14 @@ class workingWindow:
     def startTeachModeThread(self):
         self._threadTeachMode.start()
 
+    def center(self):
+        qtRectangle = self.window.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.window.move(qtRectangle.topLeft())
+
     def showWorkingWindow(self):
+        self.center()
         self.window.show()
 
     def defineSliders(self):
