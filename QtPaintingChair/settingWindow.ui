@@ -83,7 +83,7 @@ border-radius: 5px</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(156, 156, 156);
-border: 2px solid rgb(255, 255, 255);</string>
+border: 1px solid rgb(255, 255, 255);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::Box</enum>

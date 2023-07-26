@@ -33,7 +33,9 @@ class Ui_communication(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame2.sizePolicy().hasHeightForWidth())
         self.frame2.setSizePolicy(sizePolicy)
-        self.frame2.setStyleSheet("background-color: rgb(170, 170, 127);")
+        self.frame2.setStyleSheet("background-color: rgb(179, 182, 183);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
         self.frame2.setFrameShape(QtWidgets.QFrame.Panel)
         self.frame2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame2.setLineWidth(2)
@@ -41,10 +43,15 @@ class Ui_communication(object):
         self.frame2.setObjectName("frame2")
         self.comboBox_comPort = QtWidgets.QComboBox(self.frame2)
         self.comboBox_comPort.setGeometry(QtCore.QRect(20, 160, 141, 41))
-        self.comboBox_comPort.setStyleSheet("font: 75 16pt \"Arial\";\n"
+        self.comboBox_comPort.setStyleSheet("QComboBox{font: 75 16pt \"Arial\";\n"
 "background-color: rgb(159, 159, 159);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border-radius: 5px\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.comboBox_comPort.setObjectName("comboBox_comPort")
         self.pushButton = QtWidgets.QPushButton(self.frame2)
         self.pushButton.setGeometry(QtCore.QRect(180, 240, 93, 36))
@@ -57,9 +64,19 @@ class Ui_communication(object):
         self.pushButton.setMouseTracking(False)
         self.pushButton.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton.setAutoFillBackground(False)
-        self.pushButton.setStyleSheet("background-color: rgb(0, 170, 127);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+        self.pushButton.setStyleSheet("QPushButton { background-color: rgb(85, 170, 127);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 3px solid rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.frame2)
         self.pushButton_2.setGeometry(QtCore.QRect(290, 240, 93, 36))
@@ -72,9 +89,19 @@ class Ui_communication(object):
         self.pushButton_2.setMouseTracking(False)
         self.pushButton_2.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_2.setAutoFillBackground(False)
-        self.pushButton_2.setStyleSheet("background-color: rgb(255, 0, 0);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+        self.pushButton_2.setStyleSheet("QPushButton{\n"
+"background-color: rgb(255, 85, 0);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 3px solid rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-top-color: rgb(208, 208, 208);}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_2.setObjectName("pushButton_2")
         self.label_39 = QtWidgets.QLabel(self.frame2)
         self.label_39.setGeometry(QtCore.QRect(20, 10, 351, 51))
@@ -86,10 +113,15 @@ class Ui_communication(object):
         self.label_39.setObjectName("label_39")
         self.comboBox_baudRate = QtWidgets.QComboBox(self.frame2)
         self.comboBox_baudRate.setGeometry(QtCore.QRect(230, 160, 141, 41))
-        self.comboBox_baudRate.setStyleSheet("font: 75 16pt \"Arial\";\n"
+        self.comboBox_baudRate.setStyleSheet("QComboBox{font: 75 16pt \"Arial\";\n"
 "background-color: rgb(159, 159, 159);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border-radius: 5px\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.comboBox_baudRate.setObjectName("comboBox_baudRate")
         self.label_40 = QtWidgets.QLabel(self.frame2)
         self.label_40.setGeometry(QtCore.QRect(230, 100, 141, 51))

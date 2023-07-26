@@ -174,11 +174,19 @@ border-radius: 10px</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 85, 0);
+         <string notr="true">QPushButton{
+background-color: rgb(255, 85, 0);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
-border-top-color: rgb(208, 208, 208);</string>
+border-top-color: rgb(208, 208, 208);}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>PAUSE</string>
@@ -233,11 +241,19 @@ border-radius: 5px;</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 127);
+         <string notr="true">QPushButton{background-color: rgb(170, 170, 127);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
-border-top-color: rgb(208, 208, 208);</string>
+border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>JOG</string>
@@ -268,11 +284,19 @@ border-top-color: rgb(208, 208, 208);</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(85, 170, 127);
+         <string notr="true">QPushButton { background-color: rgb(85, 170, 127);
 color: rgb(255, 255, 255);
 border: 3px solid rgb(255, 255, 255);
 border-radius: 5px;
-border-top-color: rgb(208, 208, 208);</string>
+border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>AUTO</string>
@@ -609,6 +633,15 @@ border-radius: 5px</string>
       </item>
       <item row="1" column="6" rowspan="7">
        <widget class="QSlider" name="verticalSlider_spray">
+        <property name="styleSheet">
+         <string notr="true">QSlider:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
+}
+QSlider:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
+        </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -622,6 +655,15 @@ border-radius: 5px</string>
       </item>
       <item row="1" column="7" rowspan="7">
        <widget class="QSlider" name="verticalSlider_speedMotor">
+        <property name="styleSheet">
+         <string notr="true">QSlider:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
+}
+QSlider:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
+        </property>
         <property name="minimum">
          <number>10</number>
         </property>
@@ -2193,10 +2235,18 @@ border-radius: 5px</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 170, 0);
+         <string notr="true">QPushButton{ background-color: rgb(0, 170, 0);
 color: rgb(255, 255, 255);
 border: 2px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border-radius: 5px
+}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>POWER</string>
@@ -2224,11 +2274,19 @@ border-radius: 5px</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 0, 0);
+         <string notr="true">QPushButton{ background-color: rgb(255, 0, 0);
 color: rgb(255, 255, 255);
 border: 2px solid rgb(255, 255, 255);
 border-radius: 5px;
-border-top-color: rgb(208, 208, 208);</string>
+border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>E-STOP</string>
@@ -2259,10 +2317,18 @@ border-top-color: rgb(208, 208, 208);</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(85, 85, 127);
+         <string notr="true">QPushButton{background-color: rgb(85, 85, 127);
 color: rgb(255, 255, 255);
 border: 2px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border-radius: 5px
+}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>GO TO ZERO</string>
@@ -2296,10 +2362,18 @@ border-radius: 5px</string>
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(173, 51, 10);
+         <string notr="true">QPushButton{background-color: rgb(173, 51, 10);
 color: rgb(255, 255, 255);
 border: 2px solid  rgb(255, 255, 255);
-border-radius: 5px</string>
+border-radius: 5px
+}
+QPushButton:hover {
+	border: 3px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
         </property>
         <property name="text">
          <string>MACHINE HOME</string>

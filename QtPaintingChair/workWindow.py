@@ -96,11 +96,19 @@ class Ui_MainWindow(object):
         self.pushButton_pause.setMouseTracking(True)
         self.pushButton_pause.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_pause.setAutoFillBackground(False)
-        self.pushButton_pause.setStyleSheet("background-color: rgb(255, 85, 0);\n"
+        self.pushButton_pause.setStyleSheet("QPushButton{\n"
+"background-color: rgb(255, 85, 0);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
+"border-top-color: rgb(208, 208, 208);}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_pause.setFlat(False)
         self.pushButton_pause.setObjectName("pushButton_pause")
         self.gridLayout_2.addWidget(self.pushButton_pause, 5, 0, 1, 1)
@@ -131,11 +139,19 @@ class Ui_MainWindow(object):
         self.pushButton_jog.setMouseTracking(True)
         self.pushButton_jog.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_jog.setAutoFillBackground(False)
-        self.pushButton_jog.setStyleSheet("background-color: rgb(170, 170, 127);\n"
+        self.pushButton_jog.setStyleSheet("QPushButton{background-color: rgb(170, 170, 127);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
+"border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_jog.setFlat(False)
         self.pushButton_jog.setObjectName("pushButton_jog")
         self.gridLayout_2.addWidget(self.pushButton_jog, 5, 1, 1, 1)
@@ -150,11 +166,19 @@ class Ui_MainWindow(object):
         self.pushButton_auto.setMouseTracking(True)
         self.pushButton_auto.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_auto.setAutoFillBackground(False)
-        self.pushButton_auto.setStyleSheet("background-color: rgb(85, 170, 127);\n"
+        self.pushButton_auto.setStyleSheet("QPushButton { background-color: rgb(85, 170, 127);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 3px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
+"border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_auto.setFlat(False)
         self.pushButton_auto.setObjectName("pushButton_auto")
         self.gridLayout_2.addWidget(self.pushButton_auto, 5, 2, 1, 1)
@@ -350,12 +374,26 @@ class Ui_MainWindow(object):
         self.label_y10.setObjectName("label_y10")
         self.gridLayout_5.addWidget(self.label_y10, 1, 5, 1, 1)
         self.verticalSlider_spray = QtWidgets.QSlider(self.frame)
+        self.verticalSlider_spray.setStyleSheet("QSlider:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QSlider:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.verticalSlider_spray.setOrientation(QtCore.Qt.Vertical)
         self.verticalSlider_spray.setTickPosition(QtWidgets.QSlider.TicksAbove)
         self.verticalSlider_spray.setTickInterval(1)
         self.verticalSlider_spray.setObjectName("verticalSlider_spray")
         self.gridLayout_5.addWidget(self.verticalSlider_spray, 1, 6, 7, 1)
         self.verticalSlider_speedMotor = QtWidgets.QSlider(self.frame)
+        self.verticalSlider_speedMotor.setStyleSheet("QSlider:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QSlider:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.verticalSlider_speedMotor.setMinimum(10)
         self.verticalSlider_speedMotor.setMaximum(200)
         self.verticalSlider_speedMotor.setOrientation(QtCore.Qt.Vertical)
@@ -1240,10 +1278,18 @@ class Ui_MainWindow(object):
         self.pushButton_power.setMouseTracking(False)
         self.pushButton_power.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_power.setAutoFillBackground(False)
-        self.pushButton_power.setStyleSheet("background-color: rgb(0, 170, 0);\n"
+        self.pushButton_power.setStyleSheet("QPushButton{ background-color: rgb(0, 170, 0);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border-radius: 5px\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_power.setObjectName("pushButton_power")
         self.gridLayout.addWidget(self.pushButton_power, 0, 0, 1, 1)
         self.pushButton_estop = QtWidgets.QPushButton(self.frame_button_2)
@@ -1257,11 +1303,19 @@ class Ui_MainWindow(object):
         self.pushButton_estop.setMouseTracking(True)
         self.pushButton_estop.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_estop.setAutoFillBackground(False)
-        self.pushButton_estop.setStyleSheet("background-color: rgb(255, 0, 0);\n"
+        self.pushButton_estop.setStyleSheet("QPushButton{ background-color: rgb(255, 0, 0);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);")
+"border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_estop.setFlat(False)
         self.pushButton_estop.setObjectName("pushButton_estop")
         self.gridLayout.addWidget(self.pushButton_estop, 0, 1, 1, 1)
@@ -1276,10 +1330,18 @@ class Ui_MainWindow(object):
         self.pushButton_gotozero.setMouseTracking(False)
         self.pushButton_gotozero.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_gotozero.setAutoFillBackground(False)
-        self.pushButton_gotozero.setStyleSheet("background-color: rgb(85, 85, 127);\n"
+        self.pushButton_gotozero.setStyleSheet("QPushButton{background-color: rgb(85, 85, 127);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border-radius: 5px\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_gotozero.setObjectName("pushButton_gotozero")
         self.gridLayout.addWidget(self.pushButton_gotozero, 0, 2, 1, 1)
         self.pushButton_machinehome = QtWidgets.QPushButton(self.frame_button_2)
@@ -1298,10 +1360,18 @@ class Ui_MainWindow(object):
         self.pushButton_machinehome.setMouseTracking(False)
         self.pushButton_machinehome.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_machinehome.setAutoFillBackground(False)
-        self.pushButton_machinehome.setStyleSheet("background-color: rgb(173, 51, 10);\n"
+        self.pushButton_machinehome.setStyleSheet("QPushButton{background-color: rgb(173, 51, 10);\n"
 "color: rgb(255, 255, 255);\n"
 "border: 2px solid  rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border-radius: 5px\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
         self.pushButton_machinehome.setObjectName("pushButton_machinehome")
         self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)

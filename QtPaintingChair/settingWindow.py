@@ -56,7 +56,7 @@ class Ui_motorSettings(object):
         font.setWeight(75)
         self.tableWidget.setFont(font)
         self.tableWidget.setStyleSheet("background-color: rgb(156, 156, 156);\n"
-"border: 2px solid rgb(255, 255, 255);")
+"border: 1px solid rgb(255, 255, 255);")
         self.tableWidget.setFrameShape(QtWidgets.QFrame.Box)
         self.tableWidget.setFrameShadow(QtWidgets.QFrame.Raised)
         self.tableWidget.setLineWidth(2)
