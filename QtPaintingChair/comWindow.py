@@ -26,6 +26,7 @@ class Ui_communication(object):
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         communication.setWindowIcon(icon)
         communication.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+
         self.frame2 = QtWidgets.QFrame(communication)
         self.frame2.setGeometry(QtCore.QRect(0, 0, 401, 301))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)

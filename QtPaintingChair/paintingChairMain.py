@@ -8,7 +8,7 @@ import math
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QDesktopWidget
 from PyQt5.QtCore import QDate, QTime ,QObject, QThread, pyqtSignal
 from PyQt5.QtGui import QTextCursor
 
@@ -36,7 +36,15 @@ class checkComWindow():
         self.uic.pushButton_2.clicked.connect(self.reset_comports)
         self.connectSignal = False
      
+
+    def center(self):
+        qtRectangle = self.comWindow.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.comWindow.move(qtRectangle.topLeft()) 
+
     def showComWindow(self):
+        self.center()
         self.comWindow.show()
 
     def detroyComWindow(self):
@@ -342,6 +350,12 @@ class teachingWindow:
         self.counter_line = 0
 
         self.defineTeachModeButton()
+
+    def center(self):
+        qtRectangle = self.teachWin.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.teachWin.move(qtRectangle.topLeft()) 
    
     def showTeachWindow(self):
         main_window.showStatus("Open Teaching Box")
@@ -350,6 +364,7 @@ class teachingWindow:
         main_window.disable_control_option(True)
         main_window.disableMenuButton(True)
         self.reInitTeachMode()
+        self.center()
         self.teachWin.show()
 
     def closeTeachWindow(self):
