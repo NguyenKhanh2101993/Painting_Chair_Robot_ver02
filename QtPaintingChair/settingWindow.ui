@@ -39,7 +39,9 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(170, 170, 127);
+      <string notr="true">background-color: rgb(179, 182, 183);
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
 </string>
      </property>
      <property name="frameShape">
@@ -80,7 +82,8 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(156, 156, 156);</string>
+         <string notr="true">background-color: rgb(156, 156, 156);
+border: 2px solid rgb(255, 255, 255);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::Box</enum>

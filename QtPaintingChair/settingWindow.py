@@ -29,7 +29,9 @@ class Ui_motorSettings(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame2.sizePolicy().hasHeightForWidth())
         self.frame2.setSizePolicy(sizePolicy)
-        self.frame2.setStyleSheet("background-color: rgb(170, 170, 127);\n"
+        self.frame2.setStyleSheet("background-color: rgb(179, 182, 183);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
 "")
         self.frame2.setFrameShape(QtWidgets.QFrame.Panel)
         self.frame2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -53,7 +55,8 @@ class Ui_motorSettings(object):
         font.setBold(True)
         font.setWeight(75)
         self.tableWidget.setFont(font)
-        self.tableWidget.setStyleSheet("background-color: rgb(156, 156, 156);")
+        self.tableWidget.setStyleSheet("background-color: rgb(156, 156, 156);\n"
+"border: 2px solid rgb(255, 255, 255);")
         self.tableWidget.setFrameShape(QtWidgets.QFrame.Box)
         self.tableWidget.setFrameShadow(QtWidgets.QFrame.Raised)
         self.tableWidget.setLineWidth(2)
