@@ -837,7 +837,7 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
 
     def closeEvent(self,event):
         mBox = QtWidgets.QMessageBox()
-        #mBox.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        mBox.setWindowFlags(QtCore.Qt.Window|QtCore.Qt.WindowStaysOnTopHint)
         result = mBox.question(self,
                       "Confirm Exit...",
                       "Are you sure you want to exit ?",

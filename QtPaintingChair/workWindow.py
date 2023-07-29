@@ -958,7 +958,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3 = QtWidgets.QGridLayout(self.frame_position)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.label = QtWidgets.QLabel(self.frame_position)
-        self.label.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+        self.label.setStyleSheet("background-color: rgb(85, 170, 127);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
@@ -966,7 +966,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.gridLayout_3.addWidget(self.label, 0, 0, 1, 1)
         self.label_14 = QtWidgets.QLabel(self.frame_position)
-        self.label_14.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+        self.label_14.setStyleSheet("background-color: rgb(85, 170, 127);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
@@ -974,7 +974,7 @@ class Ui_MainWindow(object):
         self.label_14.setObjectName("label_14")
         self.gridLayout_3.addWidget(self.label_14, 0, 1, 1, 1)
         self.label_13 = QtWidgets.QLabel(self.frame_position)
-        self.label_13.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+        self.label_13.setStyleSheet("background-color: rgb(85, 170, 127);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
@@ -982,7 +982,7 @@ class Ui_MainWindow(object):
         self.label_13.setObjectName("label_13")
         self.gridLayout_3.addWidget(self.label_13, 0, 2, 1, 1)
         self.label_12 = QtWidgets.QLabel(self.frame_position)
-        self.label_12.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+        self.label_12.setStyleSheet("background-color: rgb(85, 170, 127);\n"
 "font: 75 12pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
@@ -1242,6 +1242,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_11.setFont(font)
+        self.label_11.setStyleSheet("background-color: rgb(206, 206, 206);")
         self.label_11.setObjectName("label_11")
         self.gridLayout_6.addWidget(self.label_11, 1, 0, 1, 1)
         self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
