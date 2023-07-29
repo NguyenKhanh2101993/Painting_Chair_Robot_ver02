@@ -1583,7 +1583,7 @@ class runMotor:
                 speed_slaves = 10
         else: speed_slaves = _speed
         
-        main_window.window.showText_signal.emit('speed: ' + str(speed_slaves))
+        #main_window.window.showText_signal.emit('speed: ' + str(speed_slaves))
         # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
