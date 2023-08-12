@@ -29,9 +29,12 @@ class Read_Write_to_Serial:
         self.WRITE_YCOIL = 24
         self.CHANGE_STATE_COIL_Y_MODBUS_ADDR = 12
 
-        self.DELAY_VALUE = 16
         self.DELAY_MODBUS_ADDR = 2
         self.EXECUTE_DELAY_DONE = 1
+        # write holding register
+        self.DELAY_VALUE = 16
+        self.MOTOR_SENSOR_BIT_POSITION_MODBUS_ADDR = 10     # địa chỉ khai báo vị trí các bit cảm biến hành trình motor
+        self.OUTPUT_BIT_POSITION_MODBUS_ADDR = 12           # địa chỉ khai báo vị trí các bit output coil Y
 
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
@@ -75,6 +78,12 @@ class Read_Write_to_Serial:
         result = 0
         result = self.Init_Serial(baud,com)
         return result
+    
+    def settingMotorSensorBit(self, data):
+        self.sendMultipledata(data, self.MOTOR_SENSOR_BIT_POSITION_MODBUS_ADDR)
+
+    def settingOuputBit(self, data):
+        self.sendMultipledata(data, self.OUTPUT_BIT_POSITION_MODBUS_ADDR)
 
     def readCurrentPosition(self):
         value = self.master.execute (self.SLAVE_02, cst.READ_HOLDING_REGISTERS, self.CURRENT_POSITION_MODBUS_ADDR, 12)

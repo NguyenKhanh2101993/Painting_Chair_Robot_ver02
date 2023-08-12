@@ -35,13 +35,16 @@ static int32_t newPos[MAX_AXIS];
 //================================================================
 String userInput ="";
 bool coil[128]; uint8_t coil_size = sizeof(coil) / sizeof(coil[0]); // Khai bao số lượng coil dùng cho write single coil
-
 uint8_t coilY[] = {Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Y11, Y12, Y13, Y14, Y15, Y16};
 uint8_t coilX[] = {X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16};
 uint8_t coilY_size = sizeof(coilY)/sizeof(coilY[0]);
 uint8_t coilX_size = sizeof(coilX)/sizeof(coilX[0]);
 // chú ý: các giá trị trong mảng motorSensor nên được nhận từ software truyền xuống nhằm giúp người dùng tự define chân cảm biến motor.
 // hiện tại đang hardcode
+static uint8_t xlimit,xhome,ylimit,yhome,zlimit,zhome,alimit,ahome;
+static uint8_t travelMotorSensor[] = {xlimit,xhome,ylimit,yhome,zlimit,zhome,alimit,ahome};
+uint8_t travelMotorSensor_size = sizeof(travelMotorSensor)/sizeof(travelMotorSensor[0]);
+//
 uint8_t motorSensor[] = {XLIMIT, XHOME, YLIMIT, YHOME, ZLIMIT, ZHOME, ALIMIT, AHOME};
 uint8_t motorSensor_size = sizeof(motorSensor)/sizeof(motorSensor[0]);
 int16_t speed;                     // Lưu tốc độ trục X,Y,Z,A,B,C cần chạy nhận từ modbus
@@ -267,9 +270,17 @@ void timer4_setting(void) {
 ISR (TIMER4_OVF_vect) {
   monitor_input_value = read_input_register();  
   monitor_output_value = read_output_register();
-  for (int i = 0; i < motorSensor_size; i++){
-    ((monitor_input_value >> motorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
+  //for (int i = 0; i < motorSensor_size; i++){
+    //((monitor_input_value >> motorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
+  //}
+  for (int i = 0; i < travelMotorSensor_size -1; i++){
+    if (travelMotorSensor[i] == travelMotorSensor[i+1]) { monitor_input_value = 0; break;} 
   }
+
+  for (int i = 0; i < travelMotorSensor_size; i++){
+    ((monitor_input_value >> travelMotorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
+  }
+  
   TCNT4 = 40536;
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -316,8 +327,7 @@ ISR(TIMER1_COMPA_vect) {
   static uint16_t prev_pulsePeriod = 0;
   if (command_motor.busy == true) { return;}
   if (!command_motor.movingDone()) {        // nếu các motor vẫn chưa chạy xong
-      //  setting delay between steps (tần số xung)
-      //if (command_motor.pulsePeriod != prev_pulsePeriod) {OCR1A = command_motor.pulsePeriod; prev_pulsePeriod = command_motor.pulsePeriod;}  
+      //  setting delay between steps (tần số xung)  
       OCR1A = command_motor.pulsePeriod;
       TCNT1 = 0;
       command_motor.execute_one_pulse();
@@ -386,11 +396,11 @@ void check_sensor_XYZA(void){
 //============================================================================================
 // Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
 void change_state_coilY(uint16_t value){
-  //PORTA_OUT = (PORTA_OUT & ~(B11111101)) | ((value >> 2) & 0x00FF);
   for (int i = 0; i < 16; i++){
     digitalWrite(coilY[i], ((value >> i) & 0x0001));
   }
 }
+//============================================================================================
 //============================================================================================
 void enable_MPG_mode(void){
   for (int i = 0; i < MAX_AXIS; i++){ 
@@ -457,11 +467,17 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
   i32readdata = convert_32bit_data(read_data,length);
   switch (address) {
     // Địa chỉ 0 nhận số xung cần chạy cho trục x,y,z,a,b,c
-    case PULSE_EXECUTE: for (int i = 0; i <  MAX_AXIS; i++) { xung_nguyen[i] = i32readdata[i];} 
+    case PULSE_EXECUTE: for (int i = 0; i < MAX_AXIS; i++) { xung_nguyen[i] = i32readdata[i];} 
                                                               speed = i32readdata[MAX_AXIS]; break;   
     // Ghi giá trị coil Y ra các chân đã define
     case WRITE_YCOIL:   write_output_value = read_data[0]; break;
     case DELAY_VALUE: delayValue = read_data[0]; break;
+    case MOTOR_SENSOR_BIT_POSITION_MODBUS_ADDR: 
+      for (int i =0; i < travelMotorSensor_size; i++) { travelMotorSensor[i] = read_data[i];}
+      break;
+    case OUTPUT_BIT_POSITION_MODBUS_ADDR:
+      break;
+
     default: break;
   }
 

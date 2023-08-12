@@ -1,6 +1,5 @@
 # This Python file uses the following encoding: utf-8
 import os
-from pathlib import Path
 import sys
 import time
 import math
@@ -64,6 +63,7 @@ class checkComWindow():
         result = self.workSerial.choose_comports(baud,com)
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
+              main_window.sendMotorSensorBitPostoArduino()
               main_window.startMonitorDataFromArduinoThread()
               main_window.startTeachModeThread()
               main_window.startAutoRunThread()
@@ -239,6 +239,7 @@ class setPinsWindow:
         self.setOutputPinToJson()
         self.getxSensorBitPositon()
         main_window.getSpecsOfSensor() # cập nhật giá trị cảm biến
+        main_window.sendMotorSensorBitPostoArduino()
         self.closePinsWindow()
 #================================================================================================
 # ====> test ok
@@ -801,16 +802,16 @@ class monitorDatafromArduinoThread(QObject):
             else: pass
             
             # Getting all memory using os.popen()
-            total_memory, used_memory, free_memory = map(
-                int, os.popen('free -t -m').readlines()[-1].split()[1:])
+            #total_memory, used_memory, free_memory = map(
+            #    int, os.popen('free -t -m').readlines()[-1].split()[1:])
  
             # Memory usage
-            ramUsed = round((used_memory/total_memory) * 100, 1)
+            #ramUsed = round((used_memory/total_memory) * 100, 1)
             #print("RAM memory % used:", round((used_memory/total_memory) * 100, 2))
 
             getTime = QTime.currentTime()
             mytime = getTime.toString()
-            main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
+            #main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
 
             time.sleep(0.05)
 #================================================================================================
@@ -1018,6 +1019,7 @@ class workingWindow:
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].setDisabled(state)
 
+
     def speedMotor(self):
         valueSpeedMotor = self.uiWorking.verticalSlider_speedMotor.value()
         self.uiWorking.label_speedMotor.setText("M"+str(valueSpeedMotor))
@@ -1095,6 +1097,14 @@ class workingWindow:
         self.definePinsWindow.getSensorPinFromJson()
         self.definePinsWindow.getOutputPinFromJson()
         self.definePinsWindow.getxSensorBitPositon()
+
+    def sendMotorSensorBitPostoArduino(self):
+        value = [self.coilXY.xlimitBit,self.coilXY.xhomeBit,self.coilXY.ylimitBit,self.coilXY.yhomeBit,
+                 self.coilXY.zlimitBit, self.coilXY.zhomeBit,  self.coilXY.alimitBit, self.coilXY.ahomeBit]
+        comWindow.workSerial.settingMotorSensorBit(value)
+
+    def sendOutputBitPostoArduino(self):
+        pass
     
     def getGearRatioFromJson(self):
         result = self.jsonFile.getGearRatio()
