@@ -239,7 +239,10 @@ class setPinsWindow:
         self.setOutputPinToJson()
         self.getxSensorBitPositon()
         main_window.getSpecsOfSensor() # cập nhật giá trị cảm biến
-        main_window.sendMotorSensorBitPostoArduino()
+        try:
+            main_window.sendMotorSensorBitPostoArduino()
+        except:
+            pass
         self.closePinsWindow()
 #================================================================================================
 # ====> test ok
