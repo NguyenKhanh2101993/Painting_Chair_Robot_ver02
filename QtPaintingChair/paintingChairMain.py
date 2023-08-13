@@ -64,6 +64,7 @@ class checkComWindow():
         if result: 
               main_window.showStatus("Kết nối với cổng COM: " + com + "-Baudrate: "+ baud)
               main_window.sendMotorSensorBitPostoArduino()
+              main_window.sendOutputBitPostoArduino()
               main_window.startMonitorDataFromArduinoThread()
               main_window.startTeachModeThread()
               main_window.startAutoRunThread()
@@ -84,6 +85,7 @@ class setPinsWindow:
         self.pinX = []; self.pinY = [] # luu thu tu cac chan dieu khien input output
         self.xSensor = []; self.yOutput = []
         self.xSensorDefined = []
+        self.yCoilDefine = []
 
         self.pinXspinBox = [self.uiPinsWindow.spinBox_X1, self.uiPinsWindow.spinBox_X2, self.uiPinsWindow.spinBox_X3, self.uiPinsWindow.spinBox_X4,
                              self.uiPinsWindow.spinBox_X5, self.uiPinsWindow.spinBox_X6, self.uiPinsWindow.spinBox_X7, self.uiPinsWindow.spinBox_X8,
@@ -143,6 +145,14 @@ class setPinsWindow:
             for index in range(len(self.pinXspinBox)):  #index = 0 ... 15
                 if pinX == index +1:
                     self.xSensorDefined.append(self.pinXspinBox[index].value())
+                    break
+    def getyCoilBitPosition(self):
+        self.yCoilDefine = []
+        for i in range(len(self.yOutputSpinBox)):
+            pinY = self.yOutputSpinBox[i].value() #truy xuất chân Y
+            for index in range(len(self.pinYspinBox)): #index = 0 ... 15
+                if pinY == index +1:
+                    self.yCoilDefine.append(self.pinYspinBox[index].value())
                     break
 
     def getXpinsFromJson(self):
@@ -238,9 +248,12 @@ class setPinsWindow:
         self.setSensorPinToJson()
         self.setOutputPinToJson()
         self.getxSensorBitPositon()
+        self.getyCoilBitPosition()
         main_window.getSpecsOfSensor() # cập nhật giá trị cảm biến
+        main_window.getSpecsOfCoilY()
         try:
             main_window.sendMotorSensorBitPostoArduino()
+            main_window.sendOutputBitPostoArduino()
         except:
             pass
         self.closePinsWindow()
@@ -699,6 +712,14 @@ class workingTeachMode():
                     main_window.disableMenuButton(False)
                     main_window.threadTeachMode.finishedTeachMode.emit()
                     break
+                # trường hợp đang trong teachmode nhưng bị lỗi sensor
+                if main_window.coilXY.errorSensorSignal == True:
+                    main_window.go_machine_home = False
+                    main_window.disable_control_option(False)
+                    main_window.disableMenuButton(False)
+                    
+                    main_window.threadTeachMode.finishedTeachMode.emit()
+                    break
 
                 time.sleep(0.1)
             
@@ -790,6 +811,7 @@ class monitorTeachModeThread(QObject):
 class monitorDatafromArduinoThread(QObject):
     coilValue =  pyqtSignal(tuple)  
     posValue = pyqtSignal(list)
+
     def __init__(self, parent=None):
         super(monitorDatafromArduinoThread, self).__init__(parent)
     def run(self):
@@ -805,16 +827,14 @@ class monitorDatafromArduinoThread(QObject):
             else: pass
             
             # Getting all memory using os.popen()
-            #total_memory, used_memory, free_memory = map(
-            #    int, os.popen('free -t -m').readlines()[-1].split()[1:])
- 
+            total_memory, used_memory, free_memory = map(
+                int, os.popen('free -t -m').readlines()[-1].split()[1:])
             # Memory usage
-            #ramUsed = round((used_memory/total_memory) * 100, 1)
-            #print("RAM memory % used:", round((used_memory/total_memory) * 100, 2))
+            ramUsed = round((used_memory/total_memory) * 100, 1)
 
             getTime = QTime.currentTime()
             mytime = getTime.toString()
-            #main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
+            main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
 
             time.sleep(0.05)
 #================================================================================================
@@ -829,6 +849,7 @@ class autoRunThread(QObject):
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
             time.sleep(0.1)
+
     def stop(self):
         main_window.autoRunFlag = False
         main_window.window.showText_signal.emit("Exit execute: Auto run mode")
@@ -1089,17 +1110,29 @@ class workingWindow:
         self.coilXY.xlimitBit = self.definePinsWindow.xSensorDefined[4];  self.coilXY.ylimitBit = self.definePinsWindow.xSensorDefined[5]
         self.coilXY.zlimitBit = self.definePinsWindow.xSensorDefined[6]; self.coilXY.alimitBit = self.definePinsWindow.xSensorDefined[7]
 
-        self.coilXY.bitPos = [self.coilXY.xhomeBit, self.coilXY.yhomeBit, self.coilXY.zhomeBit, self.coilXY.ahomeBit, 
+        self.coilXY.sensorBitPos = [self.coilXY.xhomeBit, self.coilXY.yhomeBit, self.coilXY.zhomeBit, self.coilXY.ahomeBit, 
                                     self.coilXY.xlimitBit, self.coilXY.ylimitBit, self.coilXY.zlimitBit, self.coilXY.alimitBit]
 
-        self.showStatus("===> Vị trí khai báo bit sensor: "+ str(self.coilXY.bitPos))
+        self.showStatus("===> Vị trí khai báo bit sensor: "+ str(self.coilXY.sensorBitPos))
+
+    def getSpecsOfCoilY(self):
+        self.coilXY.y1Bit = self.definePinsWindow.yCoilDefine[0]; self.coilXY.y2Bit = self.definePinsWindow.yCoilDefine[1]
+        self.coilXY.y3Bit = self.definePinsWindow.yCoilDefine[2]; self.coilXY.y4Bit = self.definePinsWindow.yCoilDefine[3]
+        self.coilXY.y5Bit = self.definePinsWindow.yCoilDefine[4]; self.coilXY.y6Bit = self.definePinsWindow.yCoilDefine[5]
+        self.coilXY.y7Bit = self.definePinsWindow.yCoilDefine[6]; self.coilXY.y8Bit = self.definePinsWindow.yCoilDefine[7]
+
+        self.coilXY.coilYBitPos = [self.coilXY.y1Bit, self.coilXY.y2Bit, self.coilXY.y3Bit, self.coilXY.y4Bit,
+                                   self.coilXY.y5Bit, self.coilXY.y6Bit,self.coilXY.y7Bit,self.coilXY.y8Bit ]
         
+        self.showStatus("===> Vị trí khai báo bit coilY: "+ str(self.coilXY.coilYBitPos))
+
     def getXYdefinePins(self):
         self.definePinsWindow.getXpinsFromJson()
         self.definePinsWindow.getYpinsFromJson()
         self.definePinsWindow.getSensorPinFromJson()
         self.definePinsWindow.getOutputPinFromJson()
         self.definePinsWindow.getxSensorBitPositon()
+        self.definePinsWindow.getyCoilBitPosition()
 
     def sendMotorSensorBitPostoArduino(self):
         value = [self.coilXY.xlimitBit,self.coilXY.xhomeBit,self.coilXY.ylimitBit,self.coilXY.yhomeBit,
@@ -1107,7 +1140,9 @@ class workingWindow:
         comWindow.workSerial.settingMotorSensorBit(value)
 
     def sendOutputBitPostoArduino(self):
-        pass
+        value = [self.coilXY.y1Bit,self.coilXY.y2Bit,self.coilXY.y3Bit,self.coilXY.y4Bit,
+                 self.coilXY.y5Bit, self.coilXY.y6Bit,  self.coilXY.y7Bit, self.coilXY.y8Bit]
+        comWindow.workSerial.settingOuputBit(value)
     
     def getGearRatioFromJson(self):
         result = self.jsonFile.getGearRatio()
@@ -1299,7 +1334,6 @@ class workingWindow:
         verScrollBar.setValue(verScrollBar.maximum()) # Scrolls to the bottom
         horScrollBar.setValue(0) # scroll to the left
         self.uiWorking.textBrowser_terminal.update()   # cập nhật thay đổi trong textBrower
-        #time.sleep(0.01)
 #================================================================================================
 class runMotor:
     def __init__(self):
@@ -1344,10 +1378,14 @@ class runMotor:
             self.run_auto_mode = True
             for str_content in wFile.file:
                 
-                if self.e_stop == True: # nếu có tín hiệu nhấn E-STOP
+                if self.e_stop == True:  # nếu có tín hiệu nhấn E-STOP
                     wFile.file.close()
                     break
-                
+                if main_window.coilXY.errorSensorSignal == True:
+                    main_window.go_machine_home = False
+                    wFile.file.close()
+                    break
+
                 content_line = str_content.replace(" ", "") # Bo ky tu khoang trang trong chuoi 
                 content_line = content_line.upper()         # chuyen doi chuoi thanh chu IN HOA
                 self.monitor_str_content(str_content.replace("\n",""))       # hiện thị từng dòng trong file
@@ -1689,12 +1727,13 @@ class monitorInputOutput:
         self.numCoilXY = 16
         self.valueCoilY = 0
         # khai báo vị trí home sensor và limit sensor trong value
-        #self.xhomeBit = 1; self.yhomeBit = 5;  self.zhomeBit = 7;  self.ahomeBit = 10; 
-        #self.xlimitBit = 0;  self.ylimitBit = 2;  self.zlimitBit = 6; self.alimityBit = 13
         self.xhomeBit = 0; self.yhomeBit = 0;  self.zhomeBit = 0;  self.ahomeBit = 0; 
         self.xlimitBit = 0;  self.ylimitBit = 0;  self.zlimitBit = 0; self.alimitBit = 0
+        # khai báo vị trí bit coilY 
+        self.y1Bit = 0; self.y2Bit = 0; self.y3Bit = 0; self.y4Bit = 0
+        self.y5Bit = 0; self.y6Bit = 0; self.y7Bit = 0; self.y8Bit = 0 
 
-        self.bitPos = []
+        self.sensorBitPos = []; self.coilYBitPos = []
         self.sensor_value = []; self.coil_value = []
     
     def returnCoilY1(self):
@@ -1788,6 +1827,7 @@ class monitorInputOutput:
                                 self.sensor_value[self.ylimitBit],self.sensor_value[self.yhomeBit],
                                 self.sensor_value[self.zlimitBit],self.sensor_value[self.zhomeBit],
                                 self.sensor_value[self.alimitBit],self.sensor_value[self.ahomeBit]]
+        self.errorSensorSignal = self.checkErrorSensorSignal()
 
     def updateLabelXYvalue(self, xValue, yValue):
         for i in range(self.numCoilXY):
@@ -1798,13 +1838,19 @@ class monitorInputOutput:
             else: main_window.labelCoilY[i].setStyleSheet("background-color: " + main_window.orgColorLabelY[i] + ";")   # không có tín hiệu
 
     def showWarning(self, value):
-        for i in range(len(self.bitPos)):
-            if value[self.bitPos[i]]: # Không có tín hiệu
+        for i in range(len(self.sensorBitPos)):
+            if value[self.sensorBitPos[i]]: # Không có tín hiệu
                 main_window.warningLabel[i].setStyleSheet("background-color: " + main_window.orgColorWarningLabel[i] + ";")
             else:
                 main_window.warningLabel[i].setStyleSheet("background-color: #00aa00;")
-     
 
+    def checkErrorSensorSignal(self): 
+        error = False
+        if self.sensorBitPos == [] or self.sensor_limmit == [0,0,0,0,0,0,0,0]: error = True
+        else:
+            for i in range(len(self.sensorBitPos)-1):
+                if self.sensorBitPos[i] == self.sensorBitPos[i+1]: error = True; break  # lỗi trùng giá trị bit
+        return error
 #================================================================================================
 if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     
@@ -1825,6 +1871,7 @@ if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     main_window.getGearRatioFromJson() #lấy thông số gear từ Json
     main_window.getXYdefinePins()      #lấy thông số pins XY defined từ Json
     main_window.getSpecsOfSensor()     #lưu thông số pins XY vào giá trị cảm biến
+    main_window.getSpecsOfCoilY()
     main_window.showWorkingWindow()
 
     sys.exit(app.exec_()) # creating an event loop for app

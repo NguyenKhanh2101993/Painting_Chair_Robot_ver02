@@ -62,98 +62,7 @@ border-radius: 5px</string>
       <number>0</number>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0" colspan="2">
-       <widget class="QLabel" name="label_Pins_01">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(130, 130, 130);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(255, 255, 255);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;DEFINE X/Y PINS &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" colspan="2">
-       <widget class="QLabel" name="label_Pins_3">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(130, 130, 130);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(255, 255, 255);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Y SINALS - PIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="4" colspan="2">
-       <widget class="QLabel" name="label_Pins_5">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(130, 130, 130);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(255, 255, 255);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Y SIGNAL DEFINE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_x5">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="7">
-       <widget class="QSpinBox" name="spinBox_alimit">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="4">
+      <item row="10" column="4" colspan="2">
        <widget class="QLabel" name="label_spray2">
         <property name="font">
          <font>
@@ -176,8 +85,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_x8">
+      <item row="9" column="4" colspan="2">
+       <widget class="QLabel" name="label_spray1">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -195,35 +104,12 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;SPRAY1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="3">
-       <widget class="QSpinBox" name="spinBox_Y6">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="maximum">
-         <number>15</number>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="2">
-       <widget class="QLabel" name="label_y7">
+      <item row="12" column="4" colspan="2">
+       <widget class="QLabel" name="label_spray4">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -241,12 +127,12 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ROTATE TABLE 2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="2">
-       <widget class="QLabel" name="label_y5">
+      <item row="11" column="4" colspan="2">
+       <widget class="QLabel" name="label_spray3">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -264,152 +150,25 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ROTATE TABLE 1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="4">
-       <widget class="QLabel" name="label_xhome">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
+      <item row="1" column="2" colspan="2">
+       <widget class="QLabel" name="label_Pins_3">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
+         <string notr="true">background-color: rgb(130, 130, 130);
 font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 255, 255);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;XHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Y SINALS - PIN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QSpinBox" name="spinBox_X2">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="maximum">
-         <number>15</number>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_x1">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QSpinBox" name="spinBox_X1">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="maximum">
-         <number>15</number>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QSpinBox" name="spinBox_Y2">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="maximum">
-         <number>15</number>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="7">
-       <widget class="QSpinBox" name="spinBox_xlimit">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
+      <item row="1" column="0" colspan="2">
        <widget class="QLabel" name="label_Pins_02">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(130, 130, 130);
@@ -423,30 +182,21 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="4">
-       <widget class="QLabel" name="label_yhome">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
+      <item row="8" column="4" colspan="3">
+       <widget class="QLabel" name="label_Pins_5">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
+         <string notr="true">background-color: rgb(130, 130, 130);
 font: 75 14pt &quot;Arial&quot; bold;
+color: rgb(255, 255, 255);
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;YHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Y SIGNAL DEFINE (Y1 - Y16)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="4" colspan="2">
+      <item row="1" column="4" colspan="3">
        <widget class="QLabel" name="label_Pins_4">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(130, 130, 130);
@@ -456,177 +206,7 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X SIGNAL DEFINE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="5">
-       <widget class="QSpinBox" name="spinBox_xhome">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="7">
-       <widget class="QSpinBox" name="spinBox_ylimit">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="5">
-       <widget class="QSpinBox" name="spinBox_yhome">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QLabel" name="label_y2">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="3">
-       <widget class="QSpinBox" name="spinBox_Y1">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="maximum">
-         <number>15</number>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QLabel" name="label_y1">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_x3">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;X SIGNAL DEFINE (X1 - X16)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -699,8 +279,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="4">
-       <widget class="QLabel" name="label_zhome">
+      <item row="7" column="0">
+       <widget class="QLabel" name="label_x5">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -718,7 +298,490 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ZHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="7">
+       <widget class="QSpinBox" name="spinBox_alimit">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="3">
+       <widget class="QSpinBox" name="spinBox_Y6">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="label_x8">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X8&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QLabel" name="label_y5">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y5&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QLabel" name="label_xhome">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;XHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QLabel" name="label_y7">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_x1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="spinBox_X2">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSpinBox" name="spinBox_X1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="7">
+       <widget class="QSpinBox" name="spinBox_xlimit">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QSpinBox" name="spinBox_Y2">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="4">
+       <widget class="QLabel" name="label_yhome">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;YHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QSpinBox" name="spinBox_xhome">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}
+</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="7">
+       <widget class="QSpinBox" name="spinBox_ylimit">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QSpinBox" name="spinBox_Y1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="5">
+       <widget class="QSpinBox" name="spinBox_yhome">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="label_y2">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_x3">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="label_y1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -742,6 +805,29 @@ border-radius: 5px</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;YLIMIT&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="4">
+       <widget class="QLabel" name="label_zhome">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ZHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -780,11 +866,17 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -852,40 +944,23 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
         </property>
         <property name="maximum">
          <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="4">
-       <widget class="QLabel" name="label_spray1">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;SPRAY1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -924,11 +999,17 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -984,8 +1065,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="14" column="6">
-       <widget class="QSpinBox" name="spinBox_rotateTable2">
+      <item row="13" column="0">
+       <widget class="QLabel" name="label_x11">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1001,6 +1082,35 @@ color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="6">
+       <widget class="QSpinBox" name="spinBox_rotateTable2">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -1033,52 +1143,6 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="13" column="0">
-       <widget class="QLabel" name="label_x11">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="2">
-       <widget class="QLabel" name="label_y14">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y14&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
       <item row="12" column="6">
        <widget class="QSpinBox" name="spinBox_spray4">
         <property name="font">
@@ -1091,11 +1155,17 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -1125,6 +1195,29 @@ border-radius: 5px</string>
         </property>
         <property name="maximum">
          <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="2">
+       <widget class="QLabel" name="label_y14">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y14&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1163,60 +1256,17 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="2">
-       <widget class="QLabel" name="label_y11">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="6">
-       <widget class="QSpinBox" name="spinBox_spray3">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -1246,6 +1296,61 @@ border-radius: 5px</string>
         </property>
         <property name="maximum">
          <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="6">
+       <widget class="QSpinBox" name="spinBox_spray3">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="2">
+       <widget class="QLabel" name="label_y11">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y11&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1360,12 +1465,12 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ROTATE TABLE 1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;OUT M1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="11" column="3">
-       <widget class="QSpinBox" name="spinBox_Y9">
+      <item row="14" column="3">
+       <widget class="QSpinBox" name="spinBox_Y12">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1387,8 +1492,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="14" column="3">
-       <widget class="QSpinBox" name="spinBox_Y12">
+      <item row="11" column="3">
+       <widget class="QSpinBox" name="spinBox_Y9">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1452,7 +1557,39 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ROTATE TABLE 2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;OUT M2&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="6">
+       <widget class="QSpinBox" name="spinBox_rotateTable4">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
         </property>
        </widget>
       </item>
@@ -1479,32 +1616,6 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="16" column="6">
-       <widget class="QSpinBox" name="spinBox_rotateTable4">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
       <item row="16" column="4" colspan="2">
        <widget class="QLabel" name="label_rotateTable4">
         <property name="font">
@@ -1524,7 +1635,30 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ROTATE TABLE 4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;OUT M4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="17" column="0">
+       <widget class="QLabel" name="label_x15">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1551,8 +1685,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="17" column="0">
-       <widget class="QLabel" name="label_x15">
+      <item row="18" column="0">
+       <widget class="QLabel" name="label_x16">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1570,7 +1704,7 @@ border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -1620,29 +1754,6 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="18" column="0">
-       <widget class="QLabel" name="label_x16">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;X16&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
       <item row="18" column="1">
        <widget class="QSpinBox" name="spinBox_X16">
         <property name="font">
@@ -1668,6 +1779,29 @@ border-radius: 5px</string>
       </item>
       <item row="18" column="3">
        <widget class="QSpinBox" name="spinBox_Y16">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 1px solid rgb(255, 255, 255);
+border-radius: 5px</string>
+        </property>
+        <property name="maximum">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QSpinBox" name="spinBox_X5">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1735,8 +1869,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
-       <widget class="QSpinBox" name="spinBox_X5">
+      <item row="10" column="6">
+       <widget class="QSpinBox" name="spinBox_spray2">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1747,14 +1881,23 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
         </property>
         <property name="maximum">
-         <number>15</number>
+         <number>16</number>
         </property>
        </widget>
       </item>
@@ -1804,32 +1947,6 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="10" column="6">
-       <widget class="QSpinBox" name="spinBox_spray2">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-       </widget>
-      </item>
       <item row="7" column="3">
        <widget class="QSpinBox" name="spinBox_Y5">
         <property name="font">
@@ -1876,8 +1993,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="11" column="1">
-       <widget class="QSpinBox" name="spinBox_X9">
+      <item row="6" column="3">
+       <widget class="QSpinBox" name="spinBox_Y4">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1922,8 +2039,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="3">
-       <widget class="QSpinBox" name="spinBox_Y4">
+      <item row="11" column="1">
+       <widget class="QSpinBox" name="spinBox_X9">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -1957,11 +2074,17 @@ border-radius: 5px</string>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
 color: rgb(0, 0, 0);
 font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
         </property>
         <property name="minimum">
          <number>1</number>
@@ -1991,29 +2114,6 @@ border-radius: 5px</string>
         </property>
         <property name="text">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;AHOME&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QLabel" name="label_y4">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -2063,8 +2163,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
-       <widget class="QSpinBox" name="spinBox_X6">
+      <item row="6" column="2">
+       <widget class="QLabel" name="label_y4">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -2081,8 +2181,8 @@ font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
-        <property name="maximum">
-         <number>15</number>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Y4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -2109,8 +2209,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="1">
-       <widget class="QSpinBox" name="spinBox_X7">
+      <item row="8" column="1">
+       <widget class="QSpinBox" name="spinBox_X6">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -2132,8 +2232,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="15" column="4" colspan="2">
-       <widget class="QLabel" name="label_rotateTable3">
+      <item row="9" column="1">
+       <widget class="QSpinBox" name="spinBox_X7">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -2150,8 +2250,8 @@ font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;ROTATE TABLE 3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <property name="maximum">
+         <number>15</number>
         </property>
        </widget>
       </item>
@@ -2178,8 +2278,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="13" column="6">
-       <widget class="QSpinBox" name="spinBox_rotateTable1">
+      <item row="15" column="4" colspan="2">
+       <widget class="QLabel" name="label_rotateTable3">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -2196,11 +2296,8 @@ font: 75 14pt &quot;Arial&quot; bold;
 border: 1px solid rgb(255, 255, 255);
 border-radius: 5px</string>
         </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;OUT M3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -2227,6 +2324,38 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
+      <item row="13" column="6">
+       <widget class="QSpinBox" name="spinBox_rotateTable1">
+        <property name="font">
+         <font>
+          <family>Arial 12</family>
+          <pointsize>14</pointsize>
+          <weight>9</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSpinBox{
+background-color: rgb(222, 222, 222);
+color: rgb(0, 0, 0);
+font: 75 14pt &quot;Arial&quot; bold;
+border: 2px solid rgb(255, 255, 255);
+border-radius: 5px
+}
+QSpinBox:hover {
+	border: 2px solid rgb(77, 77, 77);
+	color: rgb(77, 77, 77);
+}</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+       </widget>
+      </item>
       <item row="11" column="2">
        <widget class="QLabel" name="label_y9">
         <property name="font">
@@ -2250,54 +2379,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="11" column="4">
-       <widget class="QLabel" name="label_spray3">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;SPRAY3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="4">
-       <widget class="QLabel" name="label_spray4">
-        <property name="font">
-         <font>
-          <family>Arial 12</family>
-          <pointsize>14</pointsize>
-          <weight>9</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(222, 222, 222);
-color: rgb(0, 0, 0);
-font: 75 14pt &quot;Arial&quot; bold;
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-        </property>
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;SPRAY4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="15" column="1">
-       <widget class="QSpinBox" name="spinBox_X13">
+      <item row="16" column="1">
+       <widget class="QSpinBox" name="spinBox_X14">
         <property name="font">
          <font>
           <family>Arial 12</family>
@@ -2319,8 +2402,8 @@ border-radius: 5px</string>
         </property>
        </widget>
       </item>
-      <item row="16" column="1">
-       <widget class="QSpinBox" name="spinBox_X14">
+      <item row="15" column="1">
+       <widget class="QSpinBox" name="spinBox_X13">
         <property name="font">
          <font>
           <family>Arial 12</family>

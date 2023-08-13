@@ -1,4 +1,4 @@
-// Máy sơn ghế update 18/04/2022
+// Máy sơn ghế update 13/08/2023
 //#include "Encoder.h"
 #include "ModbusSlave.h"
 #include "Config_slaves.h"
@@ -7,14 +7,12 @@
 //================================================================
 // Sửa ngày 28/03/2023
 // Sửa pause algorithm ngày 29/03/2023
+// Sửa chế độ tự define chân phun sơn, bàn xoay - sử dụng 4 coilY 
 //================================================================
 #define ARDUINO_ADDRESS             2    // Dia chi board arduino slaver can dieu khien
 // Mode Block Run: sẽ chạy liên tục một nhóm các point từ vị trí G05.0 đến vị trí G05.1 trong file .pnt
 // Sẽ lưu các điểm đó vào bộ nhớ tạm packet_data để chạy.
-// MAX_POINT_IN_BLOCK 
 #define MAX_POINT_IN_BLOCK          120   // Số điểm tối đa có thể lưu trong packet_data khi chạy mode block run
-//#define EncoderA    19
-//#define EncoderB    23
 Modbus node_slave(MODBUS_SERIAL, ARDUINO_ADDRESS, MODBUS_CONTROL_PIN);       
 //================================================================
 Motor Motor_X; 
@@ -26,27 +24,23 @@ Motor Motor_C;
 
 World command_motor(&Motor_X);
 //================================================================
-//Encoder myEncoder(EncoderA, EncoderB);
-int32_t oldPosition  = -999;
-static int32_t newPosition = 0;
 bool MPG_Mode = false;
 int32_t initPos[MAX_AXIS];
 static int32_t newPos[MAX_AXIS];
 //================================================================
-String userInput ="";
 bool coil[128]; uint8_t coil_size = sizeof(coil) / sizeof(coil[0]); // Khai bao số lượng coil dùng cho write single coil
 uint8_t coilY[] = {Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10, Y11, Y12, Y13, Y14, Y15, Y16};
 uint8_t coilX[] = {X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16};
 uint8_t coilY_size = sizeof(coilY)/sizeof(coilY[0]);
 uint8_t coilX_size = sizeof(coilX)/sizeof(coilX[0]);
-// chú ý: các giá trị trong mảng motorSensor nên được nhận từ software truyền xuống nhằm giúp người dùng tự define chân cảm biến motor.
-// hiện tại đang hardcode
-static uint8_t xlimit,xhome,ylimit,yhome,zlimit,zhome,alimit,ahome;
-static uint8_t travelMotorSensor[] = {xlimit,xhome,ylimit,yhome,zlimit,zhome,alimit,ahome};
-uint8_t travelMotorSensor_size = sizeof(travelMotorSensor)/sizeof(travelMotorSensor[0]);
-//
-uint8_t motorSensor[] = {XLIMIT, XHOME, YLIMIT, YHOME, ZLIMIT, ZHOME, ALIMIT, AHOME};
-uint8_t motorSensor_size = sizeof(motorSensor)/sizeof(motorSensor[0]);
+// các giá trị trong mảng listBitMotorSensor tự define chân cảm biến motor.
+static uint8_t listBitMotorSensor[8]; // lưu giá trị vị trí BIT sensor trong giá trị sensor monitor
+#define travelMotorSensor_size  8
+// các giá trị trong mảng listBitCoilY tự define chân output Y
+// lưu giá trị vị trí BIT coil Y trong giá trị coilY[]
+static uint8_t listBitCoilY[8];
+#define bitCoilY_size 8
+
 int16_t speed;                     // Lưu tốc độ trục X,Y,Z,A,B,C cần chạy nhận từ modbus
 int32_t xung_nguyen[MAX_AXIS];      // Lưu số xung trục X,Y,Z,A,B,C cần chạy nhận từ modbus
 // mảng 2 chiều: 
@@ -270,15 +264,13 @@ void timer4_setting(void) {
 ISR (TIMER4_OVF_vect) {
   monitor_input_value = read_input_register();  
   monitor_output_value = read_output_register();
-  //for (int i = 0; i < motorSensor_size; i++){
-    //((monitor_input_value >> motorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
-  //}
+
   for (int i = 0; i < travelMotorSensor_size -1; i++){
-    if (travelMotorSensor[i] == travelMotorSensor[i+1]) { monitor_input_value = 0; break;} 
+    if (listBitMotorSensor[i] == listBitMotorSensor[i+1]) { monitor_input_value = 0; break;} 
   }
 
   for (int i = 0; i < travelMotorSensor_size; i++){
-    ((monitor_input_value >> travelMotorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
+    ((monitor_input_value >> listBitMotorSensor[i]) & 0x0001) ? sensorValueMask |= (1 << i) : sensorValueMask &= ~(1 << i);
   }
   
   TCNT4 = 40536;
@@ -365,10 +357,12 @@ ISR(TIMER1_COMPA_vect) {
 //============================================================================================
 //Bật tắt súng sơn coilY[0]
 void spray_gun_on(void){
-    digitalWrite(coilY[3], HIGH);
+    digitalWrite(coilY[listBitCoilY[0]], HIGH);
+    digitalWrite(coilY[listBitCoilY[1]], HIGH);
 }
 void spray_gun_off(void){
-    digitalWrite(coilY[3], LOW);
+    digitalWrite(coilY[listBitCoilY[0]], LOW);
+    digitalWrite(coilY[listBitCoilY[1]], LOW);
 }
 //============================================================================================
 //Xoay bàn sơn coilY[1], coilY[2]
@@ -377,12 +371,13 @@ void table_change_state (void) {
     state_table = !state_table;
 
     if (state_table) {  
-      digitalWrite(coilY[0], HIGH);
-      digitalWrite(coilY[1], LOW);  
+      digitalWrite(coilY[listBitCoilY[2]], HIGH);
+      digitalWrite(coilY[listBitCoilY[3]], LOW);  
+     
     }
     else { 
-      digitalWrite(coilY[0], LOW);
-      digitalWrite(coilY[1], HIGH);
+      digitalWrite(coilY[listBitCoilY[2]], LOW);
+      digitalWrite(coilY[listBitCoilY[3]], HIGH);
     }
 }
 //============================================================================================
@@ -429,17 +424,6 @@ void setup() {
 void loop() { 
   // nên đưa hàm poll vào vòng loop trong trường hợp monitor data về máy tính. không nên dùng ngắt để chạy poll. 
   node_slave.poll();
-  //Serial.println(command_motor.motor[0]->currentPosition);
-  /*
-  if (MPG_Mode == true){ // MPG_Mode
-      newPosition = myEncoder.read();
-      if (newPosition != oldPosition) {
-          oldPosition = newPosition;
-          newPos[0] = newPosition + initPos[0]; newPos[1] = newPos[2] = newPos[3] = newPos[4] = newPos[5] = 0;
-          execute_motor_run(newPos, 180);
-      }
-  }
-  */
 } // End loop
 //============================================================================================
 //============================================================================================
@@ -473,15 +457,16 @@ uint8_t writeMemory(uint8_t fc, uint16_t address, uint16_t length)
     case WRITE_YCOIL:   write_output_value = read_data[0]; break;
     case DELAY_VALUE: delayValue = read_data[0]; break;
     case MOTOR_SENSOR_BIT_POSITION_MODBUS_ADDR: 
-      for (int i =0; i < travelMotorSensor_size; i++) { travelMotorSensor[i] = read_data[i];}
+      for (int i =0; i < travelMotorSensor_size; i++) { listBitMotorSensor[i] = read_data[i];}
       break;
     case OUTPUT_BIT_POSITION_MODBUS_ADDR:
+      for (int i =0; i < bitCoilY_size; i++) {listBitCoilY[i] = read_data[i];}
       break;
 
     default: break;
   }
 
-  return STATUS_OK;     
+  return STATUS_OK;
 }
 //============================================================================================
 // Handle the function code Read Holding Registers (FC=03) and write back the values from the EEPROM (holding registers).

@@ -49,26 +49,6 @@ border-radius: 5px</string>
    <property name="frameShadow">
     <enum>QFrame::Plain</enum>
    </property>
-   <widget class="QLabel" name="label_39">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>581</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(130, 130, 130);
-font: 75 14pt &quot;Arial&quot; bold;
-color: rgb(255, 255, 255);
-border: 1px solid rgb(255, 255, 255);
-border-radius: 5px</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TEACHING MODE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_40">
     <property name="geometry">
      <rect>
@@ -1274,6 +1254,206 @@ QPushButton:pressed {
     </property>
     <property name="text">
      <string>SAVE FILE</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_coilM1">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>10</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial 12</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(77, 77, 77);
+	color: rgb(255, 255, 255);
+	border: 3px solid rgb(255, 255, 255);
+	border-radius: 5px;
+	border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
+    </property>
+    <property name="text">
+     <string>COIL M1</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_coilM2">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>10</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial 12</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(77, 77, 77);
+	color: rgb(255, 255, 255);
+	border: 3px solid rgb(255, 255, 255);
+	border-radius: 5px;
+	border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
+    </property>
+    <property name="text">
+     <string>COIL M2</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_coilM3">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial 12</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(77, 77, 77);
+	color: rgb(255, 255, 255);
+	border: 3px solid rgb(255, 255, 255);
+	border-radius: 5px;
+	border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
+    </property>
+    <property name="text">
+     <string>COIL M3</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_coilM4">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial 12</family>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{
+	background-color: rgb(77, 77, 77);
+	color: rgb(255, 255, 255);
+	border: 3px solid rgb(255, 255, 255);
+	border-radius: 5px;
+	border-top-color: rgb(208, 208, 208);
+}
+QPushButton:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
+}
+QPushButton:pressed {
+	background-color: rgb(163, 228, 215);
+}</string>
+    </property>
+    <property name="text">
+     <string>COIL M4</string>
     </property>
     <property name="flat">
      <bool>false</bool>

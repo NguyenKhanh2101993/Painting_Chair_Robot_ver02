@@ -29,14 +29,6 @@ class Ui_teachMode(object):
         self.frame_teachmode.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_teachmode.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame_teachmode.setObjectName("frame_teachmode")
-        self.label_39 = QtWidgets.QLabel(self.frame_teachmode)
-        self.label_39.setGeometry(QtCore.QRect(10, 10, 581, 51))
-        self.label_39.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_39.setObjectName("label_39")
         self.label_40 = QtWidgets.QLabel(self.frame_teachmode)
         self.label_40.setGeometry(QtCore.QRect(10, 70, 61, 51))
         self.label_40.setStyleSheet("background-color: rgb(222, 222, 222);\n"
@@ -688,6 +680,118 @@ class Ui_teachMode(object):
 "}")
         self.pushButton_saveFile.setFlat(False)
         self.pushButton_saveFile.setObjectName("pushButton_saveFile")
+        self.pushButton_coilM1 = QtWidgets.QPushButton(self.frame_teachmode)
+        self.pushButton_coilM1.setGeometry(QtCore.QRect(40, 10, 101, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_coilM1.setFont(font)
+        self.pushButton_coilM1.setMouseTracking(False)
+        self.pushButton_coilM1.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_coilM1.setAutoFillBackground(False)
+        self.pushButton_coilM1.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(77, 77, 77);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_coilM1.setFlat(False)
+        self.pushButton_coilM1.setObjectName("pushButton_coilM1")
+        self.pushButton_coilM2 = QtWidgets.QPushButton(self.frame_teachmode)
+        self.pushButton_coilM2.setGeometry(QtCore.QRect(180, 10, 101, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_coilM2.setFont(font)
+        self.pushButton_coilM2.setMouseTracking(False)
+        self.pushButton_coilM2.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_coilM2.setAutoFillBackground(False)
+        self.pushButton_coilM2.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(77, 77, 77);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_coilM2.setFlat(False)
+        self.pushButton_coilM2.setObjectName("pushButton_coilM2")
+        self.pushButton_coilM3 = QtWidgets.QPushButton(self.frame_teachmode)
+        self.pushButton_coilM3.setGeometry(QtCore.QRect(310, 10, 101, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_coilM3.setFont(font)
+        self.pushButton_coilM3.setMouseTracking(False)
+        self.pushButton_coilM3.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_coilM3.setAutoFillBackground(False)
+        self.pushButton_coilM3.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(77, 77, 77);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_coilM3.setFlat(False)
+        self.pushButton_coilM3.setObjectName("pushButton_coilM3")
+        self.pushButton_coilM4 = QtWidgets.QPushButton(self.frame_teachmode)
+        self.pushButton_coilM4.setGeometry(QtCore.QRect(440, 10, 101, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_coilM4.setFont(font)
+        self.pushButton_coilM4.setMouseTracking(False)
+        self.pushButton_coilM4.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_coilM4.setAutoFillBackground(False)
+        self.pushButton_coilM4.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(77, 77, 77);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_coilM4.setFlat(False)
+        self.pushButton_coilM4.setObjectName("pushButton_coilM4")
 
         self.retranslateUi(teachMode)
         QtCore.QMetaObject.connectSlotsByName(teachMode)
@@ -695,7 +799,6 @@ class Ui_teachMode(object):
     def retranslateUi(self, teachMode):
         _translate = QtCore.QCoreApplication.translate
         teachMode.setWindowTitle(_translate("teachMode", "TeachingMode"))
-        self.label_39.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">TEACHING MODE</span></p></body></html>"))
         self.label_40.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X</span></p></body></html>"))
         self.label_41.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y</span></p></body></html>"))
         self.label_42.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Z</span></p></body></html>"))
@@ -723,6 +826,10 @@ class Ui_teachMode(object):
         self.pushButton_tableFw.setText(_translate("teachMode", "TABLE FW"))
         self.label_46.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">F%</span></p></body></html>"))
         self.pushButton_saveFile.setText(_translate("teachMode", "SAVE FILE"))
+        self.pushButton_coilM1.setText(_translate("teachMode", "COIL M1"))
+        self.pushButton_coilM2.setText(_translate("teachMode", "COIL M2"))
+        self.pushButton_coilM3.setText(_translate("teachMode", "COIL M3"))
+        self.pushButton_coilM4.setText(_translate("teachMode", "COIL M4"))
 
 
 if __name__ == "__main__":

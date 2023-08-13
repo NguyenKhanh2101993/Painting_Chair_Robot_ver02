@@ -14,21 +14,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_communication(object):
     def setupUi(self, communication):
         communication.setObjectName("communication")
-        communication.resize(400, 300)
+        communication.resize(335, 165)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(communication.sizePolicy().hasHeightForWidth())
         communication.setSizePolicy(sizePolicy)
-        communication.setMinimumSize(QtCore.QSize(400, 300))
-        communication.setMaximumSize(QtCore.QSize(400, 300))
+        communication.setMinimumSize(QtCore.QSize(335, 165))
+        communication.setMaximumSize(QtCore.QSize(335, 165))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         communication.setWindowIcon(icon)
         communication.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-
+        self.gridLayout_2 = QtWidgets.QGridLayout(communication)
+        self.gridLayout_2.setObjectName("gridLayout_2")
         self.frame2 = QtWidgets.QFrame(communication)
-        self.frame2.setGeometry(QtCore.QRect(0, 0, 401, 301))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -42,8 +42,25 @@ class Ui_communication(object):
         self.frame2.setLineWidth(2)
         self.frame2.setMidLineWidth(0)
         self.frame2.setObjectName("frame2")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame2)
+        self.gridLayout.setObjectName("gridLayout")
+        self.label_41 = QtWidgets.QLabel(self.frame2)
+        self.label_41.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_41.setObjectName("label_41")
+        self.gridLayout.addWidget(self.label_41, 0, 0, 1, 1)
+        self.label_40 = QtWidgets.QLabel(self.frame2)
+        self.label_40.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_40.setObjectName("label_40")
+        self.gridLayout.addWidget(self.label_40, 0, 1, 1, 2)
         self.comboBox_comPort = QtWidgets.QComboBox(self.frame2)
-        self.comboBox_comPort.setGeometry(QtCore.QRect(20, 160, 141, 41))
         self.comboBox_comPort.setStyleSheet("QComboBox{font: 75 16pt \"Arial\";\n"
 "background-color: rgb(159, 159, 159);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
@@ -54,8 +71,20 @@ class Ui_communication(object):
 "    color: rgb(77, 77, 77);\n"
 "}")
         self.comboBox_comPort.setObjectName("comboBox_comPort")
+        self.gridLayout.addWidget(self.comboBox_comPort, 1, 0, 1, 1)
+        self.comboBox_baudRate = QtWidgets.QComboBox(self.frame2)
+        self.comboBox_baudRate.setStyleSheet("QComboBox{font: 75 16pt \"Arial\";\n"
+"background-color: rgb(159, 159, 159);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QComboBox:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.comboBox_baudRate.setObjectName("comboBox_baudRate")
+        self.gridLayout.addWidget(self.comboBox_baudRate, 1, 1, 1, 2)
         self.pushButton = QtWidgets.QPushButton(self.frame2)
-        self.pushButton.setGeometry(QtCore.QRect(180, 240, 93, 36))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -79,8 +108,8 @@ class Ui_communication(object):
 "    background-color: rgb(163, 228, 215);\n"
 "}")
         self.pushButton.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton, 2, 1, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.frame2)
-        self.pushButton_2.setGeometry(QtCore.QRect(290, 240, 93, 36))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -104,49 +133,14 @@ class Ui_communication(object):
 "    background-color: rgb(163, 228, 215);\n"
 "}")
         self.pushButton_2.setObjectName("pushButton_2")
-        self.label_39 = QtWidgets.QLabel(self.frame2)
-        self.label_39.setGeometry(QtCore.QRect(20, 10, 351, 51))
-        self.label_39.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_39.setObjectName("label_39")
-        self.comboBox_baudRate = QtWidgets.QComboBox(self.frame2)
-        self.comboBox_baudRate.setGeometry(QtCore.QRect(230, 160, 141, 41))
-        self.comboBox_baudRate.setStyleSheet("QComboBox{font: 75 16pt \"Arial\";\n"
-"background-color: rgb(159, 159, 159);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px\n"
-"}\n"
-"QComboBox:hover {\n"
-"    border: 3px solid rgb(77, 77, 77);\n"
-"    color: rgb(77, 77, 77);\n"
-"}")
-        self.comboBox_baudRate.setObjectName("comboBox_baudRate")
-        self.label_40 = QtWidgets.QLabel(self.frame2)
-        self.label_40.setGeometry(QtCore.QRect(230, 100, 141, 51))
-        self.label_40.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_40.setObjectName("label_40")
-        self.label_41 = QtWidgets.QLabel(self.frame2)
-        self.label_41.setGeometry(QtCore.QRect(20, 100, 141, 51))
-        self.label_41.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_41.setObjectName("label_41")
+        self.gridLayout.addWidget(self.pushButton_2, 2, 2, 1, 1)
         self.pushButton_2.raise_()
         self.comboBox_comPort.raise_()
         self.pushButton.raise_()
-        self.label_39.raise_()
         self.comboBox_baudRate.raise_()
         self.label_40.raise_()
         self.label_41.raise_()
+        self.gridLayout_2.addWidget(self.frame2, 0, 0, 1, 1)
 
         self.retranslateUi(communication)
         QtCore.QMetaObject.connectSlotsByName(communication)
@@ -154,11 +148,10 @@ class Ui_communication(object):
     def retranslateUi(self, communication):
         _translate = QtCore.QCoreApplication.translate
         communication.setWindowTitle(_translate("communication", "Communication"))
+        self.label_41.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">COM PORT</span></p></body></html>"))
+        self.label_40.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">BAUDRATE</span></p></body></html>"))
         self.pushButton.setText(_translate("communication", "OK"))
         self.pushButton_2.setText(_translate("communication", "RESET"))
-        self.label_39.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">COMMUNICATION</span></p></body></html>"))
-        self.label_40.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">BAUDRATE</span></p></body></html>"))
-        self.label_41.setText(_translate("communication", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">COM PORT</span></p></body></html>"))
 
 
 if __name__ == "__main__":

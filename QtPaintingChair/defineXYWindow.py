@@ -40,62 +40,6 @@ class Ui_definePinsXY(object):
         self.frame_definePins.setObjectName("frame_definePins")
         self.gridLayout = QtWidgets.QGridLayout(self.frame_definePins)
         self.gridLayout.setObjectName("gridLayout")
-        self.label_Pins_01 = QtWidgets.QLabel(self.frame_definePins)
-        self.label_Pins_01.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Pins_01.setObjectName("label_Pins_01")
-        self.gridLayout.addWidget(self.label_Pins_01, 1, 0, 1, 2)
-        self.label_Pins_3 = QtWidgets.QLabel(self.frame_definePins)
-        self.label_Pins_3.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Pins_3.setObjectName("label_Pins_3")
-        self.gridLayout.addWidget(self.label_Pins_3, 2, 2, 1, 2)
-        self.label_Pins_5 = QtWidgets.QLabel(self.frame_definePins)
-        self.label_Pins_5.setStyleSheet("background-color: rgb(130, 130, 130);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"color: rgb(255, 255, 255);\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_Pins_5.setObjectName("label_Pins_5")
-        self.gridLayout.addWidget(self.label_Pins_5, 7, 4, 1, 2)
-        self.label_x5 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x5.setFont(font)
-        self.label_x5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x5.setObjectName("label_x5")
-        self.gridLayout.addWidget(self.label_x5, 7, 0, 1, 1)
-        self.spinBox_alimit = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_alimit.setFont(font)
-        self.spinBox_alimit.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_alimit.setMinimum(1)
-        self.spinBox_alimit.setMaximum(16)
-        self.spinBox_alimit.setObjectName("spinBox_alimit")
-        self.gridLayout.addWidget(self.spinBox_alimit, 6, 7, 1, 1)
         self.label_spray2 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -110,163 +54,60 @@ class Ui_definePinsXY(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_spray2.setObjectName("label_spray2")
-        self.gridLayout.addWidget(self.label_spray2, 10, 4, 1, 1)
-        self.label_x8 = QtWidgets.QLabel(self.frame_definePins)
+        self.gridLayout.addWidget(self.label_spray2, 10, 4, 1, 2)
+        self.label_spray1 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_x8.setFont(font)
-        self.label_x8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_spray1.setFont(font)
+        self.label_spray1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_x8.setObjectName("label_x8")
-        self.gridLayout.addWidget(self.label_x8, 10, 0, 1, 1)
-        self.spinBox_Y6 = QtWidgets.QSpinBox(self.frame_definePins)
+        self.label_spray1.setObjectName("label_spray1")
+        self.gridLayout.addWidget(self.label_spray1, 9, 4, 1, 2)
+        self.label_spray4 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.spinBox_Y6.setFont(font)
-        self.spinBox_Y6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_spray4.setFont(font)
+        self.label_spray4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.spinBox_Y6.setMaximum(15)
-        self.spinBox_Y6.setObjectName("spinBox_Y6")
-        self.gridLayout.addWidget(self.spinBox_Y6, 8, 3, 1, 1)
-        self.label_y7 = QtWidgets.QLabel(self.frame_definePins)
+        self.label_spray4.setObjectName("label_spray4")
+        self.gridLayout.addWidget(self.label_spray4, 12, 4, 1, 2)
+        self.label_spray3 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_y7.setFont(font)
-        self.label_y7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_spray3.setFont(font)
+        self.label_spray3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_y7.setObjectName("label_y7")
-        self.gridLayout.addWidget(self.label_y7, 9, 2, 1, 1)
-        self.label_y5 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y5.setFont(font)
-        self.label_y5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
+        self.label_spray3.setObjectName("label_spray3")
+        self.gridLayout.addWidget(self.label_spray3, 11, 4, 1, 2)
+        self.label_Pins_3 = QtWidgets.QLabel(self.frame_definePins)
+        self.label_Pins_3.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_y5.setObjectName("label_y5")
-        self.gridLayout.addWidget(self.label_y5, 7, 2, 1, 1)
-        self.label_xhome = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_xhome.setFont(font)
-        self.label_xhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_xhome.setObjectName("label_xhome")
-        self.gridLayout.addWidget(self.label_xhome, 3, 4, 1, 1)
-        self.spinBox_X2 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_X2.setFont(font)
-        self.spinBox_X2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_X2.setMaximum(15)
-        self.spinBox_X2.setObjectName("spinBox_X2")
-        self.gridLayout.addWidget(self.spinBox_X2, 4, 1, 1, 1)
-        self.label_x1 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x1.setFont(font)
-        self.label_x1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x1.setObjectName("label_x1")
-        self.gridLayout.addWidget(self.label_x1, 3, 0, 1, 1)
-        self.spinBox_X1 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_X1.setFont(font)
-        self.spinBox_X1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_X1.setMaximum(15)
-        self.spinBox_X1.setObjectName("spinBox_X1")
-        self.gridLayout.addWidget(self.spinBox_X1, 3, 1, 1, 1)
-        self.spinBox_Y2 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_Y2.setFont(font)
-        self.spinBox_Y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_Y2.setMaximum(15)
-        self.spinBox_Y2.setObjectName("spinBox_Y2")
-        self.gridLayout.addWidget(self.spinBox_Y2, 4, 3, 1, 1)
-        self.spinBox_xlimit = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_xlimit.setFont(font)
-        self.spinBox_xlimit.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_xlimit.setMinimum(1)
-        self.spinBox_xlimit.setMaximum(16)
-        self.spinBox_xlimit.setObjectName("spinBox_xlimit")
-        self.gridLayout.addWidget(self.spinBox_xlimit, 3, 7, 1, 1)
+        self.label_Pins_3.setObjectName("label_Pins_3")
+        self.gridLayout.addWidget(self.label_Pins_3, 1, 2, 1, 2)
         self.label_Pins_02 = QtWidgets.QLabel(self.frame_definePins)
         self.label_Pins_02.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
@@ -274,22 +115,15 @@ class Ui_definePinsXY(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Pins_02.setObjectName("label_Pins_02")
-        self.gridLayout.addWidget(self.label_Pins_02, 2, 0, 1, 2)
-        self.label_yhome = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_yhome.setFont(font)
-        self.label_yhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
+        self.gridLayout.addWidget(self.label_Pins_02, 1, 0, 1, 2)
+        self.label_Pins_5 = QtWidgets.QLabel(self.frame_definePins)
+        self.label_Pins_5.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_yhome.setObjectName("label_yhome")
-        self.gridLayout.addWidget(self.label_yhome, 4, 4, 1, 1)
+        self.label_Pins_5.setObjectName("label_Pins_5")
+        self.gridLayout.addWidget(self.label_Pins_5, 8, 4, 1, 3)
         self.label_Pins_4 = QtWidgets.QLabel(self.frame_definePins)
         self.label_Pins_4.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
@@ -297,119 +131,7 @@ class Ui_definePinsXY(object):
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_Pins_4.setObjectName("label_Pins_4")
-        self.gridLayout.addWidget(self.label_Pins_4, 2, 4, 1, 2)
-        self.spinBox_xhome = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_xhome.setFont(font)
-        self.spinBox_xhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_xhome.setMinimum(1)
-        self.spinBox_xhome.setMaximum(16)
-        self.spinBox_xhome.setObjectName("spinBox_xhome")
-        self.gridLayout.addWidget(self.spinBox_xhome, 3, 5, 1, 1)
-        self.spinBox_ylimit = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_ylimit.setFont(font)
-        self.spinBox_ylimit.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_ylimit.setMinimum(1)
-        self.spinBox_ylimit.setMaximum(16)
-        self.spinBox_ylimit.setObjectName("spinBox_ylimit")
-        self.gridLayout.addWidget(self.spinBox_ylimit, 4, 7, 1, 1)
-        self.spinBox_yhome = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_yhome.setFont(font)
-        self.spinBox_yhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_yhome.setMinimum(1)
-        self.spinBox_yhome.setMaximum(16)
-        self.spinBox_yhome.setObjectName("spinBox_yhome")
-        self.gridLayout.addWidget(self.spinBox_yhome, 4, 5, 1, 1)
-        self.label_y2 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y2.setFont(font)
-        self.label_y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y2.setObjectName("label_y2")
-        self.gridLayout.addWidget(self.label_y2, 4, 2, 1, 1)
-        self.spinBox_Y1 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_Y1.setFont(font)
-        self.spinBox_Y1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_Y1.setMaximum(15)
-        self.spinBox_Y1.setObjectName("spinBox_Y1")
-        self.gridLayout.addWidget(self.spinBox_Y1, 3, 3, 1, 1)
-        self.label_y1 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y1.setFont(font)
-        self.label_y1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y1.setObjectName("label_y1")
-        self.gridLayout.addWidget(self.label_y1, 3, 2, 1, 1)
-        self.label_x3 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x3.setFont(font)
-        self.label_x3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x3.setObjectName("label_x3")
-        self.gridLayout.addWidget(self.label_x3, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.label_Pins_4, 1, 4, 1, 3)
         self.label_xlimit = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -455,21 +177,352 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_x2.setObjectName("label_x2")
         self.gridLayout.addWidget(self.label_x2, 4, 0, 1, 1)
-        self.label_zhome = QtWidgets.QLabel(self.frame_definePins)
+        self.label_x5 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.label_zhome.setFont(font)
-        self.label_zhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_x5.setFont(font)
+        self.label_x5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.label_zhome.setObjectName("label_zhome")
-        self.gridLayout.addWidget(self.label_zhome, 5, 4, 1, 1)
+        self.label_x5.setObjectName("label_x5")
+        self.gridLayout.addWidget(self.label_x5, 7, 0, 1, 1)
+        self.spinBox_alimit = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_alimit.setFont(font)
+        self.spinBox_alimit.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_alimit.setMinimum(1)
+        self.spinBox_alimit.setMaximum(16)
+        self.spinBox_alimit.setObjectName("spinBox_alimit")
+        self.gridLayout.addWidget(self.spinBox_alimit, 6, 7, 1, 1)
+        self.spinBox_Y6 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_Y6.setFont(font)
+        self.spinBox_Y6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_Y6.setMaximum(15)
+        self.spinBox_Y6.setObjectName("spinBox_Y6")
+        self.gridLayout.addWidget(self.spinBox_Y6, 8, 3, 1, 1)
+        self.label_x8 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x8.setFont(font)
+        self.label_x8.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x8.setObjectName("label_x8")
+        self.gridLayout.addWidget(self.label_x8, 10, 0, 1, 1)
+        self.label_y5 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y5.setFont(font)
+        self.label_y5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y5.setObjectName("label_y5")
+        self.gridLayout.addWidget(self.label_y5, 7, 2, 1, 1)
+        self.label_xhome = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_xhome.setFont(font)
+        self.label_xhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_xhome.setObjectName("label_xhome")
+        self.gridLayout.addWidget(self.label_xhome, 3, 4, 1, 1)
+        self.label_y7 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y7.setFont(font)
+        self.label_y7.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y7.setObjectName("label_y7")
+        self.gridLayout.addWidget(self.label_y7, 9, 2, 1, 1)
+        self.label_x1 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x1.setFont(font)
+        self.label_x1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x1.setObjectName("label_x1")
+        self.gridLayout.addWidget(self.label_x1, 3, 0, 1, 1)
+        self.spinBox_X2 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_X2.setFont(font)
+        self.spinBox_X2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_X2.setMaximum(15)
+        self.spinBox_X2.setObjectName("spinBox_X2")
+        self.gridLayout.addWidget(self.spinBox_X2, 4, 1, 1, 1)
+        self.spinBox_X1 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_X1.setFont(font)
+        self.spinBox_X1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_X1.setMaximum(15)
+        self.spinBox_X1.setObjectName("spinBox_X1")
+        self.gridLayout.addWidget(self.spinBox_X1, 3, 1, 1, 1)
+        self.spinBox_xlimit = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_xlimit.setFont(font)
+        self.spinBox_xlimit.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_xlimit.setMinimum(1)
+        self.spinBox_xlimit.setMaximum(16)
+        self.spinBox_xlimit.setObjectName("spinBox_xlimit")
+        self.gridLayout.addWidget(self.spinBox_xlimit, 3, 7, 1, 1)
+        self.spinBox_Y2 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_Y2.setFont(font)
+        self.spinBox_Y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_Y2.setMaximum(15)
+        self.spinBox_Y2.setObjectName("spinBox_Y2")
+        self.gridLayout.addWidget(self.spinBox_Y2, 4, 3, 1, 1)
+        self.label_yhome = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_yhome.setFont(font)
+        self.label_yhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_yhome.setObjectName("label_yhome")
+        self.gridLayout.addWidget(self.label_yhome, 4, 4, 1, 1)
+        self.spinBox_xhome = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_xhome.setFont(font)
+        self.spinBox_xhome.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"")
+        self.spinBox_xhome.setMinimum(1)
+        self.spinBox_xhome.setMaximum(16)
+        self.spinBox_xhome.setObjectName("spinBox_xhome")
+        self.gridLayout.addWidget(self.spinBox_xhome, 3, 5, 1, 1)
+        self.spinBox_ylimit = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_ylimit.setFont(font)
+        self.spinBox_ylimit.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_ylimit.setMinimum(1)
+        self.spinBox_ylimit.setMaximum(16)
+        self.spinBox_ylimit.setObjectName("spinBox_ylimit")
+        self.gridLayout.addWidget(self.spinBox_ylimit, 4, 7, 1, 1)
+        self.spinBox_Y1 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_Y1.setFont(font)
+        self.spinBox_Y1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_Y1.setMaximum(15)
+        self.spinBox_Y1.setObjectName("spinBox_Y1")
+        self.gridLayout.addWidget(self.spinBox_Y1, 3, 3, 1, 1)
+        self.spinBox_yhome = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_yhome.setFont(font)
+        self.spinBox_yhome.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_yhome.setMinimum(1)
+        self.spinBox_yhome.setMaximum(16)
+        self.spinBox_yhome.setObjectName("spinBox_yhome")
+        self.gridLayout.addWidget(self.spinBox_yhome, 4, 5, 1, 1)
+        self.label_y2 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y2.setFont(font)
+        self.label_y2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y2.setObjectName("label_y2")
+        self.gridLayout.addWidget(self.label_y2, 4, 2, 1, 1)
+        self.label_x3 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x3.setFont(font)
+        self.label_x3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x3.setObjectName("label_x3")
+        self.gridLayout.addWidget(self.label_x3, 5, 0, 1, 1)
+        self.label_y1 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y1.setFont(font)
+        self.label_y1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y1.setObjectName("label_y1")
+        self.gridLayout.addWidget(self.label_y1, 3, 2, 1, 1)
         self.label_ylimit = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -485,6 +538,21 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_ylimit.setObjectName("label_ylimit")
         self.gridLayout.addWidget(self.label_ylimit, 4, 6, 1, 1)
+        self.label_zhome = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_zhome.setFont(font)
+        self.label_zhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_zhome.setObjectName("label_zhome")
+        self.gridLayout.addWidget(self.label_zhome, 5, 4, 1, 1)
         self.spinBox_Y3 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -509,11 +577,17 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_zhome.setFont(font)
-        self.spinBox_zhome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_zhome.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_zhome.setMinimum(1)
         self.spinBox_zhome.setMaximum(16)
         self.spinBox_zhome.setObjectName("spinBox_zhome")
@@ -557,30 +631,21 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_spray1.setFont(font)
-        self.spinBox_spray1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_spray1.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_spray1.setMinimum(1)
         self.spinBox_spray1.setMaximum(16)
         self.spinBox_spray1.setObjectName("spinBox_spray1")
         self.gridLayout.addWidget(self.spinBox_spray1, 9, 6, 1, 1)
-        self.label_spray1 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_spray1.setFont(font)
-        self.label_spray1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_spray1.setObjectName("label_spray1")
-        self.gridLayout.addWidget(self.label_spray1, 9, 4, 1, 1)
         self.label_alimit = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -604,11 +669,17 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_zlimit.setFont(font)
-        self.spinBox_zlimit.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_zlimit.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_zlimit.setMinimum(1)
         self.spinBox_zlimit.setMaximum(16)
         self.spinBox_zlimit.setObjectName("spinBox_zlimit")
@@ -644,6 +715,21 @@ class Ui_definePinsXY(object):
         self.spinBox_Y7.setMaximum(15)
         self.spinBox_Y7.setObjectName("spinBox_Y7")
         self.gridLayout.addWidget(self.spinBox_Y7, 9, 3, 1, 1)
+        self.label_x11 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x11.setFont(font)
+        self.label_x11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x11.setObjectName("label_x11")
+        self.gridLayout.addWidget(self.label_x11, 13, 0, 1, 1)
         self.spinBox_rotateTable2 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -652,11 +738,17 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_rotateTable2.setFont(font)
-        self.spinBox_rotateTable2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_rotateTable2.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_rotateTable2.setMinimum(1)
         self.spinBox_rotateTable2.setMaximum(16)
         self.spinBox_rotateTable2.setObjectName("spinBox_rotateTable2")
@@ -677,36 +769,6 @@ class Ui_definePinsXY(object):
         self.spinBox_X12.setMaximum(15)
         self.spinBox_X12.setObjectName("spinBox_X12")
         self.gridLayout.addWidget(self.spinBox_X12, 14, 1, 1, 1)
-        self.label_x11 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x11.setFont(font)
-        self.label_x11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x11.setObjectName("label_x11")
-        self.gridLayout.addWidget(self.label_x11, 13, 0, 1, 1)
-        self.label_y14 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y14.setFont(font)
-        self.label_y14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y14.setObjectName("label_y14")
-        self.gridLayout.addWidget(self.label_y14, 16, 2, 1, 1)
         self.spinBox_spray4 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -715,11 +777,17 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_spray4.setFont(font)
-        self.spinBox_spray4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_spray4.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_spray4.setMinimum(1)
         self.spinBox_spray4.setMaximum(16)
         self.spinBox_spray4.setObjectName("spinBox_spray4")
@@ -740,6 +808,21 @@ class Ui_definePinsXY(object):
         self.spinBox_Y13.setMaximum(15)
         self.spinBox_Y13.setObjectName("spinBox_Y13")
         self.gridLayout.addWidget(self.spinBox_Y13, 15, 3, 1, 1)
+        self.label_y14 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y14.setFont(font)
+        self.label_y14.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y14.setObjectName("label_y14")
+        self.gridLayout.addWidget(self.label_y14, 16, 2, 1, 1)
         self.spinBox_Y14 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -764,47 +847,21 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_rotateTable3.setFont(font)
-        self.spinBox_rotateTable3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_rotateTable3.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_rotateTable3.setMinimum(1)
         self.spinBox_rotateTable3.setMaximum(16)
         self.spinBox_rotateTable3.setObjectName("spinBox_rotateTable3")
         self.gridLayout.addWidget(self.spinBox_rotateTable3, 15, 6, 1, 1)
-        self.label_y11 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y11.setFont(font)
-        self.label_y11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y11.setObjectName("label_y11")
-        self.gridLayout.addWidget(self.label_y11, 13, 2, 1, 1)
-        self.spinBox_spray3 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_spray3.setFont(font)
-        self.spinBox_spray3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_spray3.setMinimum(1)
-        self.spinBox_spray3.setMaximum(16)
-        self.spinBox_spray3.setObjectName("spinBox_spray3")
-        self.gridLayout.addWidget(self.spinBox_spray3, 11, 6, 1, 1)
         self.spinBox_X11 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -821,6 +878,44 @@ class Ui_definePinsXY(object):
         self.spinBox_X11.setMaximum(15)
         self.spinBox_X11.setObjectName("spinBox_X11")
         self.gridLayout.addWidget(self.spinBox_X11, 13, 1, 1, 1)
+        self.spinBox_spray3 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_spray3.setFont(font)
+        self.spinBox_spray3.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_spray3.setMinimum(1)
+        self.spinBox_spray3.setMaximum(16)
+        self.spinBox_spray3.setObjectName("spinBox_spray3")
+        self.gridLayout.addWidget(self.spinBox_spray3, 11, 6, 1, 1)
+        self.label_y11 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y11.setFont(font)
+        self.label_y11.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y11.setObjectName("label_y11")
+        self.gridLayout.addWidget(self.label_y11, 13, 2, 1, 1)
         self.spinBox_Y11 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -898,22 +993,6 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_rotateTable1.setObjectName("label_rotateTable1")
         self.gridLayout.addWidget(self.label_rotateTable1, 13, 4, 1, 2)
-        self.spinBox_Y9 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_Y9.setFont(font)
-        self.spinBox_Y9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_Y9.setMaximum(15)
-        self.spinBox_Y9.setObjectName("spinBox_Y9")
-        self.gridLayout.addWidget(self.spinBox_Y9, 11, 3, 1, 1)
         self.spinBox_Y12 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -930,6 +1009,22 @@ class Ui_definePinsXY(object):
         self.spinBox_Y12.setMaximum(15)
         self.spinBox_Y12.setObjectName("spinBox_Y12")
         self.gridLayout.addWidget(self.spinBox_Y12, 14, 3, 1, 1)
+        self.spinBox_Y9 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_Y9.setFont(font)
+        self.spinBox_Y9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_Y9.setMaximum(15)
+        self.spinBox_Y9.setObjectName("spinBox_Y9")
+        self.gridLayout.addWidget(self.spinBox_Y9, 11, 3, 1, 1)
         self.label_x13 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -960,6 +1055,29 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_rotateTable2.setObjectName("label_rotateTable2")
         self.gridLayout.addWidget(self.label_rotateTable2, 14, 4, 1, 2)
+        self.spinBox_rotateTable4 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_rotateTable4.setFont(font)
+        self.spinBox_rotateTable4.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_rotateTable4.setMinimum(1)
+        self.spinBox_rotateTable4.setMaximum(16)
+        self.spinBox_rotateTable4.setObjectName("spinBox_rotateTable4")
+        self.gridLayout.addWidget(self.spinBox_rotateTable4, 16, 6, 1, 1)
         self.label_y13 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -975,23 +1093,6 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_y13.setObjectName("label_y13")
         self.gridLayout.addWidget(self.label_y13, 15, 2, 1, 1)
-        self.spinBox_rotateTable4 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_rotateTable4.setFont(font)
-        self.spinBox_rotateTable4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_rotateTable4.setMinimum(1)
-        self.spinBox_rotateTable4.setMaximum(16)
-        self.spinBox_rotateTable4.setObjectName("spinBox_rotateTable4")
-        self.gridLayout.addWidget(self.spinBox_rotateTable4, 16, 6, 1, 1)
         self.label_rotateTable4 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1007,21 +1108,6 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_rotateTable4.setObjectName("label_rotateTable4")
         self.gridLayout.addWidget(self.label_rotateTable4, 16, 4, 1, 2)
-        self.label_y15 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y15.setFont(font)
-        self.label_y15.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y15.setObjectName("label_y15")
-        self.gridLayout.addWidget(self.label_y15, 17, 2, 1, 1)
         self.label_x15 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1037,6 +1123,36 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_x15.setObjectName("label_x15")
         self.gridLayout.addWidget(self.label_x15, 17, 0, 1, 1)
+        self.label_y15 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y15.setFont(font)
+        self.label_y15.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y15.setObjectName("label_y15")
+        self.gridLayout.addWidget(self.label_y15, 17, 2, 1, 1)
+        self.label_x16 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x16.setFont(font)
+        self.label_x16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x16.setObjectName("label_x16")
+        self.gridLayout.addWidget(self.label_x16, 18, 0, 1, 1)
         self.spinBox_X15 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1069,21 +1185,6 @@ class Ui_definePinsXY(object):
         self.spinBox_Y15.setMaximum(15)
         self.spinBox_Y15.setObjectName("spinBox_Y15")
         self.gridLayout.addWidget(self.spinBox_Y15, 17, 3, 1, 1)
-        self.label_x16 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x16.setFont(font)
-        self.label_x16.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x16.setObjectName("label_x16")
-        self.gridLayout.addWidget(self.label_x16, 18, 0, 1, 1)
         self.spinBox_X16 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1116,6 +1217,22 @@ class Ui_definePinsXY(object):
         self.spinBox_Y16.setMaximum(15)
         self.spinBox_Y16.setObjectName("spinBox_Y16")
         self.gridLayout.addWidget(self.spinBox_Y16, 18, 3, 1, 1)
+        self.spinBox_X5 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_X5.setFont(font)
+        self.spinBox_X5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_X5.setMaximum(15)
+        self.spinBox_X5.setObjectName("spinBox_X5")
+        self.gridLayout.addWidget(self.spinBox_X5, 7, 1, 1, 1)
         self.label_y16 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1146,22 +1263,29 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_x7.setObjectName("label_x7")
         self.gridLayout.addWidget(self.label_x7, 9, 0, 1, 1)
-        self.spinBox_X5 = QtWidgets.QSpinBox(self.frame_definePins)
+        self.spinBox_spray2 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.spinBox_X5.setFont(font)
-        self.spinBox_X5.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_spray2.setFont(font)
+        self.spinBox_spray2.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_X5.setMaximum(15)
-        self.spinBox_X5.setObjectName("spinBox_X5")
-        self.gridLayout.addWidget(self.spinBox_X5, 7, 1, 1, 1)
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_spray2.setMinimum(1)
+        self.spinBox_spray2.setMaximum(16)
+        self.spinBox_spray2.setObjectName("spinBox_spray2")
+        self.gridLayout.addWidget(self.spinBox_spray2, 10, 6, 1, 1)
         self.spinBox_Y8 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1193,23 +1317,6 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_x9.setObjectName("label_x9")
         self.gridLayout.addWidget(self.label_x9, 11, 0, 1, 1)
-        self.spinBox_spray2 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_spray2.setFont(font)
-        self.spinBox_spray2.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_spray2.setMinimum(1)
-        self.spinBox_spray2.setMaximum(16)
-        self.spinBox_spray2.setObjectName("spinBox_spray2")
-        self.gridLayout.addWidget(self.spinBox_spray2, 10, 6, 1, 1)
         self.spinBox_Y5 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1242,37 +1349,6 @@ class Ui_definePinsXY(object):
         self.spinBox_X4.setMaximum(15)
         self.spinBox_X4.setObjectName("spinBox_X4")
         self.gridLayout.addWidget(self.spinBox_X4, 6, 1, 1, 1)
-        self.spinBox_X9 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_X9.setFont(font)
-        self.spinBox_X9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_X9.setMaximum(15)
-        self.spinBox_X9.setObjectName("spinBox_X9")
-        self.gridLayout.addWidget(self.spinBox_X9, 11, 1, 1, 1)
-        self.label_x6 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x6.setFont(font)
-        self.label_x6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x6.setObjectName("label_x6")
-        self.gridLayout.addWidget(self.label_x6, 8, 0, 1, 1)
         self.spinBox_Y4 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1289,6 +1365,37 @@ class Ui_definePinsXY(object):
         self.spinBox_Y4.setMaximum(15)
         self.spinBox_Y4.setObjectName("spinBox_Y4")
         self.gridLayout.addWidget(self.spinBox_Y4, 6, 3, 1, 1)
+        self.label_x6 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x6.setFont(font)
+        self.label_x6.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x6.setObjectName("label_x6")
+        self.gridLayout.addWidget(self.label_x6, 8, 0, 1, 1)
+        self.spinBox_X9 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_X9.setFont(font)
+        self.spinBox_X9.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_X9.setMaximum(15)
+        self.spinBox_X9.setObjectName("spinBox_X9")
+        self.gridLayout.addWidget(self.spinBox_X9, 11, 1, 1, 1)
         self.spinBox_ahome = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1297,11 +1404,17 @@ class Ui_definePinsXY(object):
         font.setItalic(False)
         font.setWeight(9)
         self.spinBox_ahome.setFont(font)
-        self.spinBox_ahome.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.spinBox_ahome.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
         self.spinBox_ahome.setMinimum(1)
         self.spinBox_ahome.setMaximum(16)
         self.spinBox_ahome.setObjectName("spinBox_ahome")
@@ -1321,21 +1434,6 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_ahome.setObjectName("label_ahome")
         self.gridLayout.addWidget(self.label_ahome, 6, 4, 1, 1)
-        self.label_y4 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_y4.setFont(font)
-        self.label_y4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_y4.setObjectName("label_y4")
-        self.gridLayout.addWidget(self.label_y4, 6, 2, 1, 1)
         self.spinBox_X8 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1367,6 +1465,36 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_y8.setObjectName("label_y8")
         self.gridLayout.addWidget(self.label_y8, 10, 2, 1, 1)
+        self.label_y4 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_y4.setFont(font)
+        self.label_y4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_y4.setObjectName("label_y4")
+        self.gridLayout.addWidget(self.label_y4, 6, 2, 1, 1)
+        self.label_x4 = QtWidgets.QLabel(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.label_x4.setFont(font)
+        self.label_x4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_x4.setObjectName("label_x4")
+        self.gridLayout.addWidget(self.label_x4, 6, 0, 1, 1)
         self.spinBox_X6 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1383,21 +1511,6 @@ class Ui_definePinsXY(object):
         self.spinBox_X6.setMaximum(15)
         self.spinBox_X6.setObjectName("spinBox_X6")
         self.gridLayout.addWidget(self.spinBox_X6, 8, 1, 1, 1)
-        self.label_x4 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_x4.setFont(font)
-        self.label_x4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_x4.setObjectName("label_x4")
-        self.gridLayout.addWidget(self.label_x4, 6, 0, 1, 1)
         self.spinBox_X7 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1414,21 +1527,6 @@ class Ui_definePinsXY(object):
         self.spinBox_X7.setMaximum(15)
         self.spinBox_X7.setObjectName("spinBox_X7")
         self.gridLayout.addWidget(self.spinBox_X7, 9, 1, 1, 1)
-        self.label_rotateTable3 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_rotateTable3.setFont(font)
-        self.label_rotateTable3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_rotateTable3.setObjectName("label_rotateTable3")
-        self.gridLayout.addWidget(self.label_rotateTable3, 15, 4, 1, 2)
         self.label_x14 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1444,23 +1542,21 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_x14.setObjectName("label_x14")
         self.gridLayout.addWidget(self.label_x14, 16, 0, 1, 1)
-        self.spinBox_rotateTable1 = QtWidgets.QSpinBox(self.frame_definePins)
+        self.label_rotateTable3 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(9)
-        self.spinBox_rotateTable1.setFont(font)
-        self.spinBox_rotateTable1.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+        self.label_rotateTable3.setFont(font)
+        self.label_rotateTable3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
 "color: rgb(0, 0, 0);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
-        self.spinBox_rotateTable1.setMinimum(1)
-        self.spinBox_rotateTable1.setMaximum(16)
-        self.spinBox_rotateTable1.setObjectName("spinBox_rotateTable1")
-        self.gridLayout.addWidget(self.spinBox_rotateTable1, 13, 6, 1, 1)
+        self.label_rotateTable3.setObjectName("label_rotateTable3")
+        self.gridLayout.addWidget(self.label_rotateTable3, 15, 4, 1, 2)
         self.label_y10 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1476,6 +1572,29 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_y10.setObjectName("label_y10")
         self.gridLayout.addWidget(self.label_y10, 12, 2, 1, 1)
+        self.spinBox_rotateTable1 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_rotateTable1.setFont(font)
+        self.spinBox_rotateTable1.setStyleSheet("QSpinBox{\n"
+"background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QSpinBox:hover {\n"
+"    border: 2px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}")
+        self.spinBox_rotateTable1.setMinimum(1)
+        self.spinBox_rotateTable1.setMaximum(16)
+        self.spinBox_rotateTable1.setObjectName("spinBox_rotateTable1")
+        self.gridLayout.addWidget(self.spinBox_rotateTable1, 13, 6, 1, 1)
         self.label_y9 = QtWidgets.QLabel(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1491,52 +1610,6 @@ class Ui_definePinsXY(object):
 "border-radius: 5px")
         self.label_y9.setObjectName("label_y9")
         self.gridLayout.addWidget(self.label_y9, 11, 2, 1, 1)
-        self.label_spray3 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_spray3.setFont(font)
-        self.label_spray3.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_spray3.setObjectName("label_spray3")
-        self.gridLayout.addWidget(self.label_spray3, 11, 4, 1, 1)
-        self.label_spray4 = QtWidgets.QLabel(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.label_spray4.setFont(font)
-        self.label_spray4.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.label_spray4.setObjectName("label_spray4")
-        self.gridLayout.addWidget(self.label_spray4, 12, 4, 1, 1)
-        self.spinBox_X13 = QtWidgets.QSpinBox(self.frame_definePins)
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        self.spinBox_X13.setFont(font)
-        self.spinBox_X13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Arial\" bold;\n"
-"border: 1px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.spinBox_X13.setMaximum(15)
-        self.spinBox_X13.setObjectName("spinBox_X13")
-        self.gridLayout.addWidget(self.spinBox_X13, 15, 1, 1, 1)
         self.spinBox_X14 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1553,6 +1626,22 @@ class Ui_definePinsXY(object):
         self.spinBox_X14.setMaximum(15)
         self.spinBox_X14.setObjectName("spinBox_X14")
         self.gridLayout.addWidget(self.spinBox_X14, 16, 1, 1, 1)
+        self.spinBox_X13 = QtWidgets.QSpinBox(self.frame_definePins)
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        self.spinBox_X13.setFont(font)
+        self.spinBox_X13.setStyleSheet("background-color: rgb(222, 222, 222);\n"
+"color: rgb(0, 0, 0);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.spinBox_X13.setMaximum(15)
+        self.spinBox_X13.setObjectName("spinBox_X13")
+        self.gridLayout.addWidget(self.spinBox_X13, 15, 1, 1, 1)
         self.spinBox_Y10 = QtWidgets.QSpinBox(self.frame_definePins)
         font = QtGui.QFont()
         font.setFamily("Arial 12")
@@ -1642,29 +1731,30 @@ class Ui_definePinsXY(object):
     def retranslateUi(self, definePinsXY):
         _translate = QtCore.QCoreApplication.translate
         definePinsXY.setWindowTitle(_translate("definePinsXY", "definePinsXY"))
-        self.label_Pins_01.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">DEFINE X/Y PINS </span></p></body></html>"))
-        self.label_Pins_3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y SINALS - PIN</span></p></body></html>"))
-        self.label_Pins_5.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y SIGNAL DEFINE</span></p></body></html>"))
-        self.label_x5.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X5</span></p></body></html>"))
         self.label_spray2.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">SPRAY2</span></p></body></html>"))
-        self.label_x8.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X8</span></p></body></html>"))
-        self.label_y7.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y7</span></p></body></html>"))
-        self.label_y5.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y5</span></p></body></html>"))
-        self.label_xhome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">XHOME</span></p></body></html>"))
-        self.label_x1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X1</span></p></body></html>"))
+        self.label_spray1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">SPRAY1</span></p></body></html>"))
+        self.label_spray4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ROTATE TABLE 2</span></p></body></html>"))
+        self.label_spray3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ROTATE TABLE 1</span></p></body></html>"))
+        self.label_Pins_3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y SINALS - PIN</span></p></body></html>"))
         self.label_Pins_02.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X SINALS - PIN</span></p></body></html>"))
-        self.label_yhome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">YHOME</span></p></body></html>"))
-        self.label_Pins_4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X SIGNAL DEFINE</span></p></body></html>"))
-        self.label_y2.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y2</span></p></body></html>"))
-        self.label_y1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y1</span></p></body></html>"))
-        self.label_x3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X3</span></p></body></html>"))
+        self.label_Pins_5.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">Y SIGNAL DEFINE (Y1 - Y16)</span></p></body></html>"))
+        self.label_Pins_4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">X SIGNAL DEFINE (X1 - X16)</span></p></body></html>"))
         self.label_xlimit.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">XLIMIT</span></p></body></html>"))
         self.label_y3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y3</span></p></body></html>"))
         self.label_x2.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X2</span></p></body></html>"))
-        self.label_zhome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ZHOME</span></p></body></html>"))
+        self.label_x5.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X5</span></p></body></html>"))
+        self.label_x8.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X8</span></p></body></html>"))
+        self.label_y5.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y5</span></p></body></html>"))
+        self.label_xhome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">XHOME</span></p></body></html>"))
+        self.label_y7.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y7</span></p></body></html>"))
+        self.label_x1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X1</span></p></body></html>"))
+        self.label_yhome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">YHOME</span></p></body></html>"))
+        self.label_y2.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y2</span></p></body></html>"))
+        self.label_x3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X3</span></p></body></html>"))
+        self.label_y1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y1</span></p></body></html>"))
         self.label_ylimit.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">YLIMIT</span></p></body></html>"))
+        self.label_zhome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ZHOME</span></p></body></html>"))
         self.label_zlimit.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ZLIMIT</span></p></body></html>"))
-        self.label_spray1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">SPRAY1</span></p></body></html>"))
         self.label_alimit.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ALIMIT</span></p></body></html>"))
         self.label_y6.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y6</span></p></body></html>"))
         self.label_x11.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X11</span></p></body></html>"))
@@ -1672,28 +1762,26 @@ class Ui_definePinsXY(object):
         self.label_y11.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y11</span></p></body></html>"))
         self.label_y12.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y12</span></p></body></html>"))
         self.label_x10.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X10</span></p></body></html>"))
-        self.label_rotateTable1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ROTATE TABLE 1</span></p></body></html>"))
+        self.label_rotateTable1.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">OUT M1</span></p></body></html>"))
         self.label_x13.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X13</span></p></body></html>"))
-        self.label_rotateTable2.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ROTATE TABLE 2</span></p></body></html>"))
+        self.label_rotateTable2.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">OUT M2</span></p></body></html>"))
         self.label_y13.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y13</span></p></body></html>"))
-        self.label_rotateTable4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ROTATE TABLE 4</span></p></body></html>"))
-        self.label_y15.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y15</span></p></body></html>"))
+        self.label_rotateTable4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">OUT M4</span></p></body></html>"))
         self.label_x15.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X15</span></p></body></html>"))
+        self.label_y15.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y15</span></p></body></html>"))
         self.label_x16.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X16</span></p></body></html>"))
         self.label_y16.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y16</span></p></body></html>"))
         self.label_x7.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X7</span></p></body></html>"))
         self.label_x9.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X9</span></p></body></html>"))
         self.label_x6.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X6</span></p></body></html>"))
         self.label_ahome.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">AHOME</span></p></body></html>"))
-        self.label_y4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y4</span></p></body></html>"))
         self.label_y8.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y8</span></p></body></html>"))
+        self.label_y4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y4</span></p></body></html>"))
         self.label_x4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X4</span></p></body></html>"))
-        self.label_rotateTable3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">ROTATE TABLE 3</span></p></body></html>"))
         self.label_x14.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X14</span></p></body></html>"))
+        self.label_rotateTable3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">OUT M3</span></p></body></html>"))
         self.label_y10.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y10</span></p></body></html>"))
         self.label_y9.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y9</span></p></body></html>"))
-        self.label_spray3.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">SPRAY3</span></p></body></html>"))
-        self.label_spray4.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">SPRAY4</span></p></body></html>"))
         self.label_x12.setText(_translate("definePinsXY", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">X12</span></p></body></html>"))
         self.pushButton_Save.setText(_translate("definePinsXY", "SAVE"))
         self.pushButton_Edit.setText(_translate("definePinsXY", "EDIT"))
