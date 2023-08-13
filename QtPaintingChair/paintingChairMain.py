@@ -1398,6 +1398,7 @@ class runMotor:
             if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
+                main_window.disableMenuButton(False)
                 main_window.window.showText_signal.emit("Run Auto: Go to zero/machine axis first!!!")
                 main_window.threadAutoRun.finished.emit()
                 return
