@@ -1847,10 +1847,10 @@ class monitorInputOutput:
     def writeCoilY(self, checkValue):
         if main_window.checkButtonCoilY[checkValue].isChecked():
             self.valueCoilY |= (1 << checkValue)
-            main_window.showStatus("Y"+str(checkValue+1) + "ON " + str(self.valueCoilY))
+            #main_window.showStatus("Y"+str(checkValue+1) + "ON " + str(self.valueCoilY))
         else:
             self.valueCoilY &= ~(1 << checkValue)
-            main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
+            #main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
         try: 
             comWindow.workSerial.sendCoilValue(self.valueCoilY)
          
