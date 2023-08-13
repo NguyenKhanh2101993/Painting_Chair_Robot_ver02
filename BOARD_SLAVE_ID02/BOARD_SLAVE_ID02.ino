@@ -369,16 +369,32 @@ void spray_gun_off(void){
 void table_change_state (void) {
     static bool state_table = false; 
     state_table = !state_table;
-
-    if (state_table) {  
-      digitalWrite(coilY[listBitCoilY[2]], HIGH);
-      digitalWrite(coilY[listBitCoilY[3]], LOW);  
-     
-    }
-    else { 
-      digitalWrite(coilY[listBitCoilY[2]], LOW);
-      digitalWrite(coilY[listBitCoilY[3]], HIGH);
-    }
+    digitalWrite(coilY[listBitCoilY[2]], uint8_t(state_table));
+    digitalWrite(coilY[listBitCoilY[3]], uint8_t(!state_table));  
+}
+// Toggle coil M1
+void toggleCoilM1 (void) {
+    static bool state_coilM1 = false; 
+    state_coilM1 = !state_coilM1;
+    digitalWrite(coilY[listBitCoilY[4]], uint8_t(state_coilM1));
+}
+// Toggle coil M2
+void toggleCoilM2 (void) {
+    static bool state_coilM2 = false; 
+    state_coilM2 = !state_coilM2;
+    digitalWrite(coilY[listBitCoilY[5]], uint8_t(state_coilM2));
+}
+// Toggle coil M3
+void toggleCoilM3 (void) {
+    static bool state_coilM3 = false; 
+    state_coilM3 = !state_coilM3;
+    digitalWrite(coilY[listBitCoilY[6]], uint8_t(state_coilM3));
+}
+// Toggle coil M4
+void toggleCoilM4 (void) {
+    static bool state_coilM4 = false; 
+    state_coilM4 = !state_coilM4;
+    digitalWrite(coilY[listBitCoilY[7]], uint8_t(state_coilM4));
 }
 //============================================================================================
 // command kiểm tra cảm biến X,Y,Z,A trong quá trình chạy
@@ -520,8 +536,12 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;
               case CHANGE_STATE_RUN_BLOCK_MODBUS_ADDR: change_state_run_block(); break;
               case CHANGE_STATE_COIL_Y_MODBUS_ADDR:    change_state_coilY(write_output_value); break;
-              case ENABLE_MPG_MODE_MOBUS_ADDR:                enable_MPG_mode(); break;
-              case DISABLE_MPG_MODE_MOBUS_ADDR:               disable_MPG_mode(); break;
+              case ENABLE_MPG_MODE_MOBUS_ADDR:         enable_MPG_mode(); break;
+              case DISABLE_MPG_MODE_MOBUS_ADDR:        disable_MPG_mode(); break;
+              case M1_CHANGE_STATE_MODBUS_ADDR: toggleCoilM1(); break;
+              case M2_CHANGE_STATE_MODBUS_ADDR: toggleCoilM2(); break;
+              case M3_CHANGE_STATE_MODBUS_ADDR: toggleCoilM3(); break;
+              case M4_CHANGE_STATE_MODBUS_ADDR: toggleCoilM4(); break;
               default: break;
             }
         } 

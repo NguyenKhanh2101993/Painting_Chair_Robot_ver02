@@ -438,10 +438,16 @@ class teachingWindow:
 
         self.teachModeButton_coil = [self.uiteach.pushButton_tableFw, self.uiteach.pushButton_tableRw,
                                      self.uiteach.pushButton_sprayOn, self.uiteach.pushButton_sprayOff]
-
-        steachModeButton_coilCommand = [self.tableRorateFW, self.tableRorateRW, self.sprayON, self.sprayOFF]
+        
+        teachModeButton_coilCommand = [self.tableRorateFW, self.tableRorateRW, self.sprayON, self.sprayOFF]
         for i in range(len(self.teachModeButton_coil)): 
-            self.teachModeButton_coil[i].clicked.connect(steachModeButton_coilCommand[i])
+            self.teachModeButton_coil[i].clicked.connect(teachModeButton_coilCommand[i])
+
+        self.teachModeButton_coilM = [self.uiteach.pushButton_coilM1, self.uiteach.pushButton_coilM2,
+                                     self.uiteach.pushButton_coilM3, self.uiteach.pushButton_coilM4]
+        teachModeButton_coilMCommand = [self.toggleCoilM1, self.toggleCoilM2, self.toggleCoilM3, self.toggleCoilM4]
+        for i in range(len(self.teachModeButton_coilM)): 
+            self.teachModeButton_coilM[i].clicked.connect(teachModeButton_coilMCommand[i])
 
         self.teachModeButton_control = [self.uiteach.pushButton_savePoint, self.uiteach.pushButton_saveFile]
         teachModeButton_controlCommand = [self.setPoint, self.saveTofile]
@@ -592,12 +598,32 @@ class teachingWindow:
         main_window.showStatus('===> Lưu file.pnt')
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         main_window.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
-        main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
+        #main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
         main_window.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
         retrieve_text = main_window.uiWorking.textBrowser_showfile.toPlainText()
         wFile.save_file(retrieve_text)
         main_window.showStatus(wFile.saveFileStatus)
 
+    def toggleCoilM1(self):
+        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM1" )
+        main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM1 )
+        run.command_toggle_coilM1()
+
+    def toggleCoilM2(self):
+        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM2" )
+        main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM2 )
+        run.command_toggle_coilM2()
+
+    def toggleCoilM3(self):
+        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM3" )
+        main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM3 )
+        run.command_toggle_coilM3()
+      
+    def toggleCoilM4(self):
+        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM4" )
+        main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM4 )
+        run.command_toggle_coilM4()
+     
     def tableRorateFW(self):
         main_window.uiWorking.textBrowser_showfile.append("//Xoay bàn sơn" )
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary )
@@ -829,7 +855,6 @@ class monitorDatafromArduinoThread(QObject):
             # Getting all memory using os.popen()
             total_memory, used_memory, free_memory = map(
                 int, os.popen('free -t -m').readlines()[-1].split()[1:])
-            # Memory usage
             ramUsed = round((used_memory/total_memory) * 100, 1)
 
             getTime = QTime.currentTime()
@@ -1356,11 +1381,15 @@ class runMotor:
         self.turn_on_spray = 'M08'        #command lệnh bật súng sơn
         self.turn_off_spray = 'M09'       #command lệnh tắt súng sơn
         self.table_rotary = 'M10'         #command xoay bàn sơn
+
+        self.toggleCoilM1 = 'M01'
+        self.toggleCoilM2 = 'M02'
+        self.toggleCoilM3 = 'M03'
+        self.toggleCoilM4 = 'M04'
+
         self.run_block_done = False
 
         self.e_stop = False                 # trạng thái tín hiệu nút nhấn ESTOP
-
-    
 #=============================================================
     def activate_run_mode(self):
         # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
@@ -1427,6 +1456,18 @@ class runMotor:
                     if content_line == self.table_rotary + '\n' : # xoay bàn sơn
                         self.command_table_rotate()
 
+                    if content_line ==  self.toggleCoilM1 +'\n' or content_line ==  self.toggleCoilM1:
+                        self.command_toggle_coilM1()
+
+                    if content_line ==  self.toggleCoilM2 +'\n' or content_line ==  self.toggleCoilM2:
+                        self.command_toggle_coilM2()
+
+                    if content_line ==  self.toggleCoilM3 +'\n' or content_line ==  self.toggleCoilM3:
+                        self.command_toggle_coilM3()
+
+                    if content_line ==  self.toggleCoilM4 +'\n' or content_line ==  self.toggleCoilM4:
+                        self.command_toggle_coilM4()
+                    
                     if content_line == self.go_to_1st_point + '\n' : # đi tới điểm gốc đầu tiên, điểm 0
                         main_window.gotoZeroPosition()
 
@@ -1692,7 +1733,7 @@ class runMotor:
             else:
               Recognize_command = False
               self.executeDelay = False
-              main_window.window.showText_signal.emit("Ký tự: " + str(StringArr).replace("\n", ""))
+              #main_window.window.showText_signal.emit("Ký tự: " + str(StringArr).replace("\n", ""))
               break
         return Recognize_command
 
@@ -1720,7 +1761,34 @@ class runMotor:
             comWindow.workSerial.commandRotateTable()
         except Exception as e:
             main_window.window.showText_signal.emit("===> Rotating table error: "+ str(e))
-            pass
+# command kich coil M
+    def command_toggle_coilM1(self):
+        try:
+            main_window.window.showText_signal.emit("===> Toggle coil M1")
+            comWindow.workSerial.commandToggleCoilM1()
+        except Exception as e:
+            main_window.window.showText_signal.emit("===> Toggle coil M1 error: "+ str(e))
+# command kich coil M
+    def command_toggle_coilM2(self):
+        try:
+            main_window.window.showText_signal.emit("===> Toggle coil M2")
+            comWindow.workSerial.commandToggleCoilM2()
+        except Exception as e:
+            main_window.window.showText_signal.emit("===> Toggle coil M2 error: "+ str(e))
+# command kich coil M
+    def command_toggle_coilM3(self):
+        try:
+            main_window.window.showText_signal.emit("===> Toggle coil M3")
+            comWindow.workSerial.commandToggleCoilM3()
+        except Exception as e:
+            main_window.window.showText_signal.emit("===> Toggle coil M3 error: "+ str(e))
+# command kich coil M
+    def command_toggle_coilM4(self):
+        try:
+            main_window.window.showText_signal.emit("===> Toggle coil M4")
+            comWindow.workSerial.commandToggleCoilM4()
+        except Exception as e:
+            main_window.window.showText_signal.emit("===> Toggle coil M4 error: "+ str(e))
 #================================================================================================
 class monitorInputOutput:
     def __init__(self):

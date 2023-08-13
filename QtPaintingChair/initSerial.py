@@ -31,6 +31,12 @@ class Read_Write_to_Serial:
 
         self.DELAY_MODBUS_ADDR = 2
         self.EXECUTE_DELAY_DONE = 1
+    
+        self.M1_CHANGE_STATE_MODBUS_ADDR = 19
+        self.M2_CHANGE_STATE_MODBUS_ADDR = 20
+        self.M3_CHANGE_STATE_MODBUS_ADDR = 21
+        self.M4_CHANGE_STATE_MODBUS_ADDR = 22
+
         # write holding register
         self.DELAY_VALUE = 16
         self.MOTOR_SENSOR_BIT_POSITION_MODBUS_ADDR = 10     # địa chỉ khai báo vị trí các bit cảm biến hành trình motor
@@ -114,6 +120,18 @@ class Read_Write_to_Serial:
     def commandSavePacketsData(self):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SAVE_PACKET_DATA_MODBUS_ADDR, output_value = self.CHOOSE)
 
+    def commandToggleCoilM1(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.M1_CHANGE_STATE_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandToggleCoilM2(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.M2_CHANGE_STATE_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandToggleCoilM3(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.M3_CHANGE_STATE_MODBUS_ADDR, output_value = self.CHOOSE)
+
+    def commandToggleCoilM4(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.M4_CHANGE_STATE_MODBUS_ADDR, output_value = self.CHOOSE)
+    
     def commandRotateTable(self):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.TABLE_CHANGE_STATE_MODBUS_ADDR, output_value = self.CHOOSE)
 
