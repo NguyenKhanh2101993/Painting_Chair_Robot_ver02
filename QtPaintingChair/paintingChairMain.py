@@ -136,7 +136,7 @@ class setPinsWindow:
             self.xSensorSpinBox[i].setDisabled(False)
         for i in range(len(self.yOutputSpinBox)):
             self.yOutputSpinBox[i].setDisabled(False)
-        main_window.showStatus("===> Cho phép chỉnh sửa khai báo Pins X/Y")
+        main_window.showStatus("===> Enable define X/Y pins")
 
     def getxSensorBitPositon(self):
         self.xSensorDefined = []
@@ -161,7 +161,7 @@ class setPinsWindow:
 
         xPins = main_window.jsonFile.getXpinsInfor()
         if xPins == None:
-            main_window.showStatus("===> Không đọc được giá trị cài đặt pins X")
+            main_window.showStatus("- can not read X pins from setting file json")
             return
         else:
             for i in range(len(xPins)):
@@ -182,7 +182,7 @@ class setPinsWindow:
         pinYcomboBox = []
         yPins = main_window.jsonFile.getYpinsInfor()
         if yPins == None:
-            main_window.showStatus("===> Không đọc được giá trị cài đặt pins Y")
+            main_window.showStatus("can not read Y pins from setting file json")
             return
         else:
             for i in range(len(yPins)):
@@ -212,7 +212,7 @@ class setPinsWindow:
 
         xSensor = main_window.jsonFile.getXsensorInfor()
         if xSensor == None:
-            main_window.showStatus("===> Không đọc được giá trị sensor")
+            main_window.showStatus("- can not read sensor value from json file")
             return
         else:
             for i in range(len(xSensor)):
@@ -234,7 +234,7 @@ class setPinsWindow:
 
         yOutput = main_window.jsonFile.getYoutputInfor()
         if yOutput == None:
-            main_window.showStatus("===> Không đọc được giá trị output")
+            main_window.showStatus("- can not read output value from json file")
             return
         else:
             for i in range(len(yOutput)):
@@ -303,7 +303,7 @@ class paramWindow:
             # truy xuất bắng cách: self.gearbox_X.get()
 
         except Exception as error:
-            main_window.showStatus("===> ConfigFile Motor Error: " + str(error))
+            main_window.showStatus("- configFile Motor Error: " + str(error))
             return
 
     # lưu giá trị cài đặt từ bảng vào file json        
@@ -339,8 +339,7 @@ class paramWindow:
             result = [gear_ratio_X, gear_ratio_Y, gear_ratio_Z,gear_ratio_A, gear_ratio_B, gear_ratio_C]
 
         except Exception as e:
-            main_window.showStatus("Nhập giá trị bị sai, giá trị không phải là số ")
-            pass
+            main_window.showStatus("- wrong number value - check again")
 
         return result
 
@@ -575,7 +574,7 @@ class teachingWindow:
                     exceed_limit = True
                     break
             if exceed_limit == True:
-                main_window.showStatus("Limited: EXCEED SENSOR LIMIT")
+                main_window.showStatus("- limited: exceed sensor limit")
                 pass
         except:
             return
@@ -592,7 +591,7 @@ class teachingWindow:
         if (different_value == True):
             self.counter_line += 1
             main_window.uiWorking.textBrowser_showfile.append(show_line) 
-            main_window.showStatus("===> Giá trị đã cài đặt: " + show_line)
+            main_window.showStatus("- set point: " + show_line)
 
     def saveTofile(self):
         main_window.showStatus('===> Lưu file.pnt')
@@ -605,42 +604,42 @@ class teachingWindow:
         main_window.showStatus(wFile.saveFileStatus)
 
     def toggleCoilM1(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM1" )
+        main_window.uiWorking.textBrowser_showfile.append("- toggle coilM1" )
         main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM1 )
         run.command_toggle_coilM1()
 
     def toggleCoilM2(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM2" )
+        main_window.uiWorking.textBrowser_showfile.append("- toggle coilM2" )
         main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM2 )
         run.command_toggle_coilM2()
 
     def toggleCoilM3(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM3" )
+        main_window.uiWorking.textBrowser_showfile.append("- toggle coilM3" )
         main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM3 )
         run.command_toggle_coilM3()
       
     def toggleCoilM4(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Toggle coilM4" )
+        main_window.uiWorking.textBrowser_showfile.append("- Toggle coilM4" )
         main_window.uiWorking.textBrowser_showfile.append(run.toggleCoilM4 )
         run.command_toggle_coilM4()
      
     def tableRorateFW(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Xoay bàn sơn" )
+        main_window.uiWorking.textBrowser_showfile.append("- table rotary" )
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary )
         run.command_table_rotate()
 
     def tableRorateRW(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Xoay bàn sơn" )
+        main_window.uiWorking.textBrowser_showfile.append("- table rotary" )
         main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)
         run.command_table_rotate()
 
     def sprayON(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Bật súng sơn" )
+        main_window.uiWorking.textBrowser_showfile.append("- turn on spray" )
         main_window.uiWorking.textBrowser_showfile.append(run.turn_on_spray)
         run.command_run_spray(1)
 
     def sprayOFF(self):
-        main_window.uiWorking.textBrowser_showfile.append("//Tắt súng sơn" )
+        main_window.uiWorking.textBrowser_showfile.append("- turn off spray" )
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         run.command_run_spray(0)
 #================================================================================================
@@ -750,7 +749,7 @@ class workingTeachMode():
                 time.sleep(0.1)
             
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Teaching mode warning: "+ str(e))
+            main_window.window.showText_signal.emit("- teaching mode warning: "+ str(e))
             main_window.threadTeachMode.finishedTeachMode.emit()
 
     def Kinematics_Zaxis_mode_02(self):
@@ -1080,36 +1079,36 @@ class workingWindow:
         return valueSpeedSpray
 
     def chooseFile(self):
-        self.showStatus("Chế độ chọn file.pnt")
+        self.showStatus("Open file.pnt")
         try:
             pathFile = wFile.show_initial_directory()
-            self.showStatus("pathFile: "+ pathFile)
+            self.showStatus("- pathFile: "+ pathFile)
             self.uiWorking.label_directory.setText(pathFile)
             content = wFile.get_file(pathFile)
             self.uiWorking.textBrowser_showfile.setText(content)
 
         except Exception as error: 
-            self.uiWorking.label_directory.setText("NO FILE LOADED")
+            self.uiWorking.label_directory.setText("- no file loaded")
             self.showStatus(error)
             return
 
     def chooseComPort(self):
-        self.showStatus("Chế độ chọn cổng COM giao tiếp")
+        self.showStatus("Setting COM port mode")
         comWindow.showComWindow()
 
     def openSettingMotor(self):
-        self.showStatus("Chế độ cài đặt thông số motor")
+        self.showStatus("Setting motor gear ratio")
         setMotor.showParamWindow()
 
     def openDefinePinsWindow(self):
-        self.showStatus("Chế độ khai báo chân XY")
+        self.showStatus("Declare XY pins mode")
         self.definePinsWindow.showPinsWindow()
 
     def openTeachWindow(self):
         teachWindow.showTeachWindow()
        
     def enterManual(self):
-        self.showStatus("Chế độ manual bật tắt coilY")
+        self.showStatus("Toggle mode coil Y")
 
     def runAutoCycle(self):
         if comWindow.connectSignal == True:
@@ -1119,14 +1118,14 @@ class workingWindow:
             self.showStatus("===> Open COM port first!!! ")
 
     def runJog(self):
-        self.showStatus("Chế độ JOG - chạy từng dòng")
+        self.showStatus("JOG mode - run line by line")
 
     def pauseMotor(self):
-        self.showStatus("Pause/Resume Program")
+        self.showStatus("- pause/resume program")
         run.pause_motor()
 
     def eStopMotor(self):
-        self.showStatus("Dừng motor khẩn cấp")
+        self.showStatus("- emergency stop")
         run.disable_run_mode()
 
     def getSpecsOfSensor(self):
@@ -1194,7 +1193,7 @@ class workingWindow:
             for i in range(self.MAX_AXIS + 2):
                 position.append(self.currentPos[i])
             
-            main_window.window.showText_signal.emit("===> Lỗi đọc giá trị tọa độ")
+            main_window.window.showText_signal.emit("===> read current position failed")
  
         return position
     def updateLabelPosition(self):
@@ -1230,7 +1229,7 @@ class workingWindow:
 
 
         except Exception as error:
-            main_window.window.showText_signal.emit("===> Read_pulse_from_slaves function failed"+ str(error))
+            main_window.window.showText_signal.emit("===> read pulse from slaves function failed"+ str(error))
             return None
 
     def check_negative_num(self, x):
@@ -1274,9 +1273,9 @@ class workingWindow:
                     waiting = False
                 time.sleep(0.1)
 
-            main_window.window.showText_signal.emit("Go to zero Done")
+            main_window.window.showText_signal.emit("- goto Zero done")
         except Exception as e:
-            main_window.window.showText_signal.emit("===> gotoZero Error status: "+str(e))
+            main_window.window.showText_signal.emit("- goto Zero error status: "+str(e))
             
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoZeroMode.emit()
@@ -1343,10 +1342,10 @@ class workingWindow:
                     time.sleep(0.1)
                 self.go_machine_home = True # đã về home
 
-            main_window.window.showText_signal.emit("===> Go to Home Done")
+            main_window.window.showText_signal.emit("- goto Home done")
 
         except Exception as error:
-            main_window.window.showText_signal.emit("===> goto Home Position error: "+ str(error))
+            main_window.window.showText_signal.emit("- goto Home position error: "+ str(error))
 
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoHomeMode.emit()
@@ -1434,7 +1433,7 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.window.showText_signal.emit("Giá tri timer delay S: "+ str(self.delayTimer/10)+" s")
+                        main_window.window.showText_signal.emit("- Giá tri timer delay S: "+ str(self.delayTimer/10)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
@@ -1476,18 +1475,18 @@ class runMotor:
                         pass
                     
                     if content_line == self.start_run_block + '\n':
-                        main_window.window.showText_signal.emit("=====> G05.0 START BLOCK RUN MODE")
+                        main_window.window.showText_signal.emit("- G05.0 Start block run mode")
                         result_run_block = self.send_packet_to_slave()  # giá trị trả về luôn trong khoảng [0:140]
                         if result_run_block == False: 
-                            main_window.window.showText_signal.emit("=====> G05.1 Error !!!")
+                            main_window.window.showText_signal.emit("- G05.1 Error !!!")
                             break
                         else: 
                             # gửi lần 2 lệnh change_state_run_block để tắt chế độ run block mode
-                            main_window.window.showText_signal.emit("===> BLOCK RUN MODE DONE")
+                            main_window.window.showText_signal.emit("- Block run mode done")
                             self.counter = 0
 
         except Exception as e:
-                main_window.window.showText_signal.emit("===> Run Auto Error: " + str(e))
+                main_window.window.showText_signal.emit("- Run Auto Error: " + str(e))
                 main_window.disableMenuButton(False)
 
         finally:
@@ -1524,12 +1523,12 @@ class runMotor:
                     sent_packet_done = True
 
             if content_line == self.end_run_block + '\n' or sent_packet_done == True:    
-                main_window.window.showText_signal.emit("===> G05.1 END BLOCK RUN MODE")
+                main_window.window.showText_signal.emit("- G05.1 End block run mode")
                 self.monitor_str_content(target_line.replace("\n",""))  # hiện thị điểm đến cuối cùng trong block data đã chuyển đi   
 
                 if 0 < sent_point <= self.MAX_POINT_IN_BLOCK:  # kiểm tra trường hợp 2
                     # cho chạy auto 
-                    main_window.window.showText_signal.emit("===> START BLOCK RUN MODE - POINT NUMBER: " + str(sent_point))
+                    main_window.window.showText_signal.emit("- Start block run mode - Point number: " + str(sent_point))
                     self.send_end_run_block_mode()
                     self.monitor_run_block_begin()
                     run_block = self.run_block_done
@@ -1631,7 +1630,7 @@ class runMotor:
             self.new_Fspeed = int(result_value[7])          # tốc độ sơn
 
         except Exception as e:
-            main_window.window.showText_signal.emit('separate_string error: ' + str(e))
+            main_window.window.showText_signal.emit('- Separate string error: ' + str(e))
             return
         return result_value
 
@@ -1742,13 +1741,13 @@ class runMotor:
     def command_run_spray(self, state):
         try: 
             if state:
-                main_window.window.showText_signal.emit("===> Spray ON")
+                main_window.window.showText_signal.emit("- Spray ON")
                 comWindow.workSerial.commandTurnOnSpray()
             else:
-                main_window.window.showText_signal.emit("===> Spray OFF")
+                main_window.window.showText_signal.emit("- Spray OFF")
                 comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Spray Error: " + str(e))
+            main_window.window.showText_signal.emit("- Spray Error: " + str(e))
             pass
 
 # Dừng động cơ
@@ -1758,38 +1757,38 @@ class runMotor:
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
-            main_window.window.showText_signal.emit("===> Rotating table")
+            main_window.window.showText_signal.emit("- Rotating table")
             comWindow.workSerial.commandRotateTable()
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Rotating table error: "+ str(e))
+            main_window.window.showText_signal.emit("- Rotating table error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM1(self):
         try:
-            main_window.window.showText_signal.emit("===> Toggle coil M1")
+            main_window.window.showText_signal.emit("- Toggle coil M1")
             comWindow.workSerial.commandToggleCoilM1()
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Toggle coil M1 error: "+ str(e))
+            main_window.window.showText_signal.emit("- Toggle coil M1 error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM2(self):
         try:
-            main_window.window.showText_signal.emit("===> Toggle coil M2")
+            main_window.window.showText_signal.emit("- Toggle coil M2")
             comWindow.workSerial.commandToggleCoilM2()
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Toggle coil M2 error: "+ str(e))
+            main_window.window.showText_signal.emit("- Toggle coil M2 error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM3(self):
         try:
-            main_window.window.showText_signal.emit("===> Toggle coil M3")
+            main_window.window.showText_signal.emit("- Toggle coil M3")
             comWindow.workSerial.commandToggleCoilM3()
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Toggle coil M3 error: "+ str(e))
+            main_window.window.showText_signal.emit("- Toggle coil M3 error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM4(self):
         try:
-            main_window.window.showText_signal.emit("===> Toggle coil M4")
+            main_window.window.showText_signal.emit("- Toggle coil M4")
             comWindow.workSerial.commandToggleCoilM4()
         except Exception as e:
-            main_window.window.showText_signal.emit("===> Toggle coil M4 error: "+ str(e))
+            main_window.window.showText_signal.emit("- Toggle coil M4 error: "+ str(e))
 #================================================================================================
 class monitorInputOutput:
     def __init__(self):

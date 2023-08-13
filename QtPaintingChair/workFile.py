@@ -39,7 +39,7 @@ class workingFile:
                 f.write(content)  # retrieve_text phải là các ký tự không có dấu.
                 f.close()
 
-            self.saveFileStatus = ("===> Save file done")
+            self.saveFileStatus = ("- save file done")
         except Exception as err:
-            self.saveFileStatus = ("===> Save file error: "+ str(err))
+            self.saveFileStatus = ("- save file error: "+ str(err))
             return
