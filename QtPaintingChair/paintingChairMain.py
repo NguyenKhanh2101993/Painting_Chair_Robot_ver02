@@ -313,13 +313,11 @@ class paramWindow:
             gear.append(self.uiSetting.tableWidget.item(0, i).text())
             microstep.append(self.uiSetting.tableWidget.item(1, i).text())
             diameter.append(self.uiSetting.tableWidget.item(2, i).text())
-
-        main_window.showStatus("=======================================================")
+            
         main_window.showStatus("Tỉ số truyền hộp số, vi bước và đường kính bánh răng: ") 
         main_window.showStatus(gear)
         main_window.showStatus(microstep)
         main_window.showStatus(diameter)
-        main_window.showStatus("=======================================================")
 
         main_window.jsonFile.setMotorInfor(gear, microstep, diameter)   # lưu các thông số cài đặt motor
         result = self.calculate_gearRatio(gear, microstep, diameter)
