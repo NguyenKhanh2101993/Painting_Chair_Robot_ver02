@@ -1087,7 +1087,7 @@ class workingWindow:
 
         except Exception as error: 
             self.uiWorking.label_directory.setText("- no file loaded")
-            self.showStatus(error)
+            self.showStatus("- open file error: "+ str(error))
             return
 
     def chooseComPort(self):

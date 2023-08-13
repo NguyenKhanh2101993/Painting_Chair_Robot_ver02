@@ -16,8 +16,6 @@ class workingFile:
         self._myfile = QWidget()
 
     def show_initial_directory(self):
-        #fname = myfile.getOpenFileName(caption = 'Open file', directory = 'C:\\Desktop\\',filter = 'pnt files (*.pnt)')
-        #myfile.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         fname = myfile.getOpenFileName(caption = 'Open file', directory = '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
         if fname[0] != '':
             self.fileDirectory = fname[0]
