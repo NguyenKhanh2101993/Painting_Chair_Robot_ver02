@@ -200,8 +200,8 @@ QPushButton:pressed {
        <widget class="QLabel" name="label_showline">
         <property name="font">
          <font>
-          <family>Arial</family>
-          <pointsize>18</pointsize>
+          <family>Arial 12</family>
+          <pointsize>13</pointsize>
           <weight>9</weight>
           <italic>false</italic>
           <bold>false</bold>
@@ -210,8 +210,7 @@ QPushButton:pressed {
         <property name="styleSheet">
          <string notr="true">background-color: rgb(195, 195, 195);
 color: rgb(36, 36, 36);
-font: 75 14pt &quot;Arial&quot; &quot;Bold&quot;;
-font: 75 18pt &quot;Arial&quot;;
+font: 75 13pt &quot;Arial&quot; bold;
 border: 3px solid  rgb(56, 56, 56);
 border-radius: 5px;</string>
         </property>
@@ -398,8 +397,15 @@ border-radius: 5px</string>
       </item>
       <item row="0" column="2">
        <widget class="QCheckBox" name="checkBoxY1">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}
+</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY1</string>
+         <string>Y01</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -437,8 +443,14 @@ border-radius: 5px</string>
       </item>
       <item row="0" column="4">
        <widget class="QCheckBox" name="checkBoxY9">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY9</string>
+         <string>Y09</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -567,8 +579,14 @@ border-radius: 5px</string>
       </item>
       <item row="1" column="2">
        <widget class="QCheckBox" name="checkBoxY2">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY2</string>
+         <string>Y02</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -600,8 +618,14 @@ border-radius: 5px</string>
       </item>
       <item row="1" column="4">
        <widget class="QCheckBox" name="checkBoxY10">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY10</string>
+         <string>Y10</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -729,8 +753,14 @@ border-radius: 5px</string>
       </item>
       <item row="2" column="2">
        <widget class="QCheckBox" name="checkBoxY3">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY3</string>
+         <string>Y03</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -762,8 +792,14 @@ border-radius: 5px</string>
       </item>
       <item row="2" column="4">
        <widget class="QCheckBox" name="checkBoxY11">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY11</string>
+         <string>Y11</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -841,8 +877,14 @@ border-radius: 5px</string>
       </item>
       <item row="3" column="2">
        <widget class="QCheckBox" name="checkBoxY4">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY4</string>
+         <string>Y04</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -874,8 +916,14 @@ border-radius: 5px</string>
       </item>
       <item row="3" column="4">
        <widget class="QCheckBox" name="checkBoxY12">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY12</string>
+         <string>Y12</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -953,8 +1001,14 @@ border-radius: 5px</string>
       </item>
       <item row="4" column="2">
        <widget class="QCheckBox" name="checkBoxY5">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY5</string>
+         <string>Y05</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -986,8 +1040,14 @@ border-radius: 5px</string>
       </item>
       <item row="4" column="4">
        <widget class="QCheckBox" name="checkBoxY13">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY13</string>
+         <string>Y13</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -1065,8 +1125,14 @@ border-radius: 5px</string>
       </item>
       <item row="5" column="2">
        <widget class="QCheckBox" name="checkBoxY6">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY6</string>
+         <string>Y06</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -1098,8 +1164,14 @@ border-radius: 5px</string>
       </item>
       <item row="5" column="4">
        <widget class="QCheckBox" name="checkBoxY14">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY14</string>
+         <string>Y14</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -1177,8 +1249,14 @@ border-radius: 5px</string>
       </item>
       <item row="6" column="2">
        <widget class="QCheckBox" name="checkBoxY7">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY7</string>
+         <string>Y07</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -1210,8 +1288,14 @@ border-radius: 5px</string>
       </item>
       <item row="6" column="4">
        <widget class="QCheckBox" name="checkBoxY15">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY15</string>
+         <string>Y15</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -1289,8 +1373,14 @@ border-radius: 5px</string>
       </item>
       <item row="7" column="2">
        <widget class="QCheckBox" name="checkBoxY8">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY8</string>
+         <string>Y08</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -1322,8 +1412,14 @@ border-radius: 5px</string>
       </item>
       <item row="7" column="4">
        <widget class="QCheckBox" name="checkBoxY16">
+        <property name="styleSheet">
+         <string notr="true">QCheckBox:hover {
+	border: 3px solid rgb(255, 0, 0);
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
         <property name="text">
-         <string>CheckBoxY16</string>
+         <string>Y16</string>
         </property>
         <property name="tristate">
          <bool>false</bool>
@@ -2158,7 +2254,7 @@ border-radius: 5px</string>
          <string notr="true">background-color: rgb(206, 206, 206);</string>
         </property>
         <property name="text">
-         <string>Design by: Khanh.Q.N - Khoi Nguyen Plastic.jsc - 0348777219</string>
+         <string>Designed by: Khanh.Q.N - Khoi Nguyen Plastic.jsc - 0348777219</string>
         </property>
        </widget>
       </item>
