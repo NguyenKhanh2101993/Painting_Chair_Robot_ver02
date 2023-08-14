@@ -856,7 +856,7 @@ class monitorDatafromArduinoThread(QObject):
 
                 getTime = QTime.currentTime()
                 mytime = getTime.toString()
-                main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed))
+                main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed)+'%')
 
             if os.name == 'nt': # neu os -> window
                 getTime = QTime.currentTime()
