@@ -34,7 +34,6 @@ class checkComWindow():
         self.uic.pushButton.clicked.connect(self.choose_comports)
         self.uic.pushButton_2.clicked.connect(self.reset_comports)
         self.connectSignal = False
-     
 
     def center(self):
         qtRectangle = self.comWindow.frameGeometry()
@@ -850,13 +849,20 @@ class monitorDatafromArduinoThread(QObject):
             else: pass
             
             # Getting all memory using os.popen()
-            total_memory, used_memory, free_memory = map(
-                int, os.popen('free -t -m').readlines()[-1].split()[1:])
-            ramUsed = round((used_memory/total_memory) * 100, 1)
+            if os.name == 'posix':
 
-            getTime = QTime.currentTime()
-            mytime = getTime.toString()
-            main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
+                total_memory, used_memory, free_memory = map(
+                    int, os.popen('free -t -m').readlines()[-1].split()[1:])
+                ramUsed = round((used_memory/total_memory) * 100, 1)
+
+                getTime = QTime.currentTime()
+                mytime = getTime.toString()
+                main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
+
+            if os.name == 'nt':
+                getTime = QTime.currentTime()
+                mytime = getTime.toString()
+                main_window.uiWorking.label_showtime.setText(mytime)
 
             time.sleep(0.05)
 #================================================================================================
