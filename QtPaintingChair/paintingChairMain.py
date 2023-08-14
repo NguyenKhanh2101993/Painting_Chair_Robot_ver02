@@ -849,17 +849,16 @@ class monitorDatafromArduinoThread(QObject):
             else: pass
             
             # Getting all memory using os.popen()
-            if os.name == 'posix':
-
+            if os.name == 'posix': # os -> Linux
                 total_memory, used_memory, free_memory = map(
                     int, os.popen('free -t -m').readlines()[-1].split()[1:])
                 ramUsed = round((used_memory/total_memory) * 100, 1)
 
                 getTime = QTime.currentTime()
                 mytime = getTime.toString()
-                main_window.uiWorking.label_showtime.setText(mytime +"-"+str(ramUsed))
+                main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed))
 
-            if os.name == 'nt':
+            if os.name == 'nt': # neu os -> window
                 getTime = QTime.currentTime()
                 mytime = getTime.toString()
                 main_window.uiWorking.label_showtime.setText(mytime)
