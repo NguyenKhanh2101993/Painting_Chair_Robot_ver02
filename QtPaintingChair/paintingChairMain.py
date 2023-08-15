@@ -12,7 +12,11 @@ from PyQt5.QtCore import QDate, QTime ,QObject, QThread, pyqtSignal
 from PyQt5.QtGui import QTextCursor
 
 from comWindow import Ui_communication
-from workWindow import Ui_MainWindow
+if os.name == "nt":
+    from workWindow import Ui_MainWindow
+if os.name == "posix":
+    from workLinux import Ui_MainWindow
+
 from teachWindow import Ui_teachMode
 from settingWindow import Ui_motorSettings
 from defineXYWindow import Ui_definePinsXY
