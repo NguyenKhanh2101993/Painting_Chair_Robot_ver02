@@ -14,9 +14,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1250, 690)
-        MainWindow.setMinimumSize(QtCore.QSize(1250, 690))
-        MainWindow.setMaximumSize(QtCore.QSize(1920, 786))
+        MainWindow.resize(1500, 786)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMinimumSize(QtCore.QSize(1500, 768))
+        MainWindow.setMaximumSize(QtCore.QSize(1500, 786))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -871,6 +876,123 @@ class Ui_MainWindow(object):
         self.label_y16.setObjectName("label_y16")
         self.gridLayout_5.addWidget(self.label_y16, 7, 5, 1, 1)
         self.gridLayout_7.addWidget(self.frame, 0, 1, 1, 1)
+        self.frame_button_2 = QtWidgets.QFrame(self.frame0)
+        self.frame_button_2.setStyleSheet("background-color: rgb(122, 122, 122);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.frame_button_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_button_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_button_2.setObjectName("frame_button_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame_button_2)
+        self.gridLayout.setObjectName("gridLayout")
+        self.pushButton_power = QtWidgets.QPushButton(self.frame_button_2)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_power.setFont(font)
+        self.pushButton_power.setMouseTracking(False)
+        self.pushButton_power.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_power.setAutoFillBackground(False)
+        self.pushButton_power.setStyleSheet("QPushButton{ background-color: rgb(0, 170, 0);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_power.setObjectName("pushButton_power")
+        self.gridLayout.addWidget(self.pushButton_power, 0, 0, 1, 1)
+        self.pushButton_estop = QtWidgets.QPushButton(self.frame_button_2)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_estop.setFont(font)
+        self.pushButton_estop.setMouseTracking(True)
+        self.pushButton_estop.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_estop.setAutoFillBackground(False)
+        self.pushButton_estop.setStyleSheet("QPushButton{ background-color: rgb(255, 0, 0);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_estop.setFlat(False)
+        self.pushButton_estop.setObjectName("pushButton_estop")
+        self.gridLayout.addWidget(self.pushButton_estop, 0, 1, 1, 1)
+        self.pushButton_gotozero = QtWidgets.QPushButton(self.frame_button_2)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_gotozero.setFont(font)
+        self.pushButton_gotozero.setMouseTracking(False)
+        self.pushButton_gotozero.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_gotozero.setAutoFillBackground(False)
+        self.pushButton_gotozero.setStyleSheet("QPushButton{background-color: rgb(85, 85, 127);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_gotozero.setObjectName("pushButton_gotozero")
+        self.gridLayout.addWidget(self.pushButton_gotozero, 0, 2, 1, 1)
+        self.pushButton_machinehome = QtWidgets.QPushButton(self.frame_button_2)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_machinehome.sizePolicy().hasHeightForWidth())
+        self.pushButton_machinehome.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_machinehome.setFont(font)
+        self.pushButton_machinehome.setMouseTracking(False)
+        self.pushButton_machinehome.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_machinehome.setAutoFillBackground(False)
+        self.pushButton_machinehome.setStyleSheet("QPushButton{background-color: rgb(173, 51, 10);\n"
+"color: rgb(255, 255, 255);\n"
+"border: 2px solid  rgb(255, 255, 255);\n"
+"border-radius: 5px\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(77, 77, 77);\n"
+"    color: rgb(77, 77, 77);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_machinehome.setObjectName("pushButton_machinehome")
+        self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
+        self.gridLayout_7.addWidget(self.frame_button_2, 4, 0, 1, 1)
         self.frame_button = QtWidgets.QFrame(self.frame0)
         self.frame_button.setStyleSheet("background-color: rgb(122, 122, 122);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
@@ -1001,6 +1123,19 @@ class Ui_MainWindow(object):
         self.label_alimit.setObjectName("label_alimit")
         self.gridLayout_4.addWidget(self.label_alimit, 0, 7, 1, 1)
         self.gridLayout_7.addWidget(self.frame_button, 1, 1, 1, 1)
+        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
+        self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
+"font: 75 14pt \"Arial\";\n"
+"color: rgb(0, 250, 0);\n"
+"border: 3px solid  rgb(56, 56, 56);\n"
+"border-radius: 10px")
+        self.textBrowser_terminal.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.textBrowser_terminal.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.textBrowser_terminal.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
+        self.textBrowser_terminal.setReadOnly(True)
+        self.textBrowser_terminal.setOverwriteMode(False)
+        self.textBrowser_terminal.setObjectName("textBrowser_terminal")
+        self.gridLayout_7.addWidget(self.textBrowser_terminal, 3, 0, 1, 1)
         self.frame_termial = QtWidgets.QFrame(self.frame0)
         self.frame_termial.setStyleSheet("background-color: rgb(122, 122, 122);\n"
 "border: 2px solid rgb(255, 255, 255);\n"
@@ -1307,140 +1442,10 @@ class Ui_MainWindow(object):
         self.label_11.setObjectName("label_11")
         self.gridLayout_6.addWidget(self.label_11, 1, 0, 1, 1)
         self.gridLayout_7.addWidget(self.frame_termial, 2, 1, 3, 1)
-        self.textBrowser_terminal = QtWidgets.QTextBrowser(self.frame0)
-        self.textBrowser_terminal.setStyleSheet("background-color:  rgb(77, 77, 77);\n"
-"font: 75 14pt \"Arial\";\n"
-"color: rgb(0, 250, 0);\n"
-"border: 3px solid  rgb(56, 56, 56);\n"
-"border-radius: 10px")
-        self.textBrowser_terminal.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.textBrowser_terminal.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.textBrowser_terminal.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
-        self.textBrowser_terminal.setReadOnly(True)
-        self.textBrowser_terminal.setOverwriteMode(False)
-        self.textBrowser_terminal.setObjectName("textBrowser_terminal")
-        self.gridLayout_7.addWidget(self.textBrowser_terminal, 3, 0, 1, 1)
-        self.frame_button_2 = QtWidgets.QFrame(self.frame0)
-        self.frame_button_2.setStyleSheet("background-color: rgb(122, 122, 122);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px")
-        self.frame_button_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_button_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_button_2.setObjectName("frame_button_2")
-        self.gridLayout = QtWidgets.QGridLayout(self.frame_button_2)
-        self.gridLayout.setObjectName("gridLayout")
-        self.pushButton_power = QtWidgets.QPushButton(self.frame_button_2)
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_power.setFont(font)
-        self.pushButton_power.setMouseTracking(False)
-        self.pushButton_power.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_power.setAutoFillBackground(False)
-        self.pushButton_power.setStyleSheet("QPushButton{ background-color: rgb(0, 170, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px\n"
-"}\n"
-"QPushButton:hover {\n"
-"    border: 3px solid rgb(77, 77, 77);\n"
-"    color: rgb(77, 77, 77);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(163, 228, 215);\n"
-"}")
-        self.pushButton_power.setObjectName("pushButton_power")
-        self.gridLayout.addWidget(self.pushButton_power, 0, 0, 1, 1)
-        self.pushButton_estop = QtWidgets.QPushButton(self.frame_button_2)
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_estop.setFont(font)
-        self.pushButton_estop.setMouseTracking(True)
-        self.pushButton_estop.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_estop.setAutoFillBackground(False)
-        self.pushButton_estop.setStyleSheet("QPushButton{ background-color: rgb(255, 0, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-top-color: rgb(208, 208, 208);\n"
-"}\n"
-"QPushButton:hover {\n"
-"    border: 3px solid rgb(77, 77, 77);\n"
-"    color: rgb(77, 77, 77);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(163, 228, 215);\n"
-"}")
-        self.pushButton_estop.setFlat(False)
-        self.pushButton_estop.setObjectName("pushButton_estop")
-        self.gridLayout.addWidget(self.pushButton_estop, 0, 1, 1, 1)
-        self.pushButton_gotozero = QtWidgets.QPushButton(self.frame_button_2)
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_gotozero.setFont(font)
-        self.pushButton_gotozero.setMouseTracking(False)
-        self.pushButton_gotozero.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_gotozero.setAutoFillBackground(False)
-        self.pushButton_gotozero.setStyleSheet("QPushButton{background-color: rgb(85, 85, 127);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid rgb(255, 255, 255);\n"
-"border-radius: 5px\n"
-"}\n"
-"QPushButton:hover {\n"
-"    border: 3px solid rgb(77, 77, 77);\n"
-"    color: rgb(77, 77, 77);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(163, 228, 215);\n"
-"}")
-        self.pushButton_gotozero.setObjectName("pushButton_gotozero")
-        self.gridLayout.addWidget(self.pushButton_gotozero, 0, 2, 1, 1)
-        self.pushButton_machinehome = QtWidgets.QPushButton(self.frame_button_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_machinehome.sizePolicy().hasHeightForWidth())
-        self.pushButton_machinehome.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_machinehome.setFont(font)
-        self.pushButton_machinehome.setMouseTracking(False)
-        self.pushButton_machinehome.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_machinehome.setAutoFillBackground(False)
-        self.pushButton_machinehome.setStyleSheet("QPushButton{background-color: rgb(173, 51, 10);\n"
-"color: rgb(255, 255, 255);\n"
-"border: 2px solid  rgb(255, 255, 255);\n"
-"border-radius: 5px\n"
-"}\n"
-"QPushButton:hover {\n"
-"    border: 3px solid rgb(77, 77, 77);\n"
-"    color: rgb(77, 77, 77);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(163, 228, 215);\n"
-"}")
-        self.pushButton_machinehome.setObjectName("pushButton_machinehome")
-        self.gridLayout.addWidget(self.pushButton_machinehome, 0, 3, 1, 1)
-        self.gridLayout_7.addWidget(self.frame_button_2, 4, 0, 1, 1)
         self.gridLayout_8.addWidget(self.frame0, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1250, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1500, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -1602,6 +1607,10 @@ class Ui_MainWindow(object):
         self.label_y8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y8</span></p></body></html>"))
         self.checkBoxY16.setText(_translate("MainWindow", "Y16"))
         self.label_y16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Y16</span></p></body></html>"))
+        self.pushButton_power.setText(_translate("MainWindow", "POWER"))
+        self.pushButton_estop.setText(_translate("MainWindow", "E-STOP"))
+        self.pushButton_gotozero.setText(_translate("MainWindow", "GO TO ZERO"))
+        self.pushButton_machinehome.setText(_translate("MainWindow", "MACHINE HOME"))
         self.label_xhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">X-HOME</span></p></body></html>"))
         self.label_yhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Y-HOME</span></p></body></html>"))
         self.label_zhome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">Z-HOME</span></p></body></html>"))
@@ -1639,10 +1648,6 @@ class Ui_MainWindow(object):
         self.label_Chome.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_zSpray.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">0</span></p></body></html>"))
         self.label_11.setText(_translate("MainWindow", "Designed by: Khanh.Q.N - Khoi Nguyen Plastic.jsc - 0348777219"))
-        self.pushButton_power.setText(_translate("MainWindow", "POWER"))
-        self.pushButton_estop.setText(_translate("MainWindow", "E-STOP"))
-        self.pushButton_gotozero.setText(_translate("MainWindow", "GO TO ZERO"))
-        self.pushButton_machinehome.setText(_translate("MainWindow", "MACHINE HOME"))
         self.menuFile.setTitle(_translate("MainWindow", "FILE"))
         self.menuSetting.setTitle(_translate("MainWindow", "SETTINGS"))
         self.menuComunication.setTitle(_translate("MainWindow", "COMMUNICATION"))
