@@ -901,13 +901,20 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
         event.ignore()
 
         if result == mBox.Yes:   
-            teachWindow.closeTeachWindow()
+            
+            teachWindow.teachWin.close()
             comWindow.detroyComWindow()
             main_window.definePinsWindow.closePinsWindow()
             setMotor.closeParamWindow()
+            
+            if comWindow.connectSignal == True:
+                comWindow.workSerial.stopSerial()
+                main_window.threadTeachMode.finishedTeachMode.emit()
+            
             main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait(100)
             main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait(100)
             main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait(100)
+
             event.accept()
     
 #================================================================================================

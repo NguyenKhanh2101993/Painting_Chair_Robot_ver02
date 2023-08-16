@@ -42,6 +42,9 @@ class Read_Write_to_Serial:
         self.MOTOR_SENSOR_BIT_POSITION_MODBUS_ADDR = 10     # địa chỉ khai báo vị trí các bit cảm biến hành trình motor
         self.OUTPUT_BIT_POSITION_MODBUS_ADDR = 12           # địa chỉ khai báo vị trí các bit output coil Y
 
+    def stopSerial(self):
+        self.master.close()
+        
     def Init_Serial(self,baud,com): # Connect to Arduino
         connect = 0
         try:
