@@ -835,6 +835,7 @@ class monitorTeachModeThread(QObject):
 #================================================================================================
 # Thread monitor input/ouput and current position
 class monitorDatafromArduinoThread(QObject):
+    finishedMonitor = pyqtSignal()
     coilValue =  pyqtSignal(tuple)  
     posValue = pyqtSignal(list)
 
@@ -843,31 +844,36 @@ class monitorDatafromArduinoThread(QObject):
     def run(self):
         main_window.window.showText_signal.emit("Thread: Monitor input/output and current position")
         while True:
-            coil_Value = main_window.coilXY.read_coilXY()
-            pos_Value = main_window.showCurrentPositions()
-            self.posValue.emit(pos_Value)
-            if coil_Value != None:
-                main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
-                main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
-                self.coilValue.emit(coil_Value)
-            else: pass
+            if comWindow.connectSignal == True:
+                coil_Value = main_window.coilXY.read_coilXY()
+                pos_Value = main_window.showCurrentPositions()
+
+                if  len(pos_Value) == main_window.MAX_AXIS+2:
+                    self.posValue.emit(pos_Value)
+                if coil_Value != None:
+                    main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
+                    main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
+                    self.coilValue.emit(coil_Value)
             
-            # Getting all memory using os.popen()
-            if os.name == 'posix': # os -> Linux
-                total_memory, used_memory, free_memory = map(
-                    int, os.popen('free -t -m').readlines()[-1].split()[1:])
-                ramUsed = round((used_memory/total_memory) * 100, 1)
+                # Getting all memory using os.popen()
+                if os.name == 'posix': # os -> Linux
+                    total_memory, used_memory, free_memory = map(
+                        int, os.popen('free -t -m').readlines()[-1].split()[1:])
+                    ramUsed = round((used_memory/total_memory) * 100, 1)
 
-                getTime = QTime.currentTime()
-                mytime = getTime.toString()
-                main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed)+'%')
+                    getTime = QTime.currentTime()
+                    mytime = getTime.toString()
+                    main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed)+'%')
 
-            if os.name == 'nt': # neu os -> window
-                getTime = QTime.currentTime()
-                mytime = getTime.toString()
-                main_window.uiWorking.label_showtime.setText(mytime)
+                if os.name == 'nt': # neu os -> window
+                    getTime = QTime.currentTime()
+                    mytime = getTime.toString()
+                    main_window.uiWorking.label_showtime.setText(mytime)
 
             time.sleep(0.05)
+
+    def stopMonitor(self):
+        comWindow.connectSignal = False
 #================================================================================================
 # Thread trong autoRun
 class autoRunThread(QObject):
@@ -908,12 +914,13 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
             setMotor.closeParamWindow()
             
             if comWindow.connectSignal == True:
-                comWindow.workSerial.stopSerial()
                 main_window.threadTeachMode.finishedTeachMode.emit()
+                main_window.threadMonitorDataFromArduino.finishedMonitor.emit()
+                comWindow.workSerial.stopSerial()
             
-            main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait(100)
-            main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait(100)
-            main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait(100)
+            #main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait(100)
+            #main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait(100)
+            #main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait(100)
 
             event.accept()
     
@@ -968,6 +975,7 @@ class workingWindow:
         self._threadMonitorDataFromArduino = QThread()
         self.threadMonitorDataFromArduino.moveToThread(self._threadMonitorDataFromArduino)
         self._threadMonitorDataFromArduino.started.connect(self.threadMonitorDataFromArduino.run)
+        self.threadMonitorDataFromArduino.finishedMonitor.connect(self.threadMonitorDataFromArduino.stopMonitor)
         self.threadMonitorDataFromArduino.posValue.connect(self.updateLabelPosition)
         self.threadMonitorDataFromArduino.coilValue.connect(self.coilXY.monitor_coil_XY)
         
