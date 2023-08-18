@@ -844,31 +844,31 @@ class monitorDatafromArduinoThread(QObject):
     def run(self):
         main_window.window.showText_signal.emit("Thread: Monitor input/output and current position")
         while True:
-            if comWindow.connectSignal == True:
-                coil_Value = main_window.coilXY.read_coilXY()
-                pos_Value = main_window.showCurrentPositions()
+            #if comWindow.connectSignal == True:
+            coil_Value = main_window.coilXY.read_coilXY()
+            pos_Value = main_window.showCurrentPositions()
 
-                if  len(pos_Value) == main_window.MAX_AXIS+2:
-                    self.posValue.emit(pos_Value)
-                if coil_Value != None:
-                    main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
-                    main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
-                    self.coilValue.emit(coil_Value)
-            
-                # Getting all memory using os.popen()
-                if os.name == 'posix': # os -> Linux
-                    total_memory, used_memory, free_memory = map(
-                        int, os.popen('free -t -m').readlines()[-1].split()[1:])
-                    ramUsed = round((used_memory/total_memory) * 100, 1)
+            if  len(pos_Value) == main_window.MAX_AXIS+2:
+                self.posValue.emit(pos_Value)
+            if coil_Value != None:
+                main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
+                main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
+                self.coilValue.emit(coil_Value)
+        
+            # Getting all memory using os.popen()
+            if os.name == 'posix': # os -> Linux
+                total_memory, used_memory, free_memory = map(
+                    int, os.popen('free -t -m').readlines()[-1].split()[1:])
+                ramUsed = round((used_memory/total_memory) * 100, 1)
 
-                    getTime = QTime.currentTime()
-                    mytime = getTime.toString()
-                    main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed)+'%')
+                getTime = QTime.currentTime()
+                mytime = getTime.toString()
+                main_window.uiWorking.label_showtime.setText(mytime +"/"+str(ramUsed)+'%')
 
-                if os.name == 'nt': # neu os -> window
-                    getTime = QTime.currentTime()
-                    mytime = getTime.toString()
-                    main_window.uiWorking.label_showtime.setText(mytime)
+            if os.name == 'nt': # neu os -> window
+                getTime = QTime.currentTime()
+                mytime = getTime.toString()
+                main_window.uiWorking.label_showtime.setText(mytime)
 
             time.sleep(0.05)
 
