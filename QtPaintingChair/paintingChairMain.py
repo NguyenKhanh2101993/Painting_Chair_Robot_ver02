@@ -851,8 +851,8 @@ class monitorDatafromArduinoThread(QObject):
             if  len(pos_Value) == main_window.MAX_AXIS+2:
                 self.posValue.emit(pos_Value)
             if coil_Value != None:
-                main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
-                main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
+                #main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coil_Value)
+                #main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coil_Value)
                 self.coilValue.emit(coil_Value)
         
             # Getting all memory using os.popen()
@@ -1906,8 +1906,10 @@ class monitorInputOutput:
             output_packet.append((xyValue[1] >> i) & 0x0001) 
         return output_packet
 
-    def monitor_coil_XY(self):
+    def monitor_coil_XY(self, coilValue):
         
+        main_window.coilXY.sensor_value = main_window.coilXY.returnXvalue(coilValue)
+        main_window.coilXY.coil_value = main_window.coilXY.returnYvalue(coilValue)
         self.updateLabelXYvalue(self.sensor_value, self.coil_value)
         self.showWarning(self.sensor_value)
         self.sensor_machine_axis = [self.sensor_value[self.xhomeBit], self.sensor_value[self.yhomeBit], 
