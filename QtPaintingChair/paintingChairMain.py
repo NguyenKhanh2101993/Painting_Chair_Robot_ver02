@@ -1218,15 +1218,15 @@ class workingWindow:
             main_window.window.showText_signal.emit("===> read current position failed")
  
         return position
-    def updateLabelPosition(self):
+    def updateLabelPosition(self, currentPos):
 
         for i in range(len(self.lableG54Position)):
-                self.lableG54Position[i].setText(str(round(self.currentPos[i],3)))
-                self.lableMachinePosition[i].setText(str(round(self.currentPos[i],3)))
+                self.lableG54Position[i].setText(str(round(currentPos[i],3)))
+                self.lableMachinePosition[i].setText(str(round(currentPos[i],3)))
 
-        self.labelGunPosition[0].setText(str(round(self.currentPos[0],3)))
-        self.labelGunPosition[1].setText(str(round(self.currentPos[6],3)))
-        self.labelGunPosition[2].setText(str(round(self.currentPos[7],3)))
+        self.labelGunPosition[0].setText(str(round(currentPos[0],3)))
+        self.labelGunPosition[1].setText(str(round(currentPos[6],3)))
+        self.labelGunPosition[2].setText(str(round(currentPos[7],3)))
 
     def callMotorSpeed(self):
         setSpeed = self.speedMotor()
