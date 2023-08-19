@@ -595,12 +595,15 @@ class teachingWindow:
             main_window.showStatus("- set point: " + show_line)
 
     def saveTofile(self):
+      
         main_window.showStatus('===> Lưu file.pnt')
         main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
         main_window.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
         #main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
         main_window.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
         retrieve_text = main_window.uiWorking.textBrowser_showfile.toPlainText()
+        # Đóng cửa sổ teach Window trước khi lưu file
+        teachWindow.closeTeachWindow()
         wFile.save_file(retrieve_text)
         main_window.showStatus(wFile.saveFileStatus)
 
@@ -870,7 +873,7 @@ class monitorDatafromArduinoThread(QObject):
             time.sleep(0.05)
 
     def stopMonitor(self):
-        comWindow.connectSignal = False
+        pass
 #================================================================================================
 # Thread trong autoRun
 class autoRunThread(QObject):
@@ -893,26 +896,30 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
     showText_signal = pyqtSignal(str)
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
+        #self.actionExit = self.findChild(QtWidgets.QAction, "actionExit")
+        #self.actionExit.triggered.connect(self.closeEvent)
 
     def closeEvent(self,event):
-        mBox = QtWidgets.QMessageBox()
-        mBox.setWindowFlags(QtCore.Qt.Window|QtCore.Qt.WindowStaysOnTopHint)
+        teachWindow.teachWin.close()
+        comWindow.detroyComWindow()
+        main_window.definePinsWindow.closePinsWindow()
+        setMotor.closeParamWindow()
+
+        if comWindow.connectSignal == True:
+                main_window.threadTeachMode.finishedTeachMode.emit()
+
+        mBox = QtWidgets.QMessageBox(QApplication.activeWindow())
+       
         result = mBox.question(self,
                       "Confirm Exit...",
                       "Are you sure you want to exit ?",
-                      mBox.Yes| mBox.No)
-        event.ignore()
-
+                      mBox.Yes| mBox.No, defaultButton = mBox.No,)
+        
+        
         if result == mBox.Yes:   
-            
-            teachWindow.teachWin.close()
-            comWindow.detroyComWindow()
-            main_window.definePinsWindow.closePinsWindow()
-            setMotor.closeParamWindow()
             
             if comWindow.connectSignal == True:
                 main_window.threadTeachMode.finishedTeachMode.emit()
-                main_window.threadMonitorDataFromArduino.finishedMonitor.emit()
                 comWindow.workSerial.stopSerial()
             
             #main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait(100)
@@ -920,6 +927,9 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
             #main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait(100)
 
             event.accept()
+        else: 
+            event.ignore()
+
     
 #================================================================================================
 class workingWindow:
