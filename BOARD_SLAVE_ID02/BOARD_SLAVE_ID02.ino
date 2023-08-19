@@ -25,6 +25,7 @@ Motor Motor_C;
 World command_motor(&Motor_X);
 //================================================================
 bool MPG_Mode = false;
+bool resetStateCoil = false;
 int32_t initPos[MAX_AXIS];
 static int32_t newPos[MAX_AXIS];
 //================================================================
@@ -368,6 +369,7 @@ void spray_gun_off(void){
 //Xoay bàn sơn coilY[1], coilY[2]
 void table_change_state (void) {
     static bool state_table = false; 
+   
     state_table = !state_table;
     digitalWrite(coilY[listBitCoilY[2]], uint8_t(state_table));
     digitalWrite(coilY[listBitCoilY[3]], uint8_t(!state_table));  
@@ -375,24 +377,28 @@ void table_change_state (void) {
 // Toggle coil M1
 void toggleCoilM1 (void) {
     static bool state_coilM1 = false; 
+    
     state_coilM1 = !state_coilM1;
     digitalWrite(coilY[listBitCoilY[4]], uint8_t(state_coilM1));
 }
 // Toggle coil M2
 void toggleCoilM2 (void) {
     static bool state_coilM2 = false; 
+   
     state_coilM2 = !state_coilM2;
     digitalWrite(coilY[listBitCoilY[5]], uint8_t(state_coilM2));
 }
 // Toggle coil M3
 void toggleCoilM3 (void) {
     static bool state_coilM3 = false; 
+    
     state_coilM3 = !state_coilM3;
     digitalWrite(coilY[listBitCoilY[6]], uint8_t(state_coilM3));
 }
 // Toggle coil M4
 void toggleCoilM4 (void) {
     static bool state_coilM4 = false; 
+  
     state_coilM4 = !state_coilM4;
     digitalWrite(coilY[listBitCoilY[7]], uint8_t(state_coilM4));
 }
@@ -407,6 +413,7 @@ void check_sensor_XYZA(void){
 //============================================================================================
 // Ghi giá trị coilY ra cổng OUTPUT: 0000 0000 0000 0000; 16 cổng, giá trị 16 bit
 void change_state_coilY(uint16_t value){
+  resetStateCoil = true;
   for (int i = 0; i < 16; i++){
     digitalWrite(coilY[i], ((value >> i) & 0x0001));
   }

@@ -1052,7 +1052,8 @@ class workingWindow:
                                     self.coilXY.returnCoilY13, self.coilXY.returnCoilY14, self.coilXY.returnCoilY15, self.coilXY.returnCoilY16 ]
 
         for i in range(len(self.checkButtonCoilY)):
-            self.checkButtonCoilY[i].setChecked(False)
+            #self.checkButtonCoilY[i].setChecked(False)
+            self.checkButtonCoilY[i].setDisabled(True)
             self.checkButtonCoilY[i].toggled.connect(getCheckBoxValue[i])
 
         self.labelCoilY = [self.uiWorking.label_y1, self.uiWorking.label_y2, self.uiWorking.label_y3, self.uiWorking.label_y4, 
@@ -1875,11 +1876,13 @@ class monitorInputOutput:
 
     def enableCheckButton(self):
         for i in range(self.numCoilXY):
-            main_window.checkButtonCoilY[i].setChecked(False)
+            #main_window.checkButtonCoilY[i].setChecked(False)
+            main_window.checkButtonCoilY[i].setDisabled(False)
             
     def disableCheckButton(self):
         for i in range(self.numCoilXY):
-            main_window.checkButtonCoilY[i].setChecked(False)
+            #main_window.checkButtonCoilY[i].setChecked(False)
+            main_window.checkButtonCoilY[i].setDisabled(True)
 
 # Lệnh bật output Y và giám sát trạng thái đóng mở của Y      
     def writeCoilY(self, checkValue):
