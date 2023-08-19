@@ -1165,8 +1165,11 @@ class workingWindow:
 
         self.coilXY.sensorBitPos = [self.coilXY.xhomeBit, self.coilXY.yhomeBit, self.coilXY.zhomeBit, self.coilXY.ahomeBit, 
                                     self.coilXY.xlimitBit, self.coilXY.ylimitBit, self.coilXY.zlimitBit, self.coilXY.alimitBit]
+        displaySensorPos = []
+        for i in range(len(self.coilXY.sensorBitPos)):
+            displaySensorPos.append(int(self.coilXY.sensorBitPos[i])+1)
 
-        self.showStatus("===> Vị trí khai báo bit sensor: "+ str(self.coilXY.sensorBitPos))
+        self.showStatus("===> Vị trí khai báo X sensor: "+ str(displaySensorPos))
 
     def getSpecsOfCoilY(self):
         self.coilXY.y1Bit = self.definePinsWindow.yCoilDefine[0]; self.coilXY.y2Bit = self.definePinsWindow.yCoilDefine[1]
@@ -1177,7 +1180,11 @@ class workingWindow:
         self.coilXY.coilYBitPos = [self.coilXY.y1Bit, self.coilXY.y2Bit, self.coilXY.y3Bit, self.coilXY.y4Bit,
                                    self.coilXY.y5Bit, self.coilXY.y6Bit,self.coilXY.y7Bit,self.coilXY.y8Bit ]
         
-        self.showStatus("===> Vị trí khai báo bit coilY: "+ str(self.coilXY.coilYBitPos))
+        displayCoilY = []
+        for i in range(len(self.coilXY.coilYBitPos)):
+            displayCoilY.append(int(self.coilXY.coilYBitPos[i])+1)
+
+        self.showStatus("===> Vị trí khai báo Y coilY: "+ str(displayCoilY))
 
     def getXYdefinePins(self):
         self.definePinsWindow.getXpinsFromJson()
@@ -1422,12 +1429,12 @@ class runMotor:
     def activate_run_mode(self):
         # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
         for i in range(main_window.MAX_AXIS):
-            #if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
-            if round(main_window.currentPos[i],3) == 0:
+            if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
+            #if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
                 main_window.disableMenuButton(False)
-                main_window.window.showText_signal.emit("Run Auto: Go to zero/machine axis first!!!")
+                main_window.window.showText_signal.emit("Run Auto: Go to zero/machine home first!!!")
                 main_window.threadAutoRun.finished.emit()
                 return
         main_window.window.showText_signal.emit("Run Auto: Running...")
