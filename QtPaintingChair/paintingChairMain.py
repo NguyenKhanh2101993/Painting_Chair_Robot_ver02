@@ -1053,7 +1053,7 @@ class workingWindow:
 
         for i in range(len(self.checkButtonCoilY)):
             #self.checkButtonCoilY[i].setChecked(False)
-            self.checkButtonCoilY[i].setDisabled(True)
+            self.checkButtonCoilY[i].setDisabled(False)
             self.checkButtonCoilY[i].toggled.connect(getCheckBoxValue[i])
 
         self.labelCoilY = [self.uiWorking.label_y1, self.uiWorking.label_y2, self.uiWorking.label_y3, self.uiWorking.label_y4, 
