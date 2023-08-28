@@ -1731,8 +1731,11 @@ class runMotor:
             # trường hợp không chạy auto mode
             if self.run_auto_mode == False:
                 speed_slaves = main_window.callMotorSpeed()
+                if speed_slaves >= 70: speed_slaves = 70
+                
             else: 
                 speed_slaves = 10
+
         else: speed_slaves = _speed
         
         #main_window.window.showText_signal.emit('speed: ' + str(speed_slaves))
