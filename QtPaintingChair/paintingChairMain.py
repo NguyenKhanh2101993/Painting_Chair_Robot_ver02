@@ -377,8 +377,8 @@ class teachingWindow:
         self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
         self.monitor_off = True
 
-        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
-                                 (' S'+'0'),(' F'+'0')]
+        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),(' D'+'0'),(' F'+'0')]
+                                 
         self.counter_line = 0
 
         self.defineTeachModeButton()
@@ -449,17 +449,16 @@ class teachingWindow:
         for i in range(len(self.teachModeButton_coilM)): 
             self.teachModeButton_coilM[i].clicked.connect(teachModeButton_coilMCommand[i])
 
-        self.teachModeButton_control = [self.uiteach.pushButton_savePoint, self.uiteach.pushButton_saveFile]
-        teachModeButton_controlCommand = [self.setPoint, self.saveTofile]
+        self.teachModeButton_control = [self.uiteach.pushButton_savePoint, self.uiteach.pushButton_SetZero]
+        teachModeButton_controlCommand = [self.setPoint, self.setZeroBC]
         for i in range(len(self.teachModeButton_control)): 
-            self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])
+            self.teachModeButton_control[i].clicked.connect(teachModeButton_controlCommand[i])   
        
     def reInitTeachMode(self):
         self.button_active = 0
         self.teach_axis = -1   # biến lựa chọn trục cần chạy trong teach mode
         self.monitor_off = False
-        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),
-                                 (' S'+'0'),(' F'+'0')]
+        self.pre_string_value = [(' X'+'0.0'),(' Y'+'0.0'),(' Z'+'0.0'),(' A'+'0.0'),(' B'+'0.0'),(' C'+'0.0'),(' D'+'0'),(' F'+'0')]                      
         self.counter_line = 0
 
     def buttonX_forward(self):
@@ -548,6 +547,19 @@ class teachingWindow:
         except:
             int_result = 0
         return int_result
+    
+    def getDelayValue(self):
+        str_result = self.uiteach.lineEdit_delay.text()
+        try:
+            float_result = float(str_result)
+            if float_result <= 0:  float_result = 0
+            if float_result >= 25.0: float_result = 25.0
+        except:
+            float_result = 0
+        return float_result
+    
+    def setZeroBC(self):
+        comWindow.workSerial.setZeroBCPositions()
 
     def setPoint(self):
         show_line = (' '+ str(self.counter_line))
@@ -555,19 +567,18 @@ class teachingWindow:
         exceed_limit = False
 
         # lay gia tri
-        #F_speed =  main_window.speedMotor()
+        
         F_speed = self.getSpeedMotor()
+        D_delay = self.getDelayValue()
     
         X_value = str(round(main_window.currentPos[0],3)); Y_value = str(round(main_window.currentPos[1],3)); Z_value = str(round(main_window.currentPos[2],3))
         A_value = str(round(main_window.currentPos[3],3)); B_value = str(round(main_window.currentPos[4],3)); C_value = str(round(main_window.currentPos[5],3))
-            
-        Spray_state = 0 
 
         if  F_speed < 0: F_speed = 0
         if  F_speed > 200: F_speed = 200
 
-        current_string_value = [(' X'+X_value), (' Y'+Y_value), (' Z'+Z_value), (' A'+ A_value), 
-                                (' B'+B_value),(' C'+C_value), (' S'+ str(Spray_state)), (' F'+ str(F_speed))]
+        current_string_value = [(' X'+X_value), (' Y'+Y_value), (' Z'+Z_value), (' A'+ A_value), (' B'+B_value),(' C'+C_value), (' D'+ str(D_delay)), (' F'+ str(F_speed))]
+                                
         try:
             # khi nhấn setpoint, phải đảm bảo trục X,Y,Z không đụng vào cảm biến hành trình đầu cuối
             for ii in range(len(main_window.coilXY.sensor_limmit)):
@@ -593,19 +604,6 @@ class teachingWindow:
             self.counter_line += 1
             main_window.uiWorking.textBrowser_showfile.append(show_line) 
             main_window.showStatus("- set point: " + show_line)
-
-    def saveTofile(self):
-      
-        main_window.showStatus('===> Lưu file.pnt')
-        main_window.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
-        main_window.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
-        #main_window.uiWorking.textBrowser_showfile.append(run.table_rotary)     # ghi ký tự command xoay bàn sơn
-        main_window.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
-        retrieve_text = main_window.uiWorking.textBrowser_showfile.toPlainText()
-        # Đóng cửa sổ teach Window trước khi lưu file
-        teachWindow.closeTeachWindow()
-        wFile.save_file(retrieve_text)
-        main_window.showStatus(wFile.saveFileStatus)
 
     def toggleCoilM1(self):
         main_window.uiWorking.textBrowser_showfile.append("- toggle coilM1" )
@@ -734,26 +732,22 @@ class workingTeachMode():
                         run.stop_motor()
                         state_runing = False
                         break  # thoat khỏi vong lặp while
-                    time.sleep(0.1)
+                    main_window._threadTeachMode.msleep(100)
 
                 if teachWindow.monitor_off == True:
-                    main_window.disable_control_option(False)
-                    main_window.disableMenuButton(False)
-                    main_window.threadTeachMode.finishedTeachMode.emit()
                     break
                 # trường hợp đang trong teachmode nhưng bị lỗi sensor
                 if main_window.coilXY.errorSensorSignal == True:
                     main_window.go_machine_home = False
-                    main_window.disable_control_option(False)
-                    main_window.disableMenuButton(False)
-                    
-                    main_window.threadTeachMode.finishedTeachMode.emit()
                     break
-
-                time.sleep(0.1)
+                main_window._threadTeachMode.msleep(100)
             
         except Exception as e:
             main_window.window.showText_signal.emit("- teaching mode warning: "+ str(e))
+
+        finally:
+            main_window.disable_control_option(False)
+            main_window.disableMenuButton(False)
             main_window.threadTeachMode.finishedTeachMode.emit()
 
     def Kinematics_Zaxis_mode_02(self):
@@ -772,7 +766,7 @@ class workingTeachMode():
                         pulse_Z_teach = int((new_pos_Z - main_window.currentPos[self.zAXIS])/main_window.gearRatio[self.zAXIS])
 
                         if(main_window.currentPos[self.zAXIS] > 0):  self.pulse_teach_packet = [0,0,pulse_Z_teach,0,0,0]
-                        else:                                               self.pulse_teach_packet = [0,pulse_Y_teach,0,pulse_A_teach,0,0]
+                        else: self.pulse_teach_packet = [0,pulse_Y_teach,0,pulse_A_teach,0,0]
                         
                     if (self.button_state < self.pre_button_state): # nhấn Z1+
                         
@@ -795,13 +789,13 @@ class workingTeachMode():
                             run.stop_motor()
                             running = False
                             break  # thoat khỏi vong lặp while
-                        time.sleep(0.1)
+                        main_window._threadTeachMode.msleep(100)
                     
                     # nếu disable teach mode thì thoát khỏi 
-                    if teachWindow.monitor_off == True | self.chooseAxis != self.zAXIS:
+                    if teachWindow.monitor_off == True or self.chooseAxis != self.zAXIS:
                         break
 
-                    time.sleep(0.1)
+                    main_window._threadTeachMode.msleep(100)
             else: pass
 #================================================================================================
 # Thread trong monitor teach mode/goto zero/ goto Home
@@ -822,7 +816,9 @@ class monitorTeachModeThread(QObject):
                 main_window.gotoZeroPosition() 
             if main_window.gotoHomeFlag == True:
                 main_window.gotoMachinePosition() 
-            time.sleep(0.05)
+
+            main_window._threadTeachMode.msleep(50)
+            #time.sleep(0.05)
 
     def stopGotoZero(self):
         main_window.gotoZeroFlag = False
@@ -870,7 +866,7 @@ class monitorDatafromArduinoThread(QObject):
                 mytime = getTime.toString()
                 main_window.uiWorking.label_showtime.setText(mytime)
 
-            time.sleep(0.05)
+            main_window._threadMonitorDataFromArduino.msleep(50)
 
     def stopMonitor(self):
         pass
@@ -885,7 +881,8 @@ class autoRunThread(QObject):
         while True:
             if main_window.autoRunFlag == True:
                 run.activate_run_mode()
-            time.sleep(0.1)
+
+            main_window._threadAutoRun.msleep(100)
 
     def stop(self):
         main_window.autoRunFlag = False
@@ -1036,10 +1033,13 @@ class workingWindow:
             self.controlButtonName[i].clicked.connect(self.controlButtonCommand[i])
 
         self.uiWorking.actionChoose_File_pnt.triggered.connect(self.chooseFile)
+        self.uiWorking.actionSave_file.triggered.connect(self.saveFile)
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
         self.uiWorking.actionTeachMode.triggered.connect(self.openTeachWindow)
         self.uiWorking.actionDefine_XY.triggered.connect(self.openDefinePinsWindow)
+
+        self.uiWorking.actionAbout_Machine.triggered.connect(self.showAboutMachine)
 
     def defineCheckButton(self):
         self.checkButtonCoilY = [self.uiWorking.checkBoxY1, self.uiWorking.checkBoxY2, self.uiWorking.checkBoxY3, self.uiWorking.checkBoxY4,
@@ -1096,17 +1096,40 @@ class workingWindow:
     def disable_control_option(self, state):
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].setDisabled(state)
-
+    def showAboutMachine(self):
+        self.showStatus('==> Hướng dẫn sử dụng lệnh máy:')
+        self.showStatus(" 1. Delay - cú pháp: Dx trong đó x = 0.1 - 99. Ví dụ: D5.5 delay 5.5s, D1.0 delay 1.0s \n" +
+                        " 2. Tốc độ - cú pháp: Fx trong đó x = 10 - 200. Ví dụ: F150: Tốc độ 150% \n" +
+                        "    Chú ý: Tốc độ nên cài khi chạy trong Teach Mode là F10-F60 \n" +
+                        " 3. Đổi trạng thái relay - có 4 relay - cú pháp: M01, M02, M03, M04 \n" +
+                        " 4. Bật súng sơn - cú pháp: M08 \n" +
+                        " 5. Tắt súng sơn - cú pháp: M09 \n" +
+                        " 6. Thay đổi trạng thái bàn sơn: M10 \n" +
+                        " Chú ý: cú pháp M phải viết ở dòng riêng")
 
     def speedMotor(self):
         valueSpeedMotor = self.uiWorking.verticalSlider_speedMotor.value()
-        self.uiWorking.label_speedMotor.setText("M"+str(valueSpeedMotor))
+        self.uiWorking.label_speedMotor.setText("F"+str(valueSpeedMotor))
         return valueSpeedMotor
 
     def speedSpray(self):
         valueSpeedSpray = self.uiWorking.verticalSlider_spray.value()
         self.uiWorking.value_speedSpray.setText("S"+str(valueSpeedSpray))
         return valueSpeedSpray
+    
+    def saveFile(self):
+        self.showStatus('===> Save file as .pnt')
+        self.uiWorking.textBrowser_showfile.append(run.turn_off_spray)
+        self.uiWorking.textBrowser_showfile.append(run.go_to_1st_point)  # command về vị trí zero
+        self.uiWorking.textBrowser_showfile.append(run.end_symbol)       # ghi ký tự nhận diện end file
+        retrieve_text = self.uiWorking.textBrowser_showfile.toPlainText()
+        try:
+            wFile.save_file(retrieve_text)
+            self.showStatus(wFile.saveFileStatus)
+            
+        except Exception as error:
+            self.showStatus('error: '+str(error))
+
 
     def chooseFile(self):
         self.showStatus("Open file.pnt")
@@ -1308,7 +1331,7 @@ class workingWindow:
                 positionCompleted = comWindow.workSerial.commandPositionCompleted()
                 if positionCompleted[0] == 1:
                     waiting = False
-                time.sleep(0.1)
+                main_window._threadTeachMode.msleep(100)
 
             main_window.window.showText_signal.emit("- goto Zero done")
         except Exception as e:
@@ -1347,7 +1370,7 @@ class workingWindow:
                 
                 # set lại các thông số motor, đưa giá trị current_position về 0
                 comWindow.workSerial.setZeroPositions()
-                time.sleep(0.1)
+                main_window._threadTeachMode.msleep(100)
                 for i in range(self.MAX_AXIS):
                     run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                     self.go_machine_axis_state = False
@@ -1359,11 +1382,11 @@ class workingWindow:
                             run.stop_motor()
                             self.go_machine_axis_state = True
                             break  # thoat khỏi vong lặp while
-                        time.sleep(0.1)
+                        main_window._threadTeachMode.msleep(100)
 
                 # sau khi chạy hết các động cơ về vị trí cảm biến
                 # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
-                time.sleep(0.5)
+                main_window._threadTeachMode.msleep(500)
                 run.send_to_execute_board(pulse_to_begin_position,100)
                 while True:
                     
@@ -1376,7 +1399,7 @@ class workingWindow:
                         comWindow.workSerial.commandCheckXYZAsensor()
                         break
 
-                    time.sleep(0.1)
+                    main_window._threadTeachMode.msleep(100)
                 self.go_machine_home = True # đã về home
 
             main_window.window.showText_signal.emit("- goto Home done")
@@ -1400,7 +1423,7 @@ class runMotor:
     def __init__(self):
         self.sum_xung_le = [0,0,0,0,0,0]
         self.pause_on = 0
-        self.pre_result_value = [0,0,0,0,0,0,0,0] # X,Y,Z,A,B,C,S,F
+        self.pre_result_value = [0,0,0,0,0,0,0,0] # X,Y,Z,A,B,C,D,F
         self.pre_points = [0,0,0,0,0,0]
         self.new_Fspeed = 0
         self.run_auto_mode = False          # trạng thái vào chế độ auto run
@@ -1470,7 +1493,7 @@ class runMotor:
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
                 
                     if self.executeDelay == True: # có lệnh delay
-                        main_window.window.showText_signal.emit("- Giá tri timer delay S: "+ str(self.delayTimer/10)+" s")
+                        main_window.window.showText_signal.emit("- Giá tri timer delay D: "+ str(self.delayTimer/10)+" s")
                         comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
                             excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
@@ -1635,9 +1658,9 @@ class runMotor:
 
 # tách giá trị tương ứng với từng phần tử trong file 
     def separate_string(self, string):
-        Range_char = ['X','Y','Z','A','B','C','S','F','\n']
+        Range_char = ['X','Y','Z','A','B','C','D','F','\n']
         # Giá trị tương ứng với các phần tử trong chuỗi string
-        value_char = {'X': '0', 'Y': '0', 'Z': '0','A': '0', 'B': '0', 'C': '0', 'S': '0', 'F': '0' }
+        value_char = {'X': '0', 'Y': '0', 'Z': '0','A': '0', 'B': '0', 'C': '0', 'D': '0', 'F': '0' }
         try:
             for i in range(len(Range_char)-1):
                 index = string.find(Range_char[i])
@@ -1658,7 +1681,7 @@ class runMotor:
                     value_char[Range_char[i]] = self.pre_result_value[i]
             
             result_value = [value_char['X'],value_char['Y'],value_char['Z'],value_char['A'],
-                            value_char['B'],value_char['C'],value_char['S'],value_char['F']]
+                            value_char['B'],value_char['C'],value_char['D'],value_char['F']]
 
             for i in range(len(self.pre_result_value)):
                 self.pre_result_value[i] = result_value[i]  
@@ -1762,10 +1785,10 @@ class runMotor:
             return Recognize_command
         Recognize_command = True
         RecognizeChar = ['0','1','2','3','4','5','6','7','8','9', 
-                         'X', 'Y', 'Z', 'A', 'B', 'C', 'S', 'F', '.', '-', '\n', '\0']
+                         'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'F', '.', '-', '\n', '\0']
         for char in StringArr:
             if char in RecognizeChar[0:]: 
-                if char == 'S': self.executeDelay = True    #kiểm tra dòng lệnh có S hay không
+                if char == 'D': self.executeDelay = True    #kiểm tra dòng lệnh có D hay không
                 pass
             else:
               Recognize_command = False

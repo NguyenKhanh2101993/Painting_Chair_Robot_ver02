@@ -83,6 +83,9 @@ void go_to_zero_position(void) {
 void set_zero_position(void) {
   command_motor.set_zero_position();
 }
+void set_zero_bc_position(void){
+  command_motor.set_zero_bc_position();
+}
 //================================================================
 // test vi trí 1
 void go_to_1_position(void) {
@@ -538,6 +541,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
               case ENABLE_HOME_MODBUS_ADDR:           go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
               case SET_ZERO_POSITION_ADDR:            set_zero_position(); break;    // set 0 tọa độ chương trình
+              case SET_ZERO_BC_POSITION_ADDR:          set_zero_bc_position(); break;
               case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
               case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
               case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;

@@ -114,13 +114,15 @@ border-radius: 5px
             <property name="font">
              <font>
               <family>Arial</family>
-              <pointsize>15</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>14</pointsize>
+              <weight>9</weight>
+              <italic>false</italic>
+              <bold>false</bold>
              </font>
             </property>
             <property name="styleSheet">
              <string notr="true">background-color: rgb(195, 195, 195);
+font: 75 14pt &quot;Arial&quot;;
 border: 3px solid  rgb(56, 56, 56);
 border-radius: 10px</string>
             </property>

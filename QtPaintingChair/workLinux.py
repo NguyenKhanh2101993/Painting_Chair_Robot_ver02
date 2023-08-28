@@ -71,11 +71,13 @@ class Ui_MainWindow(object):
         self.textBrowser_showfile = QtWidgets.QTextBrowser(self.frame_showtext)
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(15)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
         self.textBrowser_showfile.setFont(font)
         self.textBrowser_showfile.setStyleSheet("background-color: rgb(195, 195, 195);\n"
+"font: 75 14pt \"Arial\";\n"
 "border: 3px solid  rgb(56, 56, 56);\n"
 "border-radius: 10px")
         self.textBrowser_showfile.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)

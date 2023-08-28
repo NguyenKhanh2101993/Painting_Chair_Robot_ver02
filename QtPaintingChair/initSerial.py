@@ -36,6 +36,7 @@ class Read_Write_to_Serial:
         self.M2_CHANGE_STATE_MODBUS_ADDR = 20
         self.M3_CHANGE_STATE_MODBUS_ADDR = 21
         self.M4_CHANGE_STATE_MODBUS_ADDR = 22
+        self.SET_ZERO_BC_POSITION_ADDR = 23
 
         # write holding register
         self.DELAY_VALUE = 16
@@ -110,6 +111,9 @@ class Read_Write_to_Serial:
 
     def setZeroPositions(self):
         self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_POSITION_ADDR, output_value = self.CHOOSE)
+
+    def setZeroBCPositions(self):
+        self.master.execute(self.SLAVE_02, cst.WRITE_SINGLE_COIL, self.SET_ZERO_BC_POSITION_ADDR, output_value = self.CHOOSE)
 
     def sendMultipledata(self, data, startAddress):
         self.master.execute(self.SLAVE_02, cst.WRITE_MULTIPLE_REGISTERS, startAddress , output_value = data)

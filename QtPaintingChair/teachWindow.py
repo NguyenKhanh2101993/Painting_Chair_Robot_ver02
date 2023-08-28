@@ -475,7 +475,7 @@ class Ui_teachMode(object):
         self.pushButton_z1down.setFlat(False)
         self.pushButton_z1down.setObjectName("pushButton_z1down")
         self.pushButton_savePoint = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_savePoint.setGeometry(QtCore.QRect(330, 130, 261, 51))
+        self.pushButton_savePoint.setGeometry(QtCore.QRect(330, 90, 261, 81))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(12)
@@ -487,7 +487,7 @@ class Ui_teachMode(object):
         self.pushButton_savePoint.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.pushButton_savePoint.setAutoFillBackground(False)
         self.pushButton_savePoint.setStyleSheet("QPushButton{\n"
-"    background-color: rgb(77, 77, 77);\n"
+"    background-color: rgb(255, 85, 0);\n"
 "    color: rgb(255, 255, 255);\n"
 "    border: 3px solid rgb(255, 255, 255);\n"
 "    border-radius: 5px;\n"
@@ -625,7 +625,7 @@ class Ui_teachMode(object):
         self.pushButton_tableFw.setFlat(False)
         self.pushButton_tableFw.setObjectName("pushButton_tableFw")
         self.lineEdit_speed = QtWidgets.QLineEdit(self.frame_teachmode)
-        self.lineEdit_speed.setGeometry(QtCore.QRect(388, 210, 81, 51))
+        self.lineEdit_speed.setGeometry(QtCore.QRect(380, 190, 91, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(14)
@@ -634,7 +634,7 @@ class Ui_teachMode(object):
         self.lineEdit_speed.setFont(font)
         self.lineEdit_speed.setStyleSheet("QLineEdit{\n"
 "    background-color: rgb(236, 240, 241);\n"
-"    color: rgb(255, 255, 255);\n"
+"    color: rgb(39, 55, 70);\n"
 "    border: 2px solid rgb(255, 255, 255);\n"
 "    border-radius: 5px;\n"
 "    border-top-color: rgb(208, 208, 208);\n"
@@ -645,43 +645,15 @@ class Ui_teachMode(object):
 "}")
         self.lineEdit_speed.setObjectName("lineEdit_speed")
         self.label_46 = QtWidgets.QLabel(self.frame_teachmode)
-        self.label_46.setGeometry(QtCore.QRect(330, 210, 51, 51))
+        self.label_46.setGeometry(QtCore.QRect(330, 190, 41, 41))
         self.label_46.setStyleSheet("background-color: rgb(130, 130, 130);\n"
 "font: 75 14pt \"Arial\" bold;\n"
 "color: rgb(255, 255, 255);\n"
 "border: 1px solid rgb(255, 255, 255);\n"
 "border-radius: 5px")
         self.label_46.setObjectName("label_46")
-        self.pushButton_saveFile = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_saveFile.setGeometry(QtCore.QRect(330, 70, 261, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial 12")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setItalic(False)
-        font.setWeight(75)
-        self.pushButton_saveFile.setFont(font)
-        self.pushButton_saveFile.setMouseTracking(False)
-        self.pushButton_saveFile.setFocusPolicy(QtCore.Qt.StrongFocus)
-        self.pushButton_saveFile.setAutoFillBackground(False)
-        self.pushButton_saveFile.setStyleSheet("QPushButton{\n"
-"    background-color: rgb(77, 77, 77);\n"
-"    color: rgb(255, 255, 255);\n"
-"    border: 3px solid rgb(255, 255, 255);\n"
-"    border-radius: 5px;\n"
-"    border-top-color: rgb(208, 208, 208);\n"
-"}\n"
-"QPushButton:hover {\n"
-"    border: 3px solid rgb(255, 0, 0);\n"
-"    color: rgb(255, 0, 0);\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(163, 228, 215);\n"
-"}")
-        self.pushButton_saveFile.setFlat(False)
-        self.pushButton_saveFile.setObjectName("pushButton_saveFile")
         self.pushButton_coilM1 = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_coilM1.setGeometry(QtCore.QRect(40, 10, 101, 51))
+        self.pushButton_coilM1.setGeometry(QtCore.QRect(10, 10, 101, 51))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(9)
@@ -709,7 +681,7 @@ class Ui_teachMode(object):
         self.pushButton_coilM1.setFlat(False)
         self.pushButton_coilM1.setObjectName("pushButton_coilM1")
         self.pushButton_coilM2 = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_coilM2.setGeometry(QtCore.QRect(180, 10, 101, 51))
+        self.pushButton_coilM2.setGeometry(QtCore.QRect(120, 10, 101, 51))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(9)
@@ -737,7 +709,7 @@ class Ui_teachMode(object):
         self.pushButton_coilM2.setFlat(False)
         self.pushButton_coilM2.setObjectName("pushButton_coilM2")
         self.pushButton_coilM3 = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_coilM3.setGeometry(QtCore.QRect(310, 10, 101, 51))
+        self.pushButton_coilM3.setGeometry(QtCore.QRect(230, 10, 101, 51))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(9)
@@ -765,7 +737,7 @@ class Ui_teachMode(object):
         self.pushButton_coilM3.setFlat(False)
         self.pushButton_coilM3.setObjectName("pushButton_coilM3")
         self.pushButton_coilM4 = QtWidgets.QPushButton(self.frame_teachmode)
-        self.pushButton_coilM4.setGeometry(QtCore.QRect(440, 10, 101, 51))
+        self.pushButton_coilM4.setGeometry(QtCore.QRect(340, 10, 101, 51))
         font = QtGui.QFont()
         font.setFamily("Arial 12")
         font.setPointSize(9)
@@ -792,6 +764,62 @@ class Ui_teachMode(object):
 "}")
         self.pushButton_coilM4.setFlat(False)
         self.pushButton_coilM4.setObjectName("pushButton_coilM4")
+        self.pushButton_SetZero = QtWidgets.QPushButton(self.frame_teachmode)
+        self.pushButton_SetZero.setGeometry(QtCore.QRect(450, 10, 141, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial 12")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.pushButton_SetZero.setFont(font)
+        self.pushButton_SetZero.setMouseTracking(False)
+        self.pushButton_SetZero.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.pushButton_SetZero.setAutoFillBackground(False)
+        self.pushButton_SetZero.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(85, 170, 127);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border: 3px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 3px solid rgb(255, 0, 0);\n"
+"    color: rgb(255, 0, 0);\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(163, 228, 215);\n"
+"}")
+        self.pushButton_SetZero.setFlat(False)
+        self.pushButton_SetZero.setObjectName("pushButton_SetZero")
+        self.label_47 = QtWidgets.QLabel(self.frame_teachmode)
+        self.label_47.setGeometry(QtCore.QRect(330, 240, 41, 41))
+        self.label_47.setStyleSheet("background-color: rgb(130, 130, 130);\n"
+"font: 75 14pt \"Arial\" bold;\n"
+"color: rgb(255, 255, 255);\n"
+"border: 1px solid rgb(255, 255, 255);\n"
+"border-radius: 5px")
+        self.label_47.setObjectName("label_47")
+        self.lineEdit_delay = QtWidgets.QLineEdit(self.frame_teachmode)
+        self.lineEdit_delay.setGeometry(QtCore.QRect(380, 240, 91, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lineEdit_delay.setFont(font)
+        self.lineEdit_delay.setStyleSheet("QLineEdit{\n"
+"    background-color: rgb(236, 240, 241);\n"
+"    color: rgb(39, 55, 70);\n"
+"    border: 2px solid rgb(255, 255, 255);\n"
+"    border-radius: 5px;\n"
+"    border-top-color: rgb(208, 208, 208);\n"
+"}\n"
+"QLineEdit:hover {\n"
+"    border: 2px solid rgb(255, 0, 0);\n"
+"    color: rgb(39, 55, 70);\n"
+"}")
+        self.lineEdit_delay.setObjectName("lineEdit_delay")
 
         self.retranslateUi(teachMode)
         QtCore.QMetaObject.connectSlotsByName(teachMode)
@@ -824,12 +852,13 @@ class Ui_teachMode(object):
         self.pushButton_sprayOn.setText(_translate("teachMode", "SPRAY ON"))
         self.pushButton_tableRw.setText(_translate("teachMode", "TABLE RW"))
         self.pushButton_tableFw.setText(_translate("teachMode", "TABLE FW"))
-        self.label_46.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">F%</span></p></body></html>"))
-        self.pushButton_saveFile.setText(_translate("teachMode", "SAVE FILE"))
-        self.pushButton_coilM1.setText(_translate("teachMode", "COIL M1"))
-        self.pushButton_coilM2.setText(_translate("teachMode", "COIL M2"))
-        self.pushButton_coilM3.setText(_translate("teachMode", "COIL M3"))
-        self.pushButton_coilM4.setText(_translate("teachMode", "COIL M4"))
+        self.label_46.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">F</span></p></body></html>"))
+        self.pushButton_coilM1.setText(_translate("teachMode", "COIL M01"))
+        self.pushButton_coilM2.setText(_translate("teachMode", "COIL M02"))
+        self.pushButton_coilM3.setText(_translate("teachMode", "COIL M03"))
+        self.pushButton_coilM4.setText(_translate("teachMode", "COIL M04"))
+        self.pushButton_SetZero.setText(_translate("teachMode", " SET ZERO"))
+        self.label_47.setText(_translate("teachMode", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">D</span></p></body></html>"))
 
 
 if __name__ == "__main__":

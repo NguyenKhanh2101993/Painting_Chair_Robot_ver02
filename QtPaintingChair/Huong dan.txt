@@ -1,0 +1,8 @@
+1. Delay - cú pháp: Dx trong đó x = 0.1 - 99. Ví dụ: D5.5 delay 5.5s, D1.0 delay 1.0s
+2. Tốc độ - cú pháp: Fx trong đó x = 10 - 200. Ví dụ: F150: Tốc độ 150%
+3. Đổi trạng thái relay - có 4 relay - cú pháp: M01, M02, M03, M04
+4. Bật súng sơn - cú pháp: M08
+5. Tắt súng sơn - cú pháp: M09 
+6. Thay đổi trạng thái bàn sơn: M10
+Chú ý: cú pháp M phải viết ở dòng riêng
+
