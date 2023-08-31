@@ -400,7 +400,7 @@ class teachingWindow:
         self.teachWin.show()
 
     def closeTeachWindow(self):
-        if comWindow.connectSignal == True:
+        if comWindow.connectSignal == True and main_window.go_machine_home == True:
             self.monitor_off = True
         else:
             self.monitor_off = True
@@ -679,24 +679,24 @@ class workingTeachMode():
                 # gửi command quay chiều thuận trục được chọn
                 if self.chooseAxis == self.xAXIS:
                     
-                    if (self.button_state > self.pre_button_state):  new_pos_X = -1200
+                    if (self.button_state > self.pre_button_state):  new_pos_X = 0#-1200
                     if (self.button_state < self.pre_button_state):  new_pos_X = 1200
                     pulse_teach = int((new_pos_X - main_window.currentPos[self.xAXIS])/main_window.gearRatio[self.xAXIS])
-                    if  main_window.currentPos[self.xAXIS] < -1200 or  main_window.currentPos[self.xAXIS] > 1200: 
+                    if  main_window.currentPos[self.xAXIS] < 0 or  main_window.currentPos[self.xAXIS] > 1200: 
                         self.button_state = self.pre_button_state
         
                 if self.chooseAxis == self.yAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_Y = -1600
+                    if (self.button_state > self.pre_button_state):  new_pos_Y = 0#-1600
                     if (self.button_state < self.pre_button_state):  new_pos_Y = 1600
                     pulse_teach = int((new_pos_Y - main_window.currentPos[ self.yAXIS])/main_window.gearRatio[self.yAXIS])
-                    if  main_window.currentPos[self.yAXIS] < -1600 or  main_window.currentPos[ self.yAXIS] > 1600: 
+                    if  main_window.currentPos[self.yAXIS] < 0 or  main_window.currentPos[ self.yAXIS] > 1600: 
                         self.button_state = self.pre_button_state
 
                 if self.chooseAxis == self.zAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_Z = -1000
+                    if (self.button_state > self.pre_button_state):  new_pos_Z = 0#-1000
                     if (self.button_state < self.pre_button_state):  new_pos_Z = 1000
                     pulse_teach = int((new_pos_Z - main_window.currentPos[self.zAXIS])/main_window.gearRatio[self.zAXIS])
-                    if  main_window.currentPos[self.zAXIS] < -1000 or  main_window.currentPos[self.zAXIS] > 1000: 
+                    if  main_window.currentPos[self.zAXIS] < 0 or  main_window.currentPos[self.zAXIS] > 1000: 
                         self.button_state = self.pre_button_state
 
                 if self.chooseAxis == self.aAXIS:
@@ -810,7 +810,7 @@ class monitorTeachModeThread(QObject):
     def run(self):
         main_window.window.showText_signal.emit("Thread: teachMode/gotoZero/gotoHome")
         while True:
-            if teachWindow.monitor_off == False:
+            if teachWindow.monitor_off == False and main_window.go_machine_home == True:
                 teach.monitorTeachMode()
             if main_window.gotoZeroFlag == True:
                 main_window.gotoZeroPosition() 
@@ -1347,6 +1347,32 @@ class workingWindow:
         else:
             self.showStatus("===> Open COM port first!!! ")
 
+    def distanceGotoHome(self):
+        result = []
+        xDistance = -1300
+        yDistance = -1700
+        zDistance = -1100
+        aDistance = -90
+        pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
+        pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
+        pulse_zDistance = zDistance/main_window.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
+        pulse_aDistance = aDistance/main_window.gearRatio[teach.aAXIS]; result.append(int(pulse_aDistance))
+
+        return result
+    
+    def distanceGotoFirstPoint(self):
+        result = []
+        xDistance = 40
+        yDistance = 40
+        zDistance = 10
+        aDistance = 5
+        pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
+        pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
+        pulse_zDistance = zDistance/main_window.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
+        pulse_aDistance = aDistance/main_window.gearRatio[teach.aAXIS]; result.append(int(pulse_aDistance))
+
+        return result
+
     def gotoMachinePosition(self):
         main_window.window.showText_signal.emit("Sent command: Go to Home Position")
        
@@ -1354,20 +1380,21 @@ class workingWindow:
             if self.go_machine_home == False:
               
                 comWindow.workSerial.commandCheckXYZAsensor()
-                
-                pulse_to_machine_axis_X = [-36000, 0, 0, 0, 0, 0]
-                pulse_to_machine_axis_Y = [0, -70000, 0, 0, 0, 0]
-                pulse_to_machine_axis_Z = [0, 0, -36000, 0, 0, 0]
-                pulse_to_machine_axis_A = [0, 0, 0, -32000, 0, 0]
+                maxDistance = self.distanceGotoHome()
+                gotoFirstDistance = self.distanceGotoFirstPoint()
+
+                pulse_to_machine_axis_X = [maxDistance[0], 0, 0, 0, 0, 0]
+                pulse_to_machine_axis_Y = [0, maxDistance[1], 0, 0, 0, 0]
+                pulse_to_machine_axis_Z = [0, 0, maxDistance[2], 0, 0, 0]
+                pulse_to_machine_axis_A = [0, 0, 0, maxDistance[3], 0, 0]
                 pulse_to_machine_axis_B = [0, 0, 0, 0, 0, 0]
                 pulse_to_machine_axis_C = [0, 0, 0, 0, 0, 0]
 
                 pulse_to_machine_axis = [pulse_to_machine_axis_X, pulse_to_machine_axis_Y, pulse_to_machine_axis_Z, 
                                             pulse_to_machine_axis_A, pulse_to_machine_axis_B, pulse_to_machine_axis_C ]
-                pulse_to_begin_position = [1600, 1600, 1600, 1000, 0, 0]
+                pulse_to_begin_position = [gotoFirstDistance[0], gotoFirstDistance[1], gotoFirstDistance[2], gotoFirstDistance[3], 0, 0]
                 speed_axis = [30,30,30,10,10,10]
 
-                
                 # set lại các thông số motor, đưa giá trị current_position về 0
                 comWindow.workSerial.setZeroPositions()
                 main_window._threadTeachMode.msleep(100)
@@ -1454,7 +1481,6 @@ class runMotor:
         # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
         for i in range(main_window.MAX_AXIS):
             if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
-            #if round(main_window.currentPos[i],3) == 0:
                 pass
             else:
                 main_window.disableMenuButton(False)
@@ -1731,8 +1757,7 @@ class runMotor:
             # trường hợp không chạy auto mode
             if self.run_auto_mode == False:
                 speed_slaves = main_window.callMotorSpeed()
-                if speed_slaves >= 70: speed_slaves = 70
-                
+                if speed_slaves >= 100: speed_slaves = 100
             else: 
                 speed_slaves = 10
 
