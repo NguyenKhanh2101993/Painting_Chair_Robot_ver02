@@ -680,21 +680,21 @@ class workingTeachMode():
                 if self.chooseAxis == self.xAXIS:
                     
                     if (self.button_state > self.pre_button_state):  new_pos_X = 0#-1200
-                    if (self.button_state < self.pre_button_state):  new_pos_X = 1200
+                    if (self.button_state < self.pre_button_state):  new_pos_X = 1000
                     pulse_teach = int((new_pos_X - main_window.currentPos[self.xAXIS])/main_window.gearRatio[self.xAXIS])
                     if  main_window.currentPos[self.xAXIS] < 0 or  main_window.currentPos[self.xAXIS] > 1200: 
                         self.button_state = self.pre_button_state
         
                 if self.chooseAxis == self.yAXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_Y = 0#-1600
-                    if (self.button_state < self.pre_button_state):  new_pos_Y = 1600
+                    if (self.button_state < self.pre_button_state):  new_pos_Y = 1000
                     pulse_teach = int((new_pos_Y - main_window.currentPos[ self.yAXIS])/main_window.gearRatio[self.yAXIS])
                     if  main_window.currentPos[self.yAXIS] < 0 or  main_window.currentPos[ self.yAXIS] > 1600: 
                         self.button_state = self.pre_button_state
 
                 if self.chooseAxis == self.zAXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_Z = 0#-1000
-                    if (self.button_state < self.pre_button_state):  new_pos_Z = 1000
+                    if (self.button_state < self.pre_button_state):  new_pos_Z = 520
                     pulse_teach = int((new_pos_Z - main_window.currentPos[self.zAXIS])/main_window.gearRatio[self.zAXIS])
                     if  main_window.currentPos[self.zAXIS] < 0 or  main_window.currentPos[self.zAXIS] > 1000: 
                         self.button_state = self.pre_button_state
