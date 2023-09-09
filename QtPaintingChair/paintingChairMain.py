@@ -1349,9 +1349,9 @@ class workingWindow:
 
     def distanceGotoHome(self):
         result = []
-        xDistance = -1300
-        yDistance = -1700
-        zDistance = -1100
+        xDistance = -1100
+        yDistance = -1100
+        zDistance = -550
         aDistance = -90
         pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
         pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
@@ -1362,10 +1362,10 @@ class workingWindow:
     
     def distanceGotoFirstPoint(self):
         result = []
-        xDistance = 40
-        yDistance = 40
+        xDistance = 30
+        yDistance = 30
         zDistance = 10
-        aDistance = 5
+        aDistance = 8
         pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
         pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
         pulse_zDistance = zDistance/main_window.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
