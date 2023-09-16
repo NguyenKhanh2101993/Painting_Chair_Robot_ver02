@@ -33,11 +33,13 @@ class workingFile:
      
 
     def save_file(self, content):
-        self.savefilePath = myfile.getSaveFileName(caption = 'Save file', directory =  '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
-        if self.savefilePath[0] != '':
-            self.saveFileDirectory = self.savefilePath[0]
+        self.savefilePath, _ = myfile.getSaveFileName(caption = 'Save file', directory =  '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
+        if not self.savefilePath:
+            return
+        else:
+            self.saveFileDirectory = self.savefilePath
         try:
-            with open(self.savefilePath[0], 'w+') as f:
+            with open(self.savefilePath, 'w+') as f:
                 f.write(content)  # retrieve_text phải là các ký tự không có dấu.
                 f.close()
 
