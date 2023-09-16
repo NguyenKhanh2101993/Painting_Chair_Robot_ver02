@@ -1141,9 +1141,9 @@ class workingWindow:
             self.uiWorking.textBrowser_showfile.setText(content)
 
         except Exception as error: 
-            QtWidgets.QMessageBox.warning(self, 'Error', str(error))
-            #self.uiWorking.label_directory.setText("- no file loaded")
-            #self.showStatus("- open file error: "+ str(error))
+            #QtWidgets.QMessageBox.warning(self, 'Error', str(error))
+            self.uiWorking.label_directory.setText("- no file loaded")
+            self.showStatus("- open file error: "+ str(error))
             return
 
     def chooseComPort(self):
