@@ -701,9 +701,9 @@ class workingTeachMode():
 
                 if self.chooseAxis == self.aAXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_A = 0 #-180
-                    if (self.button_state < self.pre_button_state):  new_pos_A = 90 #180
+                    if (self.button_state < self.pre_button_state):  new_pos_A = 80 #180
                     pulse_teach = int((new_pos_A -  main_window.currentPos[self.aAXIS])/main_window.gearRatio[self.aAXIS])
-                    if main_window.currentPos[self.aAXIS] < 0 or main_window.currentPos[self.aAXIS] > 90: 
+                    if main_window.currentPos[self.aAXIS] < 0 or main_window.currentPos[self.aAXIS] > 80: 
                         self.button_state = self.pre_button_state
 
                 if (self.chooseAxis == self.bAXIS): 
@@ -776,7 +776,7 @@ class workingTeachMode():
                         pulse_A_teach = int((new_pos_A - main_window.currentPos[self.aAXIS])/main_window.gearRatio[self.aAXIS])
                         pulse_Y_teach = int((new_pos_Y - main_window.currentPos[self.yAXIS])/main_window.gearRatio[self.yAXIS])
                         pulse_Z_teach = int((new_pos_Z - main_window.currentPos[self.zAXIS])/main_window.gearRatio[self.zAXIS])
-                        if new_pos_A >= 90: self.pulse_teach_packet = [0,0,pulse_Z_teach,0,0,0]
+                        if new_pos_A >= 80: self.pulse_teach_packet = [0,0,pulse_Z_teach,0,0,0]
                         else:               self.pulse_teach_packet = [0,pulse_Y_teach,0,pulse_A_teach,0,0]
                     
                     if self.button_state != self.pre_button_state:
