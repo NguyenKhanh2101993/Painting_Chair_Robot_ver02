@@ -1134,10 +1134,10 @@ class workingWindow:
     def chooseFile(self):
         self.showStatus("Open file.pnt")
         try:
-            pathFile = wFile.show_initial_directory()
-            self.showStatus("- pathFile: "+ pathFile)
-            self.uiWorking.label_directory.setText(pathFile)
-            content = wFile.get_file(pathFile)
+            self.pathFile = wFile.show_initial_directory()
+            self.showStatus("- pathFile: "+ self.pathFile)
+            self.uiWorking.label_directory.setText(self.pathFile)
+            content = wFile.get_file(self.pathFile)
             self.uiWorking.textBrowser_showfile.setText(content)
 
         except Exception as error: 
@@ -1349,9 +1349,9 @@ class workingWindow:
 
     def distanceGotoHome(self):
         result = []
-        xDistance = -1100
-        yDistance = -1100
-        zDistance = -550
+        xDistance = -1200
+        yDistance = -1200
+        zDistance = -600
         aDistance = -90
         pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
         pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))

@@ -14,11 +14,12 @@ class workingFile:
         self.saveFileDirectory = ''
         self.saveFileStatus = ''
         self._myfile = QWidget()
+        #self.fname = ["",""]
 
     def show_initial_directory(self):
-        fname = myfile.getOpenFileName(caption = 'Open file', directory = '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
-        if fname[0] != '':
-            self.fileDirectory = fname[0]
+        self.fname = myfile.getOpenFileName(caption = 'Open file', directory = '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
+        if self.fname[0] != '':
+            self.fileDirectory = self.fname[0]
         return self.fileDirectory
    
     # lấy nội dung file hiện thị lên brower text lable
@@ -29,11 +30,11 @@ class workingFile:
         return text
 
     def save_file(self, content):
-        savefilePath = myfile.getSaveFileName(caption = 'Save file', directory =  '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
-        if savefilePath[0] != '':
-            self.saveFileDirectory = savefilePath[0]
+        self.savefilePath = myfile.getSaveFileName(caption = 'Save file', directory =  '/home/orangepi/filePNT',filter = 'pnt files (*.pnt)')
+        if self.savefilePath[0] != '':
+            self.saveFileDirectory = self.savefilePath[0]
         try:
-            with open(savefilePath[0], 'w+') as f:
+            with open(self.savefilePath[0], 'w+') as f:
                 f.write(content)  # retrieve_text phải là các ký tự không có dấu.
                 f.close()
 
