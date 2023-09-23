@@ -810,7 +810,7 @@ class monitorTeachModeThread(QObject):
     def run(self):
         main_window.window.showText_signal.emit("Thread: teachMode/gotoZero/gotoHome")
         while True:
-            if teachWindow.monitor_off == False and main_window.go_machine_home == True:
+            if teachWindow.monitor_off == False:# and main_window.go_machine_home == True:
                 teach.monitorTeachMode()
             if main_window.gotoZeroFlag == True:
                 main_window.gotoZeroPosition() 
