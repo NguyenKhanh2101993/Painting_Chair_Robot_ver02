@@ -58,7 +58,7 @@ class checkComWindow():
         self.uic.comboBox_comPort.clear()
         self.uic.comboBox_baudRate.clear()
         self.uic.comboBox_comPort.addItems(comports)  
-        self.uic.comboBox_baudRate.addItems(["9600", "115200"])
+        self.uic.comboBox_baudRate.addItems(["115200","9600"])
 
     def choose_comports(self):
         com = self.uic.comboBox_comPort.currentText()
@@ -666,8 +666,9 @@ class workingTeachMode():
     def monitorTeachMode(self): 
         try:
             self.chooseAxis = self.no_choise_axis
-            new_pos_X = 0; new_pos_Y = 0; new_pos_A = 0
-            new_pos_B = 0; new_pos_C = 0; new_pos_Z = 0
+            new_pos_X = 0; new_pos_Y = 0; new_pos_A = 0  # đơn vị xung
+            new_pos_B = 0; new_pos_C = 0; new_pos_Z = 0  # đơn vị xung
+
             
             while comWindow.connectSignal == True:
                 self.pulse_teach_packet = [0,0,0,0,0,0]
@@ -679,49 +680,39 @@ class workingTeachMode():
                 # gửi command quay chiều thuận trục được chọn
                 if self.chooseAxis == self.xAXIS:
                     
-                    if (self.button_state > self.pre_button_state):  new_pos_X = 0#-1200
-                    if (self.button_state < self.pre_button_state):  new_pos_X = 1000
-                    pulse_teach = int((new_pos_X - main_window.currentPos[self.xAXIS])/main_window.gearRatio[self.xAXIS])
-                    if  main_window.currentPos[self.xAXIS] <= 0 or  main_window.currentPos[self.xAXIS] >= 1200: 
-                        self.button_state = self.pre_button_state
-        
+                    if (self.button_state > self.pre_button_state):  new_pos_X = 0
+                    if (self.button_state < self.pre_button_state):  new_pos_X = int(1000/main_window.gearRatio[self.xAXIS])
+                    pulse_teach = new_pos_X - main_window.currentPulse[self.xAXIS]
+                         
                 if self.chooseAxis == self.yAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_Y = 0#-1600
-                    if (self.button_state < self.pre_button_state):  new_pos_Y = 1000
-                    pulse_teach = int((new_pos_Y - main_window.currentPos[ self.yAXIS])/main_window.gearRatio[self.yAXIS])
-                    if  main_window.currentPos[self.yAXIS] <= 0 or  main_window.currentPos[ self.yAXIS] >= 1600: 
-                        self.button_state = self.pre_button_state
+                    if (self.button_state > self.pre_button_state):  new_pos_Y = 0
+                    if (self.button_state < self.pre_button_state):  new_pos_Y = int(1000/main_window.gearRatio[self.yAXIS])
+                    pulse_teach = new_pos_Y - main_window.currentPulse[self.yAXIS]
 
                 if self.chooseAxis == self.zAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_Z = 0#-1000
-                    if (self.button_state < self.pre_button_state):  new_pos_Z = 520
-                    pulse_teach = int((new_pos_Z - main_window.currentPos[self.zAXIS])/main_window.gearRatio[self.zAXIS])
-                    if  main_window.currentPos[self.zAXIS] <= 0 or  main_window.currentPos[self.zAXIS] >= 1000: 
-                        self.button_state = self.pre_button_state
+                    if (self.button_state > self.pre_button_state):  new_pos_Z = 0
+                    if (self.button_state < self.pre_button_state):  new_pos_Z = int(520/main_window.gearRatio[self.zAXIS])
+                    pulse_teach = new_pos_Z - main_window.currentPulse[self.zAXIS]
 
                 if self.chooseAxis == self.aAXIS:
-                    if (self.button_state > self.pre_button_state):  new_pos_A = 0 #-180
-                    if (self.button_state < self.pre_button_state):  new_pos_A = 80 #180
-                    pulse_teach = int((new_pos_A -  main_window.currentPos[self.aAXIS])/main_window.gearRatio[self.aAXIS])
-                    if main_window.currentPos[self.aAXIS] <= 0 or main_window.currentPos[self.aAXIS] >= 80: 
-                        self.button_state = self.pre_button_state
+                    if (self.button_state > self.pre_button_state):  new_pos_A = 0 
+                    if (self.button_state < self.pre_button_state):  new_pos_A = int(80/main_window.gearRatio[self.aAXIS])
+                    pulse_teach = new_pos_A -  main_window.currentPulse[self.aAXIS]
 
                 if (self.chooseAxis == self.bAXIS): 
-                    if (self.button_state > self.pre_button_state):  new_pos_B = -180
-                    if (self.button_state < self.pre_button_state):  new_pos_B = 180
-                    pulse_teach = int((new_pos_B - main_window.currentPos[self.bAXIS])/main_window.gearRatio[self.bAXIS])
-                    if main_window.currentPos[self.bAXIS] <= -180 or main_window.currentPos[self.bAXIS] >= 180: 
-                        self.button_state = self.pre_button_state
+                    if (self.button_state > self.pre_button_state):  new_pos_B = int(-180/main_window.gearRatio[self.bAXIS])
+                    if (self.button_state < self.pre_button_state):  new_pos_B = int(180/main_window.gearRatio[self.bAXIS])
+                    pulse_teach = new_pos_B - main_window.currentPulse[self.bAXIS]
 
                 if (self.chooseAxis == self.cAXIS):
-                    if (self.button_state > self.pre_button_state):  new_pos_C = -1000
-                    if (self.button_state < self.pre_button_state):  new_pos_C = 1000
-                    pulse_teach = int((new_pos_C - main_window.currentPos[self.cAXIS])/main_window.gearRatio[self.cAXIS])
-                    if main_window.currentPos[self.cAXIS] <= -1000 or main_window.currentPos[self.cAXIS] >= 1000: 
-                        self.button_state = self.pre_button_state
+                    if (self.button_state > self.pre_button_state):  new_pos_C = int(-1000/main_window.gearRatio[self.cAXIS])
+                    if (self.button_state < self.pre_button_state):  new_pos_C = int(1000/main_window.gearRatio[self.cAXIS])
+                    pulse_teach = new_pos_C - main_window.currentPulse[self.cAXIS]
 
+                if  pulse_teach == 0: self.button_state = self.pre_button_state
+                        
                 if self.button_state != self.pre_button_state:
-                    self.pulse_teach_packet[self.chooseAxis] = pulse_teach   
+                    self.pulse_teach_packet[self.chooseAxis] = pulse_teach   # khoảng xung cần chạy
                     run.send_to_execute_board(self.pulse_teach_packet,0)
                     state_runing = True
         
@@ -950,6 +941,7 @@ class workingWindow:
         self.defineSliders()
 
         self.currentPos = [0,0,0,0,0,0,0,0]
+        self.currentPulse = [0,0,0,0,0,0]
         self.gearRatio = []
         self.MAX_AXIS = 6
         self.spray_axis = 550
@@ -1245,14 +1237,18 @@ class workingWindow:
         self.showStatus(str(self.gearRatio))
 
     def showCurrentPositions(self):
-        position = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
+        position, pulse = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
         if position != None:
-            for i in range(self.MAX_AXIS + 2):
+            for i in range(self.MAX_AXIS + 2): # position có 8 phần tử
                 self.currentPos[i] = position[i]
+            for i in range(self.MAX_AXIS): # pulse có 6 phần tử
+                self.currentPulse[i] = pulse[i]
         else:
-            position = []
+            position = []; pulse = []
             for i in range(self.MAX_AXIS + 2):
                 position.append(self.currentPos[i])
+            for i in range(self.MAX_AXIS): 
+                pulse.append(self.currentPulse[i])
             
             main_window.window.showText_signal.emit("===> read current position failed")
  
@@ -1286,7 +1282,7 @@ class workingWindow:
             
             resultCurrentPos = self.calculateCurrentPos(current_pulse, gearRatio)
 
-            return resultCurrentPos
+            return resultCurrentPos, current_pulse
 
 
         except Exception as error:
@@ -1481,7 +1477,7 @@ class runMotor:
     def activate_run_mode(self):
         # điều kiện để chạy chương trình là vị trí ban đầu của các trục là 0 và đã set home xong.
         for i in range(main_window.MAX_AXIS):
-            if round(main_window.currentPos[i],3) == 0 and main_window.go_machine_home == True:
+            if main_window.currentPulse[i] == 0 and main_window.go_machine_home == True:
                 pass
             else:
                 main_window.disableMenuButton(False)
