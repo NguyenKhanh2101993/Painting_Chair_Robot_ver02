@@ -90,14 +90,14 @@ void set_zero_bc_position(void){
 // test vi trí 1
 void go_to_1_position(void) {
   if (command_motor.movingDone()){
-    Serial.println("Chay dong co position 1");
+    //Serial.println("Chay dong co position 1");
     command_motor.moving(0,0,0,32000,0,0,200);
   }
 }
 // test vi trí 2
 void go_to_2_position(void) {
   if (command_motor.movingDone()){
-    Serial.println("Chay dong co position 2");
+    //Serial.println("Chay dong co position 2");
     command_motor.moving(32000,32000,32000,-32000,0,0,200);
   }
 }
@@ -434,7 +434,7 @@ void disable_MPG_mode(void){
 }
 //============================================================================================
 void setup() {   
-  Serial.begin(115200);
+  //Serial.begin(115200);
   MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); 
   function_modbus_slave();
   for (int i = 0; i < coilY_size; i++) { pinMode(coilY[i],OUTPUT); digitalWrite(coilY[i],LOW);}

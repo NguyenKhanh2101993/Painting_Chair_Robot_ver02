@@ -682,42 +682,42 @@ class workingTeachMode():
                     if (self.button_state > self.pre_button_state):  new_pos_X = 0#-1200
                     if (self.button_state < self.pre_button_state):  new_pos_X = 1000
                     pulse_teach = int((new_pos_X - main_window.currentPos[self.xAXIS])/main_window.gearRatio[self.xAXIS])
-                    if  main_window.currentPos[self.xAXIS] < 0 or  main_window.currentPos[self.xAXIS] > 1200: 
+                    if  main_window.currentPos[self.xAXIS] <= 0 or  main_window.currentPos[self.xAXIS] >= 1200: 
                         self.button_state = self.pre_button_state
         
                 if self.chooseAxis == self.yAXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_Y = 0#-1600
                     if (self.button_state < self.pre_button_state):  new_pos_Y = 1000
                     pulse_teach = int((new_pos_Y - main_window.currentPos[ self.yAXIS])/main_window.gearRatio[self.yAXIS])
-                    if  main_window.currentPos[self.yAXIS] < 0 or  main_window.currentPos[ self.yAXIS] > 1600: 
+                    if  main_window.currentPos[self.yAXIS] <= 0 or  main_window.currentPos[ self.yAXIS] >= 1600: 
                         self.button_state = self.pre_button_state
 
                 if self.chooseAxis == self.zAXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_Z = 0#-1000
                     if (self.button_state < self.pre_button_state):  new_pos_Z = 520
                     pulse_teach = int((new_pos_Z - main_window.currentPos[self.zAXIS])/main_window.gearRatio[self.zAXIS])
-                    if  main_window.currentPos[self.zAXIS] < 0 or  main_window.currentPos[self.zAXIS] > 1000: 
+                    if  main_window.currentPos[self.zAXIS] <= 0 or  main_window.currentPos[self.zAXIS] >= 1000: 
                         self.button_state = self.pre_button_state
 
                 if self.chooseAxis == self.aAXIS:
                     if (self.button_state > self.pre_button_state):  new_pos_A = 0 #-180
                     if (self.button_state < self.pre_button_state):  new_pos_A = 80 #180
                     pulse_teach = int((new_pos_A -  main_window.currentPos[self.aAXIS])/main_window.gearRatio[self.aAXIS])
-                    if main_window.currentPos[self.aAXIS] < 0 or main_window.currentPos[self.aAXIS] > 80: 
+                    if main_window.currentPos[self.aAXIS] <= 0 or main_window.currentPos[self.aAXIS] >= 80: 
                         self.button_state = self.pre_button_state
 
                 if (self.chooseAxis == self.bAXIS): 
                     if (self.button_state > self.pre_button_state):  new_pos_B = -180
                     if (self.button_state < self.pre_button_state):  new_pos_B = 180
                     pulse_teach = int((new_pos_B - main_window.currentPos[self.bAXIS])/main_window.gearRatio[self.bAXIS])
-                    if main_window.currentPos[self.bAXIS] < -180 or main_window.currentPos[self.bAXIS] > 180: 
+                    if main_window.currentPos[self.bAXIS] <= -180 or main_window.currentPos[self.bAXIS] >= 180: 
                         self.button_state = self.pre_button_state
 
                 if (self.chooseAxis == self.cAXIS):
                     if (self.button_state > self.pre_button_state):  new_pos_C = -1000
                     if (self.button_state < self.pre_button_state):  new_pos_C = 1000
                     pulse_teach = int((new_pos_C - main_window.currentPos[self.cAXIS])/main_window.gearRatio[self.cAXIS])
-                    if main_window.currentPos[self.cAXIS] < -1000 or main_window.currentPos[self.cAXIS] > 1000: 
+                    if main_window.currentPos[self.cAXIS] <= -1000 or main_window.currentPos[self.cAXIS] >= 1000: 
                         self.button_state = self.pre_button_state
 
                 if self.button_state != self.pre_button_state:
@@ -732,7 +732,7 @@ class workingTeachMode():
                         run.stop_motor()
                         state_runing = False
                         break  # thoat khỏi vong lặp while
-                    main_window._threadTeachMode.msleep(100)
+                    main_window._threadTeachMode.msleep(5)
 
                 if teachWindow.monitor_off == True:
                     break
@@ -740,7 +740,7 @@ class workingTeachMode():
                 if main_window.coilXY.errorSensorSignal == True:
                     main_window.go_machine_home = False
                     break
-                main_window._threadTeachMode.msleep(100)
+                main_window._threadTeachMode.msleep(5)
             
         except Exception as e:
             main_window.window.showText_signal.emit("- teaching mode warning: "+ str(e))
@@ -789,13 +789,13 @@ class workingTeachMode():
                             run.stop_motor()
                             running = False
                             break  # thoat khỏi vong lặp while
-                        main_window._threadTeachMode.msleep(100)
+                        main_window._threadTeachMode.msleep(5)
                     
                     # nếu disable teach mode thì thoát khỏi 
                     if teachWindow.monitor_off == True or self.chooseAxis != self.zAXIS:
                         break
 
-                    main_window._threadTeachMode.msleep(100)
+                    main_window._threadTeachMode.msleep(5)
             else: pass
 #================================================================================================
 # Thread trong monitor teach mode/goto zero/ goto Home
@@ -1332,7 +1332,7 @@ class workingWindow:
                 positionCompleted = comWindow.workSerial.commandPositionCompleted()
                 if positionCompleted[0] == 1:
                     waiting = False
-                main_window._threadTeachMode.msleep(100)
+                main_window._threadTeachMode.msleep(50)
 
             main_window.window.showText_signal.emit("- goto Zero done")
         except Exception as e:
@@ -1410,7 +1410,7 @@ class workingWindow:
                             run.stop_motor()
                             self.go_machine_axis_state = True
                             break  # thoat khỏi vong lặp while
-                        main_window._threadTeachMode.msleep(100)
+                        main_window._threadTeachMode.msleep(5)
 
                 # sau khi chạy hết các động cơ về vị trí cảm biến
                 # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
@@ -1427,7 +1427,7 @@ class workingWindow:
                         comWindow.workSerial.commandCheckXYZAsensor()
                         break
 
-                    main_window._threadTeachMode.msleep(100)
+                    main_window._threadTeachMode.msleep(5)
                 self.go_machine_home = True # đã về home
 
             main_window.window.showText_signal.emit("- goto Home done")
