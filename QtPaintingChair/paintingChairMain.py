@@ -668,7 +668,7 @@ class workingTeachMode():
             self.chooseAxis = self.no_choise_axis
             new_pos_X = 0; new_pos_Y = 0; new_pos_A = 0  # đơn vị xung
             new_pos_B = 0; new_pos_C = 0; new_pos_Z = 0  # đơn vị xung
-
+            pulse_teach = 0
             
             while comWindow.connectSignal == True:
                 self.pulse_teach_packet = [0,0,0,0,0,0]
@@ -1089,15 +1089,17 @@ class workingWindow:
         for i in range(len(self.controlButtonName)):
             self.controlButtonName[i].setDisabled(state)
     def showAboutMachine(self):
+        self.showStatus('----------------------------------------------------')
         self.showStatus('==> Hướng dẫn sử dụng lệnh máy:')
-        self.showStatus(" 1. Delay - cú pháp: Dx trong đó x = 0.1 - 99. Ví dụ: D5.5 delay 5.5s, D1.0 delay 1.0s \n" +
-                        " 2. Tốc độ - cú pháp: Fx trong đó x = 10 - 200. Ví dụ: F150: Tốc độ 150% \n" +
+        self.showStatus(" ->1. Delay - cú pháp: Dx trong đó x = 0.1 - 99. Ví dụ: D5.5 delay 5.5s, D1.0 delay 1.0s \n" +
+                        " ->2. Tốc độ - cú pháp: Fx trong đó x = 10 - 200. Ví dụ: F150: Tốc độ 150% \n" +
                         "    Chú ý: Tốc độ nên cài khi chạy trong Teach Mode là F10-F60 \n" +
-                        " 3. Đổi trạng thái relay - có 4 relay - cú pháp: M01, M02, M03, M04 \n" +
-                        " 4. Bật súng sơn - cú pháp: M08 \n" +
-                        " 5. Tắt súng sơn - cú pháp: M09 \n" +
-                        " 6. Thay đổi trạng thái bàn sơn: M10 \n" +
+                        " ->3. Đổi trạng thái relay - có 4 relay - cú pháp: M01, M02, M03, M04 \n" +
+                        " ->4. Bật súng sơn - cú pháp: M08 \n" +
+                        " ->5. Tắt súng sơn - cú pháp: M09 \n" +
+                        " ->6. Thay đổi trạng thái bàn sơn: M10 \n" +
                         " Chú ý: cú pháp M phải viết ở dòng riêng")
+        self.showStatus('----------------------------------------------------')
 
     def speedMotor(self):
         valueSpeedMotor = self.uiWorking.verticalSlider_speedMotor.value()
@@ -1627,8 +1629,11 @@ class runMotor:
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
 
-            if point_done[0] == 1: # slave đã chạy xong hết block
+            if point_done[0] == 1 or self.e_stop == True: # slave đã chạy xong hết block
                 self.run_block_done = True
+                break
+
+            if self.pause_on == 1 and self.e_stop == True:
                 break
 
             if self.pause_on == 1: # dừng motor
@@ -1646,7 +1651,10 @@ class runMotor:
         while True:
             point_done = comWindow.workSerial.commandPositionCompleted()
 
-            if point_done[0] == 1: 
+            if point_done[0] == 1 or self.e_stop == True: 
+                break
+
+            if self.pause_on == 1 and self.e_stop == True:
                 break
 
             if self.pause_on == 1: # dừng motor
