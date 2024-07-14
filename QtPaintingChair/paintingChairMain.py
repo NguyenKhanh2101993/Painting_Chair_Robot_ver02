@@ -3,7 +3,7 @@ import os
 import sys
 import time
 import math
-#import psutil
+import numpy as np
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
@@ -20,37 +20,81 @@ if os.name == "posix":
 from teachWindow import Ui_teachMode
 from settingWindow import Ui_motorSettings
 from defineXYWindow import Ui_definePinsXY
+from show2DlineWindow import Ui_plot2D
 
 from initSerial import Read_Write_to_Serial 
 from workFile import workingFile 
 from settingMotor import makeJsonSetting
+
 #================================================================================================
-# ====> test ok
-class checkComWindow():
+class monitor2DlineWindow:
     def __init__(self):
         
-        self.comWindow = QWidget()
+        self.plot2DLine = QWidget()
+        self.uiPlot2D = Ui_plot2D()
+        self.uiPlot2D.setupUi(self.plot2DLine)
+        self.xPosition = []
+        self.yPosition = []
+
+        self.uiPlot2D.graphicsView.showGrid(x=True, y=True)
+        self.uiPlot2D.graphicsView.setXRange(-1300, 1300)
+        self.uiPlot2D.graphicsView.setYRange(-1300, 1300)
+
+        #self.drawXYPosition = self.uiPlot2D.graphicsView.plot(self.xPosition, self.yPosition,
+        #                        name="Temperature Sensor",
+        #                        pen='y',
+        #                        symbol=".",
+        #                        symbolSize=15,
+        #                        symbolBrush="b")
+
+        self.drawXYPosition = self.uiPlot2D.graphicsView.plot(pen='y')
+
+    def center(self):
+        qtRectangle = self.plot2DLine.frameGeometry()
+        centerPoint = QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        self.plot2DLine.move(qtRectangle.topLeft()) 
+
+    def showPlotWindow(self):
+        self.center()
+        self.plot2DLine.show()
+        #self.uiPlot2D.graphicsView.
+
+    def closePlotWindow(self):
+        self.plot2DLine.close()
+
+    def drawline(self):
+  
+        time = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        temperature = [30, 32, 34, 32, 33, 31, 29, 32, 35, 30]
+
+    def updatePlotXY(self, data1, data2):
+        self.drawXYPosition.setData(data1, data2)
+
+#================================================================================================
+# ====> test ok
+class checkComWindow:
+    def __init__(self):
+        
+        self.comportWindow = QWidget()
         self.uic = Ui_communication()
-        self.uic.setupUi(self.comWindow)
+        self.uic.setupUi(self.comportWindow)
         self.workSerial = Read_Write_to_Serial()
         
-        self.reset_comports()
-        self.uic.pushButton.clicked.connect(self.choose_comports)
-        self.uic.pushButton_2.clicked.connect(self.reset_comports)
         self.connectSignal = False
 
     def center(self):
-        qtRectangle = self.comWindow.frameGeometry()
+        qtRectangle = self.comportWindow.frameGeometry()
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
-        self.comWindow.move(qtRectangle.topLeft()) 
+        self.comportWindow.move(qtRectangle.topLeft()) 
 
     def showComWindow(self):
         self.center()
-        self.comWindow.show()
+        self.comportWindow.show()
 
     def detroyComWindow(self):
-        self.comWindow.close()
+        self.comportWindow.close()
     
     def reset_comports(self):
         comports = self.workSerial.detect_comports()
@@ -71,6 +115,8 @@ class checkComWindow():
               main_window.startMonitorDataFromArduinoThread()
               main_window.startTeachModeThread()
               main_window.startAutoRunThread()
+              main_window.startPlotPositionThread()
+
               self.connectSignal = True
               self.detroyComWindow()
         else: 
@@ -353,7 +399,7 @@ class MyTeachingWindow(QtWidgets.QMainWindow):
     
     def closeEvent(self,event):
       
-        teachWindow.closeTeachWindow()
+        main_window.teachWindow.closeTeachWindow()
 
 #================================================================================================
 class teachingWindow:
@@ -400,7 +446,7 @@ class teachingWindow:
         self.teachWin.show()
 
     def closeTeachWindow(self):
-        if comWindow.connectSignal == True and main_window.go_machine_home == True:
+        if main_window.comWindow.connectSignal == True and main_window.go_machine_home == True:
             self.monitor_off = True
         else:
             self.monitor_off = True
@@ -536,7 +582,7 @@ class teachingWindow:
         self.button_active = 0
 
     def testGotoZero(self):
-        comWindow.workSerial.commandGotoZero()
+        main_window.comWindow.workSerial.commandGotoZero()
     
     def getSpeedMotor(self):
         str_result = self.uiteach.lineEdit_speed.text()
@@ -559,7 +605,7 @@ class teachingWindow:
         return float_result
     
     def setZeroBC(self):
-        comWindow.workSerial.setZeroBCPositions()
+        main_window.comWindow.workSerial.setZeroBCPositions()
 
     def setPoint(self):
         show_line = (' '+ str(self.counter_line))
@@ -656,11 +702,11 @@ class workingTeachMode():
         self.bAXIS = 4; self.cAXIS = 5; self.z1AXIS = 6
    
     def read_state_button(self):
-        state = teachWindow.button_active
+        state = main_window.teachWindow.button_active
         return state
 
     def read_teach_axis(self):
-        state = teachWindow.teach_axis
+        state = main_window.teachWindow.teach_axis
         return state
 
     def monitorTeachMode(self): 
@@ -670,7 +716,7 @@ class workingTeachMode():
             new_pos_B = 0; new_pos_C = 0; new_pos_Z = 0  # đơn vị xung
             pulse_teach = 0
             
-            while comWindow.connectSignal == True:
+            while main_window.comWindow.connectSignal == True:
                 self.pulse_teach_packet = [0,0,0,0,0,0]
                 state_runing = False
                 self.chooseAxis = self.read_teach_axis()
@@ -725,7 +771,7 @@ class workingTeachMode():
                         break  # thoat khỏi vong lặp while
                     main_window._threadTeachMode.msleep(5)
 
-                if teachWindow.monitor_off == True:
+                if main_window.teachWindow.monitor_off == True:
                     break
                 # trường hợp đang trong teachmode nhưng bị lỗi sensor
                 if main_window.coilXY.errorSensorSignal == True:
@@ -783,12 +829,32 @@ class workingTeachMode():
                         main_window._threadTeachMode.msleep(5)
                     
                     # nếu disable teach mode thì thoát khỏi 
-                    if teachWindow.monitor_off == True or self.chooseAxis != self.zAXIS:
+                    if main_window.teachWindow.monitor_off == True or self.chooseAxis != self.zAXIS:
                         break
 
                     main_window._threadTeachMode.msleep(5)
             else: pass
 #================================================================================================
+class plotPositionThread(QObject):
+    data_ready = pyqtSignal(list, list)
+   
+    def __init__(self, parent=None):
+        super(plotPositionThread, self).__init__(parent)
+
+    def run(self):
+        data1 = []
+        data2 = []
+        while True:
+            #data = np.random.normal(size=1000)  # Generate some random data
+            #data = main_window.currentPulse[0]
+            #data = np.linspace(0, 10, 100)
+            data1.append(main_window.currentPos[0])
+            data2.append(main_window.currentPos[1])
+
+            self.data_ready.emit(data1,data2)  # Emit the signal with the new data
+            #time.sleep(0.1)  # Sleep for a bit
+            main_window._threadPlotPosition.msleep(100)
+#================================================================================================   
 # Thread trong monitor teach mode/goto zero/ goto Home
 class monitorTeachModeThread(QObject):
     finishedTeachMode = pyqtSignal()
@@ -801,7 +867,7 @@ class monitorTeachModeThread(QObject):
     def run(self):
         main_window.window.showText_signal.emit("Thread: teachMode/gotoZero/gotoHome")
         while True:
-            if teachWindow.monitor_off == False:# and main_window.go_machine_home == True:
+            if main_window.teachWindow.monitor_off == False:# and main_window.go_machine_home == True:
                 teach.monitorTeachMode()
             if main_window.gotoZeroFlag == True:
                 main_window.gotoZeroPosition() 
@@ -820,7 +886,7 @@ class monitorTeachModeThread(QObject):
         main_window.window.showText_signal.emit("Exit execute: goto Home")
     
     def stopTeachMode(self):
-        teachWindow.teachWin.close()
+        main_window.teachWindow.teachWin.close()
         main_window.window.showText_signal.emit("Exit execute: teaching Mode")
 #================================================================================================
 # Thread monitor input/ouput and current position
@@ -835,7 +901,7 @@ class monitorDatafromArduinoThread(QObject):
         main_window.window.showText_signal.emit("Thread: Monitor input/output and current position")
         while True:
             coil_Value = main_window.coilXY.read_coilXY()
-            pos_Value = main_window.showCurrentPositions()
+            pos_Value = main_window.showCurrentPositions()  #[0,0,0,0,0,0,0,0]#
 
             if  len(pos_Value) == main_window.MAX_AXIS+2:
                 self.posValue.emit(pos_Value)
@@ -882,18 +948,18 @@ class autoRunThread(QObject):
 # Confirm exit workingWindow
 class MyWindow(QtWidgets.QMainWindow, QObject):
     showText_signal = pyqtSignal(str)
+    
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
-        #self.actionExit = self.findChild(QtWidgets.QAction, "actionExit")
-        #self.actionExit.triggered.connect(self.closeEvent)
 
     def closeEvent(self,event):
-        teachWindow.teachWin.close()
-        comWindow.detroyComWindow()
+        main_window.teachWindow.teachWin.close()
+        main_window.comWindow.detroyComWindow()
         main_window.definePinsWindow.closePinsWindow()
-        setMotor.closeParamWindow()
+        main_window.setMotor.closeParamWindow()
+        main_window.plot2DLineWindow.closePlotWindow()
 
-        if comWindow.connectSignal == True:
+        if main_window.comWindow.connectSignal == True:
                 main_window.threadTeachMode.finishedTeachMode.emit()
 
         mBox = QtWidgets.QMessageBox(QApplication.activeWindow())
@@ -906,13 +972,9 @@ class MyWindow(QtWidgets.QMainWindow, QObject):
         
         if result == mBox.Yes:   
             
-            if comWindow.connectSignal == True:
+            if main_window.comWindow.connectSignal == True:
                 main_window.threadTeachMode.finishedTeachMode.emit()
-                comWindow.workSerial.stopSerial()
-            
-            #main_window._threadTeachMode.quit(); main_window._threadTeachMode.wait(100)
-            #main_window._threadMonitorDataFromArduino.quit(); main_window._threadMonitorDataFromArduino.wait(100)
-            #main_window._threadAutoRun.quit(); main_window._threadAutoRun.wait(100)
+                main_window.comWindow.workSerial.stopSerial()
 
             event.accept()
         else: 
@@ -925,13 +987,20 @@ class workingWindow:
         self.window = MyWindow()
         self.uiWorking = Ui_MainWindow()
         self.uiWorking.setupUi(self.window)
+
         self.jsonFile = makeJsonSetting()
+        self.setMotor = paramWindow()
+        self.teachWindow = teachingWindow()
+        self.comWindow = checkComWindow()
         self.definePinsWindow = setPinsWindow()
+        self.plot2DLineWindow = monitor2DlineWindow()
         self.coilXY = monitorInputOutput()
+
         # Orange pi pc plus su dung Quad-core CPU (4 loi) -> Qthread tao toi da them 3 worker Thread + 1 main Thread
         self.threadTeachMode = monitorTeachModeThread()
         self.threadAutoRun = autoRunThread()
-        self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()
+        self.threadMonitorDataFromArduino = monitorDatafromArduinoThread()  # giám sát vị trí motor và coil X Y
+        self.threadPlotPosition = plotPositionThread()
 
         self.window.showText_signal.connect(self.showStatus)
 
@@ -957,6 +1026,12 @@ class workingWindow:
         self.declareThreadMonitorDataFromArduino()
         self.declareThreadTeachingMode()
         self.declareThreadAutoRun()
+        self.declareThreadplotPosition()
+
+    def initComPort(self):
+        self.comWindow.reset_comports()
+        self.comWindow.uic.pushButton.clicked.connect(self.comWindow.choose_comports)
+        self.comWindow.uic.pushButton_2.clicked.connect(self.comWindow.reset_comports)
 
     def declareThreadAutoRun(self):
         self._threadAutoRun = QThread()
@@ -988,6 +1063,17 @@ class workingWindow:
         
     def startTeachModeThread(self):
         self._threadTeachMode.start()
+   
+    # Khai báo hàm declareThreadplotPosition() trong class workingWindow
+    def declareThreadplotPosition(self):
+        self._threadPlotPosition = QThread()  # Khai báo tên đại diện của 1 thread
+        self.threadPlotPosition.moveToThread(self._threadPlotPosition)
+        self._threadPlotPosition.started.connect(self.threadPlotPosition.run)
+        self.threadPlotPosition.data_ready.connect(self.updatePlotPosition)
+    
+    # Start thread khi comport opened
+    def startPlotPositionThread(self):
+        self._threadPlotPosition.start()
 
     def center(self):
         qtRectangle = self.window.frameGeometry()
@@ -1026,6 +1112,8 @@ class workingWindow:
 
         self.uiWorking.actionChoose_File_pnt.triggered.connect(self.chooseFile)
         self.uiWorking.actionSave_file.triggered.connect(self.saveFile)
+        self.uiWorking.actionShow2D_Line.triggered.connect(self.open2DWindow)
+
         self.uiWorking.actionConnect_to_Slave.triggered.connect(self.chooseComPort)
         self.uiWorking.actionMotor.triggered.connect(self.openSettingMotor)
         self.uiWorking.actionTeachMode.triggered.connect(self.openTeachWindow)
@@ -1140,26 +1228,30 @@ class workingWindow:
             self.showStatus("- open file error: "+ str(error))
             return
 
+    def open2DWindow(self):
+        self.showStatus("Open show 2D line")
+        self.plot2DLineWindow.showPlotWindow()
+
     def chooseComPort(self):
         self.showStatus("Setting COM port mode")
-        comWindow.showComWindow()
+        self.comWindow.showComWindow()
 
     def openSettingMotor(self):
         self.showStatus("Setting motor gear ratio")
-        setMotor.showParamWindow()
+        self.setMotor.showParamWindow()
 
     def openDefinePinsWindow(self):
         self.showStatus("Declare XY pins mode")
         self.definePinsWindow.showPinsWindow()
 
     def openTeachWindow(self):
-        teachWindow.showTeachWindow()
+        self.teachWindow.showTeachWindow()
        
     def enterManual(self):
         self.showStatus("Toggle mode coil Y")
 
     def runAutoCycle(self):
-        if comWindow.connectSignal == True:
+        if self.comWindow.connectSignal == True:
             self.disableMenuButton(True)
             self.autoRunFlag = True
         else:
@@ -1216,12 +1308,14 @@ class workingWindow:
     def sendMotorSensorBitPostoArduino(self):
         value = [self.coilXY.xlimitBit,self.coilXY.xhomeBit,self.coilXY.ylimitBit,self.coilXY.yhomeBit,
                  self.coilXY.zlimitBit, self.coilXY.zhomeBit,  self.coilXY.alimitBit, self.coilXY.ahomeBit]
-        comWindow.workSerial.settingMotorSensorBit(value)
+        self.showStatus(str(value))
+        self.comWindow.workSerial.settingMotorSensorBit(value)
 
     def sendOutputBitPostoArduino(self):
         value = [self.coilXY.y1Bit,self.coilXY.y2Bit,self.coilXY.y3Bit,self.coilXY.y4Bit,
                  self.coilXY.y5Bit, self.coilXY.y6Bit,  self.coilXY.y7Bit, self.coilXY.y8Bit]
-        comWindow.workSerial.settingOuputBit(value)
+        self.showStatus(str(value))
+        self.comWindow.workSerial.settingOuputBit(value)
     
     def getGearRatioFromJson(self):
         result = self.jsonFile.getGearRatio()
@@ -1239,20 +1333,26 @@ class workingWindow:
         self.showStatus(str(self.gearRatio))
 
     def showCurrentPositions(self):
-        position, pulse = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
-        if position != None:
-            for i in range(self.MAX_AXIS + 2): # position có 8 phần tử
-                self.currentPos[i] = position[i]
-            for i in range(self.MAX_AXIS): # pulse có 6 phần tử
-                self.currentPulse[i] = pulse[i]
-        else:
-            position = []; pulse = []
-            for i in range(self.MAX_AXIS + 2):
-                position.append(self.currentPos[i])
-            for i in range(self.MAX_AXIS): 
-                pulse.append(self.currentPulse[i])
-            
-            main_window.window.showText_signal.emit("===> read current position failed")
+        position = None
+        try:
+            position, pulse = self.read_pulse_from_slaves(self.gearRatio)    # trả về 8 phần tử X,Y,Z,A,B,C, pos_Yspray, pos_Zspray
+
+            if position != None:
+                for i in range(self.MAX_AXIS + 2): # position có 8 phần tử
+                    self.currentPos[i] = position[i]
+                for i in range(self.MAX_AXIS): # pulse có 6 phần tử
+                    self.currentPulse[i] = pulse[i]
+            else:
+                position = []; pulse = []
+                for i in range(self.MAX_AXIS + 2):
+                    position.append(self.currentPos[i])
+                for i in range(self.MAX_AXIS): 
+                    pulse.append(self.currentPulse[i])
+                
+                self.window.showText_signal.emit("===> read current position failed")
+        except Exception as error:
+            self.window.showText_signal.emit("===> error: "+ str(error))
+            return []
  
         return position
     def updateLabelPosition(self, currentPos):
@@ -1265,6 +1365,9 @@ class workingWindow:
         self.labelGunPosition[1].setText(str(round(currentPos[6],3)))
         self.labelGunPosition[2].setText(str(round(currentPos[7],3)))
 
+    def updatePlotPosition(self, data1, data2):
+        self.plot2DLineWindow.updatePlotXY(data1, data2)
+
     def callMotorSpeed(self):
         setSpeed = self.speedMotor()
         return setSpeed
@@ -1276,7 +1379,7 @@ class workingWindow:
         # Đọc giá trị xung của tất cả động cơ 
         try:
             # Đọc giá trị current position ở địa chỉ bắt đầu từ 0, đọc 12 giá trị 16 bit
-            current_position = comWindow.workSerial.readCurrentPosition()
+            current_position = self.comWindow.workSerial.readCurrentPosition()
             for i in range(self.MAX_AXIS):
                 current_position_motor.append((current_position[index] << 16) | (current_position[index+1] & 65535))
                 index = index + 2
@@ -1288,7 +1391,7 @@ class workingWindow:
 
 
         except Exception as error:
-            main_window.window.showText_signal.emit("===> read pulse from slaves function failed"+ str(error))
+            self.window.showText_signal.emit("===> read pulse from slaves function failed"+ str(error))
             return None
 
     def check_negative_num(self, x):
@@ -1315,32 +1418,32 @@ class workingWindow:
         return currentPosition
 
     def startgotoZeroPosition(self):
-        if comWindow.connectSignal == True:
+        if self.comWindow.connectSignal == True:
             self.disable_control_option(True)
             self.gotoZeroFlag = True
         else:
             self.showStatus("===> Open COM port first!!! ")
       
     def gotoZeroPosition(self):
-        main_window.window.showText_signal.emit("Sent command: Go to Zero Position")
+        self.window.showText_signal.emit("Sent command: Go to Zero Position")
         try:
-            comWindow.workSerial.commandGotoZero()
+            self.comWindow.workSerial.commandGotoZero()
             waiting = True
             while waiting:
-                positionCompleted = comWindow.workSerial.commandPositionCompleted()
+                positionCompleted = self.comWindow.workSerial.commandPositionCompleted()
                 if positionCompleted[0] == 1:
                     waiting = False
-                main_window._threadTeachMode.msleep(50)
+                self._threadTeachMode.msleep(50)
 
-            main_window.window.showText_signal.emit("- goto Zero done")
+            self.window.showText_signal.emit("- goto Zero done")
         except Exception as e:
-            main_window.window.showText_signal.emit("- goto Zero error status: "+str(e))
+            self.window.showText_signal.emit("- goto Zero error status: "+str(e))
             
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoZeroMode.emit()
 
     def startgotoMachinePosition(self):
-        if comWindow.connectSignal == True:
+        if self.comWindow.connectSignal == True:
             self.disable_control_option(True)
             self.gotoHomeFlag = True
         else:
@@ -1352,10 +1455,10 @@ class workingWindow:
         yDistance = -1200
         zDistance = -600
         aDistance = -90
-        pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
-        pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
-        pulse_zDistance = zDistance/main_window.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
-        pulse_aDistance = aDistance/main_window.gearRatio[teach.aAXIS]; result.append(int(pulse_aDistance))
+        pulse_xDistance = xDistance/self.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
+        pulse_yDistance = yDistance/self.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
+        pulse_zDistance = zDistance/self.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
+        pulse_aDistance = aDistance/self.gearRatio[teach.aAXIS]; result.append(int(pulse_aDistance))
 
         return result
     
@@ -1365,20 +1468,20 @@ class workingWindow:
         yDistance = 30
         zDistance = 10
         aDistance = 8
-        pulse_xDistance = xDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
-        pulse_yDistance = yDistance/main_window.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
-        pulse_zDistance = zDistance/main_window.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
-        pulse_aDistance = aDistance/main_window.gearRatio[teach.aAXIS]; result.append(int(pulse_aDistance))
+        pulse_xDistance = xDistance/self.gearRatio[teach.xAXIS]; result.append(int(pulse_xDistance))
+        pulse_yDistance = yDistance/self.gearRatio[teach.xAXIS]; result.append(int(pulse_yDistance))
+        pulse_zDistance = zDistance/self.gearRatio[teach.zAXIS]; result.append(int(pulse_zDistance))
+        pulse_aDistance = aDistance/self.gearRatio[teach.aAXIS]; result.append(int(pulse_aDistance))
 
         return result
 
     def gotoMachinePosition(self):
-        main_window.window.showText_signal.emit("Sent command: Go to Home Position")
+        self.window.showText_signal.emit("Sent command: Go to Home Position")
        
         try:
             if self.go_machine_home == False:
               
-                comWindow.workSerial.commandCheckXYZAsensor()
+                self.comWindow.workSerial.commandCheckXYZAsensor()
                 maxDistance = self.distanceGotoHome()
                 gotoFirstDistance = self.distanceGotoFirstPoint()
 
@@ -1395,43 +1498,43 @@ class workingWindow:
                 speed_axis = [30,30,30,10,10,10]
 
                 # set lại các thông số motor, đưa giá trị current_position về 0
-                comWindow.workSerial.setZeroPositions()
-                main_window._threadTeachMode.msleep(100)
+                self.comWindow.workSerial.setZeroPositions()
+                self._threadTeachMode.msleep(100)
                 for i in range(self.MAX_AXIS):
                     run.send_to_execute_board(pulse_to_machine_axis[i],speed_axis[i])
                     self.go_machine_axis_state = False
                     while True: 
                         # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
-                        positionCompleted = comWindow.workSerial.commandPositionCompleted()
-                        if (positionCompleted[0]==1 or main_window.coilXY.sensor_machine_axis[i] == 0):
+                        positionCompleted = self.comWindow.workSerial.commandPositionCompleted()
+                        if (positionCompleted[0]==1 or self.coilXY.sensor_machine_axis[i] == 0):
                             # dừng động cơ
                             run.stop_motor()
                             self.go_machine_axis_state = True
                             break  # thoat khỏi vong lặp while
-                        main_window._threadTeachMode.msleep(5)
+                        self._threadTeachMode.msleep(5)
 
                 # sau khi chạy hết các động cơ về vị trí cảm biến
                 # tịnh tiến các trục X,Y,Z ra khỏi vị trí cảm biến và set lại 0
-                main_window._threadTeachMode.msleep(500)
+                self._threadTeachMode.msleep(500)
                 run.send_to_execute_board(pulse_to_begin_position,100)
                 while True:
                     
                     # Đọc trạng thái phát xung đã hoàn tất chưa
-                    positionCompleted = comWindow.workSerial.commandPositionCompleted()
+                    positionCompleted = self.comWindow.workSerial.commandPositionCompleted()
                     # Đọc giá trị thanh ghi lưu giá trị xung đang phát ra
                     if positionCompleted[0] == 1: 
                         # set lại các thông số motor, đưa giá trị current_position về 0
-                        comWindow.workSerial.setZeroPositions()
-                        comWindow.workSerial.commandCheckXYZAsensor()
+                        self.comWindow.workSerial.setZeroPositions()
+                        self.comWindow.workSerial.commandCheckXYZAsensor()
                         break
 
-                    main_window._threadTeachMode.msleep(5)
+                    self._threadTeachMode.msleep(5)
                 self.go_machine_home = True # đã về home
 
-            main_window.window.showText_signal.emit("- goto Home done")
+            self.window.showText_signal.emit("- goto Home done")
 
         except Exception as error:
-            main_window.window.showText_signal.emit("- goto Home position error: "+ str(error))
+            self.window.showText_signal.emit("- goto Home position error: "+ str(error))
 
         self.disable_control_option(False)
         self.threadTeachMode.finishedGotoHomeMode.emit()
@@ -1514,14 +1617,18 @@ class runMotor:
                     result_xung_nguyen = self.calculate_pulse(result_delta)
                     # gửi khoảng cách theo đơn vị xung và tốc độ tới board execute
                     self.send_to_execute_board(result_xung_nguyen, self.new_Fspeed)
-                    comWindow.workSerial.commandPointToPoint()  # phát lệnh chạy mode point to point bình thường
+                    main_window.comWindow.workSerial.commandPointToPoint()  # phát lệnh chạy mode point to point bình thường
                     self.monitor_run_auto_next()                # giám sát chạy lệnh point to point 
+
+                    if self.e_stop == True:  # nếu có tín hiệu nhấn E-STOP
+                        wFile.file.close()
+                        break
                 
                     if self.executeDelay == True: # có lệnh delay
                         main_window.window.showText_signal.emit("- Giá tri timer delay D: "+ str(self.delayTimer/10)+" s")
-                        comWindow.workSerial.command_delayTimer(self.delayTimer)
+                        main_window.comWindow.workSerial.command_delayTimer(self.delayTimer)
                         while True:
-                            excecuteTimerDone = comWindow.workSerial.commandDelayCompleted()
+                            excecuteTimerDone = main_window.comWindow.workSerial.commandDelayCompleted()
                             time.sleep(0.1)
                             if excecuteTimerDone[0] == 1:
                                 self.executeDelay = False
@@ -1625,9 +1732,9 @@ class runMotor:
     def monitor_run_block_begin(self):
         self.run_block_done = False
         self.pause_on = 0
-        comWindow.workSerial.commandChangeStateBlockRun()
+        main_window.comWindow.workSerial.commandChangeStateBlockRun()
         while True:
-            point_done = comWindow.workSerial.commandPositionCompleted()
+            point_done = main_window.comWindow.workSerial.commandPositionCompleted()
 
             if point_done[0] == 1 or self.e_stop == True: # slave đã chạy xong hết block
                 self.run_block_done = True
@@ -1637,10 +1744,10 @@ class runMotor:
                 break
 
             if self.pause_on == 1: # dừng motor
-                comWindow.workSerial.commandPauseMotor()
+                main_window.comWindow.workSerial.commandPauseMotor()
                         
             if self.pause_on == 2: # tiếp tục chạy
-                comWindow.workSerial.commandResumeMotor()
+                main_window.comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
             
             time.sleep(0.1)
@@ -1649,7 +1756,7 @@ class runMotor:
         self.pause_on = 0
 
         while True:
-            point_done = comWindow.workSerial.commandPositionCompleted()
+            point_done = main_window.comWindow.workSerial.commandPositionCompleted()
 
             if point_done[0] == 1 or self.e_stop == True: 
                 break
@@ -1658,10 +1765,10 @@ class runMotor:
                 break
 
             if self.pause_on == 1: # dừng motor
-                comWindow.workSerial.commandPauseMotor()
+                main_window.comWindow.workSerial.commandPauseMotor()
 
             if self.pause_on == 2: # tiếp tục chạy
-                comWindow.workSerial.commandResumeMotor()
+                main_window.comWindow.workSerial.commandResumeMotor()
                 self.pause_on = 0
 
             time.sleep(0.1)
@@ -1678,7 +1785,7 @@ class runMotor:
         # lưu giá trị tốc độ truyền đi
         send_to_slave_id2.append(speed_end >> 16)
         send_to_slave_id2.append(speed_end & 65535)
-        comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
+        main_window.comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
         self.save_to_packet_data()
 
 # Dừng chương trình chạy auto
@@ -1780,10 +1887,10 @@ class runMotor:
         send_to_slave_id2.append(speed_slaves & 65535)
 
         # gửi số xung x,y,z,a,b,c,speed cần chạy tới board slave id 2, gửi 14 word, bắt đầu từ địa chỉ 0
-        comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
+        main_window.comWindow.workSerial.sendMultipledata(send_to_slave_id2, 0)
         if self.run_auto_mode == False:
         # phát command tới board slave chạy đến điểm đã gửi
-            comWindow.workSerial.commandPointToPoint()
+            main_window.comWindow.workSerial.commandPointToPoint()
 
 # phát lệnh dừng tay máy
     def pause_motor(self):
@@ -1791,7 +1898,7 @@ class runMotor:
 
 # gửi index packet data N điểm tới slaves khi khi gặp G05.0
     def save_to_packet_data(self):
-        comWindow.workSerial.commandSavePacketsData()
+        main_window.comWindow.workSerial.commandSavePacketsData()
         self.counter += 1
         result_value = self.counter
         return result_value 
@@ -1835,51 +1942,51 @@ class runMotor:
         try: 
             if state:
                 main_window.window.showText_signal.emit("- Spray ON")
-                comWindow.workSerial.commandTurnOnSpray()
+                main_window.comWindow.workSerial.commandTurnOnSpray()
             else:
                 main_window.window.showText_signal.emit("- Spray OFF")
-                comWindow.workSerial.commandTurnOffSpray()    
+                main_window.comWindow.workSerial.commandTurnOffSpray()    
         except Exception as e:
             main_window.window.showText_signal.emit("- Spray Error: " + str(e))
             pass
 
 # Dừng động cơ
     def stop_motor(self):
-        comWindow.workSerial.commandStopMotor()
+        main_window.comWindow.workSerial.commandStopMotor()
 
 # command xoay bàn sơn
     def command_table_rotate(self):
         try:
             main_window.window.showText_signal.emit("- Rotating table")
-            comWindow.workSerial.commandRotateTable()
+            main_window.comWindow.workSerial.commandRotateTable()
         except Exception as e:
             main_window.window.showText_signal.emit("- Rotating table error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM1(self):
         try:
             main_window.window.showText_signal.emit("- Toggle coil M1")
-            comWindow.workSerial.commandToggleCoilM1()
+            main_window.comWindow.workSerial.commandToggleCoilM1()
         except Exception as e:
             main_window.window.showText_signal.emit("- Toggle coil M1 error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM2(self):
         try:
             main_window.window.showText_signal.emit("- Toggle coil M2")
-            comWindow.workSerial.commandToggleCoilM2()
+            main_window.comWindow.workSerial.commandToggleCoilM2()
         except Exception as e:
             main_window.window.showText_signal.emit("- Toggle coil M2 error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM3(self):
         try:
             main_window.window.showText_signal.emit("- Toggle coil M3")
-            comWindow.workSerial.commandToggleCoilM3()
+            main_window.comWindow.workSerial.commandToggleCoilM3()
         except Exception as e:
             main_window.window.showText_signal.emit("- Toggle coil M3 error: "+ str(e))
 # command kich coil M
     def command_toggle_coilM4(self):
         try:
             main_window.window.showText_signal.emit("- Toggle coil M4")
-            comWindow.workSerial.commandToggleCoilM4()
+            main_window.comWindow.workSerial.commandToggleCoilM4()
         except Exception as e:
             main_window.window.showText_signal.emit("- Toggle coil M4 error: "+ str(e))
 #================================================================================================
@@ -1949,7 +2056,7 @@ class monitorInputOutput:
             self.valueCoilY &= ~(1 << checkValue)
             #main_window.showStatus("Y"+str(checkValue+1) + "OFF " + str(self.valueCoilY))
         try: 
-            comWindow.workSerial.sendCoilValue(self.valueCoilY)
+            main_window.comWindow.workSerial.sendCoilValue(self.valueCoilY)
          
 
         except Exception as error:
@@ -1960,7 +2067,7 @@ class monitorInputOutput:
     def read_coilXY(self):
         # input bình thường ở mức cao. khi có tín hiệu thì sẽ kéo xuống mức thấp
         try: 
-            input_output_packet = comWindow.workSerial.readInputOutputCoil()
+            input_output_packet = main_window.comWindow.workSerial.readInputOutputCoil()
         except Exception as error:
             main_window.window.showText_signal.emit("===> Monitor In/Out error: "+ str(error))
             input_output_packet = None
@@ -2025,14 +2132,12 @@ if __name__ == "__main__": # define điểm bắt đầu chạy chương trình
     app = QApplication(sys.argv)
 
     main_window = workingWindow()
-    comWindow = checkComWindow()
-    teachWindow = teachingWindow()
-    setMotor = paramWindow()
 
     teach = workingTeachMode()
     wFile = workingFile()
     run = runMotor()
 
+    main_window.initComPort()
     main_window.getGearRatioFromJson() #lấy thông số gear từ Json
     main_window.getXYdefinePins()      #lấy thông số pins XY defined từ Json
     main_window.getSpecsOfSensor()     #lưu thông số pins XY vào giá trị cảm biến

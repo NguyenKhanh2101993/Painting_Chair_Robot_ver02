@@ -362,10 +362,12 @@ ISR(TIMER1_COMPA_vect) {
 //============================================================================================
 //Bật tắt súng sơn coilY[0]
 void spray_gun_on(void){
+
     digitalWrite(coilY[listBitCoilY[0]], HIGH);
     digitalWrite(coilY[listBitCoilY[1]], HIGH);
 }
 void spray_gun_off(void){
+  
     digitalWrite(coilY[listBitCoilY[0]], LOW);
     digitalWrite(coilY[listBitCoilY[1]], LOW);
 }
@@ -435,7 +437,7 @@ void disable_MPG_mode(void){
 }
 //============================================================================================
 void setup() {   
-  //Serial.begin(115200);
+  Serial.begin(115200);
   MODBUS_SERIAL.begin(MODBUS_BAUDRATE); node_slave.begin(MODBUS_BAUDRATE); 
   function_modbus_slave();
   for (int i = 0; i < coilY_size; i++) { pinMode(coilY[i],OUTPUT); digitalWrite(coilY[i],LOW);}
@@ -542,7 +544,7 @@ uint8_t writeDigitalOut(uint8_t fc, uint16_t address, uint16_t length)
               case PAUSE_MOTOR_MODBUS_ADDR:           pause_motor(); break;
               case ENABLE_HOME_MODBUS_ADDR:           go_to_zero_position(); break;  // về vị trí cảm biến gốc máy
               case SET_ZERO_POSITION_ADDR:            set_zero_position(); break;    // set 0 tọa độ chương trình
-              case SET_ZERO_BC_POSITION_ADDR:          set_zero_bc_position(); break;
+              case SET_ZERO_BC_POSITION_ADDR:         set_zero_bc_position(); break;
               case STOP_MOTOR_MODBUS_ADDR:            stop_motor(); break;
               case RESUME_MOTOR_MODBUS_ADDR:          resume_motor(); break;
               case SAVE_PACKET_DATA_MODBUS_ADDR:      save_packet_data(xung_nguyen,speed); break;

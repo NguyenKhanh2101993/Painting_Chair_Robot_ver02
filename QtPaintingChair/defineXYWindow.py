@@ -15,6 +15,7 @@ class Ui_definePinsXY(object):
     def setupUi(self, definePinsXY):
         definePinsXY.setObjectName("definePinsXY")
         definePinsXY.resize(800, 600)
+        definePinsXY.setMinimumSize(QtCore.QSize(800, 600))
         definePinsXY.setMaximumSize(QtCore.QSize(800, 600))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Robot.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

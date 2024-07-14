@@ -2462,6 +2462,7 @@ QPushButton:pressed {
     </property>
     <addaction name="actionChoose_File_pnt"/>
     <addaction name="actionSave_file"/>
+    <addaction name="actionShow2D_Line"/>
    </widget>
    <widget class="QMenu" name="menuSetting">
     <property name="title">
@@ -2610,6 +2611,11 @@ QPushButton:pressed {
      <family>Arial</family>
      <pointsize>10</pointsize>
     </font>
+   </property>
+  </action>
+  <action name="actionShow2D_Line">
+   <property name="text">
+    <string>Show2D Line</string>
    </property>
   </action>
  </widget>
