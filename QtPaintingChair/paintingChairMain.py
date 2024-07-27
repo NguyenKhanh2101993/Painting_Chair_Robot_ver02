@@ -27,6 +27,7 @@ from workFile import workingFile
 from settingMotor import makeJsonSetting
 
 #================================================================================================
+# Cửa sổ hiện thị plot2D XY position
 class monitor2DlineWindow:
     def __init__(self):
         
@@ -58,7 +59,7 @@ class monitor2DlineWindow:
     def showPlotWindow(self):
         self.center()
         self.plot2DLine.show()
-        #self.uiPlot2D.graphicsView.
+        self.uiPlot2D.graphicsView.s
 
     def closePlotWindow(self):
         self.plot2DLine.close()
@@ -115,7 +116,8 @@ class checkComWindow:
               main_window.startMonitorDataFromArduinoThread()
               main_window.startTeachModeThread()
               main_window.startAutoRunThread()
-              main_window.startPlotPositionThread()
+              
+              #main_window.startPlotPositionThread()
 
               self.connectSignal = True
               self.detroyComWindow()
@@ -842,17 +844,16 @@ class plotPositionThread(QObject):
         super(plotPositionThread, self).__init__(parent)
 
     def run(self):
+        main_window.window.showText_signal.emit("Thread: Dynamic Plot current position")
         data1 = []
         data2 = []
         while True:
-            #data = np.random.normal(size=1000)  # Generate some random data
-            #data = main_window.currentPulse[0]
-            #data = np.linspace(0, 10, 100)
-            data1.append(main_window.currentPos[0])
-            data2.append(main_window.currentPos[1])
+      
+            data1.append(main_window.currentPos[teach.xAXIS])
+            data2.append(main_window.currentPos[teach.pos_Yspray])
 
             self.data_ready.emit(data1,data2)  # Emit the signal with the new data
-            #time.sleep(0.1)  # Sleep for a bit
+
             main_window._threadPlotPosition.msleep(100)
 #================================================================================================   
 # Thread trong monitor teach mode/goto zero/ goto Home
@@ -1876,7 +1877,7 @@ class runMotor:
         else: speed_slaves = _speed
         
         #main_window.window.showText_signal.emit('speed: ' + str(speed_slaves))
-        # tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
+# tách giá trị 32 bit thành packets 16 bit để gửi đến slaves
        
         # lưu giá trị xung để truyền đi
         for i in range(main_window.MAX_AXIS):

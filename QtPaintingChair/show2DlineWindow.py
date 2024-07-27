@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pyqtgraph import PlotWidget
-#import pyqtgraph.opengl as gl
+import pyqtgraph.opengl as gl
 
 
 class Ui_plot2D(object):
